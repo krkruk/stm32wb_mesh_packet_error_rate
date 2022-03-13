@@ -1,1 +1,6 @@
+.settings
 /Debug/
+/Release/
+/Doc/
+/Drivers/
+/Middleware/
