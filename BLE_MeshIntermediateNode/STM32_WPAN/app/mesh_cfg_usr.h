@@ -32,8 +32,8 @@
 *      Do not define any other feature if Low Power feature is defined
 */
 #define ENABLE_RELAY_FEATURE
-#define ENABLE_PROXY_FEATURE
-#define ENABLE_FRIEND_FEATURE
+//#define ENABLE_PROXY_FEATURE
+//#define ENABLE_FRIEND_FEATURE
 //#define ENABLE_LOW_POWER_FEATURE
 //#define ENABLE_PROVISIONER_FEATURE
 //#define DYNAMIC_PROVISIONER
@@ -198,10 +198,10 @@ Either use 0 to disable or 1 to enable
 /******************************************************************************/
 
 /* Define the following Macros to enable the usage of the Server Generic Models  */
-#define ENABLE_GENERIC_MODEL_SERVER_ONOFF                                    (1)
-#define ENABLE_GENERIC_MODEL_SERVER_LEVEL                                    (1)
-#define ENABLE_GENERIC_MODEL_SERVER_POWER_ONOFF                              (1)
-#define ENABLE_GENERIC_MODEL_SERVER_POWER_ONOFF_SETUP                        (1)
+//#define ENABLE_GENERIC_MODEL_SERVER_ONOFF                                    (1)
+//#define ENABLE_GENERIC_MODEL_SERVER_LEVEL                                    (1)
+//#define ENABLE_GENERIC_MODEL_SERVER_POWER_ONOFF                              (1)
+//#define ENABLE_GENERIC_MODEL_SERVER_POWER_ONOFF_SETUP                        (1)
 //#define ENABLE_GENERIC_MODEL_SERVER_DEFAULT_TRANSITION_TIME                  (1)
 
 //#define ENABLE_GENERIC_MODEL_CLIENT_ONOFF                                    (1)
@@ -234,8 +234,8 @@ Either use 0 to disable or 1 to enable
 /* Example: 6 means Model enabled in element 2 and 3                          */
 /******************************************************************************/
 
-#define ENABLE_LIGHT_MODEL_SERVER_LIGHTNESS                                  (1)
-#define ENABLE_LIGHT_MODEL_SERVER_LIGHTNESS_SETUP                            (1)
+//#define ENABLE_LIGHT_MODEL_SERVER_LIGHTNESS                                  (1)
+//#define ENABLE_LIGHT_MODEL_SERVER_LIGHTNESS_SETUP                            (1)
 //#define ENABLE_LIGHT_MODEL_SERVER_CTL                                        (1)
 //#define ENABLE_LIGHT_MODEL_SERVER_CTL_SETUP                                  (1)
 //#define ENABLE_LIGHT_MODEL_SERVER_CTL_TEMPERATURE                            (1)
