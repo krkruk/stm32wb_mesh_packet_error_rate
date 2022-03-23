@@ -32,7 +32,7 @@
 *      Do not define any other feature if Low Power feature is defined
 */
 #define ENABLE_RELAY_FEATURE
-//#define ENABLE_PROXY_FEATURE
+#define ENABLE_PROXY_FEATURE
 //#define ENABLE_FRIEND_FEATURE
 //#define ENABLE_LOW_POWER_FEATURE
 //#define ENABLE_PROVISIONER_FEATURE
@@ -181,8 +181,8 @@ Either use 0 to disable or 1 to enable
 *** Following section helps to define Device Name during Provisioning  *********
 *******************************************************************************/
 
-#define DEVICE_NAME_SIZE                                                      11
-#define DEVICE_NAME                  'D','i','s','t','a','l',' ','N','o','d','e'
+#define DEVICE_NAME_SIZE                                                      13
+#define DEVICE_NAME                  'P','r','o','x','i','m','a','l',' ','N','o','d','e'
 
 /*******************************************************************************
 *** Following section helps to select right configuration of Models  ***********
@@ -198,13 +198,13 @@ Either use 0 to disable or 1 to enable
 /******************************************************************************/
 
 /* Define the following Macros to enable the usage of the Server Generic Models  */
-#define ENABLE_GENERIC_MODEL_SERVER_ONOFF                                    (1)
+//#define ENABLE_GENERIC_MODEL_SERVER_ONOFF                                    (1)
 //#define ENABLE_GENERIC_MODEL_SERVER_LEVEL                                    (1)
 //#define ENABLE_GENERIC_MODEL_SERVER_POWER_ONOFF                              (1)
 //#define ENABLE_GENERIC_MODEL_SERVER_POWER_ONOFF_SETUP                        (1)
 //#define ENABLE_GENERIC_MODEL_SERVER_DEFAULT_TRANSITION_TIME                  (1)
 
-//#define ENABLE_GENERIC_MODEL_CLIENT_ONOFF                                    (1)
+#define ENABLE_GENERIC_MODEL_CLIENT_ONOFF                                    (1)
 //#define ENABLE_GENERIC_MODEL_CLIENT_LEVEL                                    (1)
 //#define ENABLE_GENERIC_MODEL_CLIENT_POWER_ONOFF                              (1)
 //#define ENABLE_GENERIC_MODEL_CLIENT_DEFAULT_TRANSITION_TIME                  (1)
@@ -291,7 +291,7 @@ Either use 0 to disable or 1 to enable
 
 /******* Define the following Macros to enable the vendor model  ******/
 //#define ENABLE_VENDOR_MODEL_SERVER                                           (1)
-#define GENERIC_SERVER_MODEL_PUBLISH  
+//#define GENERIC_SERVER_MODEL_PUBLISH
 
 /******************************************************************************/
 /*
@@ -301,7 +301,7 @@ or by Vendor Model.
 @ Undefine or comment Macro for Generic On Off Publishing
 */
 //#define VENDOR_CLIENT_MODEL_PUBLISH
-//#define GENERIC_CLIENT_MODEL_PUBLISH  
+#define GENERIC_CLIENT_MODEL_PUBLISH
 //#define LIGHT_CLIENT_MODEL_PUBLISH
 
 
