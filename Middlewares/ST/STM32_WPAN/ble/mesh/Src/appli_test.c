@@ -30,7 +30,7 @@
 #if ENABLE_UT
 #include "serial_ut.h"
 #endif
-
+#include "generic.h"
 /** @addtogroup BlueNRG_Mesh
 *  @{
 */
@@ -47,15 +47,21 @@
 #define CMD_INDEX_RES_03                  3
 #define CMD_INDEX_RES_04                  4
 
+// user defined
+#define CMD_INDEX_RES_05_GENERIC          5
+
 #define CMD_SET_OFFSET                    7
 #define CMD_RES_OFFSET                    5
-#define CMD_RES_COUNT                     4
+#define CMD_RES_COUNT                     5
 
 /* Private variables ---------------------------------------------------------*/
 MOBLEUINT8 TestNumber = 0;
 MOBLEUINT32 TestCount = 0;
 MOBLEUINT32 RecvCount = 0;
 MOBLEUINT32 Totaltest = 0;
+
+static MeshTestParamters_t meshTest;
+
 /* Private function prototypes -----------------------------------------------*/
 static MOBLE_RESULT SerialResponse_doubleHexToHex(MOBLEUINT8* hexArray,MOBLEUINT8* outputArray, MOBLEUINT8 length);
 static MOBLEUINT16 SerialResponse_GetFunctionIndex(char *text);
@@ -67,6 +73,9 @@ MOBLEUINT8 ReadFlag = 0;
 extern MOBLEUINT8 successCounter=0;
 extern MOBLEUINT8 sendCounter=0;
 /* Private functions ---------------------------------------------------------*/
+
+void test_set05_generic();
+void kill_subscription();
 
 /**
 * @brief  SerialResponse_Process: This function extracts the command and variables from
@@ -81,35 +90,45 @@ void SerialResponse_Process(char *rcvdStringBuff, uint16_t rcvdStringSize)
   MOBLEUINT8 asciiFunctionParameter[16] = {'\0'} ;
   successCounter = 0;
   sendCounter = 0;
+  TRACE_I(TF_SERIAL_CTRL, "Processing serial response: %s \n\r", rcvdStringBuff);
   
     MOBLEUINT16 commandIndex = SerialResponse_GetFunctionIndex(rcvdStringBuff+5);
+    TRACE_I(TF_SERIAL_CTRL, "CommandIndex: %d \n\r", commandIndex);
+
     if(commandIndex != 0x00)
     {
-  sscanf(rcvdStringBuff + CMD_RES_OFFSET + CMD_SET_OFFSET, "%8s %4s %4s ", asciiFunctionParameter, asciiFunctionParameter+8,asciiFunctionParameter+12);   
-  /*SerialResponse_doubleHexToHex
-  Function will convert the asci string into orinal hex format.
-  eg- send-01 12 3456
-  return 0x12,0x34,0x56       
-  */
+		  sscanf(rcvdStringBuff + CMD_RES_OFFSET + CMD_SET_OFFSET, "%8s %4s %4s ", asciiFunctionParameter, asciiFunctionParameter+8,asciiFunctionParameter+12);   
+			TRACE_I(TF_SERIAL_CTRL, "asciiFuncParam=%s asciiFuncParam+8=%s\n\r", asciiFunctionParameter, asciiFunctionParameter+8);
+		  /*SerialResponse_doubleHexToHex
+		  Function will convert the asci string into orinal hex format.
+		  eg- send-01 12 3456
+		  full query: ATAP SET-dd 00000001 srcAddr destAddr
+		  	  where:
+		  	   dd - test function id. See: Test_Process() function
+		  	   00000001 - expected value
+		  	   srcAddr - source address
+		  	   destAddr - destiantion address
+		  return 0x12,0x34,0x56       
+		  */
         if(MOBLE_RESULT_SUCCESS == SerialResponse_doubleHexToHex(asciiFunctionParameter,testFunctionParm,16))
         { 
-  TestCount = (MOBLEUINT32)(testFunctionParm[0] << 24); 
-  TestCount |= (MOBLEUINT32)(testFunctionParm[1] << 16);
-  TestCount |= (MOBLEUINT32)(testFunctionParm[2] << 8);
-  TestCount |= (MOBLEUINT32)(testFunctionParm[3] << 0);
-  TestNumber = commandIndex;
-  Totaltest = TestCount;
-  srcAddress = (MOBLEUINT16)((testFunctionParm[4] << 8) | testFunctionParm[5]);  
-  destAddress = (MOBLEUINT16)((testFunctionParm[6] << 8) | testFunctionParm[7]);
-}
+			  TestCount = (MOBLEUINT32)(testFunctionParm[0] << 24); 
+			  TestCount |= (MOBLEUINT32)(testFunctionParm[1] << 16);
+			  TestCount |= (MOBLEUINT32)(testFunctionParm[2] << 8);
+			  TestCount |= (MOBLEUINT32)(testFunctionParm[3] << 0);
+			  TestNumber = commandIndex;
+			  Totaltest = TestCount;
+			  srcAddress = (MOBLEUINT16)((testFunctionParm[4] << 8) | testFunctionParm[5]);  
+			  destAddress = (MOBLEUINT16)((testFunctionParm[6] << 8) | testFunctionParm[7]);
+		}
         else
         {
-          TRACE_I(TF_SERIAL_CTRL, "Wrong command typed \n\r");
+          TRACE_I(TF_SERIAL_CTRL, "Wrong command typed %hx\n\r", testFunctionParm);
         }
     }
     else
     {
-      TRACE_I(TF_SERIAL_CTRL, "Wrong command typed \n\r");
+      TRACE_I(TF_SERIAL_CTRL, "Wrong command typed because commandIndex=0x00\n\r");
     }
 }
 
@@ -157,6 +176,7 @@ static MOBLE_RESULT SerialResponse_doubleHexToHex(MOBLEUINT8* hexArray,MOBLEUINT
     lsb = Serial_CharToHexConvert(hexArray[counter + 1 ]);
     if((msb == 0xFF) && (lsb == 0xFF))
     {
+		TRACE_I(TF_SERIAL_CTRL, "Return false %02hx %02hx\n\r", msb, lsb);
       return MOBLE_RESULT_FALSE;
     }
     outputArray[position] = msb<<4;
@@ -338,6 +358,62 @@ MOBLE_RESULT Test_ApplicationTest_Set03(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
   return MOBLE_RESULT_SUCCESS;
 }
 
+MOBLE_RESULT Test_ApplicationTest_Set05Generic(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
+{
+	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
+	MOBLEUINT16 triggerInterval;
+	MOBLEUINT16 killAfter;
+
+//	 ATAP SET-dd 0000 0001 srcAddr destAddr
+//	  where:
+//	   dd - test function id. See: Test_Process() function
+//	   0000 - triggerInterval - how frequently trigger Generic OnOff Set
+//	   0001 - stop processing after time elapses
+//	   srcAddr - source address
+//	   destAddr - destiantion address
+
+//  EXAMPLE: ATAP SET-05 100000f0 C000 0004
+	triggerInterval = Totaltest >> 16;
+	killAfter = 0x0000ffff & Totaltest;
+
+	meshTest.params.Delay_Time = 0;
+	meshTest.params.Generic_TID = 0;
+	meshTest.params.TargetOnOffState = APPLI_LED_ON;
+	meshTest.params.Transition_Time = NO_TRANSITION;
+
+	meshTest.counter = 0;
+
+	TRACE_I(TF_SERIAL_CTRL,"SET-05 triggerInterval=%d, killAfter=%d \r\n", triggerInterval, killAfter);
+	HW_TS_Create(test_generic_subscription, &(meshTest.timer_subscription_id), hw_ts_Repeated, test_set05_generic);
+	HW_TS_Create(test_kill_subscription, &(meshTest.timer_kill_subscription_id), hw_ts_SingleShot, kill_subscription);
+	TRACE_I(TF_SERIAL_CTRL,"SET-05 Created generic_subscription timer=%d \r\n", meshTest.timer_subscription_id);
+	TRACE_I(TF_SERIAL_CTRL,"SET-05 Created test_kill_subscription timer=%d \r\n", meshTest.timer_kill_subscription_id);
+	HW_TS_Start(meshTest.timer_subscription_id, triggerInterval);
+	HW_TS_Start(meshTest.timer_kill_subscription_id, killAfter);
+
+	TestNumber = 0; // kill command
+	return MOBLE_RESULT_SUCCESS;
+}
+
+void test_set05_generic() {
+	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
+	meshTest.params.TargetOnOffState ^= (1<<0);		// flip LED bit
+	meshTest.counter++;
+
+	result = GenericClient_OnOff_Set_Unack(GENERIC_SERVER_MAIN_ELEMENT_INDEX,
+		&(meshTest.params),
+		sizeof(Generic_OnOffParam_t));
+
+	TRACE_I(TF_SERIAL_CTRL,"SET-05 publish result=%d \r\n", result);
+}
+
+void kill_subscription() {
+	HW_TS_Delete(meshTest.timer_subscription_id);
+	TRACE_I(TF_SERIAL_CTRL, "Deleted subscription timer = %d \r\n", meshTest.timer_subscription_id);
+	meshTest.timer_subscription_id = 0;
+	TRACE_I(TF_SERIAL_CTRL, "Counter = %d \r\n", meshTest.counter);
+}
+
 /**
 * @brief  Function used to calculate the delay.
 * @param  MOBLEUINT16
@@ -372,29 +448,41 @@ MOBLEUINT8 processDelay(MOBLEUINT16 waitPeriod)
 */
 void Test_Process(void)
 {
-  if(TestNumber)
-  {
+  if (!TestNumber) {
+	  return;
+  }
 
-    if(TestNumber == CMD_INDEX_RES_01)
-    {
-      Test_ApplicationTest_Set01(TestCount,srcAddress,destAddress);
-    }
-    else if(TestNumber == CMD_INDEX_RES_02)
-    {
-      Test_ApplicationTest_Set02(TestCount,srcAddress,destAddress);
-      if(ReadFlag == 1)
-      {
-        Read_CommandCount(srcAddress , destAddress);     
-      }
-    }
-    else if(TestNumber == CMD_INDEX_RES_03)
-    {
-      Test_ApplicationTest_Set03(srcAddress,destAddress);
-    }
-    else
-    {
-      TRACE_I(TF_SERIAL_CTRL,"Invalid Command\n\r");
-    }
+  switch (TestNumber)
+  {
+  case CMD_INDEX_RES_01:
+	{
+	  Test_ApplicationTest_Set01(TestCount,srcAddress,destAddress);
+	  break;
+	}
+  case CMD_INDEX_RES_02:
+	{
+	  Test_ApplicationTest_Set02(TestCount,srcAddress,destAddress);
+	  if(ReadFlag == 1)
+	  {
+		Read_CommandCount(srcAddress , destAddress);
+	  }
+	  break;
+	}
+  case CMD_INDEX_RES_03:
+	{
+	  Test_ApplicationTest_Set03(srcAddress,destAddress);
+	  break;
+	}
+  case CMD_INDEX_RES_05_GENERIC:
+  {
+	  Test_ApplicationTest_Set05Generic(srcAddress, destAddress);
+	  break;
+  }
+  default:
+	{
+	  TRACE_I(TF_SERIAL_CTRL,"Invalid Command\n\r");
+	  break;
+	}
   }
 }
 

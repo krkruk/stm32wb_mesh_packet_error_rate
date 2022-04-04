@@ -211,7 +211,7 @@ MOBLE_RESULT GenericClient_OnOff_Set_Unack(MOBLEUINT8 elementIndex,
   MOBLEUINT16 msg_opcode;
   MOBLEBOOL ack_flag;
 
-  TRACE_M(TF_GENERIC_CLIENT_M, "Generic_OnOff_Set Client Message \r\n");  
+  TRACE_M(TF_GENERIC_CLIENT_M, "Generic_OnOff_Set Client Message param=%d length=%d\r\n", pOnOff_param, length);
   pOnOff_param[1] = Model_Tid.TidSend;
   msg_buff = pOnOff_param;
   ack_flag = MOBLE_FALSE;

@@ -22,6 +22,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "types.h"
+#include "generic.h"
 
 /* Exported macro ------------------------------------------------------------*/
 #define     TEST_1_WAIT_PERIOD          2000
@@ -31,6 +32,20 @@
 #define     CLOCK_FLAG_ENABLE           1 
 #define     CLOCK_FLAG_DISABLE          0 
 #define     DATA_BYTE_SEND              50
+
+typedef enum {
+	test_kill_subscription = 256,
+	test_generic_subscription
+} MeshTest_t;
+
+typedef struct {
+	uint8_t timer_subscription_id;
+	uint8_t timer_kill_subscription_id;
+	Generic_OnOffParam_t params;
+	uint32_t counter;
+} MeshTestParamters_t;
+
+
 /* Exported variables  ------------------------------------------------------- */
 /* Exported Functions Prototypes ---------------------------------------------*/
 void SerialResponse_Process(char *rcvdStringBuff, uint16_t rcvdStringSize);

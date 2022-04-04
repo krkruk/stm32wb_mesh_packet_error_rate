@@ -37,6 +37,10 @@
 //#define ENABLE_LOW_POWER_FEATURE
 //#define ENABLE_PROVISIONER_FEATURE
 //#define DYNAMIC_PROVISIONER
+
+#ifndef ENABLE_APPLI_TEST
+#define ENABLE_APPLI_TEST
+#endif //~ENABLE_APPLI_TEST
       
 /*
 *  Different provision bearer supported by BLE-Mesh. 
@@ -71,7 +75,7 @@
 /* Enables the serial interface using Uart */
 #define ENABLE_SERIAL_INTERFACE                                                1
 #define ENABLE_SIG_MODELS_AT_COMMANDS                                          1
-#define ENABLE_VENDOR_MODELS_AT_COMMANDS                                       0
+#define ENABLE_VENDOR_MODELS_AT_COMMANDS                                       1
 #define ENABLE_UT                                                              1
       
 /* Provisioner feature related configuration */
@@ -290,7 +294,7 @@ Either use 0 to disable or 1 to enable
 //#define ENABLE_LIGHT_MODEL_SERVER_XYL_SETUP 
 
 /******* Define the following Macros to enable the vendor model  ******/
-//#define ENABLE_VENDOR_MODEL_SERVER                                           (1)
+#define ENABLE_VENDOR_MODEL_SERVER                                           (1)
 //#define GENERIC_SERVER_MODEL_PUBLISH
 
 /******************************************************************************/
@@ -300,7 +304,7 @@ or by Vendor Model.
 @ define Macro for Vendor Publishing
 @ Undefine or comment Macro for Generic On Off Publishing
 */
-//#define VENDOR_CLIENT_MODEL_PUBLISH
+#define VENDOR_CLIENT_MODEL_PUBLISH
 #define GENERIC_CLIENT_MODEL_PUBLISH
 //#define LIGHT_CLIENT_MODEL_PUBLISH
 
