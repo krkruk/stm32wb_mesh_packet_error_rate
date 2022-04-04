@@ -30,6 +30,7 @@
 #include "common.h"
 #include "mesh_cfg_usr.h"
 #include "appli_nvm.h"
+#include "appli_generic_counter.h"
 
 /** @addtogroup ST_BLE_Mesh
  *  @{
@@ -54,6 +55,8 @@ Appli_Generic_OnOffSet AppliOnOffSet[APPLICATION_NUMBER_OF_ELEMENTS];
 Appli_Generic_LevelSet AppliLevelSet[APPLICATION_NUMBER_OF_ELEMENTS];
 Appli_Generic_PowerOnOffSet AppliPowerOnSet[APPLICATION_NUMBER_OF_ELEMENTS];
 Appli_Generic_DefaultTransitionSet AppliDefaultTransitionSet[APPLICATION_NUMBER_OF_ELEMENTS];
+
+static GenericOnOffCounter_t genericOnOffCounter;
 
 /* Private function prototypes -----------------------------------------------*/
 MOBLE_RESULT Appli_Generic_LevelDelta_Set(Generic_LevelStatus_t* pdeltalevelParam, 
@@ -145,7 +148,7 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
   }
   
   TRACE_M(TF_GENERIC, "Appli_Generic_OnOff_Set callback received for elementIndex %d \r\n", elementIndex);           
-  TRACE_M(TF_SERIAL_CTRL, "#8202!for elementIndex %d \r\n", elementIndex);
+  genericOnOffCounter.counter++;
 
   NvmStatePowerFlag_Set(GENERIC_ON_OFF_NVM_FLAG, elementIndex);
 
@@ -460,7 +463,13 @@ MOBLE_RESULT Appli_Generic_GetDefaultTransitionStatus(MOBLEUINT8* pTransition_St
 /**
  * @}
  */
+void generic_onoff_counter_initialize() {
+	genericOnOffCounter.counter = 0;
+}
 
+MOBLEUINT32 generic_onoff_counter() {
+	return genericOnOffCounter.counter;
+}
 /**
  * @}
  */
