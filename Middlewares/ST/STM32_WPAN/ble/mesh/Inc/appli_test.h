@@ -35,7 +35,8 @@
 
 typedef enum {
 	test_kill_subscription = 256,
-	test_generic_subscription
+	test_generic_subscription,
+	test_calibrate_timer
 } MeshTest_t;
 
 typedef struct {
@@ -43,6 +44,7 @@ typedef struct {
 	uint8_t timer_kill_subscription_id;
 	Generic_OnOffParam_t params;
 	uint32_t counter;
+	uint32_t startTimestamp;
 } MeshTestParamters_t;
 
 
@@ -53,6 +55,12 @@ MOBLE_RESULT Test_ApplicationTest_Set01(MOBLEUINT32 testCount,MOBLE_ADDRESS src 
 MOBLE_RESULT Packet_ResponseTimeStamp(MOBLEUINT32 rcvTimeStamp);
 MOBLE_RESULT Test_ApplicationTest_Set02(MOBLEUINT32 testCount ,MOBLE_ADDRESS src ,MOBLE_ADDRESS dst);
 MOBLE_RESULT Test_ApplicationTest_Set03(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst);
+MOBLE_RESULT Test_ApplicationTest_Set05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst);
+MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst);
+
+void test_set05_generic();
+void test_set06_calibrate_timer();
+void kill_subscription();
 MOBLEUINT8 processDelay(MOBLEUINT16 waitPeriod);                                               
 
 

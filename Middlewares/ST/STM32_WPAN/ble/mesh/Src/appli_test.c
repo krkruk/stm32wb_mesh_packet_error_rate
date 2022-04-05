@@ -49,10 +49,11 @@
 
 // user defined
 #define CMD_INDEX_RES_05_GENERIC          5
+#define CMD_INDEX_RES_06_TIMER_CALIBRATE  6
 
 #define CMD_SET_OFFSET                    7
 #define CMD_RES_OFFSET                    5
-#define CMD_RES_COUNT                     5
+#define CMD_RES_COUNT                     7
 
 /* Private variables ---------------------------------------------------------*/
 MOBLEUINT8 TestNumber = 0;
@@ -74,8 +75,31 @@ extern MOBLEUINT8 successCounter=0;
 extern MOBLEUINT8 sendCounter=0;
 /* Private functions ---------------------------------------------------------*/
 
-void test_set05_generic();
-void kill_subscription();
+static void run_timer(char const *setName, MeshTest_t subscriptionType, MOBLE_ADDRESS src ,MOBLE_ADDRESS dst, void (*callback)(void) ) {
+//	 ATAP SET-dd 0000 0001 srcAddr destAddr
+//	  where:
+//	   dd - test function id. See: Test_Process() function
+//	   0000 - triggerInterval - how frequently trigger Generic OnOff Set
+//	   0001 - stop processing after time elapses
+//	   srcAddr - source address
+//	   destAddr - destiantion address
+//  EXAMPLE: ATAP SET-05 100000f0 C000 0004
+	MOBLEUINT16 triggerInterval;
+	MOBLEUINT16 killAfterTimeout;
+
+	triggerInterval = Totaltest >> 16;
+	killAfterTimeout = 0x0000ffff & Totaltest;
+
+	TRACE_I(TF_SERIAL_CTRL,"%s triggerInterval=%d, killAfterTimeout=%d \r\n", setName, triggerInterval, killAfterTimeout);
+	HW_TS_Create(subscriptionType, &(meshTest.timer_subscription_id), hw_ts_Repeated, callback);
+	HW_TS_Create(test_kill_subscription, &(meshTest.timer_kill_subscription_id), hw_ts_SingleShot, kill_subscription);
+	TRACE_I(TF_SERIAL_CTRL,"%s Created subscription timer=%d \r\n", setName, meshTest.timer_subscription_id);
+	TRACE_I(TF_SERIAL_CTRL,"%s Created test_kill_subscription timer=%d \r\n", setName, meshTest.timer_kill_subscription_id);
+
+	meshTest.startTimestamp = HAL_GetTick();
+	HW_TS_Start(meshTest.timer_subscription_id, triggerInterval);
+	HW_TS_Start(meshTest.timer_kill_subscription_id, killAfterTimeout);
+}
 
 /**
 * @brief  SerialResponse_Process: This function extracts the command and variables from
@@ -358,24 +382,10 @@ MOBLE_RESULT Test_ApplicationTest_Set03(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
   return MOBLE_RESULT_SUCCESS;
 }
 
-MOBLE_RESULT Test_ApplicationTest_Set05Generic(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
+
+MOBLE_RESULT Test_ApplicationTest_Set05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
 {
 	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
-	MOBLEUINT16 triggerInterval;
-	MOBLEUINT16 killAfter;
-
-//	 ATAP SET-dd 0000 0001 srcAddr destAddr
-//	  where:
-//	   dd - test function id. See: Test_Process() function
-//	   0000 - triggerInterval - how frequently trigger Generic OnOff Set
-//	   0001 - stop processing after time elapses
-//	   srcAddr - source address
-//	   destAddr - destiantion address
-
-//  EXAMPLE: ATAP SET-05 100000f0 C000 0004
-	triggerInterval = Totaltest >> 16;
-	killAfter = 0x0000ffff & Totaltest;
-
 	meshTest.params.Delay_Time = 0;
 	meshTest.params.Generic_TID = 0;
 	meshTest.params.TargetOnOffState = APPLI_LED_ON;
@@ -383,13 +393,7 @@ MOBLE_RESULT Test_ApplicationTest_Set05Generic(MOBLE_ADDRESS src ,MOBLE_ADDRESS 
 
 	meshTest.counter = 0;
 
-	TRACE_I(TF_SERIAL_CTRL,"SET-05 triggerInterval=%d, killAfter=%d \r\n", triggerInterval, killAfter);
-	HW_TS_Create(test_generic_subscription, &(meshTest.timer_subscription_id), hw_ts_Repeated, test_set05_generic);
-	HW_TS_Create(test_kill_subscription, &(meshTest.timer_kill_subscription_id), hw_ts_SingleShot, kill_subscription);
-	TRACE_I(TF_SERIAL_CTRL,"SET-05 Created generic_subscription timer=%d \r\n", meshTest.timer_subscription_id);
-	TRACE_I(TF_SERIAL_CTRL,"SET-05 Created test_kill_subscription timer=%d \r\n", meshTest.timer_kill_subscription_id);
-	HW_TS_Start(meshTest.timer_subscription_id, triggerInterval);
-	HW_TS_Start(meshTest.timer_kill_subscription_id, killAfter);
+	run_timer("SET-05", test_generic_subscription, src, dst, test_set05_generic);
 
 	TestNumber = 0; // kill command
 	return MOBLE_RESULT_SUCCESS;
@@ -400,18 +404,41 @@ void test_set05_generic() {
 	meshTest.params.TargetOnOffState ^= (1<<0);		// flip LED bit
 	meshTest.counter++;
 
-	result = GenericClient_OnOff_Set_Unack(GENERIC_SERVER_MAIN_ELEMENT_INDEX,
-		&(meshTest.params),
-		sizeof(Generic_OnOffParam_t));
+	result = GenericClient_OnOff_Set_Unack(
+			GENERIC_SERVER_MAIN_ELEMENT_INDEX,
+			&(meshTest.params),
+			sizeof(Generic_OnOffParam_t));
 
 	TRACE_I(TF_SERIAL_CTRL,"SET-05 publish result=%d \r\n", result);
 }
 
 void kill_subscription() {
+	uint32_t stopTimestamp = HAL_GetTick();
 	HW_TS_Delete(meshTest.timer_subscription_id);
 	TRACE_I(TF_SERIAL_CTRL, "Deleted subscription timer = %d \r\n", meshTest.timer_subscription_id);
+	TRACE_I(TF_SERIAL_CTRL,
+			"{\"finished_id\": %d, \"counter\": %uld, \"HAL_TickFreq\": %d, \"startTimestamp\": %u, \"stopTimestamp\": %u, \"time_diff\": %ld}\r\n",
+			meshTest.timer_subscription_id,
+			meshTest.counter,
+			((uint32_t) HAL_GetTickFreq()),
+			meshTest.startTimestamp,
+			stopTimestamp,
+			(meshTest.startTimestamp-stopTimestamp));
+
 	meshTest.timer_subscription_id = 0;
-	TRACE_I(TF_SERIAL_CTRL, "Counter = %d \r\n", meshTest.counter);
+}
+
+
+MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst) {
+	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
+	run_timer("SET-06", test_generic_subscription, src, dst, test_set06_calibrate_timer);
+	TestNumber = 0; // kill command
+	return result;
+}
+
+void test_set06_calibrate_timer() {
+	meshTest.counter++;
+	TRACE_I(TF_SERIAL_CTRL,"SET-06 counter=%ld\r\n", meshTest.counter);
 }
 
 /**
@@ -475,12 +502,18 @@ void Test_Process(void)
 	}
   case CMD_INDEX_RES_05_GENERIC:
   {
-	  Test_ApplicationTest_Set05Generic(srcAddress, destAddress);
+	  Test_ApplicationTest_Set05_GenericOnOff(srcAddress, destAddress);
 	  break;
   }
+  case CMD_INDEX_RES_06_TIMER_CALIBRATE:
+    {
+  	  Test_ApplicationTest_Set06_CalibrateTimer(srcAddress, destAddress);
+  	  break;
+    }
   default:
 	{
-	  TRACE_I(TF_SERIAL_CTRL,"Invalid Command\n\r");
+	  TRACE_I(TF_SERIAL_CTRL, "Invalid Command=%d\n\r", TestNumber);
+	  TestNumber = 0;
 	  break;
 	}
   }
