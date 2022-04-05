@@ -300,7 +300,22 @@ MOBLE_RESULT Vendor_ReadLocalDataCb(MODEL_MessageHeader_t *pmsgParams,
               status =  VendorAppli_cb.DataControlCommand_cb(data, length);
               break;       
             }  
-            
+          case APPLI_TEST_PACKET_ERROR_RATE_COUNTER:
+          {
+        	  /*
+        	   * Get Packet Error Rate count
+        	   */
+        	  TRACE_I(TF_VENDOR_M, " Get APPLI_TEST_PACKET_ERROR_RATE_COUNTER\n\r");
+
+              VendorAppli_cb.GetPacketErrorRate(getBuff);
+              ResponseBuffer[0] = APPLI_TEST_PACKET_ERROR_RATE_COUNTER;
+              ResponseBuffer[1] = getBuff[0];
+              ResponseBuffer[2] = getBuff[1];
+              ResponseBuffer[3] = getBuff[2];
+              ResponseBuffer[4] = getBuff[3];
+              BuffLength = 5;
+        	  break;
+          }
           default:
             {
               status = MOBLE_RESULT_INVALIDARG;
@@ -317,14 +332,15 @@ MOBLE_RESULT Vendor_ReadLocalDataCb(MODEL_MessageHeader_t *pmsgParams,
         
         if (MOBLE_RESULT_SUCCESS == status)
         {
-          
+        	MOBLEINT16 is_unicast = ADDRESS_IS_UNICAST(pmsgParams->dst_peer);
+        	TRACE_I(TF_VENDOR_M, "Vendor_ReadLocalDataCb: Sending a message. Is unicast=%d\n\r", is_unicast);
           /* 
           Read Command will always be reliable      
           Message Response     B0     B1    B2      B3    B4    B5    B6     B7 
           B0 - Sub-Cmd for which response is needed
           B1-B7 - Data Bytes if any 
           */
-         if (ADDRESS_IS_UNICAST(pmsgParams->dst_peer))
+         if (is_unicast)
           {
             VendorModel_SendResponse(VENDOR_STMICRO_CID, pmsgParams, command, ResponseBuffer, BuffLength);
           }
@@ -377,6 +393,7 @@ MOBLE_RESULT Vendor_OnResponseDataCb(MODEL_MessageHeader_t *pmsgParam,
    MOBLEUINT8 subCmd = pRxData[0];
    MOBLEUINT16 hitcmdcount = 0;
    MOBLEUINT8 increment = 1;
+   MOBLEUINT32 meshCounter = 0;
    MOBLEUINT8 idx;
   /* Traces for the Data */
   TRACE_I(TF_VENDOR_M,
@@ -502,7 +519,23 @@ MOBLE_RESULT Vendor_OnResponseDataCb(MODEL_MessageHeader_t *pmsgParam,
         }
         break;
       }
-       default:
+
+    case APPLI_TEST_PACKET_ERROR_RATE_COUNTER:
+    {
+    	meshCounter = 0;
+    	meshCounter = (MOBLEUINT32)(pRxData[4] << 24);
+    	meshCounter |=(MOBLEUINT32)( pRxData[3] << 16);
+    	meshCounter |=(MOBLEUINT32)( pRxData[2] << 8);
+    	meshCounter |=(MOBLEUINT32)( pRxData[1]);
+        for (MOBLEUINT8 idx=0; idx<dataLength; idx++)
+        {
+          TRACE_I(TF_VENDOR_M, "APPLI_TEST_PACKET_ERROR_RATE_COUNTER data[%d]= 0x%x\r\n",idx,pRxData[idx]);
+        }
+
+        TRACE_I(TF_VENDOR_M, "{\"id\": \"GET-05\", \"counter\": %ld \"peer\": %02x}\r\n", meshCounter, pmsgParam->peer_addr);
+        break;
+    }
+   default:
     {              
         break;
     }

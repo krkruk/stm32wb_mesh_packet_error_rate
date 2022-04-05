@@ -34,6 +34,12 @@
 #define     DATA_BYTE_SEND              50
 
 typedef enum {
+	CMD_TYPE_NONE,
+	CMD_TYPE_SET,
+	CMD_TYPE_GET
+} CommandType_t;
+
+typedef enum {
 	test_kill_subscription = 256,
 	test_generic_subscription,
 	test_calibrate_timer
@@ -44,6 +50,7 @@ typedef struct {
 	uint8_t timer_kill_subscription_id;
 	Generic_OnOffParam_t params;
 	uint32_t counter;
+	uint32_t remoteCounter;
 	uint32_t startTimestamp;
 } MeshTestParamters_t;
 
@@ -58,9 +65,14 @@ MOBLE_RESULT Test_ApplicationTest_Set03(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst);
 MOBLE_RESULT Test_ApplicationTest_Set05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst);
 MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst);
 
+MOBLE_RESULT Test_ApplicationTest_Get05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst);
+
+MOBLE_RESULT test_set05_generic_initialize(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst);
 void test_set05_generic();
 void test_set06_calibrate_timer();
 void kill_subscription();
+void process_set_commands();
+void process_get_commands();
 MOBLEUINT8 processDelay(MOBLEUINT16 waitPeriod);                                               
 
 

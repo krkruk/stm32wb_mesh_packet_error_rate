@@ -262,7 +262,6 @@ MOBLE_RESULT Appli_Vendor_Test(MOBLEUINT8 const *data, MOBLEUINT32 length)
        } 
        break;
      }
-             
   default:
     {
       status = MOBLE_RESULT_FALSE;
@@ -546,10 +545,13 @@ void Appli_Vendor_Publish(MOBLE_ADDRESS srcAddress)
     TRACE_I(TF_VENDOR_M, "Publication Error \r\n");
   }
 }
+
 /**
 * @}
 */
+void Appli_GetPacketErrorRateValue (MOBLEUINT8 *responseValue) {
 
+}
 /**
 * @}
 */

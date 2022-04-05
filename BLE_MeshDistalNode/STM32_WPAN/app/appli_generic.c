@@ -120,6 +120,7 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
 
       if(AppliOnOffSet[elementIndex].Present_OnOffValue == AppliOnOffSet[elementIndex].TargetValue)
       {
+		genericOnOffCounter.counter++;
         if(AppliOnOffSet[elementIndex].Present_OnOffValue > 0)
         {
           BSP_LED_On(LED_BLUE);
@@ -148,7 +149,6 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
   }
   
   TRACE_M(TF_GENERIC, "Appli_Generic_OnOff_Set callback received for elementIndex %d \r\n", elementIndex);           
-  genericOnOffCounter.counter++;
 
   NvmStatePowerFlag_Set(GENERIC_ON_OFF_NVM_FLAG, elementIndex);
 

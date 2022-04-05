@@ -61,6 +61,8 @@
 #define APPLI_MODEL_PUBLISH_SELECT         0X06U
 #define APPLI_OTA_ENABLE                   0x07U
 #define APPLI_OTA_ENTER                    0x08U
+
+#define APPLI_TEST_PACKET_ERROR_RATE_COUNTER 	0x09U
 /******************************************************************************/
 
 /****************Data Received from Android/IoS. B0 = SubCommand***************/
@@ -125,6 +127,7 @@ typedef struct
   void (*LEDControl_cb)(void);                                                                          /// Vendor_ReadLocalDataCb with command  = APPLI_LED_CONTROL_STATUS_CMD
   void (*GetTestCount)(MOBLEUINT8*);                                                                    /// Vendor_ReadLocalDataCb with command  = APPLI_TEST_CMD
   MOBLE_RESULT (*DataControlCommand_cb)(MOBLEUINT8 const *, MOBLEUINT32);                               /// Vendor_WriteLocalDataCb with command = APPLI_DATA_CNTRL_CMD 
+  void (*GetPacketErrorRate)(MOBLEUINT8*);                                                            // Custom:
 } Appli_Vendor_cb_t;
 
 #pragma pack(pop)

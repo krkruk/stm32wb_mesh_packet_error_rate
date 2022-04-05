@@ -60,8 +60,10 @@ MOBLEUINT8 TestNumber = 0;
 MOBLEUINT32 TestCount = 0;
 MOBLEUINT32 RecvCount = 0;
 MOBLEUINT32 Totaltest = 0;
+CommandType_t command = CMD_TYPE_NONE;
 
 static MeshTestParamters_t meshTest;
+extern MOBLEUINT8 AppliBuffer[DATA_BUFFER_LENGTH];
 
 /* Private function prototypes -----------------------------------------------*/
 static MOBLE_RESULT SerialResponse_doubleHexToHex(MOBLEUINT8* hexArray,MOBLEUINT8* outputArray, MOBLEUINT8 length);
@@ -83,7 +85,10 @@ static void run_timer(char const *setName, MeshTest_t subscriptionType, MOBLE_AD
 //	   0001 - stop processing after time elapses
 //	   srcAddr - source address
 //	   destAddr - destiantion address
-//  EXAMPLE: ATAP SET-05 100000f0 C000 0004
+//  EXAMPLE: ATAP SET-05 04008000 C000 0004
+//	  triggerInterval = 1024 (dec)
+//	  killAfterTimeout = 32768 (dec)
+
 	MOBLEUINT16 triggerInterval;
 	MOBLEUINT16 killAfterTimeout;
 
@@ -100,6 +105,23 @@ static void run_timer(char const *setName, MeshTest_t subscriptionType, MOBLE_AD
 	HW_TS_Start(meshTest.timer_subscription_id, triggerInterval);
 	HW_TS_Start(meshTest.timer_kill_subscription_id, killAfterTimeout);
 }
+
+void kill_subscription() {
+	uint32_t stopTimestamp = HAL_GetTick();
+	HW_TS_Delete(meshTest.timer_subscription_id);
+	TRACE_I(TF_SERIAL_CTRL, "Deleted subscription timer = %d \r\n", meshTest.timer_subscription_id);
+	TRACE_I(TF_SERIAL_CTRL,
+			"{\"finished_id\": %d, \"counter\": %u, \"HAL_TickFreq\": %d, \"startTimestamp\": %u, \"stopTimestamp\": %u, \"time_diff\": %ld}\r\n",
+			meshTest.timer_subscription_id,
+			meshTest.counter,
+			((uint32_t) HAL_GetTickFreq()),
+			meshTest.startTimestamp,
+			stopTimestamp,
+			(meshTest.startTimestamp-stopTimestamp));
+
+	meshTest.timer_subscription_id = 0;
+}
+
 
 /**
 * @brief  SerialResponse_Process: This function extracts the command and variables from
@@ -166,18 +188,24 @@ of the command recieved by the user
 static MOBLEUINT16 SerialResponse_GetFunctionIndex(char *text)
 {
   MOBLEINT16 index = 0;
-  
+
   if (!strncmp(text, "SET-",4))
-  {   
+  {
     sscanf(text, "SET-%hd", &index);
     index = (index<=CMD_RES_COUNT)? index : 0;
-    
+    command = CMD_TYPE_SET;
+  }
+  else if (!strncmp(text, "GET-",4)) {
+	  sscanf(text, "GET-%hd", &index);
+	  index = (index<=CMD_RES_COUNT)? index : 0;
+	  command = CMD_TYPE_GET;
   }
   else
   {
+    command = CMD_TYPE_NONE;
     return 0x00;
   }
-  
+
   return index;
 }
 
@@ -303,7 +331,7 @@ MOBLE_RESULT Read_CommandCount(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
   {   
     TRACE_I(TF_SERIAL_CTRL, " NUMBER OF COMMANDS SEND     %d \r\n",Totaltest);
  
-    BLEMesh_ReadRemoteData(&msgParam,APPLI_TEST_CMD,readData,sizeof(readData));
+    BLEMesh_ReadRemoteData(&msgParam,APPLI_TEST_INC_COUNTER,readData,sizeof(readData));
       
     ReadFlag = 0;
   }     
@@ -392,11 +420,37 @@ MOBLE_RESULT Test_ApplicationTest_Set05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_AD
 	meshTest.params.Transition_Time = NO_TRANSITION;
 
 	meshTest.counter = 0;
-
-	run_timer("SET-05", test_generic_subscription, src, dst, test_set05_generic);
+	result = test_set05_generic_initialize(src, dst);
+	if (!result)
+	{
+		run_timer("SET-05", test_generic_subscription, src, dst, test_set05_generic);
+		result = MOBLE_RESULT_SUCCESS;
+	}
+	else
+	{
+		TRACE_I(TF_VENDOR_M,"SET-05 Could not initialize the test due to error code=%d \r\n", result);
+		result = MOBLE_RESULT_FAIL;
+	}
 
 	TestNumber = 0; // kill command
-	return MOBLE_RESULT_SUCCESS;
+	return result;
+}
+
+MOBLE_RESULT test_set05_generic_initialize(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
+{
+    MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
+    AppliBuffer[0] = APPLI_TEST_PACKET_ERROR_RATE_COUNTER;
+
+    result = BLEMesh_SetRemotePublication(VENDORMODEL_STMICRO_ID1, src,
+                                          APPLI_TEST_CMD,
+                                          AppliBuffer, sizeof(AppliBuffer),
+                                          MOBLE_TRUE, MOBLE_TRUE);
+
+     if (result)
+     {
+          TRACE_I(TF_VENDOR_M,"SET-05 Could not initialize the test due to error code=%d \r\n", result);
+     }
+     return result;
 }
 
 void test_set05_generic() {
@@ -412,22 +466,30 @@ void test_set05_generic() {
 	TRACE_I(TF_SERIAL_CTRL,"SET-05 publish result=%d \r\n", result);
 }
 
-void kill_subscription() {
-	uint32_t stopTimestamp = HAL_GetTick();
-	HW_TS_Delete(meshTest.timer_subscription_id);
-	TRACE_I(TF_SERIAL_CTRL, "Deleted subscription timer = %d \r\n", meshTest.timer_subscription_id);
-	TRACE_I(TF_SERIAL_CTRL,
-			"{\"finished_id\": %d, \"counter\": %uld, \"HAL_TickFreq\": %d, \"startTimestamp\": %u, \"stopTimestamp\": %u, \"time_diff\": %ld}\r\n",
-			meshTest.timer_subscription_id,
-			meshTest.counter,
-			((uint32_t) HAL_GetTickFreq()),
-			meshTest.startTimestamp,
-			stopTimestamp,
-			(meshTest.startTimestamp-stopTimestamp));
 
-	meshTest.timer_subscription_id = 0;
+MOBLE_RESULT Test_ApplicationTest_Get05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst) {
+	  MOBLEUINT8 readData[2];
+	  MODEL_MessageHeader_t msgParam;
+
+	  TRACE_I(TF_SERIAL_CTRL, "GET-05\r\n");
+	  msgParam.elementIndex = 0;
+	  msgParam.peer_addr = src;
+	  msgParam.dst_peer = dst;
+	  msgParam.ttl = 0;
+	  msgParam.rssi = 0;
+	  msgParam.rcvdAppKeyOffset = 0;
+	  msgParam.rcvdNetKeyOffset = 0;
+
+	  readData[0] = APPLI_TEST_PACKET_ERROR_RATE_COUNTER;
+
+	  if(processDelay(TEST_READ_PERIOD) == 0x01)
+	  {
+	    BLEMesh_ReadRemoteData(&msgParam, APPLI_TEST_PACKET_ERROR_RATE_COUNTER, readData, sizeof(readData));
+	    TRACE_I(TF_SERIAL_CTRL, "GET-05 Command triggered");
+	  }
+	  TestNumber = 0; // kill command
+	  return MOBLE_RESULT_SUCCESS;
 }
-
 
 MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst) {
 	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
@@ -479,43 +541,80 @@ void Test_Process(void)
 	  return;
   }
 
-  switch (TestNumber)
-  {
-  case CMD_INDEX_RES_01:
-	{
-	  Test_ApplicationTest_Set01(TestCount,srcAddress,destAddress);
+  switch (command) {
+  case CMD_TYPE_GET:
+	  process_get_commands();
 	  break;
-	}
-  case CMD_INDEX_RES_02:
-	{
-	  Test_ApplicationTest_Set02(TestCount,srcAddress,destAddress);
-	  if(ReadFlag == 1)
-	  {
-		Read_CommandCount(srcAddress , destAddress);
-	  }
+  case CMD_TYPE_SET:
+	  process_set_commands();
 	  break;
-	}
-  case CMD_INDEX_RES_03:
-	{
-	  Test_ApplicationTest_Set03(srcAddress,destAddress);
-	  break;
-	}
-  case CMD_INDEX_RES_05_GENERIC:
-  {
-	  Test_ApplicationTest_Set05_GenericOnOff(srcAddress, destAddress);
-	  break;
-  }
-  case CMD_INDEX_RES_06_TIMER_CALIBRATE:
-    {
-  	  Test_ApplicationTest_Set06_CalibrateTimer(srcAddress, destAddress);
-  	  break;
-    }
   default:
-	{
-	  TRACE_I(TF_SERIAL_CTRL, "Invalid Command=%d\n\r", TestNumber);
+	  TRACE_I(TF_SERIAL_CTRL, "Invalid Command=%d (either GET or SET)\n\r", command);
 	  TestNumber = 0;
 	  break;
-	}
   }
+
+}
+
+void process_set_commands() {
+	switch (TestNumber)
+		{
+		case CMD_INDEX_RES_01:
+		{
+		  Test_ApplicationTest_Set01(TestCount,srcAddress,destAddress);
+		  break;
+		}
+		case CMD_INDEX_RES_02:
+		{
+		  Test_ApplicationTest_Set02(TestCount,srcAddress,destAddress);
+		  if(ReadFlag == 1)
+		  {
+			Read_CommandCount(srcAddress , destAddress);
+		  }
+		  break;
+		}
+		case CMD_INDEX_RES_03:
+		{
+		  Test_ApplicationTest_Set03(srcAddress,destAddress);
+		  break;
+		}
+		case CMD_INDEX_RES_05_GENERIC:
+		{
+		  Test_ApplicationTest_Set05_GenericOnOff(srcAddress, destAddress);
+		  break;
+		}
+		case CMD_INDEX_RES_06_TIMER_CALIBRATE:
+		{
+		  Test_ApplicationTest_Set06_CalibrateTimer(srcAddress, destAddress);
+		  break;
+		}
+		default:
+		{
+		  TRACE_I(TF_SERIAL_CTRL, "Invalid SET Command=%d\n\r", TestNumber);
+		  TestNumber = 0;
+		  break;
+		}
+	}
+}
+void process_get_commands() {
+	switch (TestNumber) {
+		case CMD_INDEX_RES_05_GENERIC:
+		{
+			Test_ApplicationTest_Get05_GenericOnOff(srcAddress, destAddress);
+			break;
+		}
+		case CMD_INDEX_RES_02:
+		{
+			Read_CommandCount(srcAddress, destAddress);
+			TestNumber = 0;
+			command = CMD_TYPE_NONE;
+			break;
+		}
+		default: {
+			TRACE_I(TF_SERIAL_CTRL, "Invalid GET Command=%d\n\r", TestNumber);
+		    TestNumber = 0;
+			break;
+		}
+	}
 }
 

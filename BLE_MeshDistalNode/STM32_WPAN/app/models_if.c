@@ -135,7 +135,8 @@ __attribute__((aligned(4)))const Appli_Vendor_cb_t VendorAppli_cb =
   Appli_Vendor_Test,
   Appli_LedCtrl,
   Appli_GetTestValue, 
-  Appli_Vendor_Data_write
+  Appli_Vendor_Data_write,
+  Appli_GetPacketErrorRateValue
 };
 
 __attribute__((aligned(4)))const Appli_Generic_cb_t GenericAppli_cb = 
