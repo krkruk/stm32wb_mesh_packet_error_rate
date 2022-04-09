@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>SerialListDelegate.qml</file>
+        <file>ApplicationHeader.qml</file>
+        <file>SerialMainComponent.qml</file>
+    </qresource>
+</RCC>
