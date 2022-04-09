@@ -24,10 +24,8 @@ ApplicationWindow {
 
     SwipeView {
         id: swipeView
-        y: appHeader.height
-        width: parent.width
-        height: parent.header - appHeader.height
         anchors.fill: parent
+        currentIndex: indicator.currentIndex
 
         function addPage(page) {
             addItem(page)
@@ -47,12 +45,12 @@ ApplicationWindow {
 
     PageIndicator {
         id: indicator
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
 
         count: swipeView.count
         currentIndex: swipeView.currentIndex
-
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
+        interactive: true
     }
 
     Drawer {
@@ -74,7 +72,7 @@ ApplicationWindow {
             delegate: SerialListDelegate {} // onClicked will connect to serial
             footer: Button {
                 id: exitButton
-                width: parent.width
+                width: parent.width - 1
                 text: "Quit"
                 onClicked: Qt.quit()
             }
@@ -86,14 +84,6 @@ ApplicationWindow {
         onSerialConnectionSelected: {
             console.log("i=" + index + " port = " + serialName)
             swipeView.insertItem(index, swipeView.createPage(serialName))
-        }
-    }
-
-    Popup {
-        id: quitBoxPopup
-        anchors.centerIn: overlay
-        contentItem: Text {
-            text: "QUITTING..."
         }
     }
 }

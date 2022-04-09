@@ -5,7 +5,7 @@ import stm32.SerialManager 1.0
 
 Rectangle {
     id: serialMainComponent
-    height: parent.height - appHeader.height
+    height: parent.height
 
     property string serialName: "unknown"
 
@@ -35,7 +35,6 @@ Rectangle {
             TabBar {
                 id: tabs
                 width: parent.width
-                position: TabBar.Footer
 
                 TabButton {
                     text: qsTr("Address")
