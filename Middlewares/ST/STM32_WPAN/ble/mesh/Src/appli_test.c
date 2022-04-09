@@ -55,6 +55,7 @@
 #define CMD_RES_OFFSET                    5
 #define CMD_RES_COUNT                     7
 
+
 /* Private variables ---------------------------------------------------------*/
 MOBLEUINT8 TestNumber = 0;
 MOBLEUINT32 TestCount = 0;
@@ -111,8 +112,9 @@ void kill_subscription() {
 	HW_TS_Delete(meshTest.timer_subscription_id);
 	TRACE_I(TF_SERIAL_CTRL, "Deleted subscription timer = %d \r\n", meshTest.timer_subscription_id);
 	TRACE_I(TF_SERIAL_CTRL,
-			"{\"finished_id\": %d, \"counter\": %u, \"HAL_TickFreq\": %d, \"startTimestamp\": %u, \"stopTimestamp\": %u, \"time_diff\": %ld}\r\n",
-			meshTest.timer_subscription_id,
+			"{\"func\":\"%s\",\"addr\":\"0x%04x\",\"counter\":%u,\"HAL_TickFreq\":%d,\"startTick\":%u,\"stopTick\":%u,\"tick_diff\":%ld}\r\n",
+			meshTest.name,
+			BLEMesh_GetAddress(),
 			meshTest.counter,
 			((uint32_t) HAL_GetTickFreq()),
 			meshTest.startTimestamp,
@@ -419,16 +421,17 @@ MOBLE_RESULT Test_ApplicationTest_Set05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_AD
 	meshTest.params.TargetOnOffState = APPLI_LED_ON;
 	meshTest.params.Transition_Time = NO_TRANSITION;
 
+	meshTest.name = OP_NAME_SET05;
 	meshTest.counter = 0;
 	result = test_set05_generic_initialize(src, dst);
 	if (!result)
 	{
-		run_timer("SET-05", test_generic_subscription, src, dst, test_set05_generic);
+		run_timer(OP_NAME_SET05, test_generic_subscription, src, dst, test_set05_generic);
 		result = MOBLE_RESULT_SUCCESS;
 	}
 	else
 	{
-		TRACE_I(TF_VENDOR_M,"SET-05 Could not initialize the test due to error code=%d \r\n", result);
+		TRACE_I(TF_VENDOR_M,"%s Could not initialize the test due to error code=%d \r\n", OP_NAME_SET05, result);
 		result = MOBLE_RESULT_FAIL;
 	}
 
@@ -448,7 +451,7 @@ MOBLE_RESULT test_set05_generic_initialize(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
 
      if (result)
      {
-          TRACE_I(TF_VENDOR_M,"SET-05 Could not initialize the test due to error code=%d \r\n", result);
+          TRACE_I(TF_VENDOR_M, "%s Could not initialize the test due to error code=%d \r\n", OP_NAME_SET05, result);
      }
      return result;
 }
@@ -463,7 +466,7 @@ void test_set05_generic() {
 			&(meshTest.params),
 			sizeof(Generic_OnOffParam_t));
 
-	TRACE_I(TF_SERIAL_CTRL,"SET-05 publish result=%d \r\n", result);
+	TRACE_I(TF_SERIAL_CTRL, "%s publish result=%d \r\n", meshTest.name, result);
 }
 
 
@@ -471,7 +474,7 @@ MOBLE_RESULT Test_ApplicationTest_Get05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_AD
 	  MOBLEUINT8 readData[2];
 	  MODEL_MessageHeader_t msgParam;
 
-	  TRACE_I(TF_SERIAL_CTRL, "GET-05\r\n");
+	  TRACE_I(TF_SERIAL_CTRL, "%s\r\n", OP_NAME_GET05);
 	  msgParam.elementIndex = 0;
 	  msgParam.peer_addr = src;
 	  msgParam.dst_peer = dst;
@@ -485,7 +488,7 @@ MOBLE_RESULT Test_ApplicationTest_Get05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_AD
 	  if(processDelay(TEST_READ_PERIOD) == 0x01)
 	  {
 	    BLEMesh_ReadRemoteData(&msgParam, APPLI_TEST_PACKET_ERROR_RATE_COUNTER, readData, sizeof(readData));
-	    TRACE_I(TF_SERIAL_CTRL, "GET-05 Command triggered");
+	    TRACE_I(TF_SERIAL_CTRL, "%s Command triggered", OP_NAME_GET05);
 	  }
 	  TestNumber = 0; // kill command
 	  return MOBLE_RESULT_SUCCESS;
@@ -493,14 +496,15 @@ MOBLE_RESULT Test_ApplicationTest_Get05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_AD
 
 MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst) {
 	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
-	run_timer("SET-06", test_generic_subscription, src, dst, test_set06_calibrate_timer);
+	meshTest.name = OP_NAME_SET06;
+	run_timer(OP_NAME_SET06, test_generic_subscription, src, dst, test_set06_calibrate_timer);
 	TestNumber = 0; // kill command
 	return result;
 }
 
 void test_set06_calibrate_timer() {
 	meshTest.counter++;
-	TRACE_I(TF_SERIAL_CTRL,"SET-06 counter=%ld\r\n", meshTest.counter);
+	TRACE_I(TF_SERIAL_CTRL,"%s counter=%ld\r\n", meshTest.name, meshTest.counter);
 }
 
 /**

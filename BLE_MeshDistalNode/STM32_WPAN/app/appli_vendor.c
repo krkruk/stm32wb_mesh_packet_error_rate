@@ -266,10 +266,8 @@ MOBLE_RESULT Appli_Vendor_Test(MOBLEUINT8 const *data, MOBLEUINT32 length)
   case APPLI_TEST_PACKET_ERROR_RATE_COUNTER:
 	  {
 		  MOBLEUINT32 counter = 0;;
-		  TRACE_I(TF_VENDOR,"SET-05 Initialize Packet Error Rate Test\n\r");
+		  TRACE_I(TF_VENDOR,"SET-05 Initialize Packet Error Rate Test at addr=0x%04x\n\r", BLEMesh_GetAddress());
 		  generic_onoff_counter_initialize();
-		  counter = generic_onoff_counter();
-		  TRACE_I(TF_VENDOR,"SET-05 Initialized to value = %d\n\r", counter);
 		  break;
 	  }
   default:
@@ -558,10 +556,13 @@ void Appli_Vendor_Publish(MOBLE_ADDRESS srcAddress)
 /**
 * @}
 */
-void Appli_GetPacketErrorRateValue (MOBLEUINT8 *responseValue) {
+void Appli_GetPacketErrorRateValue(MOBLEUINT8 *responseValue) {
 	MOBLEUINT32 counter = 0;
+	MOBLE_ADDRESS address = 0;
 	counter = generic_onoff_counter();
-	TRACE_I(TF_VENDOR_M, "SET-5 counter=%u\r\n", counter);
+	address = BLEMesh_GetAddress();
+
+	TRACE_I(TF_VENDOR_M, "{\"func\":\"SET-5\",\"addr\":\"0x%04x\",\"counter\":%u}\r\n", address, counter);
 	*responseValue = counter;
 	*(responseValue+1)  = counter >> 8;
 	*(responseValue+2)  = counter >> 16;

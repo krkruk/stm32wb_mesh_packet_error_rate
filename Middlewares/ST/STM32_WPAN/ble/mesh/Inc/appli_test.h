@@ -33,6 +33,11 @@
 #define     CLOCK_FLAG_DISABLE          0 
 #define     DATA_BYTE_SEND              50
 
+#define OP_NAME_SET05 "SET-05"
+#define OP_NAME_GET05 "GET-05"
+#define OP_NAME_SET06 "SET-06"
+#define OP_NAME_GET06 "GET-06"
+
 typedef enum {
 	CMD_TYPE_NONE,
 	CMD_TYPE_SET,
@@ -46,6 +51,7 @@ typedef enum {
 } MeshTest_t;
 
 typedef struct {
+	char *name;
 	uint8_t timer_subscription_id;
 	uint8_t timer_kill_subscription_id;
 	Generic_OnOffParam_t params;

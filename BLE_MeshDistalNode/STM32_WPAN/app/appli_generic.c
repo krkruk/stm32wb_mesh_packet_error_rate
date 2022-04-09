@@ -69,6 +69,10 @@ MOBLE_RESULT Appli_Generic_LevelMove_Set(Generic_LevelStatus_t* pdeltaMoveParam,
                                          MOBLEUINT8 elementIndex);
 /* Private functions ---------------------------------------------------------*/
 
+static void increment_generic_onoff_counter_packet_error_rate_experiment() {
+	genericOnOffCounter.counter++;
+}
+
 /******************************************************************************/
 #ifdef ENABLE_GENERIC_MODEL_SERVER_ONOFF
 /******************************************************************************/
@@ -120,7 +124,7 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
 
       if(AppliOnOffSet[elementIndex].Present_OnOffValue == AppliOnOffSet[elementIndex].TargetValue)
       {
-		genericOnOffCounter.counter++;
+    	increment_generic_onoff_counter_packet_error_rate_experiment();
         if(AppliOnOffSet[elementIndex].Present_OnOffValue > 0)
         {
           BSP_LED_On(LED_BLUE);
@@ -465,6 +469,7 @@ MOBLE_RESULT Appli_Generic_GetDefaultTransitionStatus(MOBLEUINT8* pTransition_St
  */
 void generic_onoff_counter_initialize() {
 	genericOnOffCounter.counter = 0;
+    TRACE_I(TF_GENERIC,"SET-05 Initialized to value = %d\n\r", genericOnOffCounter.counter);
 }
 
 MOBLEUINT32 generic_onoff_counter() {

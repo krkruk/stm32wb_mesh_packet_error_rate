@@ -549,9 +549,7 @@ void Appli_Vendor_Publish(MOBLE_ADDRESS srcAddress)
 /**
 * @}
 */
-void Appli_GetPacketErrorRateValue (MOBLEUINT8 *responseValue) {
 
-}
 /**
 * @}
 */

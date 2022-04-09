@@ -210,7 +210,8 @@ MOBLE_RESULT Vendor_ReadLocalDataCb(MODEL_MessageHeader_t *pmsgParams,
 {  
  
  MOBLE_RESULT status = MOBLE_RESULT_SUCCESS;
- MOBLEUINT8 getBuff[5];
+ MOBLEUINT8 getBuff[7];
+ MOBLE_ADDRESS address = BLEMesh_GetAddress();
  
  /* Traces for the Data */
   TRACE_M(TF_VENDOR_M,
@@ -305,15 +306,20 @@ MOBLE_RESULT Vendor_ReadLocalDataCb(MODEL_MessageHeader_t *pmsgParams,
         	  /*
         	   * Get Packet Error Rate count
         	   */
-        	  TRACE_I(TF_VENDOR_M, " Get APPLI_TEST_PACKET_ERROR_RATE_COUNTER\n\r");
+        	  TRACE_I(TF_VENDOR_M, " Publishing APPLI_TEST_PACKET_ERROR_RATE_COUNTER,\n\r");
 
               VendorAppli_cb.GetPacketErrorRate(getBuff);
               ResponseBuffer[0] = APPLI_TEST_PACKET_ERROR_RATE_COUNTER;
+              // 4 bytes - uint32_t counter value
               ResponseBuffer[1] = getBuff[0];
               ResponseBuffer[2] = getBuff[1];
               ResponseBuffer[3] = getBuff[2];
               ResponseBuffer[4] = getBuff[3];
-              BuffLength = 5;
+
+              // 2 bytes - address value
+              ResponseBuffer[5] = address;
+			  ResponseBuffer[6] = address >> 8;
+              BuffLength = 7;
         	  break;
           }
           default:
@@ -394,6 +400,7 @@ MOBLE_RESULT Vendor_OnResponseDataCb(MODEL_MessageHeader_t *pmsgParam,
    MOBLEUINT16 hitcmdcount = 0;
    MOBLEUINT8 increment = 1;
    MOBLEUINT32 meshCounter = 0;
+   MOBLE_ADDRESS remoteNodeAddress = 0xff;
    MOBLEUINT8 idx;
   /* Traces for the Data */
   TRACE_I(TF_VENDOR_M,
@@ -522,17 +529,24 @@ MOBLE_RESULT Vendor_OnResponseDataCb(MODEL_MessageHeader_t *pmsgParam,
 
     case APPLI_TEST_PACKET_ERROR_RATE_COUNTER:
     {
+
+    	remoteNodeAddress = 0;
+    	remoteNodeAddress = (MOBLE_ADDRESS)(pRxData[6] << 8);
+    	remoteNodeAddress |= (MOBLE_ADDRESS)(pRxData[5]);
+
     	meshCounter = 0;
     	meshCounter = (MOBLEUINT32)(pRxData[4] << 24);
     	meshCounter |=(MOBLEUINT32)( pRxData[3] << 16);
     	meshCounter |=(MOBLEUINT32)( pRxData[2] << 8);
     	meshCounter |=(MOBLEUINT32)( pRxData[1]);
+
         for (MOBLEUINT8 idx=0; idx<dataLength; idx++)
         {
-          TRACE_I(TF_VENDOR_M, "APPLI_TEST_PACKET_ERROR_RATE_COUNTER data[%d]= 0x%x\r\n",idx,pRxData[idx]);
+          TRACE_I(TF_VENDOR_M,"data[%d]= 0x%x",idx,pRxData[idx]);
+          TRACE_I(TF_VENDOR_M,"\n\r");
         }
-
-        TRACE_I(TF_VENDOR_M, "{\"id\": \"GET-05\", \"counter\": %ld \"peer\": %02x}\r\n", meshCounter, pmsgParam->peer_addr);
+        TRACE_I(TF_VENDOR_M, "{\"func\":\"%s\",\"addr\":\"0x%04x\",\"counter\":%ld,\"peer\":%02x}\r\n",
+        		OP_NAME_GET05, remoteNodeAddress, meshCounter, pmsgParam->peer_addr);
         break;
     }
    default:
@@ -789,7 +803,9 @@ __weak MOBLE_RESULT Packet_ResponseTimeStamp(MOBLEUINT32 rcvTimeStamp)
 /**
 * @}
 */
-
+__weak void Appli_GetPacketErrorRateValue (MOBLEUINT8 *responseValue) {
+	// Unsupported Operation by default
+}
 /**
 * @}
 */
