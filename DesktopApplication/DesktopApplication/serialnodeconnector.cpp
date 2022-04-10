@@ -29,7 +29,7 @@ void SerialNodeConnector::scheduleWrite(const QByteArray &data)
     qDebug() << "Following command is to be sent:" << qPrintable(data);
     // Simulate typing in a standard serial terminal so the STM32WB can keep up...
     for (int i = 0; i < data.size(); i++) {
-        QTimer::singleShot(i*MOCK_TYPING_SPEED_MS, Qt::CoarseTimer, [&, c=data.at(i)](){ this->write(c);});
+        QTimer::singleShot(i*MOCK_TYPING_SPEED_MS, Qt::CoarseTimer, this, [this, c=data.at(i)](){ write(c);});
     }
 }
 
