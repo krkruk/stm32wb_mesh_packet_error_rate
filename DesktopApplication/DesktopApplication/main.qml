@@ -14,6 +14,10 @@ ApplicationWindow {
         onClicked: applicationMenu.toggleDrawer()
     }
 
+    ApplicationMenu {
+        id: applicationMenu
+    }
+
     SwipeView {
         id: swipeView
         anchors.fill: parent
@@ -32,7 +36,9 @@ ApplicationWindow {
             appHeader.title = title
             return page
         }
-        onCurrentItemChanged: (swipeView.count > 0) && (appHeader.title = currentItem.serialName)
+        onCurrentItemChanged: (swipeView.count > 0)
+                              && (appHeader.title = currentItem.serialName)
+
     }
 
     PageIndicator {
@@ -45,7 +51,15 @@ ApplicationWindow {
         interactive: true
     }
 
-    ApplicationMenu {
-        id: applicationMenu
+    Connections {
+        target: Serial
+        function onSerialConnectionSelected(index, serialName) {
+            if (index >= swipeView.count) {
+                swipeView.insertItem(index, swipeView.createPage(serialName))
+            }
+            else {
+                swipeView.currentIndex = index
+            }
+        }
     }
 }

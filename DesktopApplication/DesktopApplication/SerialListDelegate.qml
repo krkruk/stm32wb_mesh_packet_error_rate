@@ -2,14 +2,13 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import stm32.SerialManager 1.0
 
-
 Rectangle {
     id: delegateButton
     width: parent.width - 1
     height: 90
 
     Column {
-//        spacing: 4
+        //        spacing: 4
         padding: parent.width / 20
         anchors.fill: parent
 
@@ -34,5 +33,4 @@ Rectangle {
         onHoveredChanged: delegateButton.color = containsMouse ? "grey" : "white"
         onClicked: Serial.onSerialSelected(name)
     }
-
 }

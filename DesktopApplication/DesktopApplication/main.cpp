@@ -1,7 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "serialmanager.h"
+#include "serialnodeconnector.h"
+#include "stm32supportedoperations.h"
 
+
+static void registerTypes();
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +22,13 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
+    registerTypes();
+    engine.load(url);
+
+    return app.exec();
+}
+
+void registerTypes() {
     qmlRegisterSingletonType<SerialManager>("stm32.SerialManager", 1, 0, "Serial",
                                             [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QObject * {
     Q_UNUSED(engine)
@@ -25,7 +36,6 @@ int main(int argc, char *argv[])
     return new SerialManager();
     });
 
-    engine.load(url);
-
-    return app.exec();
+    qmlRegisterType<SerialNodeConnector>("stm32.SerialManager", 1, 0, "SerialConnector");
+    qmlRegisterUncreatableType<Stm32SupportedOperations>("stm32.SerialManager", 1, 0, "Stm32SupportedOperations", "Cannot instantiate an enum");
 }

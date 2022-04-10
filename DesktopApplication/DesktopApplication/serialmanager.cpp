@@ -5,6 +5,8 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QDebug>
 
+#include <algorithm>
+
 SerialManager::SerialManager(QObject *parent)
     : QObject{parent}
 {
@@ -25,11 +27,21 @@ QVariantList SerialManager::getSerials()
         )));
     }
 
+    std::sort(std::begin(list), std::end(list), [](const QVariant &lhs, const QVariant &rhs) {
+       return lhs.value<SerialInfo*>()->name()
+               .compare(rhs.value<SerialInfo*>()->name()) < 0;
+    });
+
     return QVariantList::fromVector(list);
 }
 
 void SerialManager::onSerialSelected(const QString &serialName)
 {
-    qDebug() << "Port " << serialName;
-    emit serialConnectionSelected(1, serialName);
+    auto index = serialInstances.contains(serialName)
+            ? serialInstances.value(serialName)
+            : serialInstances.count();
+
+    serialInstances[serialName] = index;
+    qDebug() << "Port " << serialName << " at index: " << index;
+    emit serialConnectionSelected(index, serialName);
 }

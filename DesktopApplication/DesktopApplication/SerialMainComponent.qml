@@ -12,18 +12,22 @@ Rectangle {
     Column {
         anchors.fill: parent
         Rectangle {
+            id: tabArea
             width: parent.width
             height: parent.height * 0.4
             StackLayout {
                 y: tabs.height + 1
                 width: parent.width
+                height: parent.height
                 currentIndex: tabs.currentIndex
-                Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
+                SerialGetAddressArea {
                     id: tabAddress
-                    Label {
-                    text: "Get Node Address"
-                    }
+                    onClicked: serial.runCommand(operation)
                 }
+
                 Item {
                     id: tabCalibrate
                 }
@@ -46,7 +50,6 @@ Rectangle {
                     text: qsTr("Packet Error Rate")
                 }
             }
-
         }
 
         ScrollView {
@@ -55,16 +58,31 @@ Rectangle {
 
             TextArea {
                 id: logTextArea
+                font.family: "Courier"
+                font.pointSize: 8
+                readOnly: true
+                selectByMouse: true
+                selectByKeyboard: true
+                padding: 5
+                color: "#55FF55"
                 background: Rectangle {
                     anchors.fill: parent
                     color: "black"
                 }
-                color: "#55FF55"
-                font.family: "Courier"
-                readOnly: true
+
                 text: "Log area..."
-                padding: 4
             }
         }
+    }
+
+    SerialConnector {
+        id : serial
+        onLogLineReceived: logTextArea.append(line)
+    }
+
+
+    Component.onCompleted: {
+        logTextArea.clear()
+        serial.open(serialName)
     }
 }

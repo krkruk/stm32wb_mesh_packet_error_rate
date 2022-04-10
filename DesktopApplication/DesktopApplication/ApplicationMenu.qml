@@ -8,8 +8,7 @@ Item {
     function toggleDrawer() {
         if (drawer.visible) {
             drawer.close()
-        }
-        else {
+        } else {
             drawer.open()
         }
     }
@@ -22,7 +21,6 @@ Item {
             drawerModel.append(serials[i])
         }
     }
-
 
     Drawer {
         id: drawer
@@ -47,13 +45,6 @@ Item {
                 text: "Quit"
                 onClicked: Qt.quit()
             }
-        }
-    }
-
-    Connections {
-        target: Serial
-        onSerialConnectionSelected: {
-            swipeView.insertItem(index, swipeView.createPage(serialName))
         }
     }
 }

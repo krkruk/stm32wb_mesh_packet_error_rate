@@ -3,11 +3,14 @@
 
 #include <QObject>
 #include <QVariantList>
+#include <QHash>
 #include "serialinfo.h"
 
 class SerialManager : public QObject
 {
     Q_OBJECT
+
+    QHash<QString, int> serialInstances;
 public:
     explicit SerialManager(QObject *parent = nullptr);
 
