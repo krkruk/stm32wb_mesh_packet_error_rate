@@ -7,11 +7,13 @@ ToolBar {
     id: toolbar
     property string title: "Hello world!"
 
+    signal clicked()
+
     RoundButton {
         id: drawerButton
         text: "\u2630 Serials"
         radius: header.height * 0.5
-        onClicked: drawer.visible ? drawer.close() : drawer.open()
+        onClicked: toolbar.clicked()
     }
 
     Label {

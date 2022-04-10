@@ -5,21 +5,21 @@ import stm32.SerialManager 1.0
 
 Rectangle {
     id: delegateButton
-    width: parent.width * 0.9
-    height: 80
+    width: parent.width - 1
+    height: 90
 
     Column {
-        spacing: 4
+//        spacing: 4
         padding: parent.width / 20
         anchors.fill: parent
 
         Text {
-            text: name;
+            text: name
             style: Text.Raised
             font.pixelSize: 18
         }
         Text {
-            text: vendorIdentifier + ":" + productIdentifier
+            text: "Vendor:Product=" + vendorIdentifier + ":" + productIdentifier
             x: parent.width / 10
         }
         Text {

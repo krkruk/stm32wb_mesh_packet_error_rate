@@ -62,7 +62,7 @@ Rectangle {
                 color: "#55FF55"
                 font.family: "Courier"
                 readOnly: true
-                text: "hello World!"
+                text: "Log area..."
                 padding: 4
             }
         }
