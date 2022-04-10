@@ -29,7 +29,8 @@ void GetAddressCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t 
 //            % " " % opcode
 //            % " " % boardTypeCmd
 //            % "\n";
-    QString cmd("ATCL 0004 8203 0100\n");
+//    QString cmd("ATCL 0004 8203 0100\n");
+    QString cmd("ATAP SET-06 04008000 0000 0000\r\n");  //\r\n is mandatory!!!
     write(cmd.toLocal8Bit());
 }
 

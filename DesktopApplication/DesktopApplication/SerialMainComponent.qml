@@ -71,6 +71,7 @@ Rectangle {
                 }
 
                 text: "Log area..."
+                wrapMode: TextEdit.WordWrap
             }
         }
     }

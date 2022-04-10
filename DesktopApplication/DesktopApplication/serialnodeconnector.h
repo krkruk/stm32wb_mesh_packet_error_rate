@@ -14,6 +14,7 @@
 class SerialNodeConnector : public QObject
 {
     Q_OBJECT
+    static constexpr int MOCK_TYPING_SPEED_MS = 80;
 
     QScopedPointer<QSerialPort> port;
     long lineCounter;
@@ -27,12 +28,14 @@ public:
 
 
 private:
-    void write(const QByteArray &data);
+    void scheduleWrite(const QByteArray &data);
+    void write(const QChar &data);
     void processLine(const QDateTime &timestamp, const QString &line);
 
 
 signals:
     void logLineReceived(const QString &line);
+    void characterToWriteReceived(const QChar &character);
 
 
 public slots:

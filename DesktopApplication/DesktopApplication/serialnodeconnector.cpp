@@ -1,6 +1,7 @@
 #include "serialnodeconnector.h"
 #include <QDebug>
 #include <QDateTime>
+#include <QTimer>
 
 #include <functional>
 
@@ -23,20 +24,29 @@ SerialNodeConnector::~SerialNodeConnector()
     qDebug() << "Closing " << portName;
 }
 
-void SerialNodeConnector::write(const QByteArray &data)
+void SerialNodeConnector::scheduleWrite(const QByteArray &data)
 {
-    qDebug() << "CMD =" << qPrintable(data);
+    qDebug() << "Following command is to be sent:" << qPrintable(data);
+    // Simulate typing in a standard serial terminal so the STM32WB can keep up...
+    for (int i = 0; i < data.size(); i++) {
+        QTimer::singleShot(i*MOCK_TYPING_SPEED_MS, Qt::CoarseTimer, [&, c=data.at(i)](){ this->write(c);});
+    }
+}
+
+void SerialNodeConnector::write(const QChar &data)
+{
+    qDebug() << "Write QChar =" << data;
 
     if (port) {
-        qint64 result = port->write(data);
-        qDebug() << "Wrote... result=" << result;
+        port->write(QString(data).toLocal8Bit());
         port->flush();
     }
 }
 
 void SerialNodeConnector::processLine(const QDateTime &timestamp, const QString &line)
 {
-
+    Q_UNUSED(timestamp)
+    Q_UNUSED(line)
 }
 
 void SerialNodeConnector::open(const QString &portName)
@@ -71,7 +81,7 @@ void SerialNodeConnector::runCommand(const int &cmd)
     switch (cmd) {
     case Stm32SupportedOperations::GET_ADDRESS: {
         qDebug() << "Getting node address";
-        command.reset(new GetAddressCommand(std::bind(&SerialNodeConnector::write, this, std::placeholders::_1)));
+        command.reset(new GetAddressCommand(std::bind(&SerialNodeConnector::scheduleWrite, this, std::placeholders::_1)));
         command->initialize(0, 0xc000, 0, 0);
         break;
     }
@@ -83,11 +93,11 @@ void SerialNodeConnector::runCommand(const int &cmd)
 
 void SerialNodeConnector::onReadyReadTriggered()
 {
-    if (!port && !port->canReadLine()) {
+    if (!port || !port->canReadLine()) {
         return;
     }
 
-    QByteArray rawLine = port->readLine();
+    QByteArray rawLine = port->readLine(1024);
     QString line = QString(rawLine).trimmed();
     ++lineCounter;
     QDateTime now {QDateTime::currentDateTimeUtc()};
