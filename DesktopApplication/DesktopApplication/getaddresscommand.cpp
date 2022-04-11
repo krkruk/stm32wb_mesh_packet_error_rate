@@ -2,13 +2,25 @@
 #include <QDebug>
 #include <QStringBuilder>
 
-GetAddressCommand::GetAddressCommand(std::function<void (QByteArray)> write)
-    : SerialCommand{}, write{write}
+GetAddressCommand::GetAddressCommand(QObject *parent, std::function<void (QByteArray)> write)
+    : SerialCommand{parent}, write{write}, dataExtractRegex{".*\\=\\[([a-fA-F0-9]{0,8})\\]"}
 {
 }
 
 GetAddressCommand::~GetAddressCommand()
 {
+}
+
+std::unique_ptr<SerialCommand> GetAddressCommand::create(std::function<void (QByteArray)> write, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout)
+{
+    return std::unique_ptr<SerialCommand>(create(nullptr, write, srcAddr, dstAddr, intervalMs, timeout));
+}
+
+SerialCommand *GetAddressCommand::create(QObject *parent, std::function<void (QByteArray)> write, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout)
+{
+    SerialCommand *cmd = new GetAddressCommand(parent, write);
+    cmd->initialize(srcAddr, dstAddr, intervalMs, timeout);
+    return cmd;
 }
 
 
@@ -23,22 +35,35 @@ void GetAddressCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t 
     const QString opcode = QString("%1").arg(0x2, 4, 16, QChar('0'));
     const QString boardTypeCmd = "01";
 
-//    QString cmd =
-//            "ATVR "
-//            % address
-//            % " " % opcode
-//            % " " % boardTypeCmd
-//            % "\n";
-//    QString cmd("ATCL 0004 8203 0100\n");
-    QString cmd("ATAP SET-06 04008000 0000 0000\r\n");  //\r\n is mandatory!!!
+    const QString cmd =
+            "ATVR "
+            % address
+            % " " % opcode
+            % " " % boardTypeCmd
+            % "\r\n";
+
+    SerialCommand::initialize(srcAddr, dstAddr, intervalMs, timeout);
     write(cmd.toLocal8Bit());
 }
 
 void GetAddressCommand::iterate(const QDateTime &timestamp, const QString &data)
 {
-}
+    Q_UNUSED(timestamp)
+    /*
+     * Retrieve the following line and extract the address:
+     *   Vendor_OnResponseDataCb: elementIndex=[00], peer_addr=[c000], dst_peer_addr=[03], command=[02], Response=[00]
+     *
+     *   address can be found under dst_peer_addr (in hexadecimal)
+     */
+    if (data.startsWith("Vendor_OnResponseDataCb")) {
+        const QStringList tokenized {data.split(", ")};
+        const QString resultColumn = tokenized.at(DATA_COLUMN);
 
-bool GetAddressCommand::isComplete() const
-{
-    return false;
+        const QRegularExpressionMatch match {dataExtractRegex.match(resultColumn)};
+        if (match.isValid()) {
+            const QString nodeAddress = match.captured(1);
+            emit resultReceived(nodeAddress);
+            cancelTimeout();
+        }
+    }
 }

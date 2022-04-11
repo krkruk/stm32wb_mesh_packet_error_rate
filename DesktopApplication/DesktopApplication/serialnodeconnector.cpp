@@ -20,8 +20,11 @@ SerialNodeConnector::SerialNodeConnector(const QString &portName, QObject *paren
 
 SerialNodeConnector::~SerialNodeConnector()
 {
-    QString portName = port ? port->portName() : "null";
-    qDebug() << "Closing " << portName;
+    if (port) {
+        QString portName = port->portName();
+        port->flush();
+        qDebug() << "Closing " << portName;
+    }
 }
 
 void SerialNodeConnector::scheduleWrite(const QByteArray &data)
@@ -35,8 +38,6 @@ void SerialNodeConnector::scheduleWrite(const QByteArray &data)
 
 void SerialNodeConnector::write(const QChar &data)
 {
-    qDebug() << "Write QChar =" << data;
-
     if (port) {
         port->write(QString(data).toLocal8Bit());
         port->flush();
@@ -45,8 +46,9 @@ void SerialNodeConnector::write(const QChar &data)
 
 void SerialNodeConnector::processLine(const QDateTime &timestamp, const QString &line)
 {
-    Q_UNUSED(timestamp)
-    Q_UNUSED(line)
+    if (command) {
+        command->iterate(timestamp, line);
+    }
 }
 
 void SerialNodeConnector::open(const QString &portName)
@@ -63,7 +65,6 @@ void SerialNodeConnector::open(const QString &portName)
     port->setStopBits(QSerialPort::OneStop);
 
     connect(port.get(), &QSerialPort::readyRead, this, &SerialNodeConnector::onReadyReadTriggered);
-    connect(port.get(), &QSerialPort::bytesWritten, this, &SerialNodeConnector::handleBytesWritten);
 
     connect(port.get(), &QSerialPort::errorOccurred, this, [](QSerialPort::SerialPortError error) {
         if (error != QSerialPort::NoError) {
@@ -71,8 +72,8 @@ void SerialNodeConnector::open(const QString &portName)
         }
     });
 
-    if (!port->open(QIODevice::ReadWrite)) {
-        qDebug() << "Cannot connect..." << port->errorString();
+    if (port->open(QIODevice::ReadWrite)) {
+        port->sendBreak();      // restart the device once connected
     }
 }
 
@@ -81,14 +82,35 @@ void SerialNodeConnector::runCommand(const int &cmd)
     switch (cmd) {
     case Stm32SupportedOperations::GET_ADDRESS: {
         qDebug() << "Getting node address";
-        command.reset(new GetAddressCommand(std::bind(&SerialNodeConnector::scheduleWrite, this, std::placeholders::_1)));
-        command->initialize(0, 0xc000, 0, 0);
+        command = GetAddressCommand::create(
+                    std::bind(&SerialNodeConnector::scheduleWrite, this, std::placeholders::_1),
+                    0, 0xc000, 0, 0);
         break;
     }
     case Stm32SupportedOperations::UNKNOWN:
     default:
         qDebug() << "Unrecognized command";
     }
+
+    if (command) {
+        qDebug() << "Connecting command slots/signals";
+        connect(command.get(), &SerialCommand::timeout, this, &SerialNodeConnector::onQueryTimeout);
+        connect(command.get(), &SerialCommand::resultReceived, this, &SerialNodeConnector::onQueryResultReceived);
+        emit runningQuery();
+    }
+}
+
+void SerialNodeConnector::onQueryTimeout()
+{
+    qDebug() << "Query timeout";
+    command.reset();
+    emit timeout();
+}
+
+void SerialNodeConnector::onQueryResultReceived(const QVariant &result)
+{
+    emit resultReceived(command->identifier(), result);
+    command.reset();
 }
 
 void SerialNodeConnector::onReadyReadTriggered()
@@ -107,9 +129,4 @@ void SerialNodeConnector::onReadyReadTriggered()
     emit logLineReceived(processedline);
 
     processLine(now, line);
-}
-
-void SerialNodeConnector::handleBytesWritten(qint64 bytes)
-{
-    qDebug() << "Bytes written" <<bytes;
 }

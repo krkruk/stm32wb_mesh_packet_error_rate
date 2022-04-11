@@ -8,27 +8,42 @@ Item {
     id: areaGetAddress
     width: parent.width
 
+
     property string addressResult
     signal clicked(var operation)
 
 
-    RowLayout {
+    ColumnLayout {
         Layout.fillHeight: true
         Layout.fillWidth: true
         anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
+        Layout.alignment: Qt.AlignCenter
+        width: parent.width
+
+        RowLayout {
+            Layout.alignment: Qt.AlignCenter
+
+            Label {
+                id: label
+                text: "Result: "
+                font.pointSize: 14
+            }
+
+            TextField {
+                id: addressTextField
+                font.pointSize: label.font.pixelSize * 1.2
+                horizontalAlignment: Qt.AlignRight
+                placeholderText: "...result"
+            }
+        }
 
         Button {
             id: buttonGetAddress
             text: "Get Node Address"
+            Layout.alignment: Qt.AlignCenter
             onClicked: areaGetAddress.clicked(Stm32SupportedOperations.GET_ADDRESS)
         }
 
-        TextField {
-            id: addressTextField
-            width: areaGetAddress.width
-            placeholderText: "Result..."
-        }
     }
 
     onAddressResultChanged: addressTextField.text = addressResult

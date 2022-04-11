@@ -66,7 +66,6 @@ Rectangle {
                 padding: 5
                 color: "#55FF55"
                 background: Rectangle {
-                    anchors.fill: parent
                     color: "black"
                 }
 
@@ -79,8 +78,41 @@ Rectangle {
     SerialConnector {
         id : serial
         onLogLineReceived: logTextArea.append(line)
+        onRunningQuery: {
+            console.log("Running query...")
+            progressPopup.open()
+        }
+        onTimeout: {
+            console.log("Closing popup")
+            progressPopup.close()
+        }
+
+        onResultReceived: {
+            progressPopup.close()
+            console.log("Received a result to be presented in UI [" + result + "] operation id [" + id + "]")
+
+            switch (id) {
+               case Stm32SupportedOperations.GET_ADDRESS: {
+                   tabAddress.addressResult = result
+                   break;
+               }
+               default: {
+                   console.log("Unknown operation")
+                   break;
+               }
+            }
+        }
     }
 
+    Popup {
+        id: progressPopup
+        modal: true
+        closePolicy: Popup.NoAutoClose
+        anchors.centerIn: Overlay.overlay
+        z: 99
+
+        BusyIndicator { }
+    }
 
     Component.onCompleted: {
         logTextArea.clear()
