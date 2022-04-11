@@ -7,6 +7,7 @@ QT += quick
 CONFIG += c++14
 
 SOURCES += \
+        SerialCommand.cpp \
         calibratecommand.cpp \
         getaddresscommand.cpp \
         linemessagedispatcher.cpp \

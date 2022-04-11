@@ -3,6 +3,8 @@
 #include <QObject>
 #include <QScopedPointer>
 #include <QTimer>
+#include <QThreadPool>
+#include "linemessagedispatcher.h"
 #include "stm32supportedoperations.h"
 
 class QDateTime;
@@ -10,9 +12,8 @@ class QString;
 
 class SerialCommand : public QObject {
     Q_OBJECT
-
-    std::function<void(QByteArray)> writeCallback;
     QScopedPointer<QTimer> timer;
+
 public:
     virtual ~SerialCommand() {};
 
@@ -27,31 +28,19 @@ public:
         Q_UNUSED(timeout)
 
 //        timer->start(300000);   // 5minutes timeout
-        timer->start(10000);   // 5minutes timeout
+        timer->start(10000);   // 10 s timeout
     }
     virtual void iterate(const QDateTime &timestamp, const QString &data) = 0;
 
 
 protected:
-    explicit SerialCommand(std::function<void(QByteArray)> write, QObject *parent = nullptr)
-        : QObject{parent}, writeCallback{write}, timer{new QTimer} {
-        timer->setSingleShot(true);
-        timer->setTimerType(Qt::CoarseTimer);
-        connect(timer.data(), &QTimer::timeout, this, &SerialCommand::timeout);
-    }
-
-    void write(const QByteArray &data) {
-        writeCallback(data);
-    }
-
-    void cancelTimeout() {
-        if (timer) {
-            timer->stop();
-        }
-    }
+    explicit SerialCommand(QObject *parent = nullptr);
+    void write(const QByteArray &data);
+    void cancelTimeout();
 
 
 signals:
+    void writeCharacter(const QChar &character);
     void resultReceived(const QVariant &result);
     void timeout();
     void error();

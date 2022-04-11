@@ -8,8 +8,8 @@ class CalibrateCommand : public SerialCommand
 {
     Q_OBJECT
 public:
-    static std::unique_ptr<SerialCommand> create(std::function<void(QByteArray)> write, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
-    static SerialCommand* create(QObject *parent, std::function<void(QByteArray)> write, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
+    static std::unique_ptr<SerialCommand> create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
+    static SerialCommand* create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
 
     ~CalibrateCommand() override;
 
@@ -20,7 +20,7 @@ public:
     void iterate(const QDateTime &timestamp, const QString &data) override;
 
 protected:
-    explicit CalibrateCommand(std::function<void(QByteArray)> write, QObject *parent);
+    explicit CalibrateCommand(QObject *parent);
     void initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) override;
 };
 

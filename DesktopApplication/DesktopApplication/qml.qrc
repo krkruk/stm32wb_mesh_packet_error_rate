@@ -6,5 +6,6 @@
         <file>SerialMainComponent.qml</file>
         <file>ApplicationMenu.qml</file>
         <file>SerialGetAddressArea.qml</file>
+        <file>SerialCalibrateArea.qml</file>
     </qresource>
 </RCC>

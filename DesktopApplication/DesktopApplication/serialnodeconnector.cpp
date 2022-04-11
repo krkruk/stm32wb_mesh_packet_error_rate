@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QTimer>
+#include <QJSValue>
 
 #include <functional>
 
@@ -31,13 +32,6 @@ SerialNodeConnector::~SerialNodeConnector()
 
 void SerialNodeConnector::scheduleWrite(const QByteArray &data)
 {
-    // Simulate typing in a standard serial terminal so the STM32WB can keep up...
-    if (port) {
-        port->clear();
-    }
-    LineMessageDispatcher *dispatcher = new LineMessageDispatcher(data);
-    connect(dispatcher, &LineMessageDispatcher::writeCharacter, this, &SerialNodeConnector::write, Qt::QueuedConnection);
-    QThreadPool::globalInstance()->start(dispatcher);
 }
 
 void SerialNodeConnector::write(const QChar &data)
@@ -86,16 +80,15 @@ void SerialNodeConnector::runCommand(const int &cmd, const QVariant &parameters)
     switch (cmd) {
     case Stm32SupportedOperations::GET_ADDRESS: {
         qDebug() << "Getting node address";
-        command = GetAddressCommand::create(
-                    std::bind(&SerialNodeConnector::scheduleWrite, this, std::placeholders::_1),
-                    0, 0xc000, 0, 0);
+        command = GetAddressCommand::create(0, 0xc000, 0, 0);
         break;
     }
     case Stm32SupportedOperations::CALIBRATE: {
-        qDebug() << "Getting node address";
-        command = CalibrateCommand::create(
-                    std::bind(&SerialNodeConnector::scheduleWrite, this, std::placeholders::_1),
-                    0, 0, 0, 0);
+        QJSValue params {parameters.value<QJSValue>()};
+        uint32_t pingInterval = params.property("pingIntervalMs").toUInt();
+        uint32_t timeout = params.property("timeoutMs").toUInt();
+        qDebug() << "Calibrate. PingInterval=" << pingInterval << " timeout=" << timeout;
+        command = CalibrateCommand::create(0, 0, pingInterval, timeout);
         break;
     }
     case Stm32SupportedOperations::UNKNOWN:
@@ -105,6 +98,7 @@ void SerialNodeConnector::runCommand(const int &cmd, const QVariant &parameters)
 
     if (command) {
         qDebug() << "Connecting command slots/signals";
+        connect(command.get(), &SerialCommand::writeCharacter, this, &SerialNodeConnector::write);
         connect(command.get(), &SerialCommand::timeout, this, &SerialNodeConnector::onQueryTimeout);
         connect(command.get(), &SerialCommand::resultReceived, this, &SerialNodeConnector::onQueryResultReceived);
         connect(command.get(), &SerialCommand::error, this, &SerialNodeConnector::onQueryError);

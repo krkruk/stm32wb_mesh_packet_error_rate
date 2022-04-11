@@ -2,8 +2,8 @@
 #include <QDebug>
 #include <QStringBuilder>
 
-GetAddressCommand::GetAddressCommand(QObject *parent, std::function<void (QByteArray)> write)
-    : SerialCommand{write, parent}, dataExtractRegex{".*\\=\\[([a-fA-F0-9]{0,8})\\]"}
+GetAddressCommand::GetAddressCommand(QObject *parent)
+    : SerialCommand{parent}, dataExtractRegex{".*\\=\\[([a-fA-F0-9]{0,8})\\]"}
 {
 }
 
@@ -11,14 +11,14 @@ GetAddressCommand::~GetAddressCommand()
 {
 }
 
-std::unique_ptr<SerialCommand> GetAddressCommand::create(std::function<void (QByteArray)> write, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout)
+std::unique_ptr<SerialCommand> GetAddressCommand::create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout)
 {
-    return std::unique_ptr<SerialCommand>(create(nullptr, write, srcAddr, dstAddr, intervalMs, timeout));
+    return std::unique_ptr<SerialCommand>(create(nullptr, srcAddr, dstAddr, intervalMs, timeout));
 }
 
-SerialCommand *GetAddressCommand::create(QObject *parent, std::function<void (QByteArray)> write, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout)
+SerialCommand *GetAddressCommand::create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout)
 {
-    SerialCommand *cmd = new GetAddressCommand(parent, write);
+    SerialCommand *cmd = new GetAddressCommand(parent);
     cmd->initialize(srcAddr, dstAddr, intervalMs, timeout);
     return cmd;
 }

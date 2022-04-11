@@ -19,13 +19,13 @@ public:
     void initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) override;
 
     ~GetAddressCommand() override;
-    static std::unique_ptr<SerialCommand> create(std::function<void(QByteArray)> write, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
-    static SerialCommand* create(QObject *parent, std::function<void(QByteArray)> write, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
+    static std::unique_ptr<SerialCommand> create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
+    static SerialCommand* create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
 
     void iterate(const QDateTime &timestamp, const QString &data) override;
 
 protected:
-    GetAddressCommand(QObject *parent, std::function<void(QByteArray)> write);
+    explicit GetAddressCommand(QObject *parent);
 };
 
 #endif // GETADDRESSCOMMAND_H

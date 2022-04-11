@@ -28,8 +28,16 @@ Rectangle {
                     onClicked: serial.runCommand(operation, null)
                 }
 
-                Item {
+                SerialCalibrateArea {
                     id: tabCalibrate
+                    onClicked: {
+                        serial.runCommand(operation, {
+                                              "pingIntervalMs": pingMs,
+                                              "timeoutMs": timeout
+                                          })
+                        console.log("Operation=" + operation + " pingMs="
+                                    + pingMs + " timeout=" + timeout)
+                    }
                 }
                 Item {
                     id: tabPacketErrorRate
@@ -76,7 +84,7 @@ Rectangle {
     }
 
     SerialConnector {
-        id : serial
+        id: serial
         onLogLineReceived: logTextArea.append(line)
         onRunningQuery: {
             console.log("Running query...")
@@ -89,17 +97,20 @@ Rectangle {
 
         onResultReceived: {
             progressPopup.close()
-            console.log("Received a result to be presented in UI [" + result + "] operation id [" + id + "]")
+            console.log("Received a result to be presented in UI [" + result
+                        + "] operation id [" + id + "]")
 
             switch (id) {
-               case Stm32SupportedOperations.GET_ADDRESS: {
-                   tabAddress.addressResult = result
-                   break;
-               }
-               default: {
-                   console.log("Unknown operation")
-                   break;
-               }
+            case Stm32SupportedOperations.GET_ADDRESS:
+            {
+                tabAddress.addressResult = result
+                break
+            }
+            default:
+            {
+                console.log("Unknown operation")
+                break
+            }
             }
         }
 
@@ -113,7 +124,7 @@ Rectangle {
         anchors.centerIn: Overlay.overlay
         z: 99
 
-        BusyIndicator { }
+        BusyIndicator {}
     }
 
     Component.onCompleted: {
