@@ -3,7 +3,7 @@
 #include <QStringBuilder>
 
 GetAddressCommand::GetAddressCommand(QObject *parent, std::function<void (QByteArray)> write)
-    : SerialCommand{parent}, write{write}, dataExtractRegex{".*\\=\\[([a-fA-F0-9]{0,8})\\]"}
+    : SerialCommand{write, parent}, dataExtractRegex{".*\\=\\[([a-fA-F0-9]{0,8})\\]"}
 {
 }
 
@@ -39,8 +39,7 @@ void GetAddressCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t 
             "ATVR "
             % address
             % " " % opcode
-            % " " % boardTypeCmd
-            % "\r\n";
+            % " " % boardTypeCmd;
 
     SerialCommand::initialize(srcAddr, dstAddr, intervalMs, timeout);
     write(cmd.toLocal8Bit());
@@ -65,5 +64,8 @@ void GetAddressCommand::iterate(const QDateTime &timestamp, const QString &data)
             emit resultReceived(nodeAddress);
             cancelTimeout();
         }
+    }
+    else if (data.startsWith("Not Entered valid test parameters")) {
+        emit error();
     }
 }

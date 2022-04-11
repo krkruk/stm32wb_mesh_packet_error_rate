@@ -11,6 +11,7 @@ class QString;
 class SerialCommand : public QObject {
     Q_OBJECT
 
+    std::function<void(QByteArray)> writeCallback;
     QScopedPointer<QTimer> timer;
 public:
     virtual ~SerialCommand() {};
@@ -32,10 +33,15 @@ public:
 
 
 protected:
-    explicit SerialCommand(QObject *parent = nullptr) : QObject{parent}, timer{new QTimer} {
+    explicit SerialCommand(std::function<void(QByteArray)> write, QObject *parent = nullptr)
+        : QObject{parent}, writeCallback{write}, timer{new QTimer} {
         timer->setSingleShot(true);
         timer->setTimerType(Qt::CoarseTimer);
         connect(timer.data(), &QTimer::timeout, this, &SerialCommand::timeout);
+    }
+
+    void write(const QByteArray &data) {
+        writeCallback(data);
     }
 
     void cancelTimeout() {
@@ -48,6 +54,7 @@ protected:
 signals:
     void resultReceived(const QVariant &result);
     void timeout();
+    void error();
 };
 
 #endif // SERIALCOMMAND_H

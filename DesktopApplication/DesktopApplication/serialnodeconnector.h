@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QScopedPointer>
 #include <QtSerialPort>
+#include <QThreadPool>
 
 #include <memory>
 
@@ -14,7 +15,6 @@
 class SerialNodeConnector : public QObject
 {
     Q_OBJECT
-    static constexpr int MOCK_TYPING_SPEED_MS = 100;
 
     QScopedPointer<QSerialPort> port;
     long lineCounter;
@@ -29,7 +29,6 @@ public:
 
 private:
     void scheduleWrite(const QByteArray &data);
-    void write(const QChar &data);
     void processLine(const QDateTime &timestamp, const QString &line);
 
 
@@ -40,16 +39,19 @@ signals:
     void runningQuery();
     void resultReceived(int id, const QVariant &result);
     void timeout();
+    void error();
 
 
 public slots:
     void open(const QString &portName);
-    void runCommand(const int &cmd);
+    void runCommand(const int &cmd, const QVariant &parameters);
+    void write(const QChar &data);
 
 
 private slots:
     void onQueryTimeout();
     void onQueryResultReceived(const QVariant &result);
+    void onQueryError();
     void onReadyReadTriggered();
 };
 

@@ -34,6 +34,8 @@ Item {
                 font.pointSize: label.font.pixelSize * 1.2
                 horizontalAlignment: Qt.AlignRight
                 placeholderText: "...result"
+                readOnly: true
+                selectByMouse: true
             }
         }
 

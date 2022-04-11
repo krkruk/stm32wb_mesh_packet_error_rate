@@ -6,6 +6,8 @@
 #include <functional>
 
 #include "getaddresscommand.h"
+#include "calibratecommand.h"
+#include "linemessagedispatcher.h"
 
 SerialNodeConnector::SerialNodeConnector(QObject *parent) : QObject{parent}, lineCounter{0}
 {
@@ -29,11 +31,13 @@ SerialNodeConnector::~SerialNodeConnector()
 
 void SerialNodeConnector::scheduleWrite(const QByteArray &data)
 {
-    qDebug() << "Following command is to be sent:" << qPrintable(data);
     // Simulate typing in a standard serial terminal so the STM32WB can keep up...
-    for (int i = 0; i < data.size(); i++) {
-        QTimer::singleShot(i*MOCK_TYPING_SPEED_MS, Qt::CoarseTimer, this, [this, c=data.at(i)](){ write(c);});
+    if (port) {
+        port->clear();
     }
+    LineMessageDispatcher *dispatcher = new LineMessageDispatcher(data);
+    connect(dispatcher, &LineMessageDispatcher::writeCharacter, this, &SerialNodeConnector::write, Qt::QueuedConnection);
+    QThreadPool::globalInstance()->start(dispatcher);
 }
 
 void SerialNodeConnector::write(const QChar &data)
@@ -77,7 +81,7 @@ void SerialNodeConnector::open(const QString &portName)
     }
 }
 
-void SerialNodeConnector::runCommand(const int &cmd)
+void SerialNodeConnector::runCommand(const int &cmd, const QVariant &parameters)
 {
     switch (cmd) {
     case Stm32SupportedOperations::GET_ADDRESS: {
@@ -85,6 +89,13 @@ void SerialNodeConnector::runCommand(const int &cmd)
         command = GetAddressCommand::create(
                     std::bind(&SerialNodeConnector::scheduleWrite, this, std::placeholders::_1),
                     0, 0xc000, 0, 0);
+        break;
+    }
+    case Stm32SupportedOperations::CALIBRATE: {
+        qDebug() << "Getting node address";
+        command = CalibrateCommand::create(
+                    std::bind(&SerialNodeConnector::scheduleWrite, this, std::placeholders::_1),
+                    0, 0, 0, 0);
         break;
     }
     case Stm32SupportedOperations::UNKNOWN:
@@ -96,6 +107,7 @@ void SerialNodeConnector::runCommand(const int &cmd)
         qDebug() << "Connecting command slots/signals";
         connect(command.get(), &SerialCommand::timeout, this, &SerialNodeConnector::onQueryTimeout);
         connect(command.get(), &SerialCommand::resultReceived, this, &SerialNodeConnector::onQueryResultReceived);
+        connect(command.get(), &SerialCommand::error, this, &SerialNodeConnector::onQueryError);
         emit runningQuery();
     }
 }
@@ -111,6 +123,12 @@ void SerialNodeConnector::onQueryResultReceived(const QVariant &result)
 {
     emit resultReceived(command->identifier(), result);
     command.reset();
+}
+
+void SerialNodeConnector::onQueryError()
+{
+    command.reset();
+    emit error();
 }
 
 void SerialNodeConnector::onReadyReadTriggered()

@@ -25,7 +25,7 @@ Rectangle {
 
                 SerialGetAddressArea {
                     id: tabAddress
-                    onClicked: serial.runCommand(operation)
+                    onClicked: serial.runCommand(operation, null)
                 }
 
                 Item {
@@ -102,6 +102,8 @@ Rectangle {
                }
             }
         }
+
+        onError: progressPopup.close()
     }
 
     Popup {

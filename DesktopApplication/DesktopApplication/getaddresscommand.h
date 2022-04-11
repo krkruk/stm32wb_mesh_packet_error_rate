@@ -10,8 +10,6 @@ class GetAddressCommand : public SerialCommand
 {
     Q_OBJECT
     static constexpr int DATA_COLUMN = 2;
-    std::function<void(QByteArray)> write;
-
     const QRegularExpression dataExtractRegex;
 public:
     virtual Stm32SupportedOperations::Stm32SupportedOperationsEnums identifier() const override{

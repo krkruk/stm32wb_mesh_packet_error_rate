@@ -7,7 +7,9 @@ QT += quick
 CONFIG += c++14
 
 SOURCES += \
+        calibratecommand.cpp \
         getaddresscommand.cpp \
+        linemessagedispatcher.cpp \
         main.cpp \
         serialinfo.cpp \
         serialmanager.cpp \
@@ -33,7 +35,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     SerialCommand.h \
+    calibratecommand.h \
     getaddresscommand.h \
+    linemessagedispatcher.h \
     serialinfo.h \
     serialmanager.h \
     serialnodeconnector.h \
