@@ -71,7 +71,7 @@ Item {
             Layout.alignment: Qt.AlignCenter
             onClicked: {
                 var pingValue = parseInt(pingTextField.text)
-                var measurementValue = parseInt(measurementTextField.text);
+                var measurementValue = parseInt(measurementTextField.text)
                 if (!pingValue || !measurementValue) {
                     errorPopup.text = "Fields cannot be empty"
                     errorPopup.open()
@@ -80,18 +80,17 @@ Item {
 
                 if (measurementValue < 10000) {
                     errorPopup.text = "'Measurement time' cannot be less than 10,000"
-                   errorPopup.open()
+                    errorPopup.open()
                     return
                 }
                 if (pingValue < 1) {
                     errorPopup.text = "'Ping interval' cannot be less than 1"
-                   errorPopup.open()
+                    errorPopup.open()
                     return
                 }
 
-                areaCalibrate.clicked(
-                           Stm32SupportedOperations.CALIBRATE,
-                           pingTextField.text, measurementValue)
+                areaCalibrate.clicked(Stm32SupportedOperations.CALIBRATE,
+                                      pingTextField.text, measurementValue)
             }
         }
 
@@ -111,7 +110,6 @@ Item {
         }
     }
 
-
     Popup {
         id: errorPopup
         modal: true
@@ -121,13 +119,13 @@ Item {
 
         property string text: "No Error"
 
-    ColumnLayout {
+        ColumnLayout {
             Label {
                 text: errorPopup.text
             }
             Button {
                 text: "OK"
-        Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter
                 onClicked: errorPopup.close()
             }
         }

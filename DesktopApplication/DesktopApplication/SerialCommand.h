@@ -14,7 +14,7 @@ class SerialCommand : public QObject {
     Q_OBJECT
     QScopedPointer<QTimer> timer;
 
-public:
+  public:
     virtual ~SerialCommand() {};
 
     virtual Stm32SupportedOperations::Stm32SupportedOperationsEnums identifier() const {
@@ -27,19 +27,18 @@ public:
         Q_UNUSED(intervalMs)
         Q_UNUSED(timeout)
 
-//        timer->start(300000);   // 5minutes timeout
-        timer->start(90000);   // 10 s timeout
+        timer->start(300000);   // 5minutes timeout
     }
     virtual void iterate(const QDateTime &timestamp, const QString &data) = 0;
 
 
-protected:
+  protected:
     explicit SerialCommand(QObject *parent = nullptr);
     void write(const QByteArray &data);
     void cancelTimeout();
 
 
-signals:
+  signals:
     void writeCharacter(const QChar &character);
     void resultReceived(const QVariant &result);
     void timeout();
