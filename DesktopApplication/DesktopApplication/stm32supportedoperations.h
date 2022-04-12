@@ -5,14 +5,15 @@
 
 class Stm32SupportedOperations {
     Q_GADGET
-public:
+  public:
     enum Stm32SupportedOperationsEnums {
         UNKNOWN,
         GET_ADDRESS,
         CALIBRATE,
-        MEASURE_PER
+        MEASURE_PER,
+        GET_PER_RESULT
     };
-  Q_ENUM(Stm32SupportedOperationsEnums)
+    Q_ENUM(Stm32SupportedOperationsEnums)
 };
 
 #endif // STM32SUPPORTEDOPERATIONS_H

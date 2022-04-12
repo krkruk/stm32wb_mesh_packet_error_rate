@@ -7,5 +7,6 @@
         <file>ApplicationMenu.qml</file>
         <file>SerialGetAddressArea.qml</file>
         <file>SerialCalibrateArea.qml</file>
+        <file>SerialPacketErrorRate.qml</file>
     </qresource>
 </RCC>

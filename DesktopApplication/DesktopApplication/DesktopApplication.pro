@@ -10,8 +10,10 @@ SOURCES += \
         SerialCommand.cpp \
         calibratecommand.cpp \
         getaddresscommand.cpp \
+        getremotepacketerrorrateresultscommand.cpp \
         linemessagedispatcher.cpp \
         main.cpp \
+        runpacketerrorratecommand.cpp \
         serialinfo.cpp \
         serialmanager.cpp \
         serialnodeconnector.cpp
@@ -38,7 +40,9 @@ HEADERS += \
     SerialCommand.h \
     calibratecommand.h \
     getaddresscommand.h \
+    getremotepacketerrorrateresultscommand.h \
     linemessagedispatcher.h \
+    runpacketerrorratecommand.h \
     serialinfo.h \
     serialmanager.h \
     serialnodeconnector.h \

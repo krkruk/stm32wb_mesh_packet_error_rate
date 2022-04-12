@@ -37,8 +37,17 @@ Rectangle {
                                           })
                     }
                 }
-                Item {
+                SerialPacketErrorRate {
                     id: tabPacketErrorRate
+                    onRunPERClicked: {
+                        serial.runCommand(operation, {
+                                              "interval": interval,
+                                              "timeout": timeout
+                                          })
+                    }
+                    onGetPERRemoteResults: {
+                        serial.runCommand(operation, null)
+                    }
                 }
             }
 
@@ -108,6 +117,14 @@ Rectangle {
             {
                 tabCalibrate.ticksPerMillisResult = result
                 break
+            }
+            case Stm32SupportedOperations.MEASURE_PER:
+            {
+                break
+            }
+            case Stm32SupportedOperations.GET_PER_RESULT:
+            {
+                break;
             }
             default:
             {

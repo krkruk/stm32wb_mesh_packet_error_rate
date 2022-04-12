@@ -9,20 +9,18 @@
 #include "getaddresscommand.h"
 #include "calibratecommand.h"
 #include "linemessagedispatcher.h"
+#include "runpacketerrorratecommand.h"
 
-SerialNodeConnector::SerialNodeConnector(QObject *parent) : QObject{parent}, lineCounter{0}
-{
+SerialNodeConnector::SerialNodeConnector(QObject *parent) : QObject{parent}, lineCounter{0} {
     qDebug() << "Created connector";
 }
 
 SerialNodeConnector::SerialNodeConnector(const QString &portName, QObject *parent)
-    : QObject{parent}, port{new QSerialPort(portName)}, lineCounter{0}
-{
+    : QObject{parent}, port{new QSerialPort(portName)}, lineCounter{0} {
 
 }
 
-SerialNodeConnector::~SerialNodeConnector()
-{
+SerialNodeConnector::~SerialNodeConnector() {
     if (port) {
         QString portName = port->portName();
         port->flush();
@@ -30,23 +28,20 @@ SerialNodeConnector::~SerialNodeConnector()
     }
 }
 
-void SerialNodeConnector::write(const QChar &data)
-{
+void SerialNodeConnector::write(const QChar &data) {
     if (port) {
         port->write(QString(data).toLocal8Bit());
         port->flush();
     }
 }
 
-void SerialNodeConnector::processLine(const QDateTime &timestamp, const QString &line)
-{
+void SerialNodeConnector::processLine(const QDateTime &timestamp, const QString &line) {
     if (command) {
         command->iterate(timestamp, line);
     }
 }
 
-void SerialNodeConnector::open(const QString &portName)
-{
+void SerialNodeConnector::open(const QString &portName) {
     qDebug() << "Opening the port " << portName;
     if (!port) {
         port.reset(new QSerialPort);
@@ -71,8 +66,7 @@ void SerialNodeConnector::open(const QString &portName)
     }
 }
 
-void SerialNodeConnector::runCommand(const int &cmd, const QVariant &parameters)
-{
+void SerialNodeConnector::runCommand(const int &cmd, const QVariant &parameters) {
     switch (cmd) {
     case Stm32SupportedOperations::GET_ADDRESS: {
         qDebug() << "Getting node address";
@@ -81,11 +75,24 @@ void SerialNodeConnector::runCommand(const int &cmd, const QVariant &parameters)
     }
     case Stm32SupportedOperations::CALIBRATE: {
         QJSValue params {parameters.value<QJSValue>()};
-        uint32_t pingInterval = params.property("pingIntervalMs").toUInt();
-        uint32_t timeout = params.property("timeoutMs").toUInt();
-        qDebug() << "Calibrate. PingInterval=" << pingInterval << " timeout=" << timeout;
-        command = CalibrateCommand::create(0, 0, pingInterval, timeout);
+        uint32_t intervalTicks = params.property("pingIntervalMs").toUInt();
+        uint32_t timeoutTicks = params.property("timeoutMs").toUInt();
+        qDebug() << "Calibrate. PingInterval=" << intervalTicks << " timeout=" << timeoutTicks;
+        command = CalibrateCommand::create(0, 0, intervalTicks, timeoutTicks);
         break;
+    }
+    case Stm32SupportedOperations::MEASURE_PER: {
+        QJSValue params {parameters.value<QJSValue>()};
+        uint32_t intervalTicks = params.property("interval").toUInt();
+        uint32_t timeoutTicks = params.property("timeout").toUInt();
+//        uint16_t srcAddress = params.property("srcAddress").toUInt(); // to be implemented
+//        uint16_t dstAddress = params.property("dstAddress").toUInt();
+        qDebug() << "Run PER Experiment. intervalTicks=" << intervalTicks << " timeoutTicks=" << timeoutTicks;
+        command = RunPacketErrorRateCommand::create(0x3, 0x4, intervalTicks, timeoutTicks);
+        break;
+    }
+    case Stm32SupportedOperations::GET_PER_RESULT: {
+        qDebug() << "Not supported yet GET_PER_RESULT";
     }
     case Stm32SupportedOperations::UNKNOWN:
     default:
@@ -102,27 +109,23 @@ void SerialNodeConnector::runCommand(const int &cmd, const QVariant &parameters)
     }
 }
 
-void SerialNodeConnector::onQueryTimeout()
-{
+void SerialNodeConnector::onQueryTimeout() {
     qDebug() << "Query timeout";
     command.reset();
     emit timeout();
 }
 
-void SerialNodeConnector::onQueryResultReceived(const QVariant &result)
-{
+void SerialNodeConnector::onQueryResultReceived(const QVariant &result) {
     emit resultReceived(command->identifier(), result);
     command.reset();
 }
 
-void SerialNodeConnector::onQueryError()
-{
+void SerialNodeConnector::onQueryError() {
     command.reset();
     emit error();
 }
 
-void SerialNodeConnector::onReadyReadTriggered()
-{
+void SerialNodeConnector::onReadyReadTriggered() {
     if (!port || !port->canReadLine()) {
         return;
     }
@@ -132,8 +135,8 @@ void SerialNodeConnector::onReadyReadTriggered()
     ++lineCounter;
     QDateTime now {QDateTime::currentDateTimeUtc()};
     QString processedline = QString("[%1,%2]: %3")
-            .arg(lineCounter, 12, 10, QChar('0'))
-            .arg(now.toString(Qt::ISODateWithMs), line);
+                            .arg(lineCounter, 12, 10, QChar('0'))
+                            .arg(now.toString(Qt::ISODateWithMs), line);
     emit logLineReceived(processedline);
 
     processLine(now, line);
