@@ -28,7 +28,6 @@ public:
 
 
 private:
-    void scheduleWrite(const QByteArray &data);
     void processLine(const QDateTime &timestamp, const QString &line);
 
 

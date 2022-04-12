@@ -30,10 +30,6 @@ SerialNodeConnector::~SerialNodeConnector()
     }
 }
 
-void SerialNodeConnector::scheduleWrite(const QByteArray &data)
-{
-}
-
 void SerialNodeConnector::write(const QChar &data)
 {
     if (port) {

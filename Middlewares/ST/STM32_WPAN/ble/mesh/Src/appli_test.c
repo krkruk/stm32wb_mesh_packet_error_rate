@@ -112,7 +112,7 @@ void kill_subscription() {
 	HW_TS_Delete(meshTest.timer_subscription_id);
 	TRACE_I(TF_SERIAL_CTRL, "Deleted subscription timer = %d \r\n", meshTest.timer_subscription_id);
 	TRACE_I(TF_SERIAL_CTRL,
-			"{\"func\":\"%s\",\"addr\":\"0x%04x\",\"counter\":%u,\"HAL_TickFreq\":%d,\"startTick\":%u,\"stopTick\":%u,\"tick_diff\":%ld}\r\n",
+			"{\"func\":\"%s\",\"addr\":\"%04x\",\"counter\":%u,\"HAL_TickFreq\":%d,\"startTick\":%u,\"stopTick\":%u,\"tick_diff\":%ld}\r\n",
 			meshTest.name,
 			BLEMesh_GetAddress(),
 			meshTest.counter,
@@ -497,6 +497,7 @@ MOBLE_RESULT Test_ApplicationTest_Get05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_AD
 MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst) {
 	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
 	meshTest.name = OP_NAME_SET06;
+	meshTest.counter = 0;
 	run_timer(OP_NAME_SET06, test_generic_subscription, src, dst, test_set06_calibrate_timer);
 	TestNumber = 0; // kill command
 	return result;
@@ -504,7 +505,7 @@ MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_
 
 void test_set06_calibrate_timer() {
 	meshTest.counter++;
-	TRACE_I(TF_SERIAL_CTRL,"%s counter=%ld\r\n", meshTest.name, meshTest.counter);
+	TRACE_I(TF_SERIAL_CTRL,"{\"func\":\"%s\", \"counter\"=%ld}\r\n", meshTest.name, meshTest.counter);
 }
 
 /**
