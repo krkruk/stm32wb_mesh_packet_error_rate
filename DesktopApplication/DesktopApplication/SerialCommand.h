@@ -13,6 +13,7 @@ class QString;
 class SerialCommand : public QObject {
     Q_OBJECT
     QScopedPointer<QTimer> timer;
+    int timeoutMillis {300000};
 
   public:
     virtual ~SerialCommand() {};
@@ -27,10 +28,12 @@ class SerialCommand : public QObject {
         Q_UNUSED(intervalMs)
         Q_UNUSED(timeout)
 
-        timer->start(300000);   // 5minutes timeout
+        timer->start(timeoutMillis);   // 5minutes timeout
     }
     virtual void iterate(const QDateTime &timestamp, const QString &data) = 0;
 
+
+    void setTimeoutMillis(int newTimeoutMillis);
 
   protected:
     explicit SerialCommand(QObject *parent = nullptr);

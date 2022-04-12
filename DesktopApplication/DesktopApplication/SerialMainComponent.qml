@@ -120,10 +120,12 @@ Rectangle {
             }
             case Stm32SupportedOperations.MEASURE_PER:
             {
+                tabPacketErrorRate.localCounter = result
                 break
             }
             case Stm32SupportedOperations.GET_PER_RESULT:
             {
+                tabPacketErrorRate.remoteCounter = result
                 break;
             }
             default:

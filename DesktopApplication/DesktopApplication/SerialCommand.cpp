@@ -1,6 +1,11 @@
 #include "SerialCommand.h"
 
 
+void SerialCommand::setTimeoutMillis(int newTimeoutMillis)
+{
+    timeoutMillis = newTimeoutMillis;
+}
+
 SerialCommand::SerialCommand(QObject *parent)
     : QObject{parent}, timer{new QTimer} {
     timer->setSingleShot(true);

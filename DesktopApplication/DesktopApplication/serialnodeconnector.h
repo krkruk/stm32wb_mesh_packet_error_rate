@@ -12,26 +12,28 @@
 #include "stm32supportedoperations.h"
 
 
-class SerialNodeConnector : public QObject
-{
+class SerialNodeConnector : public QObject {
     Q_OBJECT
+    static constexpr int SRC_NODE_ADDRESS = 0x3;
+    static constexpr int DST_NODE_ADDRESS = 0x4;
+
 
     QScopedPointer<QSerialPort> port;
     long lineCounter;
 
     std::unique_ptr<SerialCommand> command;
 
-public:
+  public:
     explicit SerialNodeConnector(QObject *parent = nullptr);
     explicit SerialNodeConnector(const QString &portName, QObject *parent = nullptr);
     ~SerialNodeConnector();
 
 
-private:
+  private:
     void processLine(const QDateTime &timestamp, const QString &line);
 
 
-signals:
+  signals:
     void logLineReceived(const QString &line);
     void characterToWriteReceived(const QChar &character);
 
@@ -41,13 +43,13 @@ signals:
     void error();
 
 
-public slots:
+  public slots:
     void open(const QString &portName);
     void runCommand(const int &cmd, const QVariant &parameters);
     void write(const QChar &data);
 
 
-private slots:
+  private slots:
     void onQueryTimeout();
     void onQueryResultReceived(const QVariant &result);
     void onQueryError();

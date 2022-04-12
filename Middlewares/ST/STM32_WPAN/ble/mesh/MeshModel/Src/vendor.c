@@ -540,12 +540,7 @@ MOBLE_RESULT Vendor_OnResponseDataCb(MODEL_MessageHeader_t *pmsgParam,
     	meshCounter |=(MOBLEUINT32)( pRxData[2] << 8);
     	meshCounter |=(MOBLEUINT32)( pRxData[1]);
 
-        for (MOBLEUINT8 idx=0; idx<dataLength; idx++)
-        {
-          TRACE_I(TF_VENDOR_M,"data[%d]= 0x%x",idx,pRxData[idx]);
-          TRACE_I(TF_VENDOR_M,"\n\r");
-        }
-        TRACE_I(TF_VENDOR_M, "{\"func\":\"%s\",\"addr\":\"0x%04x\",\"counter\":%ld,\"peer\":%02x}\r\n",
+        TRACE_I(TF_VENDOR_M, "{\"func\":\"%s\",\"addr\":\"0x%04x\",\"counter\":%ld,\"peer\":\"%02x\"}\r\n",
         		OP_NAME_GET05, remoteNodeAddress, meshCounter, pmsgParam->peer_addr);
         break;
     }

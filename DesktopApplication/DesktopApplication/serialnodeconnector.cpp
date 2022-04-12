@@ -10,6 +10,8 @@
 #include "calibratecommand.h"
 #include "linemessagedispatcher.h"
 #include "runpacketerrorratecommand.h"
+#include "getremotepacketerrorrateresultscommand.h"
+
 
 SerialNodeConnector::SerialNodeConnector(QObject *parent) : QObject{parent}, lineCounter{0} {
     qDebug() << "Created connector";
@@ -88,11 +90,13 @@ void SerialNodeConnector::runCommand(const int &cmd, const QVariant &parameters)
 //        uint16_t srcAddress = params.property("srcAddress").toUInt(); // to be implemented
 //        uint16_t dstAddress = params.property("dstAddress").toUInt();
         qDebug() << "Run PER Experiment. intervalTicks=" << intervalTicks << " timeoutTicks=" << timeoutTicks;
-        command = RunPacketErrorRateCommand::create(0x3, 0x4, intervalTicks, timeoutTicks);
+        command = RunPacketErrorRateCommand::create(SRC_NODE_ADDRESS, DST_NODE_ADDRESS, intervalTicks, timeoutTicks);
         break;
     }
     case Stm32SupportedOperations::GET_PER_RESULT: {
         qDebug() << "Not supported yet GET_PER_RESULT";
+        command = GetRemotePacketErrorRateResultsCommand::create(SRC_NODE_ADDRESS, DST_NODE_ADDRESS, 0, 0);
+        break;
     }
     case Stm32SupportedOperations::UNKNOWN:
     default:
