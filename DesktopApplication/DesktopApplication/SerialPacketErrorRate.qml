@@ -7,8 +7,8 @@ Item {
     id: perArea
     width: parent.width
 
-    property var localCounter
-    property var remoteCounter
+    property var localCounter: null
+    property var remoteCounter: null
 
     signal runPERClicked(var operation, int interval, int timeout)
     signal getPERRemoteResults(var operation)
@@ -88,6 +88,7 @@ Item {
                 font.pointSize: labelLocalCount.font.pixelSize * 1.2
                 horizontalAlignment: Qt.AlignRight
                 placeholderText: "...result"
+                text: localCounter
                 selectByMouse: true
                 focus: true
             }

@@ -78,6 +78,7 @@ void CalibrateCommand::iterate(const QDateTime &timestamp, const QString &data) 
         }
 
         settings.setValue(QString("millis.to.ticks.%1").arg(expectedInterval), currentInterval);
+        settings.sync();
         emit resultReceived(currentInterval);
     }
 }

@@ -130,16 +130,16 @@ void SerialNodeConnector::onQueryError() {
 }
 
 void SerialNodeConnector::onReadyReadTriggered() {
-    if (!port || !port->canReadLine()) {
+    if (!(port && port->canReadLine())) {
         return;
     }
 
-    QByteArray rawLine = port->readLine(1024);
+    QByteArray rawLine = port->readLine();
     QString line = QString(rawLine).trimmed();
     ++lineCounter;
     QDateTime now {QDateTime::currentDateTimeUtc()};
     QString processedline = QString("[%1,%2]: %3")
-                            .arg(lineCounter, 12, 10, QChar('0'))
+                            .arg(lineCounter, 10, 10, QChar('0'))
                             .arg(now.toString(Qt::ISODateWithMs), line);
     emit logLineReceived(processedline);
 
