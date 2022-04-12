@@ -28,7 +28,7 @@ public:
         Q_UNUSED(timeout)
 
 //        timer->start(300000);   // 5minutes timeout
-        timer->start(10000);   // 10 s timeout
+        timer->start(90000);   // 10 s timeout
     }
     virtual void iterate(const QDateTime &timestamp, const QString &data) = 0;
 

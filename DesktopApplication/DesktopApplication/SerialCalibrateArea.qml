@@ -43,7 +43,7 @@ Item {
 
         Label {
             id: labelTimeout
-            text: "Measurement time [ms]: "
+            text: "Measurement time: "
             font.pointSize: 14
         }
 
@@ -61,7 +61,7 @@ Item {
         }
 
         Label {
-            text: "[ms]"
+            text: "[ticks]"
             font.pointSize: 14
         }
 
@@ -69,9 +69,30 @@ Item {
             id: buttonGetCalibrate
             text: "Calibrate"
             Layout.alignment: Qt.AlignCenter
-            onClicked: areaCalibrate.clicked(
+            onClicked: {
+                var pingValue = parseInt(pingTextField.text)
+                var measurementValue = parseInt(measurementTextField.text);
+                if (!pingValue || !measurementValue) {
+                    errorPopup.text = "Fields cannot be empty"
+                    errorPopup.open()
+                    return
+                }
+
+                if (measurementValue < 10000) {
+                    errorPopup.text = "'Measurement time' cannot be less than 10,000"
+                   errorPopup.open()
+                    return
+                }
+                if (pingValue < 1) {
+                    errorPopup.text = "'Ping interval' cannot be less than 1"
+                   errorPopup.open()
+                    return
+                }
+
+                areaCalibrate.clicked(
                            Stm32SupportedOperations.CALIBRATE,
-                           pingTextField.text, measurementTextField.text)
+                           pingTextField.text, measurementValue)
+            }
         }
 
         TextField {
@@ -85,8 +106,30 @@ Item {
 
         Label {
             id: ticksPerMillisLabel
-            text: "[ticks/ms]"
+            text: "[ticks/ping interval]"
             font.pointSize: 14
+        }
+    }
+
+
+    Popup {
+        id: errorPopup
+        modal: true
+        closePolicy: Popup.NoAutoClose
+        anchors.centerIn: Overlay.overlay
+        z: 99
+
+        property string text: "No Error"
+
+    ColumnLayout {
+            Label {
+                text: errorPopup.text
+            }
+            Button {
+                text: "OK"
+        Layout.alignment: Qt.AlignHCenter
+                onClicked: errorPopup.close()
+            }
         }
     }
 

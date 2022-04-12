@@ -505,7 +505,7 @@ MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_
 
 void test_set06_calibrate_timer() {
 	meshTest.counter++;
-	TRACE_I(TF_SERIAL_CTRL,"{\"func\":\"%s\", \"counter\"=%ld}\r\n", meshTest.name, meshTest.counter);
+	TRACE_I(TF_SERIAL_CTRL,"{\"func\":\"%s\", \"counter\":%ld, \"status\":\"running\"}\r\n", meshTest.name, meshTest.counter);
 }
 
 /**
