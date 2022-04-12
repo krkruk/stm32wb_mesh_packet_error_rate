@@ -7,6 +7,8 @@
 class CalibrateCommand : public SerialCommand
 {
     Q_OBJECT
+    bool initializationError {false};
+
 public:
     static std::unique_ptr<SerialCommand> create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
     static SerialCommand* create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);

@@ -29,7 +29,11 @@ Item {
             horizontalAlignment: Qt.AlignRight
             placeholderText: "...result"
             selectByMouse: true
-            validator: IntValidator {}
+            focus: true
+            validator: IntValidator {
+                bottom: 1
+                top: 65535
+            }
         }
 
         Label {
@@ -49,7 +53,11 @@ Item {
             horizontalAlignment: Qt.AlignRight
             placeholderText: "...result"
             selectByMouse: true
-            validator: IntValidator {}
+            focus: true
+            validator: IntValidator {
+                bottom: 1
+                top: 65535
+            }
         }
 
         Label {

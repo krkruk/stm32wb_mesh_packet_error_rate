@@ -35,8 +35,6 @@ Rectangle {
                                               "pingIntervalMs": pingMs,
                                               "timeoutMs": timeout
                                           })
-                        console.log("Operation=" + operation + " pingMs="
-                                    + pingMs + " timeout=" + timeout)
                     }
                 }
                 Item {
@@ -104,6 +102,11 @@ Rectangle {
             case Stm32SupportedOperations.GET_ADDRESS:
             {
                 tabAddress.addressResult = result
+                break
+            }
+            case Stm32SupportedOperations.CALIBRATE:
+            {
+                tabCalibrate.ticksPerMillisResult = result
                 break
             }
             default:
