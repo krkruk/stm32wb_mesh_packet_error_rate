@@ -95,11 +95,16 @@ Rectangle {
                     font.family: "Courier"
                     font.pointSize: 8
                     leftPadding: 5
+
                     color: "#55FF55"
                     wrapMode: Text.WordWrap
                     text: value
                 }
                 ScrollBar.vertical: ScrollBar {
+                    active: true
+                }
+
+                ScrollBar.horizontal: ScrollBar {
                     active: true
                 }
 
