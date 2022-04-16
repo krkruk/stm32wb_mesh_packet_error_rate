@@ -39,12 +39,16 @@ Rectangle {
 
                 SerialGetAddressArea {
                     id: tabAddress
-                    onClicked: serial.runCommand(operation, null)
+                    onClicked: {
+                        logsModel.clear()
+                        serial.runCommand(operation, null)
+                    }
                 }
 
                 SerialCalibrateArea {
                     id: tabCalibrate
                     onClicked: {
+                        logsModel.clear()
                         serial.runCommand(operation, {
                                               "pingIntervalMs": pingMs,
                                               "timeoutMs": timeout
@@ -54,6 +58,7 @@ Rectangle {
                 SerialPacketErrorRate {
                     id: tabPacketErrorRate
                     onRunPERClicked: {
+                        logsModel.clear()
                         serial.runCommand(operation, {
                                               "interval": interval,
                                               "timeout": timeout,
@@ -62,6 +67,7 @@ Rectangle {
                                           })
                     }
                     onGetPERRemoteResults: {
+                        logsModel.clear()
                         serial.runCommand(operation, {
                                               "srcAddress": srcAddress,
                                               "dstAddress": dstAddress
@@ -71,30 +77,37 @@ Rectangle {
             }
         }
 
-        ScrollView {
+        Rectangle {
             height: parent.height * 0.6
             width: parent.width
-
-            TextArea {
-                id: logTextArea
+            color: "black"
+            ListView {
+                id: logsListView
+                anchors.fill: parent
                 clip: true
-                font.family: "Courier"
-                font.pointSize: 8
-                readOnly: true
-                selectByMouse: true
-                selectByKeyboard: true
-                padding: 5
-                color: "#55FF55"
-                background: Rectangle {
-                    color: "black"
+                model: ListModel {
+                    id: logsModel
+                    ListElement {
+                        value: "Log area..."
+                    }
+                }
+                delegate: Text {
+                    font.family: "Courier"
+                    font.pointSize: 8
+                    leftPadding: 5
+                    color: "#55FF55"
+                    wrapMode: Text.WordWrap
+                    text: value
+                }
+                ScrollBar.vertical: ScrollBar {
+                    active: true
                 }
 
-                text: "Log area..."
-                wrapMode: TextEdit.WordWrap
-
                 function appendAndScroll(line) {
-                    logTextArea.append(line)
-                    logTextArea.cursorPosition = logTextArea.length - 1
+                    logsModel.append({
+                                         "value": line
+                                     })
+                    logsListView.currentIndex = logsModel.count - 1
                 }
             }
         }
@@ -102,7 +115,7 @@ Rectangle {
 
     SerialConnector {
         id: serial
-        onLogLineReceived: logTextArea.appendAndScroll(line)
+        onLogLineReceived: logsListView.appendAndScroll(line)
         onRunningQuery: {
             console.log("Running query...")
             progressPopup.open()
@@ -136,7 +149,7 @@ Rectangle {
             case Stm32SupportedOperations.GET_PER_RESULT:
             {
                 tabPacketErrorRate.remoteCounter = result
-                break;
+                break
             }
             default:
             {
@@ -160,7 +173,6 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        logTextArea.clear()
         serial.open(serialName)
     }
 }

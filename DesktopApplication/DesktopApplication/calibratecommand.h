@@ -3,14 +3,16 @@
 #include <QMap>
 #include <QDateTime>
 #include <QSettings>
+#include <QVector>
 
 #include <memory>
+#include <utility>
 
 #include "SerialCommand.h"
 
 class CalibrateCommand : public SerialCommand {
     Q_OBJECT
-    static constexpr const double TICK_TOLERANCE_THRESHOLD = 0.05;
+    static constexpr const double TICK_TOLERANCE_THRESHOLD = 0.01;
     static constexpr const int INTEVAL_BETWEEN_ATTEMPTS_MS = 5000;
     static constexpr const char *const KEY_STATUS = "status";
     static constexpr const char *const KEY_FUNC = "func";
@@ -21,10 +23,10 @@ class CalibrateCommand : public SerialCommand {
     uint16_t expectedInterval {0};
     uint16_t currentInterval {0};
     uint16_t timeout {0};
-    QMap<QString, uint32_t> countsPerSecond;
-    QDateTime startTimestamp;
-    QDateTime finishTimestamp;
     QSettings settings;
+
+    QVector<QDateTime> timestamps;
+    double previousMeanTimestampDiff;
 
   public:
     static std::unique_ptr<SerialCommand> create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout);
@@ -46,6 +48,7 @@ class CalibrateCommand : public SerialCommand {
     QString generateCommand(uint16_t intervalMs, uint32_t timeout);
     void calibrate(uint16_t newIntervalTicks, uint32_t timeout);
     double computeMillisPerCount();
+    std::pair<uint16_t, double> computeNewInterval();
 };
 
 #endif // CALIBRATECOMMAND_H

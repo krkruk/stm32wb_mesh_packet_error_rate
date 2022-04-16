@@ -30,16 +30,17 @@ void CalibrateCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t i
     Q_UNUSED(srcAddr)
     Q_UNUSED(dstAddr)
     /*
-     * COMMAND: ATAP SET-6 iiiiTTTT src dst
+     * COMMAND: ATAP SET-6 iiiiTTTTTT src dst
      *
-     * iiii - interval in ticks
-     * TTTT - stop after TTTT ticks
+     * iiii - interval in ticks - 16 bits
+     * TTTTTT - stop after TTTT ticks - 32 bits
      * src - source, here 0x00 as the command is launched locally
      * dst - dst, here 0x00 as the command is launched locally
      */
     expectedInterval = intervalMs;
+    previousMeanTimestampDiff = expectedInterval;
     this->timeout = timeout;
-    calibrate(intervalMs, timeout);
+    calibrate(intervalMs, timeout); // initialize ticks as expected milliseconds
 }
 
 
@@ -59,21 +60,12 @@ void CalibrateCommand::iterate(const QDateTime &timestamp, const QString &data) 
     QJsonValue tick_diff = doc[KEY_TICK_DIFF];
 
     if (status.toString("not_running").startsWith("running")) {
-        const QString dateBucket = timestamp.toString(Qt::ISODate);
-        if (countsPerSecond.isEmpty()) {
-            startTimestamp = timestamp;
-        }
-        if (countsPerSecond.contains(dateBucket)) {
-            countsPerSecond[dateBucket] = 0;
-        }
-        ++(countsPerSecond[dateBucket]);
+        timestamps.append(timestamp);
     } else if (tick_diff.isDouble()) {
-        double millisPerCountBucketed = computeMillisPerCount();
-        const double percentageDiff = (millisPerCountBucketed - expectedInterval) / expectedInterval;
-        uint16_t newInterval = (1 - percentageDiff) * currentInterval;
-        if (percentageDiff < TICK_TOLERANCE_THRESHOLD && newInterval != currentInterval) { // 5% of difference
-            qDebug() << "Test New tick interval =" << newInterval;
-            QTimer::singleShot(INTEVAL_BETWEEN_ATTEMPTS_MS, Qt::CoarseTimer, this, [newInterval, this]() {
+        auto result = computeNewInterval();
+        if (result.second > TICK_TOLERANCE_THRESHOLD) { // 5% of difference
+            qDebug() << "Test New tick interval =" << result.first;
+            QTimer::singleShot(INTEVAL_BETWEEN_ATTEMPTS_MS, Qt::CoarseTimer, this, [newInterval=result.first, this]() {
                 calibrate(newInterval, timeout);
             });
             return;
@@ -88,7 +80,8 @@ void CalibrateCommand::iterate(const QDateTime &timestamp, const QString &data) 
 QString CalibrateCommand::generateCommand(uint16_t intervalMs, uint32_t timeout) {
     uint64_t timingsCmd = timeout;
     timingsCmd |= static_cast<uint64_t>(intervalMs) << 32;
-
+// 00000000 0000 0000
+// 000000000000 00 00
     const QString hexTimings = QString("%1").arg(timingsCmd, 12, 16, QChar('0'));
     return QString("ATAP SET-06 %1 00 00").arg(hexTimings);
 }
@@ -102,32 +95,34 @@ void CalibrateCommand::calibrate(uint16_t newIntervalTicks, uint32_t timeout) {
     }
 
     currentInterval = newIntervalTicks;
-    countsPerSecond.clear();
+    timestamps.clear();
     QString cmd {generateCommand(newIntervalTicks, timeout)};
     SerialCommand::initialize(0, 0, newIntervalTicks, timeout);
     write(cmd.toLocal8Bit());
 }
 
-double CalibrateCommand::computeMillisPerCount() {
-    // case 1 - average count in bucketed set
-    if (!countsPerSecond.isEmpty()) {
-        countsPerSecond.remove(countsPerSecond.firstKey()); // remove the first and the last case
-    }
-    if (!countsPerSecond.isEmpty()) {
-        countsPerSecond.remove(countsPerSecond.lastKey());
-    }
-    QList<uint32_t> cntValues = countsPerSecond.values();
+std::pair<uint16_t, double> CalibrateCommand::computeNewInterval() {
+    QVector<qint64> timestampDiffs;
+    std::transform(std::cbegin(timestamps), std::cend(timestamps),
+                   std::back_inserter(timestampDiffs),
+                   [] (const QDateTime &timestamp) -> long { return timestamp.toMSecsSinceEpoch(); });
 
-    uint32_t bucketedCountSum = std::accumulate(std::cbegin(cntValues), std::cend(cntValues), 0,
-    [](uint32_t sum, uint32_t elem) {
-        return sum + elem;
-    });
-    double pingsPerMillisecondBucketed = bucketedCountSum / static_cast<double>(countsPerSecond.size()) / 1000.0f;
-    return (1 / pingsPerMillisecondBucketed);
+    std::adjacent_difference(std::begin(timestampDiffs), std::end(timestampDiffs), std::begin(timestampDiffs));
+    timestampDiffs.removeFirst();
 
-    // case 2 - number of ticks ie 200ticks=100ms
-//        finishTimestamp = timestamp;
-//        qint64 timediff = {(finishTimestamp.toMSecsSinceEpoch() - startTimestamp.toMSecsSinceEpoch())};
-//        double pingsPerMillisecond = counter.toDouble() / (1.0f * timediff);
-//        double millisPerCount = 1 / pingsPerMillisecond;
+    qint64 sum = 0;
+    for (qint64 elem : qAsConst(timestampDiffs)) {
+        sum += elem;
+    }
+    double meanTimestampDiff = sum / static_cast<double>(timestampDiffs.size());
+    double accuracy = abs((meanTimestampDiff - expectedInterval) / static_cast<double>(expectedInterval));
+    double change = meanTimestampDiff > previousMeanTimestampDiff
+                    ? -1.2 : 1.2;
+
+    previousMeanTimestampDiff = meanTimestampDiff;
+    double correctionCoeff = accuracy * currentInterval;
+    double interval = currentInterval + change * correctionCoeff;
+
+    qDebug() << "SUM=" << sum << "DIFF = " << meanTimestampDiff << "interval="<< interval << "accuracy=" << accuracy;
+    return std::make_pair(interval, abs(accuracy));
 }
