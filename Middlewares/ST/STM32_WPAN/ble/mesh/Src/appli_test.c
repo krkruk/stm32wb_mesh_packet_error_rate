@@ -141,11 +141,11 @@ void SerialResponse_Process(char *rcvdStringBuff, uint16_t rcvdStringSize)
   TRACE_I(TF_SERIAL_CTRL, "Processing serial response: %s \n\r", rcvdStringBuff);
   
     MOBLEUINT16 commandIndex = SerialResponse_GetFunctionIndex(rcvdStringBuff+5);
-    TRACE_I(TF_SERIAL_CTRL, "CommandIndex: %d \n\r", commandIndex);
+    TRACE_I(TF_SERIAL_CTRL, "CommandIndex=%d, CommandType=%d\n\r", commandIndex, command);
 
     if(commandIndex != 0x00)
     {
-		  sscanf(rcvdStringBuff + CMD_RES_OFFSET + CMD_SET_OFFSET, "%8s %4s %4s ", asciiFunctionParameter, asciiFunctionParameter+8,asciiFunctionParameter+12);   
+		  sscanf(rcvdStringBuff + CMD_RES_OFFSET + CMD_SET_OFFSET, "%8s %4s %4s ", asciiFunctionParameter, asciiFunctionParameter+8,asciiFunctionParameter+12);
 			TRACE_I(TF_SERIAL_CTRL, "asciiFuncParam=%s asciiFuncParam+8=%s\n\r", asciiFunctionParameter, asciiFunctionParameter+8);
 		  /*SerialResponse_doubleHexToHex
 		  Function will convert the asci string into orinal hex format.
@@ -160,14 +160,16 @@ void SerialResponse_Process(char *rcvdStringBuff, uint16_t rcvdStringSize)
 		  */
         if(MOBLE_RESULT_SUCCESS == SerialResponse_doubleHexToHex(asciiFunctionParameter,testFunctionParm,16))
         { 
-			  TestCount = (MOBLEUINT32)(testFunctionParm[0] << 24); 
+			  TestCount = (MOBLEUINT32)(testFunctionParm[0] << 24);
 			  TestCount |= (MOBLEUINT32)(testFunctionParm[1] << 16);
 			  TestCount |= (MOBLEUINT32)(testFunctionParm[2] << 8);
 			  TestCount |= (MOBLEUINT32)(testFunctionParm[3] << 0);
 			  TestNumber = commandIndex;
 			  Totaltest = TestCount;
-			  srcAddress = (MOBLEUINT16)((testFunctionParm[4] << 8) | testFunctionParm[5]);  
+			  srcAddress = (MOBLEUINT16)((testFunctionParm[4] << 8) | testFunctionParm[5]);
 			  destAddress = (MOBLEUINT16)((testFunctionParm[6] << 8) | testFunctionParm[7]);
+			  TRACE_I(TF_SERIAL_CTRL, "TestCount=%d, CommandIndex=%d, CommandType=%d, srcAddr=%04x, dstAddr=%04x\n\r",
+					  TestCount, TestNumber, command, srcAddress, destAddress);
 		}
         else
         {
@@ -407,7 +409,8 @@ MOBLE_RESULT Test_ApplicationTest_Set03(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
         TRACE_I(TF_SERIAL_CTRL,"Publication Error \r\n");
       }
 
-        TestNumber = 0;
+  	TestNumber = 0;
+  	command = CMD_TYPE_NONE;
   
   return MOBLE_RESULT_SUCCESS;
 }
@@ -436,6 +439,7 @@ MOBLE_RESULT Test_ApplicationTest_Set05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_AD
 	}
 
 	TestNumber = 0; // kill command
+	command = CMD_TYPE_NONE;
 	return result;
 }
 
@@ -471,27 +475,25 @@ void test_set05_generic() {
 
 
 MOBLE_RESULT Test_ApplicationTest_Get05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst) {
-	  MOBLEUINT8 readData[2];
-	  MODEL_MessageHeader_t msgParam;
+MOBLEUINT8 readData[2];
+MODEL_MessageHeader_t msgParam;
 
-	  TRACE_I(TF_SERIAL_CTRL, "%s\r\n", OP_NAME_GET05);
-	  msgParam.elementIndex = 0;
-	  msgParam.peer_addr = src;
-	  msgParam.dst_peer = dst;
-	  msgParam.ttl = 0;
-	  msgParam.rssi = 0;
-	  msgParam.rcvdAppKeyOffset = 0;
-	  msgParam.rcvdNetKeyOffset = 0;
+TRACE_I(TF_SERIAL_CTRL, "%s srcAddr=%d, dstAddr=%d\r\n", OP_NAME_GET05, src, dst);
+	msgParam.elementIndex = 0;
+	msgParam.peer_addr = src;
+	msgParam.dst_peer = dst;
+	msgParam.ttl = 0;
+	msgParam.rssi = 0;
+	msgParam.rcvdAppKeyOffset = 0;
+	msgParam.rcvdNetKeyOffset = 0;
 
-	  readData[0] = APPLI_TEST_PACKET_ERROR_RATE_COUNTER;
+	readData[0] = APPLI_TEST_PACKET_ERROR_RATE_COUNTER;
 
-	  if(processDelay(TEST_READ_PERIOD) == 0x01)
-	  {
-	    BLEMesh_ReadRemoteData(&msgParam, APPLI_TEST_PACKET_ERROR_RATE_COUNTER, readData, sizeof(readData));
-	    TRACE_I(TF_SERIAL_CTRL, "%s Command triggered", OP_NAME_GET05);
-	  }
-	  TestNumber = 0; // kill command
-	  return MOBLE_RESULT_SUCCESS;
+	BLEMesh_ReadRemoteData(&msgParam, APPLI_TEST_PACKET_ERROR_RATE_COUNTER, readData, sizeof(readData));
+	TRACE_I(TF_SERIAL_CTRL, "%s Command triggered", OP_NAME_GET05);
+	TestNumber = 0;
+	command = CMD_TYPE_NONE;
+	return MOBLE_RESULT_SUCCESS;
 }
 
 MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst) {
@@ -500,6 +502,7 @@ MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_
 	meshTest.counter = 0;
 	run_timer(OP_NAME_SET06, test_generic_subscription, src, dst, test_set06_calibrate_timer);
 	TestNumber = 0; // kill command
+	command = CMD_TYPE_NONE;
 	return result;
 }
 
@@ -545,24 +548,31 @@ void Test_Process(void)
   if (!TestNumber) {
 	  return;
   }
-
-  switch (command) {
-  case CMD_TYPE_GET:
-	  process_get_commands();
-	  break;
-  case CMD_TYPE_SET:
-	  process_set_commands();
-	  break;
-  default:
-	  TRACE_I(TF_SERIAL_CTRL, "Invalid Command=%d (either GET or SET)\n\r", command);
-	  TestNumber = 0;
-	  break;
+  MOBLEUINT8 testNumber = TestNumber;
+  CommandType_t cmd = command;
+  TRACE_I(TF_SERIAL_CTRL, "Processing command=%d, testNumber=%d\n\r", cmd, testNumber);
+  switch (cmd) {
+	  case CMD_TYPE_SET: {
+		  process_set_commands(testNumber);
+		  break;
+	  }
+	  case CMD_TYPE_GET: {
+		  process_get_commands(testNumber);
+		  break;
+	  }
+	  case CMD_TYPE_NONE:
+	  default: {
+		  TRACE_I(TF_SERIAL_CTRL, "Invalid Command=%d (either GET or SET)\n\r", command);
+		  TestNumber = 0;
+		  command = CMD_TYPE_NONE;
+		  break;
+	  }
   }
 
 }
 
-void process_set_commands() {
-	switch (TestNumber)
+void process_set_commands(MOBLEUINT8 testNumber) {
+	switch (testNumber)
 		{
 		case CMD_INDEX_RES_01:
 		{
@@ -595,14 +605,16 @@ void process_set_commands() {
 		}
 		default:
 		{
-		  TRACE_I(TF_SERIAL_CTRL, "Invalid SET Command=%d\n\r", TestNumber);
+		  TRACE_I(TF_SERIAL_CTRL, "Invalid SET Command=%d\n\r", testNumber);
 		  TestNumber = 0;
+		  command = CMD_TYPE_NONE;
 		  break;
 		}
 	}
 }
-void process_get_commands() {
-	switch (TestNumber) {
+
+void process_get_commands(MOBLEUINT8 testNumber) {
+	switch (testNumber) {
 		case CMD_INDEX_RES_05_GENERIC:
 		{
 			Test_ApplicationTest_Get05_GenericOnOff(srcAddress, destAddress);
@@ -611,13 +623,12 @@ void process_get_commands() {
 		case CMD_INDEX_RES_02:
 		{
 			Read_CommandCount(srcAddress, destAddress);
-			TestNumber = 0;
-			command = CMD_TYPE_NONE;
 			break;
 		}
 		default: {
-			TRACE_I(TF_SERIAL_CTRL, "Invalid GET Command=%d\n\r", TestNumber);
-		    TestNumber = 0;
+			TRACE_I(TF_SERIAL_CTRL, "Invalid GET Command=%d\n\r", testNumber);
+			TestNumber = 0;
+			command = CMD_TYPE_NONE;
 			break;
 		}
 	}
