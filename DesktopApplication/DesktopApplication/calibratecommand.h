@@ -20,12 +20,12 @@ class CalibrateCommand : public SerialCommand {
     static constexpr const char *const KEY_TICK_DIFF = "tick_diff";
 
     bool initializationError {false};
-    uint16_t expectedInterval {0};
-    uint16_t currentInterval {0};
+    uint16_t expectedIntervalMs {0};
     uint16_t timeout {0};
     QSettings settings;
 
     QVector<QDateTime> timestamps;
+    uint16_t currentIntervalTicks {0};
     double previousMeanTimestampDiff;
 
   public:

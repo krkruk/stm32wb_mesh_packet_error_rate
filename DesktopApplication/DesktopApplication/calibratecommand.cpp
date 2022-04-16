@@ -37,9 +37,11 @@ void CalibrateCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t i
      * src - source, here 0x00 as the command is launched locally
      * dst - dst, here 0x00 as the command is launched locally
      */
-    expectedInterval = intervalMs;
-    previousMeanTimestampDiff = expectedInterval;
+    expectedIntervalMs = intervalMs;
+    previousMeanTimestampDiff = expectedIntervalMs;
     this->timeout = timeout;
+
+    intervalMs *= 2;     // the first assumption: Initial guess is ~1ms = 2 ticks
     calibrate(intervalMs, timeout); // initialize ticks as expected milliseconds
 }
 
@@ -62,18 +64,17 @@ void CalibrateCommand::iterate(const QDateTime &timestamp, const QString &data) 
     if (status.toString("not_running").startsWith("running")) {
         timestamps.append(timestamp);
     } else if (tick_diff.isDouble()) {
-        auto result = computeNewInterval();
-        if (result.second > TICK_TOLERANCE_THRESHOLD) { // 5% of difference
-            qDebug() << "Test New tick interval =" << result.first;
+        auto result {computeNewInterval()};
+        if (result.second > TICK_TOLERANCE_THRESHOLD) { // % of difference
             QTimer::singleShot(INTEVAL_BETWEEN_ATTEMPTS_MS, Qt::CoarseTimer, this, [newInterval=result.first, this]() {
                 calibrate(newInterval, timeout);
             });
             return;
         }
 
-        settings.setValue(QString("millis.to.ticks.%1").arg(expectedInterval), currentInterval);
+        settings.setValue(QString("millis.to.ticks.%1").arg(expectedIntervalMs), currentIntervalTicks);
         settings.sync();
-        emit resultReceived(currentInterval);
+        emit resultReceived(currentIntervalTicks);
     }
 }
 
@@ -94,7 +95,7 @@ void CalibrateCommand::calibrate(uint16_t newIntervalTicks, uint32_t timeout) {
         return;
     }
 
-    currentInterval = newIntervalTicks;
+    currentIntervalTicks = newIntervalTicks;
     timestamps.clear();
     QString cmd {generateCommand(newIntervalTicks, timeout)};
     SerialCommand::initialize(0, 0, newIntervalTicks, timeout);
@@ -115,13 +116,8 @@ std::pair<uint16_t, double> CalibrateCommand::computeNewInterval() {
         sum += elem;
     }
     double meanTimestampDiff = sum / static_cast<double>(timestampDiffs.size());
-    double accuracy = abs((meanTimestampDiff - expectedInterval) / static_cast<double>(expectedInterval));
-    double change = meanTimestampDiff > previousMeanTimestampDiff
-                    ? -1.2 : 1.2;
-
-    previousMeanTimestampDiff = meanTimestampDiff;
-    double correctionCoeff = accuracy * currentInterval;
-    double interval = currentInterval + change * correctionCoeff;
+    double accuracy = abs((meanTimestampDiff - expectedIntervalMs) / static_cast<double>(expectedIntervalMs));
+    double interval = currentIntervalTicks + currentIntervalTicks * accuracy; // this isn't stable if we overshoot the correct value...
 
     qDebug() << "SUM=" << sum << "DIFF = " << meanTimestampDiff << "interval="<< interval << "accuracy=" << accuracy;
     return std::make_pair(interval, abs(accuracy));
