@@ -3,19 +3,15 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import stm32.SerialManager 1.0
 
-Item {
+Rectangle {
     id: areaCalibrate
-    width: parent.width
 
     property string ticksPerMillisResult
     signal clicked(var operation, int pingMs, int timeout)
 
     GridLayout {
         columns: 3
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-        anchors.verticalCenter: parent.verticalCenter
-        width: parent.width
+        anchors.centerIn: parent
 
         Label {
             id: labelPing

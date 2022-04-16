@@ -10,18 +10,32 @@ Rectangle {
     property string serialName: "unknown"
 
     Column {
+        id: column
         anchors.fill: parent
+
         Rectangle {
-            id: tabArea
-            width: parent.width
             height: parent.height * 0.4
+            width: parent.width
+            TabBar {
+                id: tabs
+                width: parent.width
+
+                TabButton {
+                    text: qsTr("Address")
+                }
+                TabButton {
+                    text: qsTr("Calibrate")
+                }
+                TabButton {
+                    text: qsTr("Packet Error Rate")
+                }
+            }
+
             StackLayout {
                 y: tabs.height + 1
+                height: parent.height - tabs.height
                 width: parent.width
-                height: parent.height
                 currentIndex: tabs.currentIndex
-                Layout.fillHeight: true
-                Layout.fillWidth: true
 
                 SerialGetAddressArea {
                     id: tabAddress
@@ -42,7 +56,9 @@ Rectangle {
                     onRunPERClicked: {
                         serial.runCommand(operation, {
                                               "interval": interval,
-                                              "timeout": timeout
+                                              "timeout": timeout,
+                                              "srcAddress": srcAddress,
+                                              "dstAddress": dstAddress
                                           })
                     }
                     onGetPERRemoteResults: {
@@ -50,29 +66,15 @@ Rectangle {
                     }
                 }
             }
-
-            TabBar {
-                id: tabs
-                width: parent.width
-
-                TabButton {
-                    text: qsTr("Address")
-                }
-                TabButton {
-                    text: qsTr("Calibrate")
-                }
-                TabButton {
-                    text: qsTr("Packet Error Rate")
-                }
-            }
         }
 
         ScrollView {
-            width: parent.width
             height: parent.height * 0.6
+            width: parent.width
 
             TextArea {
                 id: logTextArea
+                clip: true
                 font.family: "Courier"
                 font.pointSize: 8
                 readOnly: true

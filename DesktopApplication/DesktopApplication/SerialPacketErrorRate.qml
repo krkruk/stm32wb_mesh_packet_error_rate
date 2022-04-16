@@ -3,111 +3,155 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import stm32.SerialManager 1.0
 
-Item {
+ScrollView {
     id: perArea
-    width: parent.width
+    clip: true
+    ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
     property var localCounter: null
     property var remoteCounter: null
 
-    signal runPERClicked(var operation, int interval, int timeout)
+    signal runPERClicked(var operation, int interval, int timeout, string srcAddress, string dstAddress)
     signal getPERRemoteResults(var operation)
 
     ColumnLayout {
-
-        RowLayout {
-            Label {
-                id: labelPER
-                text: "Test PER"
-                font.pointSize: 14
-            }
-
-            TextField {
-                id: timeoutTextField
-                font.pointSize: labelPER.font.pixelSize * 1.2
-                horizontalAlignment: Qt.AlignRight
-                placeholderText: "Timeout [ticks]"
-                selectByMouse: true
-                focus: true
-                validator: IntValidator {
-                    bottom: 1
-                    top: 65535
-                }
-            }
-            ComboBox {
-                id: intervalsComboBox
-                model: ListModel {
-                    id: intervalModel
-                }
-                textRole: "text"
-            }
-
-            Button {
-                text: "Run"
-                onClicked: {
-                    var timeoutValue = parseInt(timeoutTextField.text)
-                    var intervalCurrentItem = intervalModel.get(intervalsComboBox.currentIndex)
-                    var intervalValue = parseInt(!intervalCurrentItem ? 0 : intervalCurrentItem.value)
-                    console.log("TimeoutValue=" + timeoutValue + " IntervalValue=" + intervalValue)
-                    if (!timeoutValue || !intervalValue) {
-                        errorPopup.text = "Fields cannot be empty!"
-                        errorPopup.open()
-                        return
+        Frame {
+            Layout.alignment: Qt.AlignCenter
+            RowLayout {
+                anchors.fill: parent
+                TextField {
+                    id: localAddressField
+                    horizontalAlignment: Qt.AlignRight
+                    placeholderText: "Local address [hex]"
+                    selectByMouse: true
+                    focus: true
+                    validator: RegExpValidator {
+                        regExp: /[0-9a-fA-F]+/
                     }
-                    if (timeoutValue < 10000) {
-                        errorPopup.text = "'Measurement time' cannot be less than 10,000"
-                        errorPopup.open()
-                        return
+                }
+                Label {
+                    text: "\u27A1"
+                    font.pointSize: 14
+                }
+
+                TextField {
+                    id: remoteAddressField
+                    horizontalAlignment: Qt.AlignRight
+                    placeholderText: "Remote address [hex]"
+                    selectByMouse: true
+                    focus: true
+                    validator: RegExpValidator {
+                        regExp: /[0-9a-fA-F]+/
                     }
-                    perArea.runPERClicked(Stm32SupportedOperations.MEASURE_PER,
-                                          intervalValue, timeoutValue)
                 }
             }
         }
 
         RowLayout {
-            Label {
-                text: "Get remote data"
-                font.pointSize: 14
+            Frame {
+                id: framePER
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignCenter
+
+                    Label {
+                        id: labelPER
+                        text: "Test Packet Error Rate"
+                        font.pointSize: 14
+                    }
+
+                    RowLayout {
+                        ComboBox {
+                            id: timeoutComboBox
+                            model: ListModel {
+                                id: timeoutModel
+                            }
+                            textRole: "text"
+                        }
+                        ComboBox {
+                            id: intervalsComboBox
+                            model: ListModel {
+                                id: intervalModel
+                            }
+                            textRole: "text"
+                        }
+                    }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Button {
+                            id: runPERButton
+                            text: "Run"
+                            onClicked: {
+                                var timeoutCurrentItem = timeoutModel.get(timeoutComboBox.currentIndex)
+                                var timeoutValue = parseInt(!timeoutCurrentItem ? 0 : timeoutCurrentItem.value)
+                                var intervalCurrentItem = intervalModel.get(intervalsComboBox.currentIndex)
+                                var intervalValue = parseInt(!intervalCurrentItem ? 0 : intervalCurrentItem.value)
+                                var srcAddress = localAddressField.text
+                                var dstAddress = remoteAddressField.text
+                                console.log("TimeoutValue=" + timeoutValue
+                                            + " IntervalValue=" + intervalValue)
+                                if (!timeoutValue || !intervalValue) {
+                                    errorPopup.alert("Timeout/Interval parameters cannot be empty/zero!")
+                                    return
+                                }
+//                                if (timeoutValue < 10000) {
+//                                    errorPopup.alert("'Measurement time' cannot be less than 10,000")
+//                                    return
+//                                }
+                                if (!srcAddress || !dstAddress) {
+
+                                    errorPopup.alert("Address fields cannot be empty")
+                                    return
+                                }
+
+                                perArea.runPERClicked(
+                                            Stm32SupportedOperations.MEASURE_PER,
+                                            intervalValue, timeoutValue,
+                                            srcAddress, dstAddress)
+                            }
+                        }
+                        TextField {
+                            id: localResutlTextField
+                            Layout.fillWidth: true
+                            horizontalAlignment: Qt.AlignRight
+                            placeholderText: "Local count result"
+                            text: localCounter
+                            selectByMouse: true
+                            focus: true
+                        }
+                    }
+                }
             }
 
-            Button {
-                text: "Run"
-                onClicked: perArea.getPERRemoteResults(Stm32SupportedOperations.GET_PER_RESULT)
-            }
-        }
+            Frame {
+                contentWidth: framePER.contentWidth
+                contentHeight: framePER.contentHeight
+                width: framePER.width
+                height: framePER.height
+                ColumnLayout {
+                    anchors.fill: parent
+                    Label {
+                        text: "Get Remote Results"
+                        font.pointSize: 14
+                    }
 
-        RowLayout {
-            Label {
-                id: labelLocalCount
-                text: "Local count:  "
-                font.pointSize: 14
-            }
-            TextField {
-                id: localResutlTextField
-                font.pointSize: labelLocalCount.font.pixelSize * 1.2
-                horizontalAlignment: Qt.AlignRight
-                placeholderText: "...result"
-                text: localCounter
-                selectByMouse: true
-                focus: true
-            }
-        }
-
-        RowLayout {
-            Label {
-                id: labelRemoteCount
-                text: "Remote count:"
-                font.pointSize: 14
-            }
-            TextField {
-                id: remoteResultTextField
-                font.pointSize: labelLocalCount.font.pixelSize * 1.2
-                horizontalAlignment: Qt.AlignRight
-                placeholderText: "...result"
-                text: remoteCounter
-                selectByMouse: true
-                focus: true
+                    RowLayout {
+                        Button {
+                            text: "Run"
+                            onClicked: perArea.getPERRemoteResults(
+                                           Stm32SupportedOperations.GET_PER_RESULT)
+                        }
+                        TextField {
+                            id: remoteResultTextField
+                            horizontalAlignment: Qt.AlignRight
+                            Layout.fillWidth: true
+                            placeholderText: "Remote count result"
+                            text: remoteCounter
+                            selectByMouse: true
+                            focus: true
+                        }
+                    }
+                }
             }
         }
     }
@@ -120,6 +164,10 @@ Item {
         z: 99
 
         property string text: "No Error"
+        function alert(msg) {
+            errorPopup.text = msg
+            errorPopup.open()
+        }
 
         ColumnLayout {
             Label {
@@ -136,11 +184,26 @@ Item {
     onVisibleChanged: {
         var connSettings = Serial.getConnectionSettings()
         intervalModel.clear()
+        timeoutModel.clear()
+        intervalModel.append({
+                                 "text": "Select interval",
+                                 "value": 0
+                             })
+        timeoutModel.append({
+                                 "text": "Select timeout",
+                                 "value": 0
+                             })
         for (var key in connSettings) {
             intervalModel.append({
                                      "text": key + "[ms]",
                                      "value": connSettings[key]
                                  })
+            timeoutModel.append({
+                                     "text": key + "[ms]",
+                                     "value": connSettings[key]
+                                 })
         }
+        timeoutComboBox.currentIndex = 0
+        intervalsComboBox.currentIndex = 0
     }
 }

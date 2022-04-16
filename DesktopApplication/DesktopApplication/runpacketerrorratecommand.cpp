@@ -38,6 +38,7 @@ void RunPacketErrorRateCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, u
     uint32_t timings = timeout;
     timings |= intervalMs << 16;
 
+    qDebug() << "src=" << srcAddr << "dst=" << dstAddr;
     QString cmd = QString("ATAP SET-05 %1 %2 %3")
                   .arg(timings, 8, 16, QChar('0'))
                   .arg(srcAddr, 4, 16, QChar('0'))
@@ -48,6 +49,7 @@ void RunPacketErrorRateCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, u
 }
 
 void RunPacketErrorRateCommand::iterate(const QDateTime &timestamp, const QString &data) {
+    Q_UNUSED(timestamp)
     // sample results for query ATAP SET-05 04008000 0003 0004
     // expected results like: {"func":"SET-05","addr":"0003","counter":31,"HAL_TickFreq":1,"startTick":541677,"stopTick":557674,"tick_diff":-15997}
     QJsonParseError parseStatus;
