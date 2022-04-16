@@ -22,7 +22,7 @@ class SerialCommand : public QObject {
         return Stm32SupportedOperations::UNKNOWN;
     }
 
-    virtual void initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+    virtual void initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
         Q_UNUSED(srcAddr)
         Q_UNUSED(dstAddr)
         Q_UNUSED(intervalMs)

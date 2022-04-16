@@ -58,6 +58,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 MOBLEUINT8 TestNumber = 0;
+MOBLEUINT16 timerTriggerInterval = 0;
 MOBLEUINT32 TestCount = 0;
 MOBLEUINT32 RecvCount = 0;
 MOBLEUINT32 Totaltest = 0;
@@ -91,10 +92,10 @@ static void run_timer(char const *setName, MeshTest_t subscriptionType, MOBLE_AD
 //	  killAfterTimeout = 32768 (dec)
 
 	MOBLEUINT16 triggerInterval;
-	MOBLEUINT16 killAfterTimeout;
+	MOBLEUINT32 killAfterTimeout;
 
-	triggerInterval = Totaltest >> 16;
-	killAfterTimeout = 0x0000ffff & Totaltest;
+	triggerInterval = timerTriggerInterval;
+	killAfterTimeout = Totaltest;
 
 	TRACE_I(TF_SERIAL_CTRL,"%s triggerInterval=%d, killAfterTimeout=%d \r\n", setName, triggerInterval, killAfterTimeout);
 	HW_TS_Create(subscriptionType, &(meshTest.timer_subscription_id), hw_ts_Repeated, callback);
@@ -145,8 +146,8 @@ void SerialResponse_Process(char *rcvdStringBuff, uint16_t rcvdStringSize)
 
     if(commandIndex != 0x00)
     {
-		  sscanf(rcvdStringBuff + CMD_RES_OFFSET + CMD_SET_OFFSET, "%8s %4s %4s ", asciiFunctionParameter, asciiFunctionParameter+8,asciiFunctionParameter+12);
-			TRACE_I(TF_SERIAL_CTRL, "asciiFuncParam=%s asciiFuncParam+8=%s\n\r", asciiFunctionParameter, asciiFunctionParameter+8);
+		  sscanf(rcvdStringBuff + CMD_RES_OFFSET + CMD_SET_OFFSET, "%12s %2s %2s ", asciiFunctionParameter, asciiFunctionParameter+12,asciiFunctionParameter+14);
+			TRACE_I(TF_SERIAL_CTRL, "asciiFuncParam=%s asciiFuncParam+12=%s\n\r", asciiFunctionParameter, asciiFunctionParameter+12);
 		  /*SerialResponse_doubleHexToHex
 		  Function will convert the asci string into orinal hex format.
 		  eg- send-01 12 3456
@@ -160,16 +161,20 @@ void SerialResponse_Process(char *rcvdStringBuff, uint16_t rcvdStringSize)
 		  */
         if(MOBLE_RESULT_SUCCESS == SerialResponse_doubleHexToHex(asciiFunctionParameter,testFunctionParm,16))
         { 
-			  TestCount = (MOBLEUINT32)(testFunctionParm[0] << 24);
-			  TestCount |= (MOBLEUINT32)(testFunctionParm[1] << 16);
-			  TestCount |= (MOBLEUINT32)(testFunctionParm[2] << 8);
-			  TestCount |= (MOBLEUINT32)(testFunctionParm[3] << 0);
+			  TestCount = (MOBLEUINT32)(testFunctionParm[2] << 24);
+			  TestCount |= (MOBLEUINT32)(testFunctionParm[3] << 16);
+			  TestCount |= (MOBLEUINT32)(testFunctionParm[4] << 8);
+			  TestCount |= (MOBLEUINT32)(testFunctionParm[5] << 0);
+
+			  timerTriggerInterval = (MOBLEUINT16)(testFunctionParm[0] << 8);
+			  timerTriggerInterval |= (MOBLEUINT16)(testFunctionParm[1] << 0);
+
 			  TestNumber = commandIndex;
 			  Totaltest = TestCount;
-			  srcAddress = (MOBLEUINT16)((testFunctionParm[4] << 8) | testFunctionParm[5]);
-			  destAddress = (MOBLEUINT16)((testFunctionParm[6] << 8) | testFunctionParm[7]);
-			  TRACE_I(TF_SERIAL_CTRL, "TestCount=%d, CommandIndex=%d, CommandType=%d, srcAddr=%04x, dstAddr=%04x\n\r",
-					  TestCount, TestNumber, command, srcAddress, destAddress);
+			  srcAddress = (MOBLEUINT16)(testFunctionParm[6]);
+			  destAddress = (MOBLEUINT16)(testFunctionParm[7]);
+			  TRACE_I(TF_SERIAL_CTRL, "TestCount=%0x, TimerTriggerInterval=%0x, CommandIndex=%d, CommandType=%d, srcAddr=%04x, dstAddr=%04x\n\r",
+					  TestCount, timerTriggerInterval, TestNumber, command, srcAddress, destAddress);
 		}
         else
         {
@@ -498,9 +503,11 @@ TRACE_I(TF_SERIAL_CTRL, "%s srcAddr=%d, dstAddr=%d\r\n", OP_NAME_GET05, src, dst
 
 MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst) {
 	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
-	meshTest.name = OP_NAME_SET06;
-	meshTest.counter = 0;
-	run_timer(OP_NAME_SET06, test_generic_subscription, src, dst, test_set06_calibrate_timer);
+	if (TestCount != 0 && TestCount > timerTriggerInterval) {
+		meshTest.name = OP_NAME_SET06;
+		meshTest.counter = 0;
+		run_timer(OP_NAME_SET06, test_generic_subscription, src, dst, test_set06_calibrate_timer);
+	}
 	TestNumber = 0; // kill command
 	command = CMD_TYPE_NONE;
 	return result;

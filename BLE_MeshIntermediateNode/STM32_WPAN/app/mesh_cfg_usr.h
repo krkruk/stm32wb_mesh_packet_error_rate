@@ -181,8 +181,8 @@ Either use 0 to disable or 1 to enable
 *** Following section helps to define Device Name during Provisioning  *********
 *******************************************************************************/
 
-#define DEVICE_NAME_SIZE                                                      11
-#define DEVICE_NAME                  'S','T',' ','B','L','E',' ','M','e','s','h'
+#define DEVICE_NAME_SIZE                                                      17
+#define DEVICE_NAME                  'I','n','t','e','r','m','e','d','i','a','t','e',' ','n','o','d','e'
 
 /*******************************************************************************
 *** Following section helps to select right configuration of Models  ***********
@@ -291,7 +291,7 @@ Either use 0 to disable or 1 to enable
 
 /******* Define the following Macros to enable the vendor model  ******/
 //#define ENABLE_VENDOR_MODEL_SERVER                                           (1)
-#define GENERIC_SERVER_MODEL_PUBLISH  
+//#define GENERIC_SERVER_MODEL_PUBLISH
 
 /******************************************************************************/
 /*
@@ -300,8 +300,8 @@ or by Vendor Model.
 @ define Macro for Vendor Publishing
 @ Undefine or comment Macro for Generic On Off Publishing
 */
-//#define VENDOR_CLIENT_MODEL_PUBLISH
-//#define GENERIC_CLIENT_MODEL_PUBLISH  
+#define VENDOR_CLIENT_MODEL_PUBLISH
+#define GENERIC_CLIENT_MODEL_PUBLISH
 //#define LIGHT_CLIENT_MODEL_PUBLISH
 
 

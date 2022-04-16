@@ -6,25 +6,24 @@
 #include <memory>
 
 
-class GetAddressCommand : public SerialCommand
-{
+class GetAddressCommand : public SerialCommand {
     Q_OBJECT
     static constexpr int DATA_COLUMN = 2;
     const QRegularExpression dataExtractRegex;
-public:
-    virtual Stm32SupportedOperations::Stm32SupportedOperationsEnums identifier() const override{
+  public:
+    virtual Stm32SupportedOperations::Stm32SupportedOperationsEnums identifier() const override {
         return Stm32SupportedOperations::GET_ADDRESS;
     }
 
-    void initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) override;
+    void initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) override;
 
     ~GetAddressCommand() override;
-    static std::unique_ptr<SerialCommand> create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
-    static SerialCommand* create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
+    static std::unique_ptr<SerialCommand> create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout);
+    static SerialCommand* create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout);
 
     void iterate(const QDateTime &timestamp, const QString &data) override;
 
-protected:
+  protected:
     explicit GetAddressCommand(QObject *parent);
 };
 

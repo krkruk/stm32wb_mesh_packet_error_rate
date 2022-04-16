@@ -27,8 +27,8 @@ class CalibrateCommand : public SerialCommand {
     QSettings settings;
 
   public:
-    static std::unique_ptr<SerialCommand> create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
-    static SerialCommand* create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout);
+    static std::unique_ptr<SerialCommand> create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout);
+    static SerialCommand* create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout);
 
     ~CalibrateCommand() override;
 
@@ -40,11 +40,11 @@ class CalibrateCommand : public SerialCommand {
 
   protected:
     explicit CalibrateCommand(QObject *parent);
-    void initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) override;
+    void initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) override;
 
   private:
-    QString generateCommand(uint16_t intervalMs, uint16_t timeout);
-    void calibrate(uint16_t newIntervalTicks, uint16_t timeout);
+    QString generateCommand(uint16_t intervalMs, uint32_t timeout);
+    void calibrate(uint16_t newIntervalTicks, uint32_t timeout);
     double computeMillisPerCount();
 };
 

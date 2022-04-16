@@ -11,12 +11,12 @@ GetAddressCommand::~GetAddressCommand()
 {
 }
 
-std::unique_ptr<SerialCommand> GetAddressCommand::create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout)
+std::unique_ptr<SerialCommand> GetAddressCommand::create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout)
 {
     return std::unique_ptr<SerialCommand>(create(nullptr, srcAddr, dstAddr, intervalMs, timeout));
 }
 
-SerialCommand *GetAddressCommand::create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout)
+SerialCommand *GetAddressCommand::create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout)
 {
     SerialCommand *cmd = new GetAddressCommand(parent);
     cmd->initialize(srcAddr, dstAddr, intervalMs, timeout);
@@ -24,7 +24,7 @@ SerialCommand *GetAddressCommand::create(QObject *parent, uint16_t srcAddr, uint
 }
 
 
-void GetAddressCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout)
+void GetAddressCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout)
 {
     Q_UNUSED(srcAddr)
     Q_UNUSED(intervalMs)

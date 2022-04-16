@@ -14,10 +14,6 @@
 
 class SerialNodeConnector : public QObject {
     Q_OBJECT
-    static constexpr int SRC_NODE_ADDRESS = 0x3;
-    static constexpr int DST_NODE_ADDRESS = 0x4;
-
-
     QScopedPointer<QSerialPort> port;
     long lineCounter;
 

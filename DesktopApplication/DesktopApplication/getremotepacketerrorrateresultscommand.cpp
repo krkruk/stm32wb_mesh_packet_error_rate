@@ -7,11 +7,11 @@ GetRemotePacketErrorRateResultsCommand::~GetRemotePacketErrorRateResultsCommand(
 
 }
 
-std::unique_ptr<SerialCommand> GetRemotePacketErrorRateResultsCommand::create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+std::unique_ptr<SerialCommand> GetRemotePacketErrorRateResultsCommand::create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
     return std::unique_ptr<SerialCommand>(create(nullptr, srcAddr, dstAddr, intervalMs, timeout));
 }
 
-SerialCommand *GetRemotePacketErrorRateResultsCommand::create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+SerialCommand *GetRemotePacketErrorRateResultsCommand::create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
     SerialCommand *cmd = new GetRemotePacketErrorRateResultsCommand(parent);
     cmd->initialize(srcAddr, dstAddr, intervalMs, timeout);
     return cmd;
@@ -26,12 +26,12 @@ GetRemotePacketErrorRateResultsCommand::GetRemotePacketErrorRateResultsCommand(Q
 
 }
 
-void GetRemotePacketErrorRateResultsCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+void GetRemotePacketErrorRateResultsCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
     // ATAP GET-05 00000000 srcAddr dstAddr
 
-    QString cmd = QString("ATAP GET-05 00000000 %1 %2")
-                  .arg(srcAddr, 4, 16, QChar('0'))
-                  .arg(dstAddr, 4, 16, QChar('0'));
+    QString cmd = QString("ATAP GET-05 000000000000 %1 %2")
+                  .arg(srcAddr, 2, 16, QChar('0'))
+                  .arg(dstAddr, 2, 16, QChar('0'));
 
     setTimeoutMillis(10000); // 10 seconds timeout
     SerialCommand::initialize(srcAddr, dstAddr, intervalMs, timeout);

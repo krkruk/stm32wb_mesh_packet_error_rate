@@ -11,11 +11,11 @@ RunPacketErrorRateCommand::RunPacketErrorRateCommand(QObject *parent)
 RunPacketErrorRateCommand::~RunPacketErrorRateCommand() {
 }
 
-std::unique_ptr<SerialCommand> RunPacketErrorRateCommand::create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+std::unique_ptr<SerialCommand> RunPacketErrorRateCommand::create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
     return std::unique_ptr<SerialCommand>(create(nullptr, srcAddr, dstAddr, intervalMs, timeout));
 }
 
-SerialCommand *RunPacketErrorRateCommand::create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+SerialCommand *RunPacketErrorRateCommand::create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
     SerialCommand *cmd = new RunPacketErrorRateCommand(parent);
     cmd->initialize(srcAddr, dstAddr, intervalMs, timeout);
     return cmd;
@@ -25,27 +25,28 @@ Stm32SupportedOperations::Stm32SupportedOperationsEnums RunPacketErrorRateComman
     return Stm32SupportedOperations::MEASURE_PER;
 }
 
-void RunPacketErrorRateCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+void RunPacketErrorRateCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
     /*
-     * COMMAND: ATAP SET-5 iiiiTTTT src dst
+     * COMMAND: ATAP SET-5 iiiiTTTTTT src dst
      *
-     * iiii - interval in ticks
-     * TTTT - stop after TTTT ticks
+     * iiii - interval in ticks - 16 bits
+     * TTTTTT - stop after TTTT ticks - 32 bits
      * src - source, here 0x00 as the command is launched locally
      * dst - dst, here 0x00 as the command is launched locally
      */
 
-    uint32_t timings = timeout;
-    timings |= intervalMs << 16;
+    uint64_t timings = timeout * 2;
+    timings |= static_cast<uint64_t>(intervalMs) << 32;
 
     qDebug() << "src=" << srcAddr << "dst=" << dstAddr;
     QString cmd = QString("ATAP SET-05 %1 %2 %3")
-                  .arg(timings, 8, 16, QChar('0'))
-                  .arg(srcAddr, 4, 16, QChar('0'))
-                  .arg(dstAddr, 4, 16, QChar('0'));
+                  .arg(timings, 12, 16, QChar('0'))
+                  .arg(srcAddr, 2, 16, QChar('0'))
+                  .arg(dstAddr, 2, 16, QChar('0'));
 
     SerialCommand::initialize(srcAddr, dstAddr, intervalMs, timeout);
     write(cmd.toLocal8Bit());
+    startTimestamp = QDateTime::currentDateTime();
 }
 
 void RunPacketErrorRateCommand::iterate(const QDateTime &timestamp, const QString &data) {
@@ -70,6 +71,6 @@ void RunPacketErrorRateCommand::iterate(const QDateTime &timestamp, const QStrin
         return;
     }
 
-    qDebug() << "Final result = " << data;
+    qDebug() << "Final result = " << data << "in time:" << QDateTime::currentDateTime().toMSecsSinceEpoch() - startTimestamp.toMSecsSinceEpoch();
     emit resultReceived(counter.toInt());
 }

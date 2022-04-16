@@ -27,8 +27,9 @@ Rectangle {
             selectByMouse: true
             focus: true
             validator: IntValidator {
+                id: pingValidator
                 bottom: 1
-                top: 65535
+                top: (65535 * .9) / 2 // 2 bytes/16bits minus some threshold
             }
         }
 
@@ -51,8 +52,9 @@ Rectangle {
             selectByMouse: true
             focus: true
             validator: IntValidator {
-                bottom: 1
-                top: 65535
+                id: measurementValidator
+                bottom: 10000
+                top: 0xfffffff // 32 bits
             }
         }
 
@@ -74,13 +76,13 @@ Rectangle {
                     return
                 }
 
-                if (measurementValue < 10000) {
-                    errorPopup.text = "'Measurement time' cannot be less than 10,000"
+                if (measurementValue < measurementValidator.bottom || measurementValue > measurementValidator.top) {
+                    errorPopup.text = "'Measurement time' must be within range [" + measurementValidator.bottom + ", " + measurementValidator.top + "]"
                     errorPopup.open()
                     return
                 }
-                if (pingValue < 1) {
-                    errorPopup.text = "'Ping interval' cannot be less than 1"
+                if (pingValue < pingValidator.bottom || pingValue > pingValidator.top) {
+                    errorPopup.text = "'Ping interval' must be within range [" + pingValidator.bottom + ", " + pingValidator.top + "] ms"
                     errorPopup.open()
                     return
                 }

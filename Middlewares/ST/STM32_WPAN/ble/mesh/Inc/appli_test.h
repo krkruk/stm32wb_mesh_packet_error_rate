@@ -77,8 +77,8 @@ MOBLE_RESULT test_set05_generic_initialize(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
 void test_set05_generic();
 void test_set06_calibrate_timer();
 void kill_subscription();
-void process_set_commands();
-void process_get_commands();
+void process_set_commands(MOBLEUINT8 testNumber);
+void process_get_commands(MOBLEUINT8 testNumber);
 MOBLEUINT8 processDelay(MOBLEUINT16 waitPeriod);                                               
 
 

@@ -39,6 +39,7 @@ void SerialNodeConnector::write(const QChar &data) {
 
 void SerialNodeConnector::processLine(const QDateTime &timestamp, const QString &line) {
     if (command) {
+        qDebug() << timestamp.toString(Qt::ISODateWithMs) << line;
         command->iterate(timestamp, line);
     }
 }
@@ -87,15 +88,17 @@ void SerialNodeConnector::runCommand(const int &cmd, const QVariant &parameters)
         QJSValue params {parameters.value<QJSValue>()};
         uint32_t intervalTicks = params.property("interval").toUInt();
         uint32_t timeoutTicks = params.property("timeout").toUInt();
-        uint16_t srcAddress = params.property("srcAddress").toString().toUInt(nullptr, 16); // to be implemented
+        uint16_t srcAddress = params.property("srcAddress").toString().toUInt(nullptr, 16);
         uint16_t dstAddress = params.property("dstAddress").toString().toUInt(nullptr, 16);
         qDebug() << "Run PER Experiment. intervalTicks=" << intervalTicks << " timeoutTicks=" << timeoutTicks;
         command = RunPacketErrorRateCommand::create(srcAddress, dstAddress, intervalTicks, timeoutTicks);
         break;
     }
     case Stm32SupportedOperations::GET_PER_RESULT: {
-        qDebug() << "Not supported yet GET_PER_RESULT";
-        command = GetRemotePacketErrorRateResultsCommand::create(SRC_NODE_ADDRESS, DST_NODE_ADDRESS, 0, 0);
+        QJSValue params {parameters.value<QJSValue>()};
+        uint16_t srcAddress = params.property("srcAddress").toString().toUInt(nullptr, 16);
+        uint16_t dstAddress = params.property("dstAddress").toString().toUInt(nullptr, 16);
+        command = GetRemotePacketErrorRateResultsCommand::create(srcAddress, dstAddress, 0, 0);
         break;
     }
     case Stm32SupportedOperations::UNKNOWN:

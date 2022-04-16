@@ -8,11 +8,11 @@
 #include <algorithm>
 #include <math.h>
 
-std::unique_ptr<SerialCommand> CalibrateCommand::create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+std::unique_ptr<SerialCommand> CalibrateCommand::create(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
     return std::unique_ptr<SerialCommand>(create(nullptr, srcAddr, dstAddr, intervalMs, timeout));
 }
 
-SerialCommand *CalibrateCommand::create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+SerialCommand *CalibrateCommand::create(QObject *parent, uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
     CalibrateCommand *cmd = new CalibrateCommand(parent);
     cmd->initialize(srcAddr, dstAddr, intervalMs, timeout);
     return cmd;
@@ -26,7 +26,7 @@ CalibrateCommand::~CalibrateCommand() {
 
 }
 
-void CalibrateCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint16_t timeout) {
+void CalibrateCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, uint16_t intervalMs, uint32_t timeout) {
     Q_UNUSED(srcAddr)
     Q_UNUSED(dstAddr)
     /*
@@ -62,6 +62,8 @@ void CalibrateCommand::iterate(const QDateTime &timestamp, const QString &data) 
         const QString dateBucket = timestamp.toString(Qt::ISODate);
         if (countsPerSecond.isEmpty()) {
             startTimestamp = timestamp;
+        }
+        if (countsPerSecond.contains(dateBucket)) {
             countsPerSecond[dateBucket] = 0;
         }
         ++(countsPerSecond[dateBucket]);
@@ -83,15 +85,15 @@ void CalibrateCommand::iterate(const QDateTime &timestamp, const QString &data) 
     }
 }
 
-QString CalibrateCommand::generateCommand(uint16_t intervalMs, uint16_t timeout) {
-    uint32_t timingsCmd = timeout;
-    timingsCmd |= intervalMs << 16;
+QString CalibrateCommand::generateCommand(uint16_t intervalMs, uint32_t timeout) {
+    uint64_t timingsCmd = timeout;
+    timingsCmd |= static_cast<uint64_t>(intervalMs) << 32;
 
-    const QString hexTimings = QString("%1").arg(timingsCmd, 8, 16, QChar('0'));
-    return QString("ATAP SET-06 %1 0000 0000").arg(hexTimings);
+    const QString hexTimings = QString("%1").arg(timingsCmd, 12, 16, QChar('0'));
+    return QString("ATAP SET-06 %1 00 00").arg(hexTimings);
 }
 
-void CalibrateCommand::calibrate(uint16_t newIntervalTicks, uint16_t timeout) {
+void CalibrateCommand::calibrate(uint16_t newIntervalTicks, uint32_t timeout) {
     if (newIntervalTicks < 1 || timeout < 1) {
         qDebug() << "Interval and Timeout must be greater than 0";
         initializationError = true;
@@ -108,8 +110,12 @@ void CalibrateCommand::calibrate(uint16_t newIntervalTicks, uint16_t timeout) {
 
 double CalibrateCommand::computeMillisPerCount() {
     // case 1 - average count in bucketed set
-    countsPerSecond.remove(countsPerSecond.firstKey()); // remove the first and the last case
-    countsPerSecond.remove(countsPerSecond.lastKey());
+    if (!countsPerSecond.isEmpty()) {
+        countsPerSecond.remove(countsPerSecond.firstKey()); // remove the first and the last case
+    }
+    if (!countsPerSecond.isEmpty()) {
+        countsPerSecond.remove(countsPerSecond.lastKey());
+    }
     QList<uint32_t> cntValues = countsPerSecond.values();
 
     uint32_t bucketedCountSum = std::accumulate(std::cbegin(cntValues), std::cend(cntValues), 0,

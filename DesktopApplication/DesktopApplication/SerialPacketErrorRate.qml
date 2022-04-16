@@ -12,7 +12,7 @@ ScrollView {
     property var remoteCounter: null
 
     signal runPERClicked(var operation, int interval, int timeout, string srcAddress, string dstAddress)
-    signal getPERRemoteResults(var operation)
+    signal getPERRemoteResults(var operation, string srcAddress, string dstAddress)
 
     ColumnLayout {
         Frame {
@@ -61,13 +61,15 @@ ScrollView {
                     }
 
                     RowLayout {
-                        ComboBox {
-                            id: timeoutComboBox
-                            model: ListModel {
-                                id: timeoutModel
-                            }
-                            textRole: "text"
-                        }
+        TextField {
+            id: timeoutTextField
+            horizontalAlignment: Qt.AlignRight
+            placeholderText: "Timeout [ms]"
+            selectByMouse: true
+            focus: true
+            validator: IntValidator {}
+        }
+
                         ComboBox {
                             id: intervalsComboBox
                             model: ListModel {
@@ -82,22 +84,19 @@ ScrollView {
                             id: runPERButton
                             text: "Run"
                             onClicked: {
-                                var timeoutCurrentItem = timeoutModel.get(timeoutComboBox.currentIndex)
-                                var timeoutValue = parseInt(!timeoutCurrentItem ? 0 : timeoutCurrentItem.value)
+                                var timeoutValue = parseInt(timeoutTextField.text)
                                 var intervalCurrentItem = intervalModel.get(intervalsComboBox.currentIndex)
                                 var intervalValue = parseInt(!intervalCurrentItem ? 0 : intervalCurrentItem.value)
                                 var srcAddress = localAddressField.text
                                 var dstAddress = remoteAddressField.text
-                                console.log("TimeoutValue=" + timeoutValue
-                                            + " IntervalValue=" + intervalValue)
                                 if (!timeoutValue || !intervalValue) {
                                     errorPopup.alert("Timeout/Interval parameters cannot be empty/zero!")
                                     return
                                 }
-//                                if (timeoutValue < 10000) {
-//                                    errorPopup.alert("'Measurement time' cannot be less than 10,000")
-//                                    return
-//                                }
+                                if (timeoutValue < 10000) {
+                                    errorPopup.alert("'Measurement time' cannot be less than 10,000")
+                                    return
+                                }
                                 if (!srcAddress || !dstAddress) {
 
                                     errorPopup.alert("Address fields cannot be empty")
@@ -138,8 +137,17 @@ ScrollView {
                     RowLayout {
                         Button {
                             text: "Run"
-                            onClicked: perArea.getPERRemoteResults(
-                                           Stm32SupportedOperations.GET_PER_RESULT)
+                            onClicked: {
+                                var srcAddress = localAddressField.text
+                                var dstAddress = remoteAddressField.text
+                                if (!srcAddress || !dstAddress) {
+                                    errorPopup.alert("Address fields cannot be empty")
+                                    return
+                                }
+                                perArea.getPERRemoteResults(
+                                           Stm32SupportedOperations.GET_PER_RESULT,
+                                            srcAddress, dstAddress)
+                            }
                         }
                         TextField {
                             id: remoteResultTextField
@@ -184,13 +192,8 @@ ScrollView {
     onVisibleChanged: {
         var connSettings = Serial.getConnectionSettings()
         intervalModel.clear()
-        timeoutModel.clear()
         intervalModel.append({
                                  "text": "Select interval",
-                                 "value": 0
-                             })
-        timeoutModel.append({
-                                 "text": "Select timeout",
                                  "value": 0
                              })
         for (var key in connSettings) {
@@ -198,12 +201,7 @@ ScrollView {
                                      "text": key + "[ms]",
                                      "value": connSettings[key]
                                  })
-            timeoutModel.append({
-                                     "text": key + "[ms]",
-                                     "value": connSettings[key]
-                                 })
         }
-        timeoutComboBox.currentIndex = 0
         intervalsComboBox.currentIndex = 0
     }
 }

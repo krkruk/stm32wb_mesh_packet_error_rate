@@ -62,7 +62,10 @@ Rectangle {
                                           })
                     }
                     onGetPERRemoteResults: {
-                        serial.runCommand(operation, null)
+                        serial.runCommand(operation, {
+                                              "srcAddress": srcAddress,
+                                              "dstAddress": dstAddress
+                                          })
                     }
                 }
             }
@@ -88,13 +91,18 @@ Rectangle {
 
                 text: "Log area..."
                 wrapMode: TextEdit.WordWrap
+
+                function appendAndScroll(line) {
+                    logTextArea.append(line)
+                    logTextArea.cursorPosition = logTextArea.length - 1
+                }
             }
         }
     }
 
     SerialConnector {
         id: serial
-        onLogLineReceived: logTextArea.append(line)
+        onLogLineReceived: logTextArea.appendAndScroll(line)
         onRunningQuery: {
             console.log("Running query...")
             progressPopup.open()
