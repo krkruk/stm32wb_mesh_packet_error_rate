@@ -8,6 +8,9 @@ Rectangle {
     height: parent.height
 
     property string serialName: "unknown"
+    property int logAreaSwitch: Qt.Unchecked
+
+    signal logSwitched(var state)
 
     Column {
         id: column
@@ -175,6 +178,11 @@ Rectangle {
         z: 99
 
         BusyIndicator {}
+    }
+
+    onLogAreaSwitchChanged: {
+        logSwitched(logAreaSwitch)
+        serial.enableLogArea = logAreaSwitch != 0
     }
 
     Component.onCompleted: {

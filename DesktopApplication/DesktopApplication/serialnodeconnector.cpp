@@ -144,7 +144,21 @@ void SerialNodeConnector::onReadyReadTriggered() {
     QString processedline = QString("[%1,%2]: %3")
                             .arg(lineCounter, 10, 10, QChar('0'))
                             .arg(now.toString(Qt::ISODateWithMs), line);
-    emit logLineReceived(processedline);
+
+    if (enableLogArea()) {
+        emit logLineReceived(processedline);
+    }
 
     processLine(now, line);
+}
+
+bool SerialNodeConnector::enableLogArea() const {
+    return m_enableLogArea;
+}
+
+void SerialNodeConnector::setEnableLogArea(bool newEnableLogArea) {
+    if (m_enableLogArea == newEnableLogArea)
+        return;
+    m_enableLogArea = newEnableLogArea;
+    emit enableLogAreaChanged();
 }

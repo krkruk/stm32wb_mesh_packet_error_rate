@@ -14,10 +14,12 @@
 
 class SerialNodeConnector : public QObject {
     Q_OBJECT
+    Q_PROPERTY(bool enableLogArea READ enableLogArea WRITE setEnableLogArea NOTIFY enableLogAreaChanged)
     QScopedPointer<QSerialPort> port;
     long lineCounter;
-
     std::unique_ptr<SerialCommand> command;
+
+    bool m_enableLogArea {false};
 
   public:
     explicit SerialNodeConnector(QObject *parent = nullptr);
@@ -25,8 +27,12 @@ class SerialNodeConnector : public QObject {
     ~SerialNodeConnector();
 
 
+    bool enableLogArea() const;
+    void setEnableLogArea(bool newEnableLogArea);
+
   private:
     void processLine(const QDateTime &timestamp, const QString &line);
+
 
 
   signals:
@@ -38,6 +44,7 @@ class SerialNodeConnector : public QObject {
     void timeout();
     void error();
 
+    void enableLogAreaChanged();
 
   public slots:
     void open(const QString &portName);

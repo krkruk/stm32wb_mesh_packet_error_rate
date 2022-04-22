@@ -107,10 +107,11 @@ ScrollView {
                                             Stm32SupportedOperations.MEASURE_PER,
                                             intervalValue, timeoutValue,
                                             srcAddress, dstAddress)
+                                localCounter = "..."
                             }
                         }
                         TextField {
-                            id: localResutlTextField
+                            id: localResultTextField
                             Layout.fillWidth: true
                             horizontalAlignment: Qt.AlignRight
                             placeholderText: "Local count result"
@@ -147,6 +148,8 @@ ScrollView {
                                 perArea.getPERRemoteResults(
                                            Stm32SupportedOperations.GET_PER_RESULT,
                                             srcAddress, dstAddress)
+
+                                remoteCounter = "..."
                             }
                         }
                         TextField {

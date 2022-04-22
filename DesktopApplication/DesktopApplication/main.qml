@@ -13,6 +13,11 @@ ApplicationWindow {
     header: ApplicationHeader {
         id: appHeader
         onClicked: applicationMenu.toggleDrawer()
+        onLogStateChanged: {
+            for (var i = 0; i < swipeView.count; i++ ) {
+                swipeView.itemAt(i).logAreaSwitch = logState
+            }
+        }
     }
 
     ApplicationMenu {
@@ -32,13 +37,20 @@ ApplicationWindow {
         function createPage(title) {
             var component = Qt.createComponent("SerialMainComponent.qml")
             var page = component.createObject(swipeView, {
-                                                  "serialName": title
+                                                  "serialName": title,
+                                                  "logAreaSwitch": appHeader.logState
                                               })
             appHeader.title = title
+            appHeader.enableLogging = true
+            page.logSwitched.connect(appHeader.checkStateChanged)
             return page
         }
-        onCurrentItemChanged: (swipeView.count > 0)
-                              && (appHeader.title = currentItem.serialName)
+        onCurrentItemChanged: {
+            if (swipeView.count > 0) {
+                              appHeader.title = currentItem.serialName
+            appHeader.checkStateChanged(currentItem.logAreaSwitch)
+            }
+        }
 
     }
 

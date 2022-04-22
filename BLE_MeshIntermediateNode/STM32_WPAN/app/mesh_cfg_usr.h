@@ -198,7 +198,7 @@ Either use 0 to disable or 1 to enable
 /******************************************************************************/
 
 /* Define the following Macros to enable the usage of the Server Generic Models  */
-//#define ENABLE_GENERIC_MODEL_SERVER_ONOFF                                    (1)
+#define ENABLE_GENERIC_MODEL_SERVER_ONOFF                                    (1)
 //#define ENABLE_GENERIC_MODEL_SERVER_LEVEL                                    (1)
 //#define ENABLE_GENERIC_MODEL_SERVER_POWER_ONOFF                              (1)
 //#define ENABLE_GENERIC_MODEL_SERVER_POWER_ONOFF_SETUP                        (1)
