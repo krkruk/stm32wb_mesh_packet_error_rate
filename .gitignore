@@ -1,2 +1,4 @@
 *.launch
 build-DesktopApplication*/
+.ipynb_checkpoints/
+
