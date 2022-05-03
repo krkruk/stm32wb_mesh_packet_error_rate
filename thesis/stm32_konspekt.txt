@@ -1,0 +1,61 @@
+Celem projektu jest zbadanie właściwości BLE w sieci typu mesh jako zagadnienie badawcze w pracy magisterskiej na Politechnice Warszawskiej, kierunek Informatyka Stosowana ze specjalizacją Inżynieria Oprogramowania.
+
+Temat: Nowe możliwości Bluetooth 5 w aplikacjach Internetu Rzeczy
+Opis: Celem pracy jest analiza teoretyczna i weryfikacja praktyczna nowych możliwości, jakie pojawiły się wraz z Bluetooth 5. Część teoretyczna obejmuje analizę porównawczą BLE5 z poprzednimi wersjami Bluetooth, porównanie wersji 5.x między sobą oraz w porównanie z dwoma innymi standardami komunikacji krótkiego zasięgu. Część praktyczna obejmuje uruchomienie stanowiska złożonego z kilku modułów wspierających BLE5, przeprowadzenie testów energooszczędności, przepustowości i zasięgu. Wyniki należy opracować i omówić. Praca magisterska względem inżynierskiej różni się położeniem większego nacisku na wątek badawczy.
+
+Konspekt:
+1. Wstęp
+1.1 Cel pracy
+
+2 Komunikacja radiowa bliskiego zasięgo
+ 2.1 Bluetooth Low Energy
+  2.1.1. Historia standardu
+  2.1.2. Stos Bluetooth Low Energy
+ 2.2 OpenThread
+  2.2.1. Historia standardu
+  2.2.2. Stos OpenThread
+ 2.3 ZigBee
+  2.3.1. Historia standardu
+  2.3.2. Stos ZigBee
+ 2.4 Porównanie przedstawionych standardów
+
+3. Model teoretyczny
+ 5.1. Zużycie energii 
+  5.1.1. Tryb ogłoszeniowy (*komentarz*: model zapożyczony z literatury)
+  5.1.2. Tryb połączenia (*komentarz*: model zapożyczony z literatury)
+ 5.2. Packet Error Rate
+  5.2.1. Model zależności przepustowości od odległości i ilości między-węzłów
+  5.2.2. Wpływ tła radiowego na model (*komentarz*: prezentacja hipotez)
+  5.2.3. Wpływ topologii na przepustowość (*komentarz*: prezentacja hipotez; wysyłanie min.8 bajtów na przykład nazwę urządzenia)
+// Excluded 
+ 5.3. Przepustowość - mesh: w zależności od odległości i topologii w zmiennych warunkach radiowych
+  5.3.1. Model zależności przepustowości od odległości i ilości między-węzłów
+  5.3.2. Wpływ tła radiowego na model (*komentarz*: prezentacja hipotez)
+  5.3.3. Wpływ topologii na przepustowość (*komentarz*: prezentacja hipotez) 
+// END - Excluded
+
+4. Doświadczalna weryfikacja modeli
+ 6.0. Rozwiązanie techniczne - STM32WB55
+  6.0.1. Zestaw uruchomieniowy P-NUCLEO-WB55
+  6.0.2. HAL i stos Bluetooth Low Energy
+  6.0.3. Wykorzystywane usługi BLE
+  6.0.4. Bezprzewodowa aktualizacja oprogramowania
+ 6.1. Zużycie energii - pomiar oparty o X-NUCLEO-LPM01A
+  6.1.1. Tryb ogłoszeniowy
+  6.1.2. Tryb połączenia
+ 6.2. Packet Error Rate
+  6.2.1. Model węzeł-węzeł w zależności od odległości (środowisko: las, miasto - urbanizowane)
+  6.2.2. Model węzeł-węzeł-węzeł w zależności od odległości
+  6.2.3. Model węzeł-węzeł-węzeł-węzeł w zależności od odległości
+  6.2.4. Zestawienie pomiarów
+// Excluded
+ 6.4. Przepustowość - mesh
+  6.4.1. Model węzeł-węzeł w zależności od odległości (środowisko: las, miasto)
+  6.4.2. Model węzeł-węzeł-węzeł w zależności od odległości
+  6.4.3. Model węzeł-węzeł-węzeł-węzeł w zależności od odległości
+  6.4.4. Zestawienie pomiarów
+// END - Excluded 
+
+5. Podsumowanie
+ 5.1. Porównanie modelu teoretycznego z wynikami eksperymentów
+ 5.2. Praktyczne zastosowanie badanych właściwości (*komentarz*: aktualizacja firmware'u w sieci BLE)
