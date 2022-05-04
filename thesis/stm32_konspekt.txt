@@ -27,12 +27,7 @@ Konspekt:
   5.2.1. Model zależności przepustowości od odległości i ilości między-węzłów
   5.2.2. Wpływ tła radiowego na model (*komentarz*: prezentacja hipotez)
   5.2.3. Wpływ topologii na przepustowość (*komentarz*: prezentacja hipotez; wysyłanie min.8 bajtów na przykład nazwę urządzenia)
-// Excluded 
- 5.3. Przepustowość - mesh: w zależności od odległości i topologii w zmiennych warunkach radiowych
-  5.3.1. Model zależności przepustowości od odległości i ilości między-węzłów
-  5.3.2. Wpływ tła radiowego na model (*komentarz*: prezentacja hipotez)
-  5.3.3. Wpływ topologii na przepustowość (*komentarz*: prezentacja hipotez) 
-// END - Excluded
+
 
 4. Doświadczalna weryfikacja modeli
  6.0. Rozwiązanie techniczne - STM32WB55
@@ -48,14 +43,42 @@ Konspekt:
   6.2.2. Model węzeł-węzeł-węzeł w zależności od odległości
   6.2.3. Model węzeł-węzeł-węzeł-węzeł w zależności od odległości
   6.2.4. Zestawienie pomiarów
-// Excluded
- 6.4. Przepustowość - mesh
-  6.4.1. Model węzeł-węzeł w zależności od odległości (środowisko: las, miasto)
-  6.4.2. Model węzeł-węzeł-węzeł w zależności od odległości
-  6.4.3. Model węzeł-węzeł-węzeł-węzeł w zależności od odległości
-  6.4.4. Zestawienie pomiarów
-// END - Excluded 
+
 
 5. Podsumowanie
  5.1. Porównanie modelu teoretycznego z wynikami eksperymentów
  5.2. Praktyczne zastosowanie badanych właściwości (*komentarz*: aktualizacja firmware'u w sieci BLE)
+
+---
+ 
+Cenne uwagi: 
+h1. Wykresy punktowe zamiast liniowych
+* zastosować interpolacja zamiast łączenia kropek
+* kropki, kwadraciki, kółeczka do zaznaczania - linie interpolacyjne różnych kształtów
+* narysować osie (strzałki) jeśli możliwe
+* policzyć korelacje
+* naprawić błąd systemowy w nietrywialny sposób (truncate jako ostateczność)
+* użyć polskojęzycznych nazw kolumn w wygenerowanych wykresach
+
+
+h1. Tworzenie tekstu pracy
+h2. Konspekt dostosować do potrzeb
+** do osiągniętych rezultatów
+** używać go jako pomoc
+
+h2. Bibliografia:
+** Biber - tex
+** zotero
+
+h2. Podział stron:
+* Ilość stron: ~80-100
+* wstęp: ~5 stron
+* teoria: ~30 stron
+* praktyka: ~40 stron
+* podsumowanie: ~5 stron
+
+h2. Wiedza do przypomnienia:
+* https://en.wikipedia.org/wiki/Fresnel_zone
+* wpływ wilgotności na ww. strefę
+* wpływ wilgotności gleby na ww. strefę
+
