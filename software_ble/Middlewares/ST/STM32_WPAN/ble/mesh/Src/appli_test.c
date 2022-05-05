@@ -468,7 +468,7 @@ MOBLE_RESULT test_set05_generic_initialize(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
 void test_set05_generic() {
 	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
 	meshTest.params.TargetOnOffState ^= (1<<0);		// flip LED bit
-	meshTest.counter++;
+	++meshTest.counter;
 
 	result = GenericClient_OnOff_Set_Unack(
 			GENERIC_SERVER_MAIN_ELEMENT_INDEX,

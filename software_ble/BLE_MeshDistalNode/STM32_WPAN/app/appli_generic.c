@@ -69,8 +69,10 @@ MOBLE_RESULT Appli_Generic_LevelMove_Set(Generic_LevelStatus_t* pdeltaMoveParam,
                                          MOBLEUINT8 elementIndex);
 /* Private functions ---------------------------------------------------------*/
 
-static void increment_generic_onoff_counter_packet_error_rate_experiment() {
+static void increment_generic_onoff_counter_packet_error_rate_experiment(MOBLEUINT8 status, MOBLEUINT16 dstPeer) {
 	genericOnOffCounter.counter++;
+	TRACE_I(TF_GENERIC,"SET-05 Incremented to value=%lu, status=%d, peer=%04x \n\r", genericOnOffCounter.counter, status, dstPeer);
+
 }
 
 /******************************************************************************/
@@ -124,7 +126,9 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
 
       if(AppliOnOffSet[elementIndex].Present_OnOffValue == AppliOnOffSet[elementIndex].TargetValue)
       {
-    	increment_generic_onoff_counter_packet_error_rate_experiment();
+    	if (dstPeer != 0xc000) {
+    	   increment_generic_onoff_counter_packet_error_rate_experiment(AppliOnOffSet[elementIndex].Present_OnOffValue, dstPeer);
+    	}
         if(AppliOnOffSet[elementIndex].Present_OnOffValue > 0)
         {
           BSP_LED_On(LED_BLUE);
@@ -152,7 +156,7 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
     }
   }
   
-  TRACE_M(TF_GENERIC, "Appli_Generic_OnOff_Set callback received for elementIndex %d \r\n", elementIndex);           
+  TRACE_M(TF_GENERIC, "Appli_Generic_OnOff_Set callback received for elementIndex %d, peer=%d \r\n", elementIndex, dstPeer);
 
   NvmStatePowerFlag_Set(GENERIC_ON_OFF_NVM_FLAG, elementIndex);
 
@@ -469,7 +473,7 @@ MOBLE_RESULT Appli_Generic_GetDefaultTransitionStatus(MOBLEUINT8* pTransition_St
  */
 void generic_onoff_counter_initialize() {
 	genericOnOffCounter.counter = 0;
-    TRACE_I(TF_GENERIC,"SET-05 Initialized to value = %d\n\r", genericOnOffCounter.counter);
+    TRACE_I(TF_GENERIC,"SET-05 Initialized to value = %lu\n\r", genericOnOffCounter.counter);
 }
 
 MOBLEUINT32 generic_onoff_counter() {
