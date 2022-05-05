@@ -1,961 +1,641 @@
 node_count,ping_interval,distance_cm,local_sent_packets,remote_received_packets,location
-3,100,150,195,195,ground_truth
-3,100,150,195,195,ground_truth
-3,100,150,195,195,ground_truth
-3,100,150,195,195,ground_truth
-3,100,150,195,195,ground_truth
-3,100,300,195,195,ground_truth
-3,100,300,195,195,ground_truth
-3,100,300,195,195,ground_truth
-3,100,300,195,195,ground_truth
-3,100,300,196,196,ground_truth
-3,100,500,192,192,ground_truth
-3,100,500,195,195,ground_truth
-3,100,500,195,195,ground_truth
-3,100,500,195,195,ground_truth
-3,100,500,195,195,ground_truth
-3,100,800,195,195,ground_truth
-3,100,800,195,195,ground_truth
-3,100,800,195,195,ground_truth
-3,100,800,195,195,ground_truth
-3,100,800,195,195,ground_truth
-3,500,150,39,39,ground_truth
-3,500,150,39,39,ground_truth
-3,500,150,39,39,ground_truth
-3,500,150,39,39,ground_truth
-3,500,150,39,39,ground_truth
-3,500,300,39,39,ground_truth
-3,500,300,39,39,ground_truth
-3,500,300,39,39,ground_truth
-3,500,300,39,39,ground_truth
-3,500,300,39,39,ground_truth
-3,500,500,39,39,ground_truth
-3,500,500,39,39,ground_truth
-3,500,500,39,39,ground_truth
-3,500,500,39,39,ground_truth
-3,500,500,39,39,ground_truth
-3,500,800,39,39,ground_truth
-3,500,800,39,39,ground_truth
-3,500,800,39,39,ground_truth
-3,500,800,39,39,ground_truth
-3,500,800,39,39,ground_truth
-3,500,10000,39,39,ground_truth
-3,500,10000,39,39,ground_truth
-3,500,10000,39,39,ground_truth
-3,500,10000,39,39,ground_truth
-3,500,10000,39,39,ground_truth
-3,500,13000,39,39,ground_truth
-3,500,13000,39,39,ground_truth
-3,500,13000,39,39,ground_truth
-3,500,13000,39,39,ground_truth
-3,500,13000,39,39,ground_truth
-3,800,150,24,24,ground_truth
-3,800,150,24,24,ground_truth
-3,800,150,24,24,ground_truth
-3,800,150,24,24,ground_truth
-3,800,150,24,24,ground_truth
-3,800,300,24,24,ground_truth
-3,800,300,24,24,ground_truth
-3,800,300,24,24,ground_truth
-3,800,300,24,24,ground_truth
-3,800,300,24,24,ground_truth
-3,800,500,24,24,ground_truth
-3,800,500,24,24,ground_truth
-3,800,500,24,24,ground_truth
-3,800,500,24,24,ground_truth
-3,800,500,24,24,ground_truth
-3,800,800,24,24,ground_truth
-3,800,800,24,24,ground_truth
-3,800,800,24,24,ground_truth
-3,800,800,24,24,ground_truth
-3,800,800,24,24,ground_truth
-3,800,10000,24,24,ground_truth
-3,800,10000,24,24,ground_truth
-3,800,10000,24,24,ground_truth
-3,800,10000,24,24,ground_truth
-3,800,10000,24,24,ground_truth
-3,800,13000,24,24,ground_truth
-3,800,13000,24,24,ground_truth
-3,800,13000,24,24,ground_truth
-3,800,13000,24,24,ground_truth
-3,800,13000,24,24,ground_truth
-3,1300,150,15,15,ground_truth
-3,1300,150,15,15,ground_truth
-3,1300,150,15,15,ground_truth
-3,1300,150,15,15,ground_truth
-3,1300,150,15,15,ground_truth
-3,1300,300,15,15,ground_truth
-3,1300,300,15,15,ground_truth
-3,1300,300,15,15,ground_truth
-3,1300,300,15,15,ground_truth
-3,1300,300,15,15,ground_truth
-3,1300,500,15,15,ground_truth
-3,1300,500,15,15,ground_truth
-3,1300,500,15,15,ground_truth
-3,1300,500,15,15,ground_truth
-3,1300,500,15,15,ground_truth
-3,1300,800,15,15,ground_truth
-3,1300,800,15,15,ground_truth
-3,1300,800,15,15,ground_truth
-3,1300,800,15,15,ground_truth
-3,1300,800,15,15,ground_truth
-3,1300,10000,15,15,ground_truth
-3,1300,10000,15,15,ground_truth
-3,1300,10000,15,15,ground_truth
-3,1300,10000,15,15,ground_truth
-3,1300,10000,15,15,ground_truth
-3,1300,13000,15,15,ground_truth
-3,1300,13000,15,15,ground_truth
-3,1300,13000,15,15,ground_truth
-3,1300,13000,15,15,ground_truth
-3,1300,13000,15,15,ground_truth
-3,1300,16000,15,15,ground_truth
-3,1300,16000,15,15,ground_truth
-3,1300,16000,15,15,ground_truth
-3,1300,16000,15,15,ground_truth
-3,1300,16000,15,15,ground_truth
-3,1300,21000,15,15,ground_truth
-3,1300,21000,15,15,ground_truth
-3,1300,21000,15,15,ground_truth
-3,1300,21000,15,15,ground_truth
-3,1300,21000,15,15,ground_truth
-3,2100,150,9,9,ground_truth
-3,2100,150,9,9,ground_truth
-3,2100,150,9,9,ground_truth
-3,2100,150,9,9,ground_truth
-3,2100,150,9,9,ground_truth
-3,2100,300,9,9,ground_truth
-3,2100,300,9,9,ground_truth
-3,2100,300,9,9,ground_truth
-3,2100,300,9,9,ground_truth
-3,2100,300,9,9,ground_truth
-3,2100,500,9,9,ground_truth
-3,2100,500,9,9,ground_truth
-3,2100,500,9,9,ground_truth
-3,2100,500,9,9,ground_truth
-3,2100,500,9,9,ground_truth
-3,2100,800,9,9,ground_truth
-3,2100,800,9,9,ground_truth
-3,2100,800,9,9,ground_truth
-3,2100,800,9,9,ground_truth
-3,2100,800,9,9,ground_truth
-3,2100,10000,9,9,ground_truth
-3,2100,10000,9,9,ground_truth
-3,2100,10000,9,9,ground_truth
-3,2100,10000,9,9,ground_truth
-3,2100,10000,9,9,ground_truth
-3,2100,13000,9,9,ground_truth
-3,2100,13000,9,9,ground_truth
-3,2100,13000,9,9,ground_truth
-3,2100,13000,9,9,ground_truth
-3,2100,13000,9,9,ground_truth
-3,2100,16000,9,9,ground_truth
-3,2100,16000,9,9,ground_truth
-3,2100,16000,9,9,ground_truth
-3,2100,16000,9,9,ground_truth
-3,2100,16000,9,9,ground_truth
-3,2100,21000,9,9,ground_truth
-3,2100,21000,9,9,ground_truth
-3,2100,21000,9,9,ground_truth
-3,2100,21000,9,9,ground_truth
-3,2100,21000,9,9,ground_truth
-3,100,150,195,65,forest
-3,100,150,195,84,forest
-3,100,150,195,125,forest
-3,100,150,195,95,forest
-3,100,150,195,79,forest
-3,100,300,195,85,forest
-3,100,300,195,74,forest
-3,100,300,195,71,forest
-3,100,300,195,80,forest
-3,100,300,196,90,forest
-3,100,500,192,102,forest
-3,100,500,195,88,forest
-3,100,500,195,57,forest
-3,100,500,195,92,forest
-3,100,500,195,96,forest
-3,100,800,195,0,forest
-3,100,800,195,31,forest
-3,100,800,195,0,forest
-3,100,800,195,10,forest
-3,100,800,195,0,forest
-3,500,150,39,39,forest
-3,500,150,39,38,forest
-3,500,150,39,39,forest
-3,500,150,39,38,forest
-3,500,150,39,32,forest
-3,500,300,39,35,forest
-3,500,300,39,39,forest
-3,500,300,39,36,forest
-3,500,300,39,38,forest
-3,500,300,39,36,forest
-3,500,500,39,37,forest
-3,500,500,39,8,forest
-3,500,500,39,21,forest
-3,500,500,39,35,forest
-3,500,500,39,39,forest
-3,500,800,39,31,forest
-3,500,800,39,13,forest
-3,500,800,39,27,forest
-3,500,800,39,8,forest
-3,500,800,39,11,forest
-3,500,10000,39,37,forest
-3,500,10000,39,33,forest
-3,500,10000,39,35,forest
-3,500,10000,39,35,forest
-3,500,10000,39,12,forest
-3,500,13000,39,24,forest
-3,500,13000,39,0,forest
-3,500,13000,39,10,forest
-3,500,13000,39,8,forest
-3,500,13000,39,14,forest
-3,800,150,24,25,forest
-3,800,150,24,24,forest
-3,800,150,24,24,forest
-3,800,150,24,25,forest
-3,800,150,24,24,forest
-3,800,300,24,25,forest
-3,800,300,24,24,forest
-3,800,300,24,25,forest
-3,800,300,24,24,forest
-3,800,300,24,24,forest
-3,800,500,24,25,forest
-3,800,500,24,24,forest
-3,800,500,24,24,forest
-3,800,500,24,6,forest
-3,800,500,24,22,forest
-3,800,800,24,16,forest
-3,800,800,24,21,forest
-3,800,800,24,12,forest
-3,800,800,24,5,forest
-3,800,800,24,23,forest
-3,800,10000,24,17,forest
-3,800,10000,24,8,forest
-3,800,10000,24,3,forest
-3,800,10000,24,11,forest
-3,800,10000,24,11,forest
-3,800,13000,24,11,forest
-3,800,13000,24,17,forest
-3,800,13000,24,7,forest
-3,800,13000,24,9,forest
-3,800,13000,24,14,forest
-3,1300,150,15,16,forest
-3,1300,150,15,16,forest
-3,1300,150,15,16,forest
-3,1300,150,15,16,forest
-3,1300,150,15,16,forest
-3,1300,300,15,16,forest
-3,1300,300,15,16,forest
-3,1300,300,15,16,forest
-3,1300,300,15,16,forest
-3,1300,300,15,16,forest
-3,1300,500,15,11,forest
-3,1300,500,15,15,forest
-3,1300,500,15,10,forest
-3,1300,500,15,16,forest
-3,1300,500,15,16,forest
-3,1300,800,15,14,forest
-3,1300,800,15,1,forest
-3,1300,800,15,4,forest
-3,1300,800,15,12,forest
-3,1300,800,15,10,forest
-3,1300,10000,15,11,forest
-3,1300,10000,15,6,forest
-3,1300,10000,15,10,forest
-3,1300,10000,15,4,forest
-3,1300,10000,15,8,forest
-3,1300,13000,15,2,forest
-3,1300,13000,15,5,forest
-3,1300,13000,15,5,forest
-3,1300,13000,15,8,forest
-3,1300,13000,15,8,forest
-3,1300,16000,15,14,forest
-3,1300,16000,15,16,forest
-3,1300,16000,15,11,forest
-3,1300,16000,15,12,forest
-3,1300,16000,15,12,forest
-3,1300,21000,15,2,forest
-3,1300,21000,15,0,forest
-3,1300,21000,15,0,forest
-3,1300,21000,15,1,forest
-3,1300,21000,15,0,forest
-3,2100,150,9,10,forest
-3,2100,150,9,10,forest
-3,2100,150,9,10,forest
-3,2100,150,9,10,forest
-3,2100,150,9,10,forest
-3,2100,300,9,9,forest
-3,2100,300,9,10,forest
-3,2100,300,9,10,forest
-3,2100,300,9,10,forest
-3,2100,300,9,10,forest
-3,2100,500,9,8,forest
-3,2100,500,9,10,forest
-3,2100,500,9,10,forest
-3,2100,500,9,10,forest
-3,2100,500,9,10,forest
-3,2100,800,9,6,forest
-3,2100,800,9,5,forest
-3,2100,800,9,7,forest
-3,2100,800,9,8,forest
-3,2100,800,9,2,forest
-3,2100,10000,9,6,forest
-3,2100,10000,9,10,forest
-3,2100,10000,9,12,forest
-3,2100,10000,9,4,forest
-3,2100,10000,9,3,forest
-3,2100,13000,9,1,forest
-3,2100,13000,9,0,forest
-3,2100,13000,9,0,forest
-3,2100,13000,9,0,forest
-3,2100,13000,9,2,forest
-3,2100,16000,9,7,forest
-3,2100,16000,9,10,forest
-3,2100,16000,9,5,forest
-3,2100,16000,9,10,forest
-3,2100,16000,9,10,forest
-3,2100,21000,9,4,forest
-3,2100,21000,9,1,forest
-3,2100,21000,9,4,forest
-3,2100,21000,9,0,forest
-3,2100,21000,9,0,forest
-2,100,150,195,195,ground_truth
-2,100,150,195,195,ground_truth
-2,100,150,195,195,ground_truth
-2,100,150,195,195,ground_truth
-2,100,150,195,195,ground_truth
-2,100,300,195,195,ground_truth
-2,100,300,195,195,ground_truth
-2,100,300,195,195,ground_truth
-2,100,300,195,195,ground_truth
-2,100,300,195,195,ground_truth
-2,100,500,195,195,ground_truth
-2,100,500,195,195,ground_truth
-2,100,500,195,195,ground_truth
-2,100,500,195,195,ground_truth
-2,100,500,195,195,ground_truth
-2,100,800,195,195,ground_truth
-2,100,800,195,195,ground_truth
-2,100,800,195,195,ground_truth
-2,100,800,195,195,ground_truth
-2,100,800,195,195,ground_truth
-2,500,150,39,39,ground_truth
-2,500,150,39,39,ground_truth
-2,500,150,39,39,ground_truth
-2,500,150,39,39,ground_truth
-2,500,150,39,39,ground_truth
-2,500,300,39,39,ground_truth
-2,500,300,39,39,ground_truth
-2,500,300,39,39,ground_truth
-2,500,300,39,39,ground_truth
-2,500,300,39,39,ground_truth
-2,500,500,39,39,ground_truth
-2,500,500,39,39,ground_truth
-2,500,500,39,39,ground_truth
-2,500,500,39,39,ground_truth
-2,500,500,39,39,ground_truth
-2,500,800,39,39,ground_truth
-2,500,800,39,39,ground_truth
-2,500,800,39,39,ground_truth
-2,500,800,39,39,ground_truth
-2,500,800,39,39,ground_truth
-2,500,10000,39,39,ground_truth
-2,500,10000,39,39,ground_truth
-2,500,10000,39,39,ground_truth
-2,500,10000,39,39,ground_truth
-2,500,10000,39,39,ground_truth
-2,500,13000,39,39,ground_truth
-2,500,13000,39,39,ground_truth
-2,500,13000,39,39,ground_truth
-2,500,13000,39,39,ground_truth
-2,500,13000,39,39,ground_truth
-2,800,150,24,24,ground_truth
-2,800,150,24,24,ground_truth
-2,800,150,24,24,ground_truth
-2,800,150,24,24,ground_truth
-2,800,150,24,24,ground_truth
-2,800,300,24,24,ground_truth
-2,800,300,24,24,ground_truth
-2,800,300,24,24,ground_truth
-2,800,300,24,24,ground_truth
-2,800,300,24,24,ground_truth
-2,800,500,24,24,ground_truth
-2,800,500,24,24,ground_truth
-2,800,500,24,24,ground_truth
-2,800,500,24,24,ground_truth
-2,800,500,24,24,ground_truth
-2,800,800,24,24,ground_truth
-2,800,800,24,24,ground_truth
-2,800,800,24,24,ground_truth
-2,800,800,24,24,ground_truth
-2,800,800,24,24,ground_truth
-2,800,10000,24,24,ground_truth
-2,800,10000,24,24,ground_truth
-2,800,10000,24,24,ground_truth
-2,800,10000,24,24,ground_truth
-2,800,10000,24,24,ground_truth
-2,800,13000,24,24,ground_truth
-2,800,13000,24,24,ground_truth
-2,800,13000,24,24,ground_truth
-2,800,13000,24,24,ground_truth
-2,800,13000,24,24,ground_truth
-2,1300,150,15,15,ground_truth
-2,1300,150,15,15,ground_truth
-2,1300,150,15,15,ground_truth
-2,1300,150,15,15,ground_truth
-2,1300,150,15,15,ground_truth
-2,1300,300,15,15,ground_truth
-2,1300,300,15,15,ground_truth
-2,1300,300,15,15,ground_truth
-2,1300,300,15,15,ground_truth
-2,1300,300,15,15,ground_truth
-2,1300,500,15,15,ground_truth
-2,1300,500,15,15,ground_truth
-2,1300,500,15,15,ground_truth
-2,1300,500,15,15,ground_truth
-2,1300,500,15,15,ground_truth
-2,1300,800,15,15,ground_truth
-2,1300,800,15,15,ground_truth
-2,1300,800,15,15,ground_truth
-2,1300,800,15,15,ground_truth
-2,1300,800,15,15,ground_truth
-2,1300,10000,15,15,ground_truth
-2,1300,10000,15,15,ground_truth
-2,1300,10000,15,15,ground_truth
-2,1300,10000,15,15,ground_truth
-2,1300,10000,15,15,ground_truth
-2,1300,13000,15,15,ground_truth
-2,1300,13000,15,15,ground_truth
-2,1300,13000,15,15,ground_truth
-2,1300,13000,15,15,ground_truth
-2,1300,13000,15,15,ground_truth
-2,1300,16000,15,15,ground_truth
-2,1300,16000,15,15,ground_truth
-2,1300,16000,15,15,ground_truth
-2,1300,16000,15,15,ground_truth
-2,1300,16000,15,15,ground_truth
-2,1300,21000,15,15,ground_truth
-2,1300,21000,15,15,ground_truth
-2,1300,21000,15,15,ground_truth
-2,1300,21000,15,15,ground_truth
-2,1300,21000,15,15,ground_truth
-2,2100,150,9,9,ground_truth
-2,2100,150,9,9,ground_truth
-2,2100,150,9,9,ground_truth
-2,2100,150,9,9,ground_truth
-2,2100,150,9,9,ground_truth
-2,2100,300,9,9,ground_truth
-2,2100,300,9,9,ground_truth
-2,2100,300,9,9,ground_truth
-2,2100,300,9,9,ground_truth
-2,2100,300,9,9,ground_truth
-2,2100,500,9,9,ground_truth
-2,2100,500,9,9,ground_truth
-2,2100,500,9,9,ground_truth
-2,2100,500,9,9,ground_truth
-2,2100,500,9,9,ground_truth
-2,2100,800,9,9,ground_truth
-2,2100,800,9,9,ground_truth
-2,2100,800,9,9,ground_truth
-2,2100,800,9,9,ground_truth
-2,2100,800,9,9,ground_truth
-2,2100,10000,9,9,ground_truth
-2,2100,10000,9,9,ground_truth
-2,2100,10000,9,9,ground_truth
-2,2100,10000,9,9,ground_truth
-2,2100,10000,9,9,ground_truth
-2,2100,13000,9,9,ground_truth
-2,2100,13000,9,9,ground_truth
-2,2100,13000,9,9,ground_truth
-2,2100,13000,9,9,ground_truth
-2,2100,13000,9,9,ground_truth
-2,2100,16000,9,9,ground_truth
-2,2100,16000,9,9,ground_truth
-2,2100,16000,9,9,ground_truth
-2,2100,16000,9,9,ground_truth
-2,2100,16000,9,9,ground_truth
-2,2100,21000,9,9,ground_truth
-2,2100,21000,9,9,ground_truth
-2,2100,21000,9,9,ground_truth
-2,2100,21000,9,9,ground_truth
-2,2100,21000,9,9,ground_truth
-3,100,150,195,115,city
-3,100,150,195,120,city
-3,100,150,195,101,city
-3,100,150,195,59,city
-3,100,150,195,112,city
-3,100,300,195,6,city
-3,100,300,195,102,city
-3,100,300,195,107,city
-3,100,300,195,119,city
-3,100,300,195,116,city
-3,100,500,195,68,city
-3,100,500,195,87,city
-3,100,500,196,67,city
-3,100,500,195,92,city
-3,100,500,195,74,city
-3,100,800,195,42,city
-3,100,800,195,50,city
-3,100,800,195,46,city
-3,100,800,195,97,city
-3,100,800,195,48,city
-3,500,150,39,37,city
-3,500,150,39,40,city
-3,500,150,39,38,city
-3,500,150,39,40,city
-3,500,150,39,37,city
-3,500,300,39,34,city
-3,500,300,39,35,city
-3,500,300,39,34,city
-3,500,300,39,34,city
-3,500,300,39,36,city
-3,500,500,39,37,city
-3,500,500,39,36,city
-3,500,500,39,40,city
-3,500,500,39,34,city
-3,500,500,39,36,city
-3,500,800,39,39,city
-3,500,800,39,35,city
-3,500,800,39,37,city
-3,500,800,39,38,city
-3,500,800,39,27,city
-3,500,10000,39,32,city
-3,500,10000,39,33,city
-3,500,10000,39,37,city
-3,500,10000,39,35,city
-3,500,10000,39,37,city
-3,500,13000,39,17,city
-3,500,13000,39,16,city
-3,500,13000,39,35,city
-3,500,13000,39,22,city
-3,500,13000,39,34,city
-3,800,150,24,35,city
-3,800,150,24,24,city
-3,800,150,24,24,city
-3,800,150,24,24,city
-3,800,150,24,24,city
-3,800,300,24,25,city
-3,800,300,24,24,city
-3,800,300,24,24,city
-3,800,300,24,24,city
-3,800,300,24,24,city
-3,800,500,24,24,city
-3,800,500,24,24,city
-3,800,500,24,24,city
-3,800,500,24,24,city
-3,800,500,24,24,city
-3,800,800,24,25,city
-3,800,800,24,24,city
-3,800,800,24,12,city
-3,800,800,24,24,city
-3,800,800,24,24,city
-3,800,10000,24,25,city
-3,800,10000,24,24,city
-3,800,10000,24,24,city
-3,800,10000,24,24,city
-3,800,10000,24,22,city
-3,800,13000,24,12,city
-3,800,13000,24,24,city
-3,800,13000,24,24,city
-3,800,13000,24,22,city
-3,800,13000,24,17,city
-3,1300,150,15,16,city
-3,1300,150,15,16,city
-3,1300,150,15,16,city
-3,1300,150,15,16,city
-3,1300,150,15,16,city
-3,1300,300,15,16,city
-3,1300,300,15,16,city
-3,1300,300,15,16,city
-3,1300,300,15,16,city
-3,1300,300,15,16,city
-3,1300,500,15,16,city
-3,1300,500,15,16,city
-3,1300,500,15,16,city
-3,1300,500,15,16,city
-3,1300,500,15,13,city
-3,1300,800,15,16,city
-3,1300,800,15,16,city
-3,1300,800,15,16,city
-3,1300,800,15,16,city
-3,1300,800,15,16,city
-3,1300,10000,15,16,city
-3,1300,10000,15,16,city
-3,1300,10000,15,14,city
-3,1300,10000,15,16,city
-3,1300,10000,15,16,city
-3,1300,13000,15,16,city
-3,1300,13000,15,6,city
-3,1300,13000,15,16,city
-3,1300,13000,15,11,city
-3,1300,13000,15,15,city
-3,1300,16000,15,14,city
-3,1300,16000,15,16,city
-3,1300,16000,15,11,city
-3,1300,16000,15,8,city
-3,1300,16000,15,4,city
-3,1300,21000,15,8,city
-3,1300,21000,15,13,city
-3,1300,21000,15,15,city
-3,1300,21000,15,16,city
-3,1300,21000,15,15,city
-3,2100,150,9,10,city
-3,2100,150,9,10,city
-3,2100,150,9,10,city
-3,2100,150,9,10,city
-3,2100,150,9,10,city
-3,2100,300,9,10,city
-3,2100,300,9,10,city
-3,2100,300,9,10,city
-3,2100,300,9,10,city
-3,2100,300,9,10,city
-3,2100,500,9,10,city
-3,2100,500,9,10,city
-3,2100,500,9,10,city
-3,2100,500,9,10,city
-3,2100,500,9,10,city
-3,2100,800,9,8,city
-3,2100,800,9,8,city
-3,2100,800,9,8,city
-3,2100,800,9,3,city
-3,2100,800,9,10,city
-3,2100,10000,9,8,city
-3,2100,10000,9,10,city
-3,2100,10000,9,8,city
-3,2100,10000,9,7,city
-3,2100,10000,9,7,city
-3,2100,13000,9,10,city
-3,2100,13000,9,7,city
-3,2100,13000,9,1,city
-3,2100,13000,9,9,city
-3,2100,13000,9,6,city
-3,2100,16000,9,6,city
-3,2100,16000,9,10,city
-3,2100,16000,9,10,city
-3,2100,16000,9,2,city
-3,2100,16000,9,7,city
-3,2100,21000,9,7,city
-3,2100,21000,9,7,city
-3,2100,21000,9,7,city
-3,2100,21000,9,10,city
-3,2100,21000,9,10,city
-2,100,150,195,119,forest
-2,100,150,196,139,forest
-2,100,150,195,54,forest
-2,100,150,195,117,forest
-2,100,150,195,127,forest
-2,100,300,195,127,forest
-2,100,300,195,113,forest
-2,100,300,195,118,forest
-2,100,300,195,113,forest
-2,100,300,195,117,forest
-2,100,500,195,93,forest
-2,100,500,126,106,forest
-2,100,500,196,120,forest
-2,100,500,195,218,forest
-2,100,500,195,108,forest
-2,100,800,195,23,forest
-2,100,800,195,118,forest
-2,100,800,196,56,forest
-2,100,800,195,106,forest
-2,100,800,195,126,forest
-2,500,150,39,40,forest
-2,500,150,39,38,forest
-2,500,150,39,40,forest
-2,500,150,39,40,forest
-2,500,150,39,40,forest
-2,500,300,39,40,forest
-2,500,300,39,40,forest
-2,500,300,39,40,forest
-2,500,300,39,40,forest
-2,500,300,39,40,forest
-2,500,500,39,36,forest
-2,500,500,39,40,forest
-2,500,500,39,38,forest
-2,500,500,39,40,forest
-2,500,500,39,40,forest
-2,500,800,39,38,forest
-2,500,800,39,38,forest
-2,500,800,39,19,forest
-2,500,800,39,29,forest
-2,500,800,39,40,forest
-2,500,10000,39,25,forest
-2,500,10000,39,38,forest
-2,500,10000,39,38,forest
-2,500,10000,39,36,forest
-2,500,10000,39,23,forest
-2,500,13000,39,30,forest
-2,500,13000,39,19,forest
-2,500,13000,39,8,forest
-2,500,13000,39,5,forest
-2,500,13000,39,30,forest
-2,800,150,24,25,forest
-2,800,150,24,24,forest
-2,800,150,24,24,forest
-2,800,150,24,24,forest
-2,800,150,24,24,forest
-2,800,300,24,25,forest
-2,800,300,24,24,forest
-2,800,300,24,24,forest
-2,800,300,24,24,forest
-2,800,300,24,24,forest
-2,800,500,24,25,forest
-2,800,500,24,24,forest
-2,800,500,24,24,forest
-2,800,500,24,24,forest
-2,800,500,24,25,forest
-2,800,800,24,14,forest
-2,800,800,24,12,forest
-2,800,800,24,25,forest
-2,800,800,24,24,forest
-2,800,800,24,24,forest
-2,800,10000,24,13,forest
-2,800,10000,24,5,forest
-2,800,10000,24,22,forest
-2,800,10000,24,38,forest
-2,800,10000,24,9,forest
-2,800,13000,24,11,forest
-2,800,13000,24,18,forest
-2,800,13000,24,18,forest
-2,800,13000,24,5,forest
-2,800,13000,24,3,forest
-2,1300,150,15,15,forest
-2,1300,150,15,16,forest
-2,1300,150,15,16,forest
-2,1300,150,15,14,forest
-2,1300,150,15,16,forest
-2,1300,300,15,15,forest
-2,1300,300,15,16,forest
-2,1300,300,15,16,forest
-2,1300,300,15,15,forest
-2,1300,300,15,16,forest
-2,1300,500,15,12,forest
-2,1300,500,15,16,forest
-2,1300,500,15,16,forest
-2,1300,500,15,14,forest
-2,1300,500,15,15,forest
-2,1300,800,15,11,forest
-2,1300,800,15,13,forest
-2,1300,800,15,16,forest
-2,1300,800,15,15,forest
-2,1300,800,15,15,forest
-2,1300,10000,15,16,forest
-2,1300,10000,15,11,forest
-2,1300,10000,15,8,forest
-2,1300,10000,15,12,forest
-2,1300,10000,15,3,forest
-2,1300,13000,15,15,forest
-2,1300,13000,15,10,forest
-2,1300,13000,15,20,forest
-2,1300,13000,15,8,forest
-2,1300,13000,15,0,forest
-2,1300,16000,15,9,forest
-2,1300,16000,15,14,forest
-2,1300,16000,15,0,forest
-2,1300,16000,15,0,forest
-2,1300,16000,15,0,forest
-2,1300,21000,15,0,forest
-2,1300,21000,15,0,forest
-2,1300,21000,15,6,forest
-2,1300,21000,15,0,forest
-2,1300,21000,15,0,forest
-2,2100,150,9,10,forest
-2,2100,150,9,9,forest
-2,2100,150,9,9,forest
-2,2100,150,9,10,forest
-2,2100,150,9,9,forest
-2,2100,300,9,10,forest
-2,2100,300,9,10,forest
-2,2100,300,9,10,forest
-2,2100,300,9,9,forest
-2,2100,300,9,10,forest
-2,2100,500,9,7,forest
-2,2100,500,9,10,forest
-2,2100,500,9,10,forest
-2,2100,500,9,10,forest
-2,2100,500,9,10,forest
-2,2100,800,9,7,forest
-2,2100,800,9,8,forest
-2,2100,800,9,10,forest
-2,2100,800,9,10,forest
-2,2100,800,9,10,forest
-2,2100,10000,9,4,forest
-2,2100,10000,9,5,forest
-2,2100,10000,9,10,forest
-2,2100,10000,9,5,forest
-2,2100,10000,9,3,forest
-2,2100,13000,9,9,forest
-2,2100,13000,9,1,forest
-2,2100,13000,9,6,forest
-2,2100,13000,9,7,forest
-2,2100,13000,9,8,forest
-2,2100,16000,9,0,forest
-2,2100,16000,9,3,forest
-2,2100,16000,9,0,forest
-2,2100,16000,9,3,forest
-2,2100,16000,9,4,forest
-2,2100,21000,9,0,forest
-2,2100,21000,9,0,forest
-2,2100,21000,9,0,forest
-2,2100,21000,9,0,forest
-2,2100,21000,9,0,forest
-2,100,150,195,124,city
-2,100,150,195,133,city
-2,100,150,195,120,city
-2,100,150,195,84,city
-2,100,150,195,143,city
-2,100,300,195,128,city
-2,100,300,195,107,city
-2,100,300,196,125,city
-2,100,300,195,106,city
-2,100,300,195,140,city
-2,100,500,195,111,city
-2,100,500,196,114,city
-2,100,500,195,127,city
-2,100,500,195,111,city
-2,100,500,196,110,city
-2,100,800,195,111,city
-2,100,800,195,67,city
-2,100,800,195,124,city
-2,100,800,195,84,city
-2,100,800,195,75,city
-2,500,150,39,39,city
-2,500,150,39,39,city
-2,500,150,39,40,city
-2,500,150,39,40,city
-2,500,150,39,40,city
-2,500,300,39,39,city
-2,500,300,39,39,city
-2,500,300,39,40,city
-2,500,300,39,40,city
-2,500,300,39,40,city
-2,500,500,39,39,city
-2,500,500,39,40,city
-2,500,500,39,40,city
-2,500,500,39,40,city
-2,500,500,39,40,city
-2,500,800,39,22,city
-2,500,800,39,19,city
-2,500,800,39,12,city
-2,500,800,39,29,city
-2,500,800,39,40,city
-2,500,10000,39,33,city
-2,500,10000,39,34,city
-2,500,10000,39,38,city
-2,500,10000,39,40,city
-2,500,10000,39,36,city
-2,500,13000,39,39,city
-2,500,13000,39,40,city
-2,500,13000,39,38,city
-2,500,13000,39,40,city
-2,500,13000,39,31,city
-2,800,150,24,25,city
-2,800,150,24,24,city
-2,800,150,24,24,city
-2,800,150,24,24,city
-2,800,150,24,25,city
-2,800,300,24,25,city
-2,800,300,24,24,city
-2,800,300,24,24,city
-2,800,300,24,24,city
-2,800,300,24,24,city
-2,800,500,24,25,city
-2,800,500,24,25,city
-2,800,500,24,24,city
-2,800,500,24,24,city
-2,800,500,24,24,city
-2,800,800,24,15,city
-2,800,800,24,12,city
-2,800,800,24,5,city
-2,800,800,24,18,city
-2,800,800,24,18,city
-2,800,10000,24,12,city
-2,800,10000,24,11,city
-2,800,10000,24,18,city
-2,800,10000,24,18,city
-2,800,10000,24,16,city
-2,800,13000,24,23,city
-2,800,13000,24,24,city
-2,800,13000,24,24,city
-2,800,13000,24,16,city
-2,800,13000,24,24,city
-2,1300,150,15,16,city
-2,1300,150,15,16,city
-2,1300,150,15,16,city
-2,1300,150,15,16,city
-2,1300,150,15,16,city
-2,1300,300,15,15,city
-2,1300,300,15,16,city
-2,1300,300,15,15,city
-2,1300,300,15,16,city
-2,1300,300,15,16,city
-2,1300,500,15,16,city
-2,1300,500,15,16,city
-2,1300,500,15,16,city
-2,1300,500,15,16,city
-2,1300,500,15,16,city
-2,1300,800,15,5,city
-2,1300,800,15,15,city
-2,1300,800,15,5,city
-2,1300,800,15,16,city
-2,1300,800,15,9,city
-2,1300,10000,15,15,city
-2,1300,10000,15,16,city
-2,1300,10000,15,16,city
-2,1300,10000,15,16,city
-2,1300,10000,15,12,city
-2,1300,13000,15,10,city
-2,1300,13000,15,16,city
-2,1300,13000,15,8,city
-2,1300,13000,15,15,city
-2,1300,13000,15,15,city
-2,1300,16000,15,14,city
-2,1300,16000,15,14,city
-2,1300,16000,15,12,city
-2,1300,16000,15,16,city
-2,1300,16000,15,14,city
-2,1300,21000,15,12,city
-2,1300,21000,15,7,city
-2,1300,21000,15,14,city
-2,1300,21000,15,12,city
-2,1300,21000,15,12,city
-2,2100,150,9,10,city
-2,2100,150,9,10,city
-2,2100,150,9,10,city
-2,2100,150,9,10,city
-2,2100,150,9,10,city
-2,2100,300,9,10,city
-2,2100,300,9,10,city
-2,2100,300,9,10,city
-2,2100,300,9,10,city
-2,2100,300,9,10,city
-2,2100,500,9,10,city
-2,2100,500,9,9,city
-2,2100,500,9,10,city
-2,2100,500,9,8,city
-2,2100,500,9,9,city
-2,2100,800,9,7,city
-2,2100,800,9,10,city
-2,2100,800,9,10,city
-2,2100,800,9,9,city
-2,2100,800,9,7,city
-2,2100,10000,9,10,city
-2,2100,10000,9,10,city
-2,2100,10000,9,3,city
-2,2100,10000,9,7,city
-2,2100,10000,9,7,city
-2,2100,13000,9,10,city
-2,2100,13000,9,5,city
-2,2100,13000,9,6,city
-2,2100,13000,9,10,city
-2,2100,13000,9,10,city
-2,2100,16000,9,10,city
-2,2100,16000,9,10,city
-2,2100,16000,9,10,city
-2,2100,16000,9,10,city
-2,2100,16000,9,7,city
-2,2100,21000,9,9,city
-2,2100,21000,9,1,city
-2,2100,21000,9,0,city
-2,2100,21000,9,7,city
-2,2100,21000,9,7,city
+3,100,150,195,64,teren leśny
+3,100,150,195,83,teren leśny
+3,100,150,195,124,teren leśny
+3,100,150,195,94,teren leśny
+3,100,150,195,78,teren leśny
+3,100,300,195,84,teren leśny
+3,100,300,195,73,teren leśny
+3,100,300,195,70,teren leśny
+3,100,300,195,79,teren leśny
+3,100,300,196,89,teren leśny
+3,100,500,192,101,teren leśny
+3,100,500,195,87,teren leśny
+3,100,500,195,56,teren leśny
+3,100,500,195,91,teren leśny
+3,100,500,195,95,teren leśny
+3,100,800,195,0,teren leśny
+3,100,800,195,30,teren leśny
+3,100,800,195,0,teren leśny
+3,100,800,195,9,teren leśny
+3,100,800,195,0,teren leśny
+3,500,150,39,38,teren leśny
+3,500,150,39,37,teren leśny
+3,500,150,39,38,teren leśny
+3,500,150,39,37,teren leśny
+3,500,150,39,31,teren leśny
+3,500,300,39,34,teren leśny
+3,500,300,39,38,teren leśny
+3,500,300,39,35,teren leśny
+3,500,300,39,37,teren leśny
+3,500,300,39,35,teren leśny
+3,500,500,39,36,teren leśny
+3,500,500,39,7,teren leśny
+3,500,500,39,20,teren leśny
+3,500,500,39,34,teren leśny
+3,500,500,39,38,teren leśny
+3,500,800,39,30,teren leśny
+3,500,800,39,12,teren leśny
+3,500,800,39,26,teren leśny
+3,500,800,39,7,teren leśny
+3,500,800,39,10,teren leśny
+3,500,1000,39,36,teren leśny
+3,500,1000,39,32,teren leśny
+3,500,1000,39,34,teren leśny
+3,500,1000,39,34,teren leśny
+3,500,1000,39,11,teren leśny
+3,500,1300,39,23,teren leśny
+3,500,1300,39,0,teren leśny
+3,500,1300,39,9,teren leśny
+3,500,1300,39,7,teren leśny
+3,500,1300,39,13,teren leśny
+3,800,150,24,24,teren leśny
+3,800,150,24,23,teren leśny
+3,800,150,24,23,teren leśny
+3,800,150,24,24,teren leśny
+3,800,150,24,23,teren leśny
+3,800,300,24,24,teren leśny
+3,800,300,24,23,teren leśny
+3,800,300,24,24,teren leśny
+3,800,300,24,23,teren leśny
+3,800,300,24,23,teren leśny
+3,800,500,24,24,teren leśny
+3,800,500,24,23,teren leśny
+3,800,500,24,23,teren leśny
+3,800,500,24,5,teren leśny
+3,800,500,24,21,teren leśny
+3,800,800,24,15,teren leśny
+3,800,800,24,20,teren leśny
+3,800,800,24,11,teren leśny
+3,800,800,24,4,teren leśny
+3,800,800,24,22,teren leśny
+3,800,1000,24,16,teren leśny
+3,800,1000,24,7,teren leśny
+3,800,1000,24,2,teren leśny
+3,800,1000,24,10,teren leśny
+3,800,1000,24,10,teren leśny
+3,800,1300,24,10,teren leśny
+3,800,1300,24,16,teren leśny
+3,800,1300,24,6,teren leśny
+3,800,1300,24,8,teren leśny
+3,800,1300,24,13,teren leśny
+3,1300,150,15,15,teren leśny
+3,1300,150,15,15,teren leśny
+3,1300,150,15,15,teren leśny
+3,1300,150,15,15,teren leśny
+3,1300,150,15,15,teren leśny
+3,1300,300,15,15,teren leśny
+3,1300,300,15,15,teren leśny
+3,1300,300,15,15,teren leśny
+3,1300,300,15,15,teren leśny
+3,1300,300,15,15,teren leśny
+3,1300,500,15,10,teren leśny
+3,1300,500,15,14,teren leśny
+3,1300,500,15,9,teren leśny
+3,1300,500,15,15,teren leśny
+3,1300,500,15,15,teren leśny
+3,1300,800,15,13,teren leśny
+3,1300,800,15,0,teren leśny
+3,1300,800,15,3,teren leśny
+3,1300,800,15,11,teren leśny
+3,1300,800,15,9,teren leśny
+3,1300,1000,15,10,teren leśny
+3,1300,1000,15,5,teren leśny
+3,1300,1000,15,9,teren leśny
+3,1300,1000,15,3,teren leśny
+3,1300,1000,15,7,teren leśny
+3,1300,1300,15,1,teren leśny
+3,1300,1300,15,4,teren leśny
+3,1300,1300,15,4,teren leśny
+3,1300,1300,15,7,teren leśny
+3,1300,1300,15,7,teren leśny
+3,1300,1600,15,13,teren leśny
+3,1300,1600,15,15,teren leśny
+3,1300,1600,15,10,teren leśny
+3,1300,1600,15,11,teren leśny
+3,1300,1600,15,11,teren leśny
+3,1300,2100,15,1,teren leśny
+3,1300,2100,15,0,teren leśny
+3,1300,2100,15,0,teren leśny
+3,1300,2100,15,0,teren leśny
+3,1300,2100,15,0,teren leśny
+3,2100,150,9,9,teren leśny
+3,2100,150,9,9,teren leśny
+3,2100,150,9,9,teren leśny
+3,2100,150,9,9,teren leśny
+3,2100,150,9,9,teren leśny
+3,2100,300,9,8,teren leśny
+3,2100,300,9,9,teren leśny
+3,2100,300,9,9,teren leśny
+3,2100,300,9,9,teren leśny
+3,2100,300,9,9,teren leśny
+3,2100,500,9,7,teren leśny
+3,2100,500,9,9,teren leśny
+3,2100,500,9,9,teren leśny
+3,2100,500,9,9,teren leśny
+3,2100,500,9,9,teren leśny
+3,2100,800,9,5,teren leśny
+3,2100,800,9,4,teren leśny
+3,2100,800,9,6,teren leśny
+3,2100,800,9,7,teren leśny
+3,2100,800,9,1,teren leśny
+3,2100,1000,9,5,teren leśny
+3,2100,1000,9,9,teren leśny
+3,2100,1000,9,11,teren leśny
+3,2100,1000,9,3,teren leśny
+3,2100,1000,9,2,teren leśny
+3,2100,1300,9,0,teren leśny
+3,2100,1300,9,0,teren leśny
+3,2100,1300,9,0,teren leśny
+3,2100,1300,9,0,teren leśny
+3,2100,1300,9,1,teren leśny
+3,2100,1600,9,6,teren leśny
+3,2100,1600,9,9,teren leśny
+3,2100,1600,9,4,teren leśny
+3,2100,1600,9,9,teren leśny
+3,2100,1600,9,9,teren leśny
+3,2100,2100,9,3,teren leśny
+3,2100,2100,9,0,teren leśny
+3,2100,2100,9,3,teren leśny
+3,2100,2100,9,0,teren leśny
+3,2100,2100,9,0,teren leśny
+3,100,150,195,114,teren zurbanizowany
+3,100,150,195,119,teren zurbanizowany
+3,100,150,195,100,teren zurbanizowany
+3,100,150,195,58,teren zurbanizowany
+3,100,150,195,111,teren zurbanizowany
+3,100,300,195,5,teren zurbanizowany
+3,100,300,195,101,teren zurbanizowany
+3,100,300,195,106,teren zurbanizowany
+3,100,300,195,118,teren zurbanizowany
+3,100,300,195,115,teren zurbanizowany
+3,100,500,195,67,teren zurbanizowany
+3,100,500,195,86,teren zurbanizowany
+3,100,500,196,66,teren zurbanizowany
+3,100,500,195,91,teren zurbanizowany
+3,100,500,195,73,teren zurbanizowany
+3,100,800,195,41,teren zurbanizowany
+3,100,800,195,49,teren zurbanizowany
+3,100,800,195,45,teren zurbanizowany
+3,100,800,195,96,teren zurbanizowany
+3,100,800,195,47,teren zurbanizowany
+3,500,150,39,36,teren zurbanizowany
+3,500,150,39,39,teren zurbanizowany
+3,500,150,39,37,teren zurbanizowany
+3,500,150,39,39,teren zurbanizowany
+3,500,150,39,36,teren zurbanizowany
+3,500,300,39,33,teren zurbanizowany
+3,500,300,39,34,teren zurbanizowany
+3,500,300,39,33,teren zurbanizowany
+3,500,300,39,33,teren zurbanizowany
+3,500,300,39,35,teren zurbanizowany
+3,500,500,39,36,teren zurbanizowany
+3,500,500,39,35,teren zurbanizowany
+3,500,500,39,39,teren zurbanizowany
+3,500,500,39,33,teren zurbanizowany
+3,500,500,39,35,teren zurbanizowany
+3,500,800,39,38,teren zurbanizowany
+3,500,800,39,34,teren zurbanizowany
+3,500,800,39,36,teren zurbanizowany
+3,500,800,39,37,teren zurbanizowany
+3,500,800,39,26,teren zurbanizowany
+3,500,1000,39,31,teren zurbanizowany
+3,500,1000,39,32,teren zurbanizowany
+3,500,1000,39,36,teren zurbanizowany
+3,500,1000,39,34,teren zurbanizowany
+3,500,1000,39,36,teren zurbanizowany
+3,500,1300,39,16,teren zurbanizowany
+3,500,1300,39,15,teren zurbanizowany
+3,500,1300,39,34,teren zurbanizowany
+3,500,1300,39,21,teren zurbanizowany
+3,500,1300,39,33,teren zurbanizowany
+3,800,150,24,34,teren zurbanizowany
+3,800,150,24,23,teren zurbanizowany
+3,800,150,24,23,teren zurbanizowany
+3,800,150,24,23,teren zurbanizowany
+3,800,150,24,23,teren zurbanizowany
+3,800,300,24,24,teren zurbanizowany
+3,800,300,24,23,teren zurbanizowany
+3,800,300,24,23,teren zurbanizowany
+3,800,300,24,23,teren zurbanizowany
+3,800,300,24,23,teren zurbanizowany
+3,800,500,24,23,teren zurbanizowany
+3,800,500,24,23,teren zurbanizowany
+3,800,500,24,23,teren zurbanizowany
+3,800,500,24,23,teren zurbanizowany
+3,800,500,24,23,teren zurbanizowany
+3,800,800,24,24,teren zurbanizowany
+3,800,800,24,23,teren zurbanizowany
+3,800,800,24,11,teren zurbanizowany
+3,800,800,24,23,teren zurbanizowany
+3,800,800,24,23,teren zurbanizowany
+3,800,1000,24,24,teren zurbanizowany
+3,800,1000,24,23,teren zurbanizowany
+3,800,1000,24,23,teren zurbanizowany
+3,800,1000,24,23,teren zurbanizowany
+3,800,1000,24,21,teren zurbanizowany
+3,800,1300,24,11,teren zurbanizowany
+3,800,1300,24,23,teren zurbanizowany
+3,800,1300,24,23,teren zurbanizowany
+3,800,1300,24,21,teren zurbanizowany
+3,800,1300,24,16,teren zurbanizowany
+3,1300,150,15,15,teren zurbanizowany
+3,1300,150,15,15,teren zurbanizowany
+3,1300,150,15,15,teren zurbanizowany
+3,1300,150,15,15,teren zurbanizowany
+3,1300,150,15,15,teren zurbanizowany
+3,1300,300,15,15,teren zurbanizowany
+3,1300,300,15,15,teren zurbanizowany
+3,1300,300,15,15,teren zurbanizowany
+3,1300,300,15,15,teren zurbanizowany
+3,1300,300,15,15,teren zurbanizowany
+3,1300,500,15,15,teren zurbanizowany
+3,1300,500,15,15,teren zurbanizowany
+3,1300,500,15,15,teren zurbanizowany
+3,1300,500,15,15,teren zurbanizowany
+3,1300,500,15,12,teren zurbanizowany
+3,1300,800,15,15,teren zurbanizowany
+3,1300,800,15,15,teren zurbanizowany
+3,1300,800,15,15,teren zurbanizowany
+3,1300,800,15,15,teren zurbanizowany
+3,1300,800,15,15,teren zurbanizowany
+3,1300,1000,15,15,teren zurbanizowany
+3,1300,1000,15,15,teren zurbanizowany
+3,1300,1000,15,13,teren zurbanizowany
+3,1300,1000,15,15,teren zurbanizowany
+3,1300,1000,15,15,teren zurbanizowany
+3,1300,1300,15,15,teren zurbanizowany
+3,1300,1300,15,5,teren zurbanizowany
+3,1300,1300,15,15,teren zurbanizowany
+3,1300,1300,15,10,teren zurbanizowany
+3,1300,1300,15,14,teren zurbanizowany
+3,1300,1600,15,13,teren zurbanizowany
+3,1300,1600,15,15,teren zurbanizowany
+3,1300,1600,15,10,teren zurbanizowany
+3,1300,1600,15,7,teren zurbanizowany
+3,1300,1600,15,3,teren zurbanizowany
+3,1300,2100,15,7,teren zurbanizowany
+3,1300,2100,15,12,teren zurbanizowany
+3,1300,2100,15,14,teren zurbanizowany
+3,1300,2100,15,15,teren zurbanizowany
+3,1300,2100,15,14,teren zurbanizowany
+3,2100,150,9,9,teren zurbanizowany
+3,2100,150,9,9,teren zurbanizowany
+3,2100,150,9,9,teren zurbanizowany
+3,2100,150,9,9,teren zurbanizowany
+3,2100,150,9,9,teren zurbanizowany
+3,2100,300,9,9,teren zurbanizowany
+3,2100,300,9,9,teren zurbanizowany
+3,2100,300,9,9,teren zurbanizowany
+3,2100,300,9,9,teren zurbanizowany
+3,2100,300,9,9,teren zurbanizowany
+3,2100,500,9,9,teren zurbanizowany
+3,2100,500,9,9,teren zurbanizowany
+3,2100,500,9,9,teren zurbanizowany
+3,2100,500,9,9,teren zurbanizowany
+3,2100,500,9,9,teren zurbanizowany
+3,2100,800,9,7,teren zurbanizowany
+3,2100,800,9,7,teren zurbanizowany
+3,2100,800,9,7,teren zurbanizowany
+3,2100,800,9,2,teren zurbanizowany
+3,2100,800,9,9,teren zurbanizowany
+3,2100,1000,9,7,teren zurbanizowany
+3,2100,1000,9,9,teren zurbanizowany
+3,2100,1000,9,7,teren zurbanizowany
+3,2100,1000,9,6,teren zurbanizowany
+3,2100,1000,9,6,teren zurbanizowany
+3,2100,1300,9,9,teren zurbanizowany
+3,2100,1300,9,6,teren zurbanizowany
+3,2100,1300,9,0,teren zurbanizowany
+3,2100,1300,9,8,teren zurbanizowany
+3,2100,1300,9,5,teren zurbanizowany
+3,2100,1600,9,5,teren zurbanizowany
+3,2100,1600,9,9,teren zurbanizowany
+3,2100,1600,9,9,teren zurbanizowany
+3,2100,1600,9,1,teren zurbanizowany
+3,2100,1600,9,6,teren zurbanizowany
+3,2100,2100,9,6,teren zurbanizowany
+3,2100,2100,9,6,teren zurbanizowany
+3,2100,2100,9,6,teren zurbanizowany
+3,2100,2100,9,9,teren zurbanizowany
+3,2100,2100,9,9,teren zurbanizowany
+2,100,150,195,118,teren leśny
+2,100,150,196,138,teren leśny
+2,100,150,195,53,teren leśny
+2,100,150,195,116,teren leśny
+2,100,150,195,126,teren leśny
+2,100,300,195,126,teren leśny
+2,100,300,195,112,teren leśny
+2,100,300,195,117,teren leśny
+2,100,300,195,112,teren leśny
+2,100,300,195,116,teren leśny
+2,100,500,195,92,teren leśny
+2,100,500,126,105,teren leśny
+2,100,500,196,119,teren leśny
+2,100,500,195,217,teren leśny
+2,100,500,195,107,teren leśny
+2,100,800,195,22,teren leśny
+2,100,800,195,117,teren leśny
+2,100,800,196,55,teren leśny
+2,100,800,195,105,teren leśny
+2,100,800,195,125,teren leśny
+2,500,150,39,39,teren leśny
+2,500,150,39,37,teren leśny
+2,500,150,39,39,teren leśny
+2,500,150,39,39,teren leśny
+2,500,150,39,39,teren leśny
+2,500,300,39,39,teren leśny
+2,500,300,39,39,teren leśny
+2,500,300,39,39,teren leśny
+2,500,300,39,39,teren leśny
+2,500,300,39,39,teren leśny
+2,500,500,39,35,teren leśny
+2,500,500,39,39,teren leśny
+2,500,500,39,37,teren leśny
+2,500,500,39,39,teren leśny
+2,500,500,39,39,teren leśny
+2,500,800,39,37,teren leśny
+2,500,800,39,37,teren leśny
+2,500,800,39,18,teren leśny
+2,500,800,39,28,teren leśny
+2,500,800,39,39,teren leśny
+2,500,1000,39,24,teren leśny
+2,500,1000,39,37,teren leśny
+2,500,1000,39,37,teren leśny
+2,500,1000,39,35,teren leśny
+2,500,1000,39,22,teren leśny
+2,500,1300,39,29,teren leśny
+2,500,1300,39,18,teren leśny
+2,500,1300,39,7,teren leśny
+2,500,1300,39,4,teren leśny
+2,500,1300,39,29,teren leśny
+2,800,150,24,24,teren leśny
+2,800,150,24,23,teren leśny
+2,800,150,24,23,teren leśny
+2,800,150,24,23,teren leśny
+2,800,150,24,23,teren leśny
+2,800,300,24,24,teren leśny
+2,800,300,24,23,teren leśny
+2,800,300,24,23,teren leśny
+2,800,300,24,23,teren leśny
+2,800,300,24,23,teren leśny
+2,800,500,24,24,teren leśny
+2,800,500,24,23,teren leśny
+2,800,500,24,23,teren leśny
+2,800,500,24,23,teren leśny
+2,800,500,24,24,teren leśny
+2,800,800,24,13,teren leśny
+2,800,800,24,11,teren leśny
+2,800,800,24,24,teren leśny
+2,800,800,24,23,teren leśny
+2,800,800,24,23,teren leśny
+2,800,1000,24,12,teren leśny
+2,800,1000,24,4,teren leśny
+2,800,1000,24,21,teren leśny
+2,800,1000,24,37,teren leśny
+2,800,1000,24,8,teren leśny
+2,800,1300,24,10,teren leśny
+2,800,1300,24,17,teren leśny
+2,800,1300,24,17,teren leśny
+2,800,1300,24,4,teren leśny
+2,800,1300,24,2,teren leśny
+2,1300,150,15,14,teren leśny
+2,1300,150,15,15,teren leśny
+2,1300,150,15,15,teren leśny
+2,1300,150,15,13,teren leśny
+2,1300,150,15,15,teren leśny
+2,1300,300,15,14,teren leśny
+2,1300,300,15,15,teren leśny
+2,1300,300,15,15,teren leśny
+2,1300,300,15,14,teren leśny
+2,1300,300,15,15,teren leśny
+2,1300,500,15,11,teren leśny
+2,1300,500,15,15,teren leśny
+2,1300,500,15,15,teren leśny
+2,1300,500,15,13,teren leśny
+2,1300,500,15,14,teren leśny
+2,1300,800,15,10,teren leśny
+2,1300,800,15,12,teren leśny
+2,1300,800,15,15,teren leśny
+2,1300,800,15,14,teren leśny
+2,1300,800,15,14,teren leśny
+2,1300,1000,15,15,teren leśny
+2,1300,1000,15,10,teren leśny
+2,1300,1000,15,7,teren leśny
+2,1300,1000,15,11,teren leśny
+2,1300,1000,15,2,teren leśny
+2,1300,1300,15,14,teren leśny
+2,1300,1300,15,9,teren leśny
+2,1300,1300,15,19,teren leśny
+2,1300,1300,15,7,teren leśny
+2,1300,1300,15,0,teren leśny
+2,1300,1600,15,8,teren leśny
+2,1300,1600,15,13,teren leśny
+2,1300,1600,15,0,teren leśny
+2,1300,1600,15,0,teren leśny
+2,1300,1600,15,0,teren leśny
+2,1300,2100,15,0,teren leśny
+2,1300,2100,15,0,teren leśny
+2,1300,2100,15,5,teren leśny
+2,1300,2100,15,0,teren leśny
+2,1300,2100,15,0,teren leśny
+2,2100,150,9,9,teren leśny
+2,2100,150,9,8,teren leśny
+2,2100,150,9,8,teren leśny
+2,2100,150,9,9,teren leśny
+2,2100,150,9,8,teren leśny
+2,2100,300,9,9,teren leśny
+2,2100,300,9,9,teren leśny
+2,2100,300,9,9,teren leśny
+2,2100,300,9,8,teren leśny
+2,2100,300,9,9,teren leśny
+2,2100,500,9,6,teren leśny
+2,2100,500,9,9,teren leśny
+2,2100,500,9,9,teren leśny
+2,2100,500,9,9,teren leśny
+2,2100,500,9,9,teren leśny
+2,2100,800,9,6,teren leśny
+2,2100,800,9,7,teren leśny
+2,2100,800,9,9,teren leśny
+2,2100,800,9,9,teren leśny
+2,2100,800,9,9,teren leśny
+2,2100,1000,9,3,teren leśny
+2,2100,1000,9,4,teren leśny
+2,2100,1000,9,9,teren leśny
+2,2100,1000,9,4,teren leśny
+2,2100,1000,9,2,teren leśny
+2,2100,1300,9,8,teren leśny
+2,2100,1300,9,0,teren leśny
+2,2100,1300,9,5,teren leśny
+2,2100,1300,9,6,teren leśny
+2,2100,1300,9,7,teren leśny
+2,2100,1600,9,0,teren leśny
+2,2100,1600,9,2,teren leśny
+2,2100,1600,9,0,teren leśny
+2,2100,1600,9,2,teren leśny
+2,2100,1600,9,3,teren leśny
+2,2100,2100,9,0,teren leśny
+2,2100,2100,9,0,teren leśny
+2,2100,2100,9,0,teren leśny
+2,2100,2100,9,0,teren leśny
+2,2100,2100,9,0,teren leśny
+2,100,150,195,123,teren zurbanizowany
+2,100,150,195,132,teren zurbanizowany
+2,100,150,195,119,teren zurbanizowany
+2,100,150,195,83,teren zurbanizowany
+2,100,150,195,142,teren zurbanizowany
+2,100,300,195,127,teren zurbanizowany
+2,100,300,195,106,teren zurbanizowany
+2,100,300,196,124,teren zurbanizowany
+2,100,300,195,105,teren zurbanizowany
+2,100,300,195,139,teren zurbanizowany
+2,100,500,195,110,teren zurbanizowany
+2,100,500,196,113,teren zurbanizowany
+2,100,500,195,126,teren zurbanizowany
+2,100,500,195,110,teren zurbanizowany
+2,100,500,196,109,teren zurbanizowany
+2,100,800,195,110,teren zurbanizowany
+2,100,800,195,66,teren zurbanizowany
+2,100,800,195,123,teren zurbanizowany
+2,100,800,195,83,teren zurbanizowany
+2,100,800,195,74,teren zurbanizowany
+2,500,150,39,38,teren zurbanizowany
+2,500,150,39,38,teren zurbanizowany
+2,500,150,39,39,teren zurbanizowany
+2,500,150,39,39,teren zurbanizowany
+2,500,150,39,39,teren zurbanizowany
+2,500,300,39,38,teren zurbanizowany
+2,500,300,39,38,teren zurbanizowany
+2,500,300,39,39,teren zurbanizowany
+2,500,300,39,39,teren zurbanizowany
+2,500,300,39,39,teren zurbanizowany
+2,500,500,39,38,teren zurbanizowany
+2,500,500,39,39,teren zurbanizowany
+2,500,500,39,39,teren zurbanizowany
+2,500,500,39,39,teren zurbanizowany
+2,500,500,39,39,teren zurbanizowany
+2,500,800,39,21,teren zurbanizowany
+2,500,800,39,18,teren zurbanizowany
+2,500,800,39,11,teren zurbanizowany
+2,500,800,39,28,teren zurbanizowany
+2,500,800,39,39,teren zurbanizowany
+2,500,1000,39,32,teren zurbanizowany
+2,500,1000,39,33,teren zurbanizowany
+2,500,1000,39,37,teren zurbanizowany
+2,500,1000,39,39,teren zurbanizowany
+2,500,1000,39,35,teren zurbanizowany
+2,500,1300,39,38,teren zurbanizowany
+2,500,1300,39,39,teren zurbanizowany
+2,500,1300,39,37,teren zurbanizowany
+2,500,1300,39,39,teren zurbanizowany
+2,500,1300,39,30,teren zurbanizowany
+2,800,150,24,24,teren zurbanizowany
+2,800,150,24,23,teren zurbanizowany
+2,800,150,24,23,teren zurbanizowany
+2,800,150,24,23,teren zurbanizowany
+2,800,150,24,24,teren zurbanizowany
+2,800,300,24,24,teren zurbanizowany
+2,800,300,24,23,teren zurbanizowany
+2,800,300,24,23,teren zurbanizowany
+2,800,300,24,23,teren zurbanizowany
+2,800,300,24,23,teren zurbanizowany
+2,800,500,24,24,teren zurbanizowany
+2,800,500,24,24,teren zurbanizowany
+2,800,500,24,23,teren zurbanizowany
+2,800,500,24,23,teren zurbanizowany
+2,800,500,24,23,teren zurbanizowany
+2,800,800,24,14,teren zurbanizowany
+2,800,800,24,11,teren zurbanizowany
+2,800,800,24,4,teren zurbanizowany
+2,800,800,24,17,teren zurbanizowany
+2,800,800,24,17,teren zurbanizowany
+2,800,1000,24,11,teren zurbanizowany
+2,800,1000,24,10,teren zurbanizowany
+2,800,1000,24,17,teren zurbanizowany
+2,800,1000,24,17,teren zurbanizowany
+2,800,1000,24,15,teren zurbanizowany
+2,800,1300,24,22,teren zurbanizowany
+2,800,1300,24,23,teren zurbanizowany
+2,800,1300,24,23,teren zurbanizowany
+2,800,1300,24,15,teren zurbanizowany
+2,800,1300,24,23,teren zurbanizowany
+2,1300,150,15,15,teren zurbanizowany
+2,1300,150,15,15,teren zurbanizowany
+2,1300,150,15,15,teren zurbanizowany
+2,1300,150,15,15,teren zurbanizowany
+2,1300,150,15,15,teren zurbanizowany
+2,1300,300,15,14,teren zurbanizowany
+2,1300,300,15,15,teren zurbanizowany
+2,1300,300,15,14,teren zurbanizowany
+2,1300,300,15,15,teren zurbanizowany
+2,1300,300,15,15,teren zurbanizowany
+2,1300,500,15,15,teren zurbanizowany
+2,1300,500,15,15,teren zurbanizowany
+2,1300,500,15,15,teren zurbanizowany
+2,1300,500,15,15,teren zurbanizowany
+2,1300,500,15,15,teren zurbanizowany
+2,1300,800,15,4,teren zurbanizowany
+2,1300,800,15,14,teren zurbanizowany
+2,1300,800,15,4,teren zurbanizowany
+2,1300,800,15,15,teren zurbanizowany
+2,1300,800,15,8,teren zurbanizowany
+2,1300,1000,15,14,teren zurbanizowany
+2,1300,1000,15,15,teren zurbanizowany
+2,1300,1000,15,15,teren zurbanizowany
+2,1300,1000,15,15,teren zurbanizowany
+2,1300,1000,15,11,teren zurbanizowany
+2,1300,1300,15,9,teren zurbanizowany
+2,1300,1300,15,15,teren zurbanizowany
+2,1300,1300,15,7,teren zurbanizowany
+2,1300,1300,15,14,teren zurbanizowany
+2,1300,1300,15,14,teren zurbanizowany
+2,1300,1600,15,13,teren zurbanizowany
+2,1300,1600,15,13,teren zurbanizowany
+2,1300,1600,15,11,teren zurbanizowany
+2,1300,1600,15,15,teren zurbanizowany
+2,1300,1600,15,13,teren zurbanizowany
+2,1300,2100,15,11,teren zurbanizowany
+2,1300,2100,15,6,teren zurbanizowany
+2,1300,2100,15,13,teren zurbanizowany
+2,1300,2100,15,11,teren zurbanizowany
+2,1300,2100,15,11,teren zurbanizowany
+2,2100,150,9,9,teren zurbanizowany
+2,2100,150,9,9,teren zurbanizowany
+2,2100,150,9,9,teren zurbanizowany
+2,2100,150,9,9,teren zurbanizowany
+2,2100,150,9,9,teren zurbanizowany
+2,2100,300,9,9,teren zurbanizowany
+2,2100,300,9,9,teren zurbanizowany
+2,2100,300,9,9,teren zurbanizowany
+2,2100,300,9,9,teren zurbanizowany
+2,2100,300,9,9,teren zurbanizowany
+2,2100,500,9,9,teren zurbanizowany
+2,2100,500,9,8,teren zurbanizowany
+2,2100,500,9,9,teren zurbanizowany
+2,2100,500,9,7,teren zurbanizowany
+2,2100,500,9,8,teren zurbanizowany
+2,2100,800,9,6,teren zurbanizowany
+2,2100,800,9,9,teren zurbanizowany
+2,2100,800,9,9,teren zurbanizowany
+2,2100,800,9,8,teren zurbanizowany
+2,2100,800,9,6,teren zurbanizowany
+2,2100,1000,9,9,teren zurbanizowany
+2,2100,1000,9,9,teren zurbanizowany
+2,2100,1000,9,2,teren zurbanizowany
+2,2100,1000,9,6,teren zurbanizowany
+2,2100,1000,9,6,teren zurbanizowany
+2,2100,1300,9,9,teren zurbanizowany
+2,2100,1300,9,4,teren zurbanizowany
+2,2100,1300,9,5,teren zurbanizowany
+2,2100,1300,9,9,teren zurbanizowany
+2,2100,1300,9,9,teren zurbanizowany
+2,2100,1600,9,9,teren zurbanizowany
+2,2100,1600,9,9,teren zurbanizowany
+2,2100,1600,9,9,teren zurbanizowany
+2,2100,1600,9,9,teren zurbanizowany
+2,2100,1600,9,6,teren zurbanizowany
+2,2100,2100,9,8,teren zurbanizowany
+2,2100,2100,9,0,teren zurbanizowany
+2,2100,2100,9,0,teren zurbanizowany
+2,2100,2100,9,6,teren zurbanizowany
+2,2100,2100,9,6,teren zurbanizowany
