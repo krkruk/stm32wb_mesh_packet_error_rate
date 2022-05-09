@@ -1,51 +1,53 @@
-Test ciągłości numeracji po przejściu do nowego rozdziału.
+\section{Rozwiązanie techniczne}
+\subsection{Zestaw uruchomieniowy P-NUCLEO-WB55}
+\subsection{Zestaw pomiarowy X-NUCLEO-LPM01A}
+\subsection{HAL i stos Bluetooth Low Energy}
+
+\section{Przygotowanie eksperymentu}
+\subsection{Oprogramowanie mikrokontrolera}
+\subsection{Oprogramowanie PC}
+\subsection{Pozostały sprzęt}
+
+\section{Zużycie energii}
+\subsection{Metodologia badania}
+\subsection{BLE Low Energy - Usługa Heart Rate}
+\subsection{BLE Mesh - Model Generic OnOff}
+
+Pomiary dla BLE Mesh uwzględniające dwa tryby działania: sieć w oczekująca na komunikaty oraz podczas działania aktywnego korzystania z Modelu Generic OnOff.
+
+\section{Packet Error Rate}
+\subsection{Metodologia badania}
+\subsection{Zależność PER względem częstości zapytań}
+\subsection{Zależność PER względem odległości między węzłami}
 
 
-\begin{figure}[!hb]
-	\centering \includegraphics[width=0.618\linewidth]{Kopernik.jpg}
-	\caption{Powtórzony rysunek dla testu ciągłości numeracji}
-	\label{rys:kopernik2}
-\end{figure}
-
-\begin{table}[!b]
- \centering
-  \begin{tabular}{p{2.5cm}c|l}
-    Data        &   Godzina (UTC)   &   Zdarzenie\\\hline
-    2016-05-09  &   14:57           &   Tranzyt Merkurego\\\hline
-    2017-08-11 --~2017-08-13  & --- &   Maksimum Perseidów \\\hline
-    2018-07-27  &   20:22           &   Całkowite zaćmienie Księżyca\\\hline
-    2019-08-24  &   17:04           &   Koniunkcja Wenus i Mars w odległości - 0°17`\\\hline
-    2020-12-21  &   16:00           &   Koniunkcja Jowisz i Saturn w odległości 0°06`
-  \end{tabular}
- \caption{\label{tab:zjawiska2}Powtórzona tabelka dla testu ciągłości numeracji}
-\end{table}
-
-\begin{equation}
-    \frac{\partial^2 y}{\partial x^2} = \frac{\mu}{F} \; \frac{\partial^2 y}{\partial t^2}
-\end{equation}
-
-\begin{lstlisting}[language=Python,
-    caption={Powtórzony kod dla testu ciągłości numeracji},
-    label={lst:hello2}]
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""Simple world of hello.
-"""
-
-import sys
-
-def main():
-    """The one and only function"""
-    fib = lambda n: reduce(lambda x, n: [x[1], x[0]+x[1]], range(n), [0, 1])[0]
-    try:
-        print(fib(int(sys.argv[1])))
-    except:
-        print("Hello World!")
-
-if __name__ == "__main__":
-    main()
+\begin{lstlisting}[language=C,
+    caption={Testowy kod C},
+    label={lst:kod cpp}]
+MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam, 
+                                     MOBLEUINT8 OptionalValid,
+                                     MOBLEUINT16 dstPeer,
+                                     MOBLEUINT8 elementIndex)
+{
+  /* LED control only for main element */
+  if(elementIndex == GENERIC_SERVER_MAIN_ELEMENT_INDEX)
+  {
+  // [...]
+      if(AppliOnOffSet[elementIndex].Present_OnOffValue == AppliOnOffSet[elementIndex].TargetValue)
+      {
+    	if (dstPeer != 0xc000) {
+    	   increment_generic_onoff_counter_packet_error_rate_experiment(AppliOnOffSet[elementIndex].Present_OnOffValue, dstPeer);
+    	}
+        if(AppliOnOffSet[elementIndex].Present_OnOffValue > 0)
+        {
+          BSP_LED_On(LED_BLUE);
+        }
+        else
+        {
+          BSP_LED_Off(LED_BLUE);
+        }
+      }
+    }  
+  // [...]
 \end{lstlisting}
 
-
-% Przykładowy wypełniacz
-\bredzenie{21-40}
