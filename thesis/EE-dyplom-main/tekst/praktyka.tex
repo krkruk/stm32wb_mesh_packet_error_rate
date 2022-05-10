@@ -8,46 +8,140 @@
 \subsection{Oprogramowanie PC}
 \subsection{Pozostały sprzęt}
 
+%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SECTION: Zużycie energii
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 \section{Zużycie energii}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUBSECTION: Metodologia badania
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Metodologia badania}
-\subsection{BLE Low Energy - Usługa Heart Rate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUBSECTION: BT Low Energy - Usługa Heart Rate
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{BT Low Energy - Usługa Heart Rate}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_amps.png}
+	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate}
+	\label{rys:power_ble_hr_amps}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_amps_usage_juxtaposition.png}
+	\caption{Zestawienie zużycia prądu dla usługi Heart Rate w zależności od trybu działania}
+	\label{rys:power_ble_hr_amps_usage_juxtaposition}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUBSECTION: BLE Mesh - Model Generic OnOff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{BLE Mesh - Model Generic OnOff}
 
 Pomiary dla BLE Mesh uwzględniające dwa tryby działania: sieć w oczekująca na komunikaty oraz podczas działania aktywnego korzystania z Modelu Generic OnOff.
 
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps.png} 
+	\caption{Charakterystyka czasowa poboru prądu dla BLE Mesh i modelu Generic OnOff}
+	\label{rys:power_ble_mesh_amps}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_usage_juxtaposition.png} 
+	\caption{Zestawienie zużycia prądu dla BLE Mesh w zależności od trybu działania}
+	\label{rys:power_ble_mesh_amps_usage_juxtaposition}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{power_ble_consumption_comparison.png} 
+	\caption{Porównanie średniego zużycia energii pomiędzy BT Low Energy HRT i BLE Mesh}
+	\label{rys:power_ble_consumption_comparison}
+\end{figure}
+
+
+
+
+
+%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SECTION: Packet Error Rate
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 \section{Packet Error Rate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUBSECTION: Zależność PER względem odległości między węzłami
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Metodologia badania}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.618\linewidth]{per_two_nodes.pdf} 
+	\caption{Dystans pomiędzy węzłami dla sieci dwóch mikrokontrolerów}
+	\label{rys:two_nodes_setup}
+\end{figure}
+
+Rysunek ~\ref{rys:two_nodes_setup}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{per_three_nodes.pdf} 
+	\caption{Dystans pomiędzy węzłami dla sieci trzech mikrokontrolerów}
+	\label{rys:three_nodes_setup}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUBSECTION: Zależność PER względem częstości zapytań
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Zależność PER względem częstości zapytań}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_under_100ms.png}
+	\caption{Zależność PER od dystansu dla zapytań o częstości $\leqslant$ 100ms dla różnej liczby węzłów}
+	\label{rys:per_to_distance_under_100ms}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_under_100ms_different_envs.png} 
+	\caption{Zależność PER od dystansu dla zapytań o częstości $\leqslant$ 100ms w wybranych środowiskach bez rozróżnienia na liczbę węzłów}
+	\label{rys:per_to_distance_under_100ms_different_envs}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_under_100ms_different_envs_and_nodes.png}
+	\caption{Zależność PER od dystansu dla zapytań o częstości $\leqslant$ 100ms w wybranych środowiskach i liczbę badanych węzłów}
+	\label{rys:per_to_distance_under_100ms_different_envs_and_nodes}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_over_100ms_different_envs_different_ping_interval.png} 
+	\caption{Zależność PER od dystansu dla zapytań o częstości >100ms w wybranych środowiskach}
+	\label{rys:per_to_distance_over_100ms_different_envs_different_ping_interval}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUBSECTION: Zależność PER względem odległości między węzłami
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Zależność PER względem odległości między węzłami}
 
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_over_100ms.png}
+	\caption{Zależność PER od dystansu dla zapytań o częstości >100ms dla różnej liczby węzłów}
+	\label{rys:per_to_distance_over_100ms}
+\end{figure}
 
-\begin{lstlisting}[language=C,
-    caption={Testowy kod C},
-    label={lst:kod cpp}]
-MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam, 
-                                     MOBLEUINT8 OptionalValid,
-                                     MOBLEUINT16 dstPeer,
-                                     MOBLEUINT8 elementIndex)
-{
-  /* LED control only for main element */
-  if(elementIndex == GENERIC_SERVER_MAIN_ELEMENT_INDEX)
-  {
-  // [...]
-      if(AppliOnOffSet[elementIndex].Present_OnOffValue == AppliOnOffSet[elementIndex].TargetValue)
-      {
-    	if (dstPeer != 0xc000) {
-    	   increment_generic_onoff_counter_packet_error_rate_experiment(AppliOnOffSet[elementIndex].Present_OnOffValue, dstPeer);
-    	}
-        if(AppliOnOffSet[elementIndex].Present_OnOffValue > 0)
-        {
-          BSP_LED_On(LED_BLUE);
-        }
-        else
-        {
-          BSP_LED_Off(LED_BLUE);
-        }
-      }
-    }  
-  // [...]
-\end{lstlisting}
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_over_100ms_different_envs.png} 
+	\caption{Zależność PER od dystansu dla zapytań o częstości >100ms w wybranych środowiskach bez rozróżnienia na liczbę węzłów}
+	\label{rys:per_to_distance_over_100ms_different_envs}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_over_100ms_different_envs_and_nodes.png}
+	\caption{Zależność PER od dystansu dla zapytań o częstości >100ms w wybranych środowiskach i liczbę badanych węzłów}
+	\label{rys:per_to_distance_over_100ms_different_envs_and_nodes}
+\end{figure}
 
