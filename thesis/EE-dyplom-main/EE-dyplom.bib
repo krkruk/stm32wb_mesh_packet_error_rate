@@ -1,179 +1,102 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Typy bibliografii:
-%  - artykuł z czasopisma,
-%  - artykuł z konferencji,
-%  - materiały konferencyjne,
-%  - książka,
-%  - fragment książki,
-%  - książka z serii,
-%  - krótka broszura,
-%  - praca magisterska,
-%  - praca doktorska,
-%  - instrukcja obsługi,
-%  - raport techniczny,
-%  - materiały nieopublikowane,
-%  - inne typy materiałów źródłowych.
-% Więcej informacji na stronie https://www.bibtex.com/
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Artykuły naukowe z czasopism i konferencji
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Article - artykuł z czasopisma.
-% Wymagane pola: author, title, journal, year.
-% Opcjonalne pola: volume, number, pages, month, note.
-@Article{maxwell1865,
-    author  = {James Clerk Maxwell},
-    title   = {A Dynamical Theory of the Electromagnetic Field},
-    journal = {Philosophical Transactions of the Royal Society},
-    year    = {1865},
-    number  = {155},
-    pages   = {459-512},
-    month   = {1},
-    note    = {\href{https://royalsocietypublishing.org/doi/pdf/10.1098/rstl.1865.0008}{<https://royalsocietypublishing.org/doi/pdf/10.1098/rstl.1865.0008>}, dostęp uzyskano 2020-12-03},
+@article{maxwell_dynamical_1865,
+	title = {A {Dynamical} {Theory} of the {Electromagnetic} {Field}},
+	number = {155},
+	journal = {Philosophical Transactions of the Royal Society},
+	author = {Maxwell, James Clerk},
+	month = jan,
+	year = {1865},
+	pages = {459--512},
+	annote = {https://royalsocietypublishing.org/doi/pdf/10.1098/rstl.1865.0008{\textless}https://royalsocietypublishing.org/doi/pdf/10.1098/rstl.1865.0008{\textgreater}, dostęp uzyskano 2020-12-03},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% InProceedings - artykuły z konferencji
-% Wymagane pola: author or editor, title, publisher, year.
-% Opcjonalne pola: volume or number, series, address, edition, month, note.
-@inproceedings{cichon1995,
-    author  = {D. J. {Cichon} and W. {Wiesbeck}},
-    title   = {The Heinrich Hertz wireless experiments at Karlsruhe in the view of modern communication},
-    publisher   = {Institution of Engineering and Technology},
-    year        = {1995},
+@inproceedings{cichon_heinrich_1995,
+	title = {The {Heinrich} {Hertz} wireless experiments at {Karlsruhe} in the view of modern communication},
+	publisher = {Institution of Engineering and Technology},
+	author = {Cichon, D. J. and Wiesbeck, W.},
+	year = {1995},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Proceedings - publikacja pokonferencyjna, zbiór artykułów z jednej konferencji
-% Wymagane pola: title, year.
-% Opcjonalne pola: editor, volume or number, series, address, publisher, note, month, organization.
-@proceedings{cpee2018,
-    title   = {19th International Conference Computational Problems of Electrical Engineering},
-    year    = {2018},
-    note    = {doi: \href{https://doi.org/10.1109/CPEE44871.2018}{10.1109/CPEE44871.2018}},
+@book{noauthor_19th_2018,
+	title = {19th {International} {Conference} {Computational} {Problems} of {Electrical} {Engineering}},
+	year = {2018},
+	annote = {doi: https://doi.org/10.1109/CPEE44871.201810.1109/CPEE44871.2018},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Materiały książkowe
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Book - książka mająca wydawcę.
-% Wymagane pola: author or editor, title, publisher, year.
-% Opcjonalne pola: volume or number, series, address, edition, month, note.
-@book{fowler2009,
-    author    = {Kim Fowler},
-    title     = {Mission-Critical and Safety-Critical Systems Handbook: Design and Development for Embedded Applications},
-    publisher = {Newnes},
-    year      = {2009},
-    ISBN      = {978-0750685672},
+@book{fowler_mission-critical_2009,
+	title = {Mission-{Critical} and {Safety}-{Critical} {Systems} {Handbook}: {Design} and {Development} for {Embedded} {Applications}},
+	isbn = {978-0-7506-8567-2},
+	publisher = {Newnes},
+	author = {Fowler, Kim},
+	year = {2009},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Inbook - część książki, na przykład rozdział i/lub zakres stron.
-% Wymagane pola: author lub editor, title, chapter i/lub pages, publisher, year.
-% Opcjonalne pola: volume or number, series, type, address, edition, month, note.
-@inbook{leksinski1995,
-  chapter   = {1-2},
-  pages     = {9-232},
-  title     = {Matematyka},
-  publisher = {Wydawnictwa Naukowo-Techniczne},
-  year      = {1995},
-  author    = {Wojciech Żakowski and Wacław Leksiński},
+@incollection{zakowski_matematyka_1995,
+	title = {Matematyka},
+	publisher = {Wydawnictwa Naukowo-Techniczne},
+	author = {Żakowski, Wojciech and Leksiński, Wacław},
+	year = {1995},
+	note = {Section: 1-2},
+	pages = {9--232},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Incollection - część książki mająca własny tytuł, również książka z serii.
-% Wymagane pola: author, title, booktitle, publisher, year.
-% Opcjonalne pola: editor, volume or number, series, type, chapter, pages, address, edition, month, note.
-@incollection{lncsevo,
-  author    = {Gyu Myoung Lee and Noel Crespi and Jun Kyun Choi and Matthieu Boussard},
-  title     = {Internet of Things},
-  booktitle = {Evolution of Telecommunication Services},
-  series    = {Lecture Notes in Computer Science},
-  publisher = {Springer-Verlag Berlin Heidelberg},
-  year      = {2013},
-  editor    = {Emmanuel Bertin and Noel Crespi and Thomas Magedanz},
-  volume    = {7768},
-  isbn      = {978-3642415685},
+@incollection{lee_internet_2013,
+	series = {Lecture {Notes} in {Computer} {Science}},
+	title = {Internet of {Things}},
+	volume = {7768},
+	isbn = {978-3-642-41568-5},
+	booktitle = {Evolution of {Telecommunication} {Services}},
+	publisher = {Springer-Verlag Berlin Heidelberg},
+	author = {Lee, Gyu Myoung and Crespi, Noel and Choi, Jun Kyun and Boussard, Matthieu},
+	editor = {Bertin, Emmanuel and Crespi, Noel and Magedanz, Thomas},
+	year = {2013},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Booklet - praca, która została wydrukowana i oprawiona ale nie mająca wydawcy lub stojącej za nią instytucji, broszurka mająca 4-48 stron
-% Wymagane pola: title.
-% Opcjonalne pola: author, howpublished, address, month, year, note.
-@booklet{giglio,
-  author = {Pierluigi Giglio},
-  title  = {Postmodernism and Plagiarism},
+@book{giglio_postmodernism_nodate,
+	title = {Postmodernism and {Plagiarism}},
+	author = {Giglio, Pierluigi},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% MastersThesis - praca magisterska (uwaga: masters a nie master)
-% Wymagane pola: author, title, school, year.
-% Opcjonalne pola: type, address, month, note.
-@mastersthesis{poirier2020,
-    author  = {Izabela Poirier},
-    title   = {Wykorzystanie technologii Blockchain w komunikacji urządzeń Internetu Rzeczy},
-    school  = {Politechnika Warszawska, Wydział Elektryczny, Instytut Elektrotechniki Teoretycznej i Systemów Informacyjno-Pomiarowych},
-    year    = {2020},
+@mastersthesis{poirier_wykorzystanie_2020,
+	title = {Wykorzystanie technologii {Blockchain} w komunikacji urządzeń {Internetu} {Rzeczy}},
+	school = {Politechnika Warszawska, Wydział Elektryczny, Instytut Elektrotechniki Teoretycznej i Systemów Informacyjno-Pomiarowych},
+	author = {Poirier, Izabela},
+	year = {2020},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% phdthesis - praca doktorska
-% Wymagane pola: author, title, school, year.
-% Opcjonalne pola: type, address, month, note.
-@phdthesis{truong2018,
-    author  = {Nguyen Binh Truong},
-    title   = {Evaluation of trust in the Internet of Things : models, mechanisms and applications},
-    school  = {Liverpool John Moores University},
-    year    = {2018},
-    note    = {doi: \href{http://doi.org/10.24377/researchonline.ljmu.ac.uk.00009241}{10.24377/researchonline.ljmu.ac.uk.00009241}}
+@phdthesis{truong_evaluation_2018,
+	type = {{PhD} {Thesis}},
+	title = {Evaluation of trust in the {Internet} of {Things} : models, mechanisms and applications},
+	school = {Liverpool John Moores University},
+	author = {Truong, Nguyen Binh},
+	year = {2018},
+	annote = {doi: http://doi.org/10.24377/researchonline.ljmu.ac.uk.0000924110.24377/researchonline.ljmu.ac.uk.00009241},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Dokumenty techniczne
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% manual - instrukcja obługi, specyfikacja techniczna, nota katalogowa (datasheet)
-% Wymagane pola: title.
-% Opcjonalne pola: author, organization, address, edition, month, year, note.
-@manual{AN4230,
-    title           = {STM32 microcontroller random number generation validation using the NIST statistical test suite},
-    organization    = {STMicroelectronics},
-    year            = {2020},
-    month           = {8},
-    note            = {AN4230},
+@book{noauthor_stm32_2020,
+	title = {{STM32} microcontroller random number generation validation using the {NIST} statistical test suite},
+	publisher = {STMicroelectronics},
+	month = aug,
+	year = {2020},
+	annote = {AN4230},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% techreport - raport techniczny
-% Wymagane pola: author, title, institution, year.
-% Opcjonalne pola: type, number, address, month, note.
-@techreport{nask2020,
-    author      = {{Zespół CERT Polska}},   % Nietypowy autor - dodatkowe nawiasy powodują, że nie zostanie uznany za imię i nazwisko co byłoby komiczne (Polska Z. C.)
-    title       = {Krajobraz bezpieczeństwa polskiego Internetu w 2019 roku},
-    institution = {NASK -- Państwowy Instytut Badawczy},
-    year        = {2020},
+@techreport{zespol_cert_polska_notitle_2020,
+	institution = {NASK – Państwowy Instytut Badawczy},
+	author = {{Zespół CERT Polska}},
+	year = {2020},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Dokumenty nietypowe
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% unpublished - dokument mający autora i tytuł ale nie opublikowany typowymi metodami
-% Wymagane pola: author, title, note.
-% Opcjonalne pola: month, year.
-@unpublished{wilamowski2017,
-  author    = {Maciej Wilamowski},
-  title     = {,,Daj, ać ja pobruczę, a ty poczywaj''. Pierwsze zdanie po polsku w historii},
-  note    = {\href{https://twojahistoria.pl/2017/11/21/daj-ac-ja-pobrucze-a-ty-poczywaj-co-powinienes-wiedziec-o-pierwszym-zdaniu-zapisanym-w-jezyku-polskim/}{<https://twojahistoria.pl/2017/11/21/daj-ac-ja-pobrucze-a-ty-poczywaj-co-powinienes-wiedziec-o-pierwszym-zdaniu-zapisanym-w-jezyku-polskim/>}, dostęp uzyskano 2020-12-03},
+@unpublished{wilamowski_daj_nodate,
+	title = {,,{Daj}, ać ja pobruczę, a ty poczywaj”. {Pierwsze} zdanie po polsku w historii},
+	author = {Wilamowski, Maciej},
+	annote = {https://twojahistoria.pl/2017/11/21/daj-ac-ja-pobrucze-a-ty-poczywaj-co-powinienes-wiedziec-o-pierwszym-zdaniu-zapisanym-w-jezyku-polskim/{\textless}https://twojahistoria.pl/2017/11/21/daj-ac-ja-pobrucze-a-ty-poczywaj-co-powinienes-wiedziec-o-pierwszym-zdaniu-zapisanym-w-jezyku-polskim/{\textgreater}, dostęp uzyskano 2020-12-03},
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% misc - jeśli wszystkie inne kategorie nie pasują; przynajmniej jedno z pól opcjonalnych musi być użyte
-% Wymagane pola: brak
-% Opcjonalne pola: author, title, howpublished, month, year, note.
-@misc{szablon,
-    author  = {Łukasz Makowski},
-    title   = {Szablon prac dyplomowych dla Wydziału Elektrycznego Politechniki Warszawskiej},
-    howpublished    = {\href{https://github.com/SP5LMA/EE-Dyplom}{<https://github.com/SP5LMA/EE-Dyplom>}},
+@misc{makowski_szablon_nodate,
+	title = {Szablon prac dyplomowych dla {Wydziału} {Elektrycznego} {Politechniki} {Warszawskiej}},
+	url = {https://github.com/SP5LMA/EE-Dyplom<https://github.com/SP5LMA/EE-Dyplom>},
+	author = {Makowski, Łukasz},
 }
 
 @misc{noauthor_p-nucleo-wb55_nodate,
@@ -182,7 +105,6 @@
 	abstract = {P-NUCLEO-WB55 - Bluetooth 5 and 802.15.4 Nucleo Pack including USB dongle and Nucleo-64 with STM32WB55 MCUs, supports Arduino Uno V3 and ST morpho connectivity, P-NUCLEO-WB55, STMicroelectronics},
 	language = {en},
 	urldate = {2022-05-10},
-	file = {Snapshot:/home/krzysztof/Zotero/storage/7G5K5VG5/p-nucleo-wb55.html:text/html},
 }
 
 @misc{noauthor_x-nucleo-lpm01a_nodate,
@@ -191,5 +113,55 @@
 	abstract = {X-NUCLEO-LPM01A - STM32 Power shield, Nucleo expansion board for power consumption measurement (UM2243), X-NUCLEO-LPM01A, STMicroelectronics},
 	language = {en},
 	urldate = {2022-05-10},
-	file = {Snapshot:/home/krzysztof/Zotero/storage/SGMHM4M8/x-nucleo-lpm01a.html:text/html},
+}
+
+@misc{noauthor_stm32wb_2022,
+	title = {{STM32WB} - {Bluetooth}, {Wireless} {Microcontrollers} ({MCU}) - {STMicroelectronics}},
+	url = {https://www.st.com/en/microcontrollers-microprocessors/stm32wb-series.html},
+	urldate = {2022-05-14},
+	year = {2022},
+	file = {STM32WB - Bluetooth, Wireless Microcontrollers (MCU) - STMicroelectronics:/home/krzysztof/Zotero/storage/XZ3648XR/stm32wb-series.html:text/html},
+}
+
+@misc{noauthor_stm32cubeide_2022,
+	title = {{STM32CubeIDE} - {Integrated} {Development} {Environment} for {STM32} - {STMicroelectronics}},
+	url = {https://www.st.com/en/development-tools/stm32cubeide.html},
+	urldate = {2022-05-14},
+	year = {2022},
+	file = {STM32CubeIDE - Integrated Development Environment for STM32 - STMicroelectronics:/home/krzysztof/Zotero/storage/DRFYSBBI/stm32cubeide.html:text/html},
+}
+
+@misc{noauthor_stm32cubeprog_2022,
+	title = {{STM32CubeProg} - {STM32CubeProgrammer} software for all {STM32} - {STMicroelectronics}},
+	url = {https://www.st.com/en/development-tools/stm32cubeprog.html},
+	urldate = {2022-05-14},
+	year = {2022},
+	file = {STM32CubeProg - STM32CubeProgrammer software for all STM32 - STMicroelectronics:/home/krzysztof/Zotero/storage/PL933GQZ/stm32cubeprog.html:text/html},
+}
+
+@misc{noauthor_stm32cubemonpwr_2022,
+	title = {{STM32CubeMonPwr} - {Graphical} tool displaying on {PC} power data coming from {X}-{NUCLEO}-{LPM01A} - {STMicroelectronics}},
+	url = {https://www.st.com/en/development-tools/stm32cubemonpwr.html},
+	urldate = {2022-05-14},
+	year = {2022},
+	file = {STM32CubeMonPwr - Graphical tool displaying on PC power data coming from X-NUCLEO-LPM01A - STMicroelectronics:/home/krzysztof/Zotero/storage/92MLUAS3/stm32cubemonpwr.html:text/html},
+}
+
+@misc{noauthor_stm32cubewb_2022,
+	title = {{STM32CubeWB} {MCU} {Firmware} {Package}},
+	url = {https://github.com/STMicroelectronics/STM32CubeWB},
+	abstract = {Full Firmware Package for the STM32WB series: HAL+LL drivers, CMSIS, BSP, MW, plus a set of Projects (examples and demos) running on all boards provided by ST (Nucleo, Evaluation and Discovery Kits).},
+	urldate = {2022-05-14},
+	publisher = {STMicroelectronics},
+	month = may,
+	year = {2022},
+	note = {original-date: 2019-04-19T13:27:35Z},
+	keywords = {stm32cube-mcu-package},
+}
+
+@misc{noauthor_um2243_2018,
+	title = {{UM2243} - {STM32} {Nucleo} expansion board for power consumption measurement},
+	url = {https://www.st.com/resource/en/user_manual/um2243-stm32-nucleo-expansion-board-for-power-consumption-measurement-stmicroelectronics.pdf},
+	month = mar,
+	year = {2018},
 }

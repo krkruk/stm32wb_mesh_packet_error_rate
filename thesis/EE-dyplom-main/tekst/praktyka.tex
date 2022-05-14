@@ -5,16 +5,31 @@
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 \section{Przygotowanie eksperymentu}
 
+Eksperymentalna część pracy bezsprzecznie wymaga przygotowania odpowiedniego zestawu
+sprzętu i~narzędzi. Konieczne jest wybranie odpowiedniej platformy sprzętowej
+wspierającej komunikację bezprzewodową Bluetooth Low Energy w wersji minimum 5.0.
+Niezbędne jest również oprzyrządowanie pomiarowe, które umożliwia pomiar natężeń
+prądu poniżej 1mA, ze względu na energooszczędność urządzeń BLE.
+
+% zakładam, że we wcześniejszych rozdziałach definiuję zakres pracy i rodzaje eksperymentów
+
+Badania zużycia energii wymagają aparatury, która w pełni zarejestruje minima i maksima
+poboru prądu przy niskich błędach pomiarowych.
+
+Eksperyment PER wymaga przygotowania wielu zestawów uruchomieniowych obsługujących
+komunikację BLE. Dodatkowo, wymagane jest stworzenie dedykowanego oprogramowania
+na mikrokontroler jak i komputer osobisty. Jest to niezbędne w celu kontroli przepływu
+doświadczenia jak i akwizycji danych.
+
+Niniejszy rozdział omawia zakres przygotowań do przeprowadzenia właściwych eksperymentów.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: Sprzęt i oprzyrządowanie
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sprzęt i oprzyrządowanie}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: Zestawy firmy ST: P-NUCLEO-WB55 i X-NUCLEO-LPM01A
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Zestawy firmy ST: P-NUCLEO-WB55 i X-NUCLEO-LPM01A}
+\subsubsection{P-NUCLEO-WB55}
 
 Badania Bluetooth Low Energy wymagały wyboru platformy, która umożliwia eksperymentalną 
 weryfikację wybranych celów badawczych. Ostatecznie, zdecydowano się na wykorzystanie 
@@ -23,9 +38,8 @@ i~ze względu na ograniczenia czasowe, docelową platformą badawczą stał się
 uruchomieniowy {\it P-NUCLEO-WB55}~\cite{noauthor_p-nucleo-wb55_nodate}.
 
 Zestaw ten zgodny jest ze specyfikacją Bluetooth Low Energy v5.0. Dodatkowo, wspiera
-on inne standardy komunikacji, m.in. Zigbee [https://www.st.com/en/microcontrollers-microprocessors/stm32wb-series.html]. 
-Ten fakt może zostać wykorzystany
-w celu bezpośredniego porównania różnych stosów komunikacji bezprzewodowej.
+on inne standardy komunikacji, m.in. Zigbee \cite{noauthor_stm32wb_2022}.
+Ten fakt może zostać wykorzystany w celu bezpośredniego porównania różnych stosów komunikacji bezprzewodowej.
 Nie jest to jednak celem niniejszej pracy, a stanowi możliwość jej dalszego 
 rozwinięcia.
 
@@ -36,26 +50,34 @@ rozwinięcia.
 	\label{rys:nucleo_wb55}
 \end{figure}
 
-Firma ST wraz z zestawem uruchomieniowym udostępnia pełne zintegrowane środowisko
-programistyczne oraz niezbędne biblioteki i certyfikowany firmware [źródło].
 
-\begin{itemize}
-\item STM32CubeIDE [źródło]
-\item STM32CubeProgrammer [źródło]
-\item STM32CubeMonitor-Power [źródło]
-\item Firmware STM32CubeWB https://github.com/STMicroelectronics/STM32CubeWB
-\end{itemize}
-
+\subsubsection{X-NUCLEO-LPM01A}
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{st_power_measurement_unit.jpg}
 	\caption{Zestaw pomiarowy X-NUCLEO-LPM01A. Źródło: \cite{noauthor_x-nucleo-lpm01a_nodate}}
 	\label{rys:nucleo_lpm01a}
 \end{figure}
 
+\subsubsection{Narzędzia i firmware firmy ST}
+Firma ST wraz z zestawem uruchomieniowym udostępnia pełne zintegrowane środowisko
+programistyczne oraz niezbędne biblioteki i certyfikowany firmware:
+
+\begin{itemize}
+\item \textbf{STM32CubeIDE} \cite{noauthor_stm32cubeide_2022} - multiplatformowe zintegrowane środowisko programistyczne
+dostarczane przez ST bazujące na otwartoźródłowym środowisko \textit{Eclipse}\footnote{https://www.eclipse.org/ide/}.
+\item \textbf{STM32CubeProgrammer} \cite{noauthor_stm32cubeprog_2022} - narzędzie umożliwiające wykonywanie operacji
+odczytu, zapisu i weryfikacji skompilowanego oprogramowania produktów STM32. 
+\item \textbf{STM32CubeMonitor-Power} \cite{noauthor_stm32cubemonpwr_2022} - oprogramowanie służące akwizycji danych
+o zużyciu energii m.in. w zestawie X-NUCLEO-LPM01A Rysunek: \ref{rys:nucleo_lpm01a}.
+\item \textbf{Firmware STM32CubeWB} \cite{noauthor_stm32cubewb_2022} - zestaw bibliotek, narzędzi oraz przykładów
+przeznaczonych dla mikrokontrolerów rodziny STM32WB. W skład tego repozytorium wchodzą zależności takie jak:
+skompilowany, zamknięty firmware ko-processora dla różnych stosów połączeń bezprzewodowych; przykłady programów
+wykorzystujące biblioteki HAL jak i również bezpośrednio rejestry; przykłady BLE; przykłady BLE Mesh.
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: Zestawy firmy ST: P-NUCLEO-WB55 i X-NUCLEO-LPM01A
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Zasilanie i obudowy}
+\subsection{Zasilanie i obudowy}
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{stm_case_render.png}
