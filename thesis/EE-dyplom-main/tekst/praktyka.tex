@@ -1,14 +1,34 @@
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SECTION: Rozwiązanie techniczne
+%% SECTION: Przygotowanie eksperymentu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-\section{Rozwiązanie techniczne}
+\section{Przygotowanie eksperymentu}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: Zestaw uruchomieniowy P-NUCLEO-WB55
+%% SUBSECTION: Sprzęt i oprzyrządowanie
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Zestaw uruchomieniowy P-NUCLEO-WB55}
+\subsection{Sprzęt i oprzyrządowanie}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUBSECTION: Zestawy firmy ST: P-NUCLEO-WB55 i X-NUCLEO-LPM01A
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Zestawy firmy ST: P-NUCLEO-WB55 i X-NUCLEO-LPM01A}
+
+Badania Bluetooth Low Energy wymagały wyboru platformy, która umożliwia eksperymentalną 
+weryfikację wybranych celów badawczych. Ostatecznie, zdecydowano się na wykorzystanie 
+mikrokontrolera {\it STM32WB55RG}. W celu zapewnienia powtarzalności eksperymentu jak 
+i~ze względu na ograniczenia czasowe, docelową platformą badawczą stał się zestaw 
+uruchomieniowy {\it P-NUCLEO-WB55}~\cite{noauthor_p-nucleo-wb55_nodate}.
+
+Zestaw ten zgodny jest ze specyfikacją Bluetooth Low Energy v5.0. Dodatkowo, wspiera
+on inne standardy komunikacji, m.in. Zigbee [https://www.st.com/en/microcontrollers-microprocessors/stm32wb-series.html]. 
+Ten fakt może zostać wykorzystany
+w celu bezpośredniego porównania różnych stosów komunikacji bezprzewodowej.
+Nie jest to jednak celem niniejszej pracy, a stanowi możliwość jej dalszego 
+rozwinięcia.
+
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{nucleo_wb55.jpg}
@@ -16,10 +36,15 @@
 	\label{rys:nucleo_wb55}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: Zestaw pomiarowy X-NUCLEO-LPM01A
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Zestaw pomiarowy X-NUCLEO-LPM01A}
+Firma ST wraz z zestawem uruchomieniowym udostępnia pełne zintegrowane środowisko
+programistyczne oraz niezbędne biblioteki i certyfikowany firmware [źródło].
+
+\begin{itemize}
+\item STM32CubeIDE [źródło]
+\item STM32CubeProgrammer [źródło]
+\item STM32CubeMonitor-Power [źródło]
+\item Firmware STM32CubeWB https://github.com/STMicroelectronics/STM32CubeWB
+\end{itemize}
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{st_power_measurement_unit.jpg}
@@ -28,17 +53,15 @@
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: HAL i stos Bluetooth Low Energy
+%% SUBSECTION: Zestawy firmy ST: P-NUCLEO-WB55 i X-NUCLEO-LPM01A
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{HAL i stos Bluetooth Low Energy}
+\subsubsection{Zasilanie i obudowy}
 
-
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SECTION: Przygotowanie eksperymentu
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-\section{Przygotowanie eksperymentu}
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.618\linewidth]{stm_case_render.png}
+	\caption{Obudowa zestawu uruchomieniowego Nucleo wykonana w technologii druku 3D - model}
+	\label{rys:obudowa_model3d}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: Oprogramowanie mikrokontrolera
@@ -49,11 +72,6 @@
 %% SUBSECTION: Oprogramowanie PC
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Oprogramowanie PC}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: Pozostały sprzęt
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Pozostały sprzęt}
 
 
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
