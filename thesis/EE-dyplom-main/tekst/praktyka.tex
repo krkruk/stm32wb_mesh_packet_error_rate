@@ -16,7 +16,7 @@ prądu poniżej 1mA, ze względu na energooszczędność urządzeń \gls{BLE}.
 Badania zużycia energii wymagają aparatury, która w pełni zarejestruje minima i maksima
 poboru prądu przy niskich błędach pomiarowych.
 
-Eksperyment PER wymaga przygotowania wielu zestawów uruchomieniowych obsługujących
+Eksperyment \gls{PER} wymaga przygotowania wielu zestawów uruchomieniowych obsługujących
 komunikację BLE w konfiguracji Mesh. Dodatkowo, wymagane jest stworzenie dedykowanego oprogramowania
 na mikrokontroler jak i komputer osobisty. Jest to niezbędne w celu kontroli przepływu
 doświadczenia jak i akwizycji danych.
@@ -36,9 +36,9 @@ o osobiste preferencje autora pracy.
 
 Badania Bluetooth Low Energy wymagały wyboru platformy, która umożliwia eksperymentalną 
 weryfikację wybranych celów badawczych. Ostatecznie, zdecydowano się na wykorzystanie 
-mikrokontrolera {\it STM32WB55RG}. W celu zapewnienia powtarzalności eksperymentu jak 
+mikrokontrolera \textit{STM32WB55RG}. W celu zapewnienia powtarzalności eksperymentu jak 
 i~ze względu na ograniczenia czasowe, docelową platformą badawczą stał się zestaw 
-uruchomieniowy {\it P-NUCLEO-WB55}~\cite{noauthor_p-nucleo-wb55_nodate}.
+uruchomieniowy \textit{P-NUCLEO-WB55}~\cite{noauthor_p-nucleo-wb55_nodate}.
 
 Zestaw ten zgodny jest ze specyfikacją Bluetooth Low Energy v5.0. Dodatkowo, wspiera
 on inne standardy komunikacji, m.in. Zigbee \cite{noauthor_stm32wb_2022}.
@@ -65,7 +65,7 @@ stawianych przed projektem. Wg oficjalnej dokumentacji \cite{noauthor_um2243_201
 \item Integracja z aplikacją do dedykowaną aplikacją akwizycji danych \cite{noauthor_stm32cubemonpwr_2022}
 \end{itemize}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.618\linewidth]{st_power_measurement_unit.jpg}
 	\caption{Zestaw pomiarowy X-NUCLEO-LPM01A. Źródło: \cite{noauthor_x-nucleo-lpm01a_nodate}}
 	\label{rys:nucleo_lpm01a}
@@ -124,7 +124,7 @@ konsumuje ok. 100mA prądu (0,5W = 5V * 0,02A * 5 [diod]). Doświadczalnie stwie
 odbiornik energii umożliwia stabilne działanie włączonego do sieci modułu STM32. Schemat 
 zaprezentowano na Rysunku~\ref{rys:power_led_consumer}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.618\linewidth]{power_led_consumer.pdf}
 	\caption{Odbiornik energii}
 	\label{rys:power_led_consumer}
@@ -168,7 +168,7 @@ zurbanizowanych. Ostateczne wykonanie obudów zaprezentowano na Rysunku~\ref{rys
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: Oprogramowanie mikrokontrolera
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Oprogramowanie mikrokontrolera}
+\subsection{Oprogramowanie mikrokontrolera} \label{prep:uc-software}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: Oprogramowanie PC
@@ -188,22 +188,26 @@ zurbanizowanych. Ostateczne wykonanie obudów zaprezentowano na Rysunku~\ref{rys
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Metodologia badania}
 
+\lipsum[1-3]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: BT Low Energy - Usługa Heart Rate
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{BT Low Energy - Usługa Heart Rate}
 
+\lipsum[1-3]
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_amps.png}
 	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate}
 	\label{rys:power_ble_hr_amps}
 \end{figure}
 
+\lipsum[1-2]
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_amps_usage_juxtaposition.png}
 	\caption{Zestawienie zużycia prądu dla usługi Heart Rate w zależności od trybu działania}
 	\label{rys:power_ble_hr_amps_usage_juxtaposition}
 \end{figure}
+\lipsum[1-3]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: BLE Mesh - Model Generic OnOff
@@ -218,12 +222,14 @@ Pomiary dla BLE Mesh uwzględniające dwa tryby działania: sieć w oczekująca 
 	\label{rys:power_ble_mesh_amps}
 \end{figure}
 
+\lipsum[1-3]
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_usage_juxtaposition.png} 
 	\caption{Zestawienie zużycia prądu dla BLE Mesh w zależności od trybu działania}
 	\label{rys:power_ble_mesh_amps_usage_juxtaposition}
 \end{figure}
 
+\lipsum[1-3]
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_consumption_comparison.png} 
 	\caption{Porównanie średniego zużycia energii pomiędzy BT Low Energy HRT i BLE Mesh}
@@ -239,75 +245,200 @@ Pomiary dla BLE Mesh uwzględniające dwa tryby działania: sieć w oczekująca 
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 \section{Packet Error Rate}
 
+Celem niniejszych badań jest prezentacja metodologii przeprowadzonego eksperymentu \gls{PER} 
+w~konfiguracji Mesh oraz prezentacja i~omówienie otrzymanych rezultatów.
+
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: Zależność PER względem odległości między węzłami
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Metodologia badania}
+\subsubsection{Definicja pakietu}
+Przed przystąpieniem do badań należy precyzyjnie zdefiniować wykorzystywaną terminologię.
 
-\begin{figure}[!htb]
+Pakietem nazywamy pojedynczą porcję danych przetwarzaną na poziomie warstwy sieciowej modelu ISO OSI \cite{sa_tcpip_nodate}.
+Warstwa ta umożliwia routing, adresowanie logiczne oraz przetwarzanie i~dostarczanie pakietów.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{tcp_ip_szkola_programowania_naglowki_stopki.png} 
+	\caption{Model ISO OSI wraz i odpowiadające mu nazwy porcji danych. Źródło: \cite{sa_tcpip_nodate}}
+	\label{rys:iso_osi_model_nazwy_grup_danych}
+\end{figure}
+
+\gls{BLE} wprowadza własną nomenklaturę dla poszczególnych warstw sieciowych. Jest to o tyle istotne, iż standard ten
+nie zapewnia odpowiadających modelowi ISO OSI warstw jeden-do-jednego. Część z tych warstw jest agregowanych w~zespół 
+protokołów wyższych warstw - Rysunek~\ref{rys:agregacja_protokolow_ble}. 
+
+Bazując na definicji modelu OSI oraz stosie BLE, pakietem można nazwać wiadomości będące możliwie blisko
+warstwy \textit{\gls{LL}}. Podobną definicję prezentuje dokumentacja ST:
+\enquote{Pakiet to pojedyncza oznaczona wiadomość wysłana przez jedno i~odebrana przez 
+co najmniej jedno urządzenie.}\footnote{Tłumaczenie własne}~\cite{stmicroelectronics_pm0271_2021}
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{mathworks_iso_osi_ble_stack.png} 
+	\caption{Zestawienie stosu BLE i modelu ISO OSI. Źródło: \cite{noauthor_bluetooth_nodate}}
+	\label{rys:agregacja_protokolow_ble}
+\end{figure}
+
+BLE Mesh dodatkowo wprowadza własne dodatkowe warstwy komunikacji, biorąc za podstawę stos BLE~\cite{mesh_working_group_mesh_2019}.
+Każda z wymienionych warstw jest hermetyzowana za pośrednictwem dostarczanego przez producenta \gls{API}.
+Uwzględniając zamknięcie middleware'u i dwu-procesorową architekturę mikrokontrolera STM32WB55, oznacza 
+to brak możliwości bezpośredniego nasłuchiwania pakietów w~warstwie \gls{LL}.
+
+Uwzględniając powyższe czynniki, pakietem dla BLE Mesh nazywana będzie wiadomość najbliższa warstwie \gls{LL}.
+W przypadku stworzonego oprogramowania, oznacza to odbiór komunikatu odebranego jako zdarzenie zarejestrowane przez
+koprocesor Cortex-M0, będący integralną częścią mikrokontrolera STM32WB55 odpowiadający za obsługę radia.
+
+\subsubsection{Definicja Packet Error Rate}
+Posiadając definicję pakietu, \gls{PER} definiuje się następująco: PER jest miarą ilości błędnych pakietów w proporcji do 
+wszystkich wysłanych pakietów, zgodnie ze wzorem:
+
+\begin{equation}
+PER = \frac{s - r}{s} \cdot 100\%
+\end{equation}
+gdzie:
+\begin{description}
+\item[s] is ilość wysłanych pakietów
+\item[r] is ilość odebranych pakietów
+\item[s-r] - ilość niepoprawnych/błędnych pakietów
+\end{description}
+
+\subsubsection{Procedura badawcza}
+
+(Jakiś mały akapit wstępu...)
+
+Stałe parametry transmisji danych:
+\begin{itemize}
+\item Szybkość transmisji: 2Mbps
+\item Moc transmisji danych: 0dBm
+\end{itemize}
+
+
+Eksperyment wyznaczający PER oparto o następujące czynniki zmienne:
+\begin{itemize}
+\item środowisko: teren leśny, teren zurbanizowany
+\item interwał zapytań
+\item dystans pomiędzy węzłami
+\item ilość węzłów składających się na sieć Mesh
+\end{itemize}
+
+Wyznaczanie PER odbyło się w dwóch różnych środowiskach. Jednym z głównych hipotez jest znaczący wpływ
+środowiska na jakość transmisji danych. Czynniki takie jak temperatura, wilgotność, rodzaj gleby czy
+tło radiowe może mieć wpływ na komunikację pomiędzy węzłami. Założono, iż tło radiowe może mieć
+największy wpływ ja transmisję danych. Stąd dobrano możliwie skrajne miejsca do badań oceniając
+to jako najistotniejszy czynnik:
+\begin{itemize}
+\item Kampinowski Park Narodowy (lokalizacja: parking Roztoka) - jako teren leśny oddalony od ośrodka miejskiego
+ze względnie niewielkim tłem radiowym. Pogoda: pochmurnie, wilgotno, temperatura poniżej 20$^{\circ}$C.
+\item Park Pola Mokotowskie - jako teren zurbanizowany charakteryzujący się bogatym tłem radiowym działającym
+w pasmach \gls{ISM}. Pogoda: słonecznie, temperatura ok. 20$^{\circ}$C.
+\end{itemize}
+
+Kolejnym badanym czynnikiem jest interwał zapytań. Parametr ten został wybrany ze względu na obserwowane
+problemy z komunikacją podczas etapu tworzenia oprogramowania. Parametry dobrano w takim stopniu, by ów problem
+ukazać. Obrano następujące interwały:
+\begin{itemize}
+\item 100ms
+\item 500ms
+\item 800ms
+\item 1300ms
+\item 2100ms
+\end{itemize}
+
+Interesującym parametrem dla bezprzewodowej transmisji danych jest zasięg. Stąd też, jednym z badanych czynników jest
+określenie jakości PER w zależności od odległości - Rysunek~\ref{rys:two_nodes_setup}.
+\begin{itemize}
+\item 1,5m
+\item 3,0m
+\item 5,0m
+\item 8,0m
+\item 13,0m
+\item 16,0m
+\item 21,0m
+\end{itemize}
+
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.618\linewidth]{per_two_nodes.pdf} 
 	\caption{Dystans pomiędzy węzłami dla sieci dwóch mikrokontrolerów}
 	\label{rys:two_nodes_setup}
 \end{figure}
 
-Rysunek ~\ref{rys:two_nodes_setup}
+Wyżej wymienione odległości stosowano również w przypadku kolejnego badanego parametru, tj. ilości węzłów
+składających się na sieć BLE. W celu łatwej identyfikacji węzłów, wprowadza się następujące nazewnictwo:
+\begin{itemize}
+	\item węzeł bliższy (ang./łac. \textit{proximal node}/\textit{nodus proximalis}) - węzeł będący połączony bezpośrednio
+	ze stacją akwizycji danych i kontroli przepływu eksperymentu.
+	\item węzeł środkowy (ang./łac. \textit{intermedial node}/\textit{nodus [inter]medius}) - węzeł działający w trybie
+	przekaźnika (terminologia Mesh: \textit{Relay}). Węzeł ten nie uczestniczy bezpośrednio w badaniach tj. nie są
+	z niego odczytywane jakiekolwiek dane.
+	\item węzeł dalszy (ang./łac. \textit{distal node}/\textit{nodus distalis}) - węzeł zliczający ilość odebranych danych \textit{r},
+	udostępniający jednocześnie usługę umożliwiającą odczyt tych wartości tak jak opisano to w podrozdziale \ref{prep:uc-software}.
+\end{itemize}
 
-\begin{figure}[!htb]
+Postanowiono o równoodległym rozstawieniu węzłów - Rysunek~\ref{rys:three_nodes_setup}. Dla sieci 3 węzłów,
+maksymalna odległość dzieląca węzeł bliższy od węzła dalszego to 42m. Protokół badawczy zawiera informację 
+tylko o odległości w~rozumieniu równoodległego rozstawienia węzłów. Odległość pomiędzy elementami 
+jest oczywistą operacją arytmetyczną.
+
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{per_three_nodes.pdf} 
 	\caption{Dystans pomiędzy węzłami dla sieci trzech mikrokontrolerów}
 	\label{rys:three_nodes_setup}
 \end{figure}
 
+Odległość pomiędzy węzłami mierzona jest z użyciem taśmy mierniczej z podziałką 1mm. Tolerancję pomiarów należy
+przyjąć jako najdłuższy wymiar zestawu uruchomieniowego P-NUCLEO-WB55 - 70mm \cite{stmicroelectronics_um2435_2019}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: Zależność PER względem częstości zapytań
+%% SUBSECTION: Zależność \gls{PER} względem częstości zapytań
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Zależność PER względem częstości zapytań}
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_under_100ms.png}
-	\caption{Zależność PER od dystansu dla zapytań o częstości $\leqslant$ 100ms dla różnej liczby węzłów}
+	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości $\leqslant$ 100ms dla różnej liczby węzłów}
 	\label{rys:per_to_distance_under_100ms}
 \end{figure}
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_under_100ms_different_envs.png} 
-	\caption{Zależność PER od dystansu dla zapytań o częstości $\leqslant$ 100ms w wybranych środowiskach bez rozróżnienia na liczbę węzłów}
+	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości $\leqslant$ 100ms w wybranych środowiskach bez rozróżnienia na liczbę węzłów}
 	\label{rys:per_to_distance_under_100ms_different_envs}
 \end{figure}
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_under_100ms_different_envs_and_nodes.png}
-	\caption{Zależność PER od dystansu dla zapytań o częstości $\leqslant$ 100ms w wybranych środowiskach i liczbę badanych węzłów}
+	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości $\leqslant$ 100ms w wybranych środowiskach i liczbę badanych węzłów}
 	\label{rys:per_to_distance_under_100ms_different_envs_and_nodes}
 \end{figure}
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_over_100ms_different_envs_different_ping_interval.png} 
-	\caption{Zależność PER od dystansu dla zapytań o częstości >100ms w wybranych środowiskach}
+	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości >100ms w wybranych środowiskach}
 	\label{rys:per_to_distance_over_100ms_different_envs_different_ping_interval}
 \end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: Zależność PER względem odległości między węzłami
+%% SUBSECTION: Zależność \gls{PER} względem odległości między węzłami
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Zależność PER względem odległości między węzłami}
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_over_100ms.png}
-	\caption{Zależność PER od dystansu dla zapytań o częstości >100ms dla różnej liczby węzłów}
+	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości >100ms dla różnej liczby węzłów}
 	\label{rys:per_to_distance_over_100ms}
 \end{figure}
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_over_100ms_different_envs.png} 
-	\caption{Zależność PER od dystansu dla zapytań o częstości >100ms w wybranych środowiskach bez rozróżnienia na liczbę węzłów}
+	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości >100ms w wybranych środowiskach bez rozróżnienia na liczbę węzłów}
 	\label{rys:per_to_distance_over_100ms_different_envs}
 \end{figure}
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_over_100ms_different_envs_and_nodes.png}
-	\caption{Zależność PER od dystansu dla zapytań o częstości >100ms w wybranych środowiskach i liczbę badanych węzłów}
+	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości >100ms w wybranych środowiskach i liczbę badanych węzłów}
 	\label{rys:per_to_distance_over_100ms_different_envs_and_nodes}
 \end{figure}
 
