@@ -1,31 +1,8 @@
+\section{Zużycie energii}
+\subsection{Tryb ogłoszeniowy (*komentarz*: model zapożyczony z literatury)}
+\subsection{Tryb połączenia (*komentarz*: model zapożyczony z literatury)}
 
-\begin{lstlisting}[language=C,
-    caption={Testowy kod C},
-    label={lst:kod cpp}]
-MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam, 
-                                     MOBLEUINT8 OptionalValid,
-                                     MOBLEUINT16 dstPeer,
-                                     MOBLEUINT8 elementIndex)
-{
-  /* LED control only for main element */
-  if(elementIndex == GENERIC_SERVER_MAIN_ELEMENT_INDEX)
-  {
-  // [...]
-      if(AppliOnOffSet[elementIndex].Present_OnOffValue == AppliOnOffSet[elementIndex].TargetValue)
-      {
-    	if (dstPeer != 0xc000) {
-    	   increment_generic_onoff_counter_packet_error_rate_experiment(AppliOnOffSet[elementIndex].Present_OnOffValue, dstPeer);
-    	}
-        if(AppliOnOffSet[elementIndex].Present_OnOffValue > 0)
-        {
-          BSP_LED_On(LED_BLUE);
-        }
-        else
-        {
-          BSP_LED_Off(LED_BLUE);
-        }
-      }
-    }  
-  // [...]
-\end{lstlisting}
+\section{Packet Error Rate}
+\subsection{Model zależności PER od odległości i ilości między-węzłów}
+\subsection{Wpływ tła radiowego na model (*komentarz*: prezentacja hipotez)}
 
