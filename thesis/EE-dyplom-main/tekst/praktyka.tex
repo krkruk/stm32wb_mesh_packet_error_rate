@@ -9,7 +9,7 @@ Eksperymentalna część pracy bezsprzecznie wymaga przygotowania odpowiedniego 
 sprzętu i~narzędzi. Konieczne jest wybranie odpowiedniej platformy sprzętowej
 wspierającej komunikację bezprzewodową Bluetooth Low Energy w wersji minimum 5.0.
 Niezbędne jest również oprzyrządowanie pomiarowe, które umożliwia pomiar natężeń
-prądu poniżej 1mA, ze względu na energooszczędność urządzeń BLE.
+prądu poniżej 1mA, ze względu na energooszczędność urządzeń \gls{BLE}.
 
 % zakładam, że we wcześniejszych rozdziałach definiuję zakres pracy i rodzaje eksperymentów
 
@@ -17,7 +17,7 @@ Badania zużycia energii wymagają aparatury, która w pełni zarejestruje minim
 poboru prądu przy niskich błędach pomiarowych.
 
 Eksperyment PER wymaga przygotowania wielu zestawów uruchomieniowych obsługujących
-komunikację BLE. Dodatkowo, wymagane jest stworzenie dedykowanego oprogramowania
+komunikację BLE w konfiguracji Mesh. Dodatkowo, wymagane jest stworzenie dedykowanego oprogramowania
 na mikrokontroler jak i komputer osobisty. Jest to niezbędne w celu kontroli przepływu
 doświadczenia jak i akwizycji danych.
 
@@ -28,6 +28,9 @@ Niniejszy rozdział omawia zakres przygotowań do przeprowadzenia właściwych e
 %% SUBSECTION: Sprzęt i oprzyrządowanie
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sprzęt i oprzyrządowanie}
+
+Próby doświadczalne oparto o produkty firmy ST. Decyzja podjęta została w oparciu
+o osobiste preferencje autora pracy.
 
 \subsubsection{P-NUCLEO-WB55}
 
@@ -50,13 +53,34 @@ rozwinięcia.
 	\label{rys:nucleo_wb55}
 \end{figure}
 
-
 \subsubsection{X-NUCLEO-LPM01A}
-\begin{figure}[!htb]
+
+Płytka rozszerzeń X-NUCLEO-LPM01A spełnia wszelkie oczekiwania dotyczące możliwości pomiarowych
+stawianych przed projektem. Wg oficjalnej dokumentacji \cite{noauthor_um2243_2018}, układ oferuje:
+
+\begin{itemize}
+\item Programowalne źródło napięciowe 1,8V do 3,3V
+\item Dynamiczne próbkowanie w zakresie od 100nA 50mA przy maksymalnej częstotliwości 100kHz z 2\%-ową dokładnością pomiarów
+\item Pomiar statyczny natężenia prądu do 200mA
+\item Integracja z aplikacją do dedykowaną aplikacją akwizycji danych \cite{noauthor_stm32cubemonpwr_2022}
+\end{itemize}
+
+\begin{figure}[!h]
 	\centering \includegraphics[width=0.618\linewidth]{st_power_measurement_unit.jpg}
 	\caption{Zestaw pomiarowy X-NUCLEO-LPM01A. Źródło: \cite{noauthor_x-nucleo-lpm01a_nodate}}
 	\label{rys:nucleo_lpm01a}
 \end{figure}
+
+Moduł ten nie ogranicza się tylko do wykorzystywania autorskich złącz firmy ST. Schemat wyprowadzeń pinów
+umożliwia wykorzystanie popularnych platform takich jak Arduino\footnote{https://www.arduino.cc/}. Co istotniejsze, wybrana płytka umożliwia
+zasilanie dowolnego układu dzięki wyprowadzeniu źródła napięciowego za pośrednictwem pinów 
+(za dokumentacją: złącze CN14). Ten fakt został wykorzystany w badaniach, pozwalając uniknąć kłopotliwej
+konfiguracji P-NUCLEO-WB55 wymagającej tworzenia dodatkowych ścieżek lutowanych.
+
+Dodatkową cechą tego modułu jest akwizycja danych z użyciem komputera osobistego. Dzięki dedykowanej
+aplikacji, dostarczanej wraz z modułem, możliwa jest akwizycja danych w czasie rzeczywistym przy
+wybranych częstotliwościach próbkowania. Zebrane w ten sposób dane służą dalszym analizom, co zostało
+wykorzystane w niniejszej pracy. 
 
 \subsubsection{Narzędzia i firmware firmy ST}
 Firma ST wraz z zestawem uruchomieniowym udostępnia pełne zintegrowane środowisko
@@ -74,15 +98,71 @@ przeznaczonych dla mikrokontrolerów rodziny STM32WB. W skład tego repozytorium
 skompilowany, zamknięty firmware ko-processora dla różnych stosów połączeń bezprzewodowych; przykłady programów
 wykorzystujące biblioteki HAL jak i również bezpośrednio rejestry; przykłady BLE; przykłady BLE Mesh.
 \end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: Zestawy firmy ST: P-NUCLEO-WB55 i X-NUCLEO-LPM01A
+%% SUBSECTION: Zasilanie i obudowy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Zasilanie i obudowy}
+\subsection{Narzędzia i elementy dodatkowe}
+
+\subsubsection{Zasilanie}
+Próby terenowe wymagają odrębnego, właściwego zasilania. Wybrane zestawy uruchomieniowe
+wykorzystują ustandaryzowane złącze komunikacyjne USB. Złącze to oprócz komunikacji
+oferuje zasilanie linią +5V. Przeprowadzając właściwe eksperymenty wykorzystano
+komercyjnie dostępne banki energii tzw. powerbanki. Są to akumulatory litowo-jonowe
+lub litowo-polimerowe z wbudowanym systemem zarządzania baterią\footnote{\gls{BMS} - ang. Battery Management System}
+i właściwymi przetwornicami impulsowymi w celu zapewnienia odpowiedniego napięcia zasilania.
+
+Elektronika wbudowane w magazyny energii automatycznie wyłącza zasilanie w przypadku braku
+podłączonego urządzenia lub gdy dane urządzenie pobiera marginalnie niskie wartości
+prądu. Służy to ochronie cennego i delikatnego akumulatora. Jest to cecha korzystna
+z punktu widzenia konsumenta kupującego powerbank w celu szybkiego ładowania urządzeń elektronicznych.
+Niestety, zaleta ta staje się wadą w przypadku przeprowadzanych doświadczeń. Podłączając moduł P-NUCLEO-WB55,
+urządzenie po pewnym okresie działania wyłącza się na skutek uruchomionych zabezpieczeń w źródle energii.
+
+W celu skonstruowano trywialne urządzenie, które wlutowane równolegle w linię zasilania 5V,
+konsumuje ok. 100mA prądu (0,5W = 5V * 0,02A * 5 [diod]). Doświadczalnie stwierdzono, że tak włączony
+odbiornik energii umożliwia stabilne działanie włączonego do sieci modułu STM32. Schemat 
+zaprezentowano na Rysunku~\ref{rys:power_led_consumer}
+
+\begin{figure}[!h]
+	\centering \includegraphics[width=0.618\linewidth]{power_led_consumer.pdf}
+	\caption{Odbiornik energii}
+	\label{rys:power_led_consumer}
+\end{figure}
+
+\subsubsection{Obudowa - druk 3D}
+Kolejnym elementem niezbędnym w celu przeprowadzenia eksperymentów terenowych jest zapewnienie
+ochrony mechanicznej wybranych zestawów uruchomieniowych. Podczas prób elementy mogą zostać
+fizycznie uszkodzone poprzez m.in. wyłamanie fragmentu \gls{PCB} (w tym anteny), uszkodzenie pinów etc.
+
+Wykorzystując techniki projektowania wspomaganego komputerowo\footnote{\gls{CAD} - ang. \textit{Computer-aided Design}},
+zaprojektowano autorską obudowę. Głównym celem projektowym było zapewnienie minimalnej ochrony
+mechanicznej, jednocześnie redukując możliwy wpływ materiału na tłumienie sygnału. Elementy
+interfejsu: przyciski i antena, zostały celowo wyeksponowane. Rzut izometryczny przedstawiony został
+na Rysunku~\ref{ref:obudowa_model3d}.
+
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{stm_case_render.png}
-	\caption{Obudowa zestawu uruchomieniowego Nucleo wykonana w technologii druku 3D - model}
+	\caption{Model obudowy dla zestawu P-NUCLEO-WB55}
 	\label{rys:obudowa_model3d}
+\end{figure}
+
+Obudowa wykonana została z materiału \gls{PLA}\footnote{PLA - ang. \textit{Polylactic acid}, polilaktyd} techniką
+druku 3D \gls{FDM}\footnote{FDM - ang. \textit{Fused Deposition Modeling}}/\gls{FFF}\footnote{FFF - \textit{Fused Filament Fabrication}}.
+Jednobryłowa konstrukcja podyktowana została chęcią uproszczenia wydruku, kosztem zwiększonych trudności
+doboru tolerancji dla umieszczanych wewnątrz płytek \gls{PCB}. Obudowa przewiduje wsuwanie modułu Nucleo
+do wewnątrz, zapewniając jednoczesne pewne jego mocowanie.
+
+Dobór koloru wydruku również nie był przypadkowy. Przewidując potencjalne lokalizacje przeprowadzanych
+doświadczeń, wybrano kolor możliwie jaskrawy. Podstawowym założeniem było ułatwienie dostrzeżenia
+obudowy, a wraz z obudową również zestawu uruchomieniowego, pośród flory leśnej czy terenów
+zurbanizowanych. Ostateczne wykonanie obudów zaprezentowano na Rysunku~\ref{rys:obudowa_wykonanie}.
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.618\linewidth]{3d_real_cases.png}
+	\caption{Obudowa zestawu uruchomieniowego Nucleo wykonana w technologii druku 3D - realizacja}
+	\label{rys:obudowa_wykonanie}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
