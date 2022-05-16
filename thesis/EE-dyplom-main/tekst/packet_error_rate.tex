@@ -1,8 +1,16 @@
 \section{Packet Error Rate}
 
-Celem niniejszych badań jest prezentacja metodologii przeprowadzonego eksperymentu \gls{PER} 
-w~konfiguracji Mesh oraz prezentacja i~omówienie otrzymanych rezultatów.
+Celem niniejszego podrozdziału jest omówienie przeprowadzonego eksperymentu \gls{PER}. Omówiona zostanie
+metodologia badań. Zdefiniowany zostanie termin \textit{pakietu}, który stanowi podstawę dla
+doświadczenia.
 
+Wychodząc z definicji, prezentuje się właściwy wzór matematyczny, definiujący badany problem. Równanie
+stanowi podstawę dla eksperymentu. Jego zrozumienie pozwoliło zaprojektowanie właściwego doświadczenia
+jak i~przygotowanie kompletnego stosu technologicznego niezbędnego do jego przeprowadzenia.
+
+Ostatecznym efektem przeprowadzonego eksperymentu jest przedstawienie zebranych danych pod postacią
+wykresów. Prezentują one badane cechy zmienne zaprezentowane w sekcji opisu metodologii. Końcowym
+krokiem jest wyciągnięcie wniosków z zebranych danych.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: Zależność PER względem odległości między węzłami
@@ -40,7 +48,7 @@ Każda z wymienionych warstw jest hermetyzowana za pośrednictwem dostarczanego 
 Uwzględniając zamknięcie middleware'u i dwu-procesorową architekturę mikrokontrolera STM32WB55, oznacza 
 to brak możliwości bezpośredniego nasłuchiwania pakietów w~warstwie \gls{LL}.
 
-Uwzględniając powyższe czynniki, pakietem dla BLE Mesh nazywana będzie wiadomość najbliższa warstwie \gls{LL}.
+Uwzględniając powyższe czynniki, \textit{pakietem} dla BLE Mesh nazywana będzie wiadomość najbliższa warstwie \gls{LL}.
 W przypadku stworzonego oprogramowania, oznacza to odbiór komunikatu odebranego jako zdarzenie zarejestrowane przez
 koprocesor Cortex-M0, będący integralną częścią mikrokontrolera STM32WB55 odpowiadający za obsługę radia.
 
