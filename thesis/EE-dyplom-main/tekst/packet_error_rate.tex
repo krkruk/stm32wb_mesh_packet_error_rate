@@ -74,7 +74,7 @@ gdzie:
 Powyższy wzór stanowi podstawę eksperymentu pozwalającego wyznaczyć jakość łącza w zależności od
 wybranych parametrów zmiennych.
 
-\subsubsection{Procedura badawcza}
+\subsubsection{Procedura badawcza}\label{subsubsec:test-procedure}
 
 Procedurę badawczą skonstruowano bazując na wzorze~\ref{per_equation}. Niezbędnym mechanizmem, o które oparte
 jest doświadczenie, to zliczanie ilości pakietów. Zliczanie dotyczy zarówno węzła bliższego 
@@ -104,6 +104,7 @@ Eksperyment wyznaczający PER oparto o następujące czynniki zmienne:
 \item dystans pomiędzy węzłami
 \item ilość węzłów składających się na sieć Mesh
 \end{itemize}
+
 
 Wyznaczanie PER odbyło się w dwóch różnych środowiskach. Jednym z głównych hipotez jest znaczący wpływ
 środowiska na jakość transmisji danych. Czynniki takie jak temperatura, wilgotność, rodzaj gleby czy
@@ -171,7 +172,27 @@ jest oczywistą operacją arytmetyczną.
 
 Odległość pomiędzy węzłami mierzona jest z użyciem taśmy mierniczej z podziałką 1mm. Tolerancję pomiarów należy
 przyjąć jako najdłuższy wymiar zestawu uruchomieniowego P-NUCLEO-WB55 - 70mm \cite{stmicroelectronics_um2435_2019}.
+Pomiar odbywał się na płasko, mierząc odległość pomiędzy leżącymi na glebie węzłami. Błędy pomiarowe wynikłe
+z ukształtowania terenu są prawdopodobne i~wynikają z~terenowego charakteru badań.
 
+W celu zminimalizowania ryzyka pojawienia się losowych błędów o nieznanym pochodzeniu badanie powtarzano pięciokrotnie,
+w sposób następujący: dla wybranego środowiska, ilości węzłów i zadanej odległości pomiędzy węzłami, wykonaj
+5 powtórzeń pomiarowych dla każdego z zadanych interwałów pomiarowych.
+
+\begin{equation}
+\label{experiment_definition}
+\exists e, \exists n, \exists d: PER_i = f(e, n, d), i=1,...,5
+\end{equation}
+
+gdzie:
+
+\begin{description}
+\item[e] - środowisko
+\item[n] - ilość węzłów
+\item[d] - równoodległy dystans pomiędzy węzłami
+\item[i] - ilość powtórzeń
+\item[PER] - Packet Error Rate dla wybranego powtórzenia przy stałych parametrach e, n, d
+\end{description}
 
 Parametry transmisji danych nie ulegały zmianie podczas przeprowadzanych doświadczeń. Poniższe wartości należy
 przyjąć za stałe:
@@ -185,20 +206,65 @@ przyjąć za stałe:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Zależność PER względem częstości zapytań}
 
+Pierwszą sprawdzaną hipotezą jest empiryczna weryfikacja czy częstość zapytań wpływa na \gls{PER}.
+W tym celu wykreślono szereg wykresów dla wybranych interwałów czasowych. Pozostałe parametry traktowane są
+jako stałe.
+
+Rysunek~\ref{rys:per_to_distance_under_100ms} przedstawia zależność PER dla interwału 100 milisekund w~zależności
+od odległości dla sieci złożonej z dwóch i trzech węzłów. 
+
+Niewątpliwą cechą ukazanych danych jest wysoka wartość PER już przy tak niewielkiej odległości jak 150 cm pomiędzy węzłami.
+Utrata 40-50\% wysyłanych pakietów danych już na pierwszym dystansie pomiarowym może być spowodowana wieloma czynnikami.
+Wpływ na taki rezultat może mieć zarówno środowisko, sposób wykonywania eksperyment jak i~również ograniczenia
+sprzętowe
+
+Wraz ze wzrostem odległości pomiędzy węzłami PER wzrasta pomimo wysokiej wartości początkowej. Jest to 
+oczekiwana zależność i zgodna z wiedzą techniczną.
+
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_under_100ms.png}
 	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości $\leqslant$ 100ms dla różnej liczby węzłów}
 	\label{rys:per_to_distance_under_100ms}
 \end{figure}
 
-\lipsum[1-3]
+Prowadząc dalszą analizę zależności PER od częstości zapytań, sprawdzono wpływ środowiska na jakość transmisji danych.
+Rysunek~\ref{rys:per_to_distance_under_100ms_different_envs} przedstawia wybraną zależność. Rozróżnienie
+na ilość węzłów nie zostało tutaj uwzględnione. Pomiary przeprowadzone w~najbliższym dobranym dystansie ponownie 
+wskazują na 40-50\% utratę pakietów w węźle dalszym. Analogiczne rezultaty obserwowane są na pozostałych dystansach 
+z~oczekiwaną tendencją wzrostową.
+Wykres dodatkowo przedstawia pewną różnicę w jakości transmisji danych w~zależności od środowiska. Różnica ta 
+jednak mieści się w odchyleniu standardowym, posiadając część wspólną dla zadanych parametrów. Nie jest to 
+wystarczające do stwierdzenia jednoznacznego wpływu środowiska.
+
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_under_100ms_different_envs.png} 
 	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości $\leqslant$ 100ms w wybranych środowiskach bez rozróżnienia na liczbę węzłów}
 	\label{rys:per_to_distance_under_100ms_different_envs}
 \end{figure}
 
-\lipsum[1-3]
+Zestawiając ze sobą wymienione wcześniej czynniki, obserwuje się interesujące zależności. Rysunek~\ref{rys:per_to_distance_under_100ms_different_envs_and_nodes} wskazuje na zależność dystansu, ilości węzłów i rodzaju
+środowiska dla wybranego interwału zapytań 100 milisekund. Po raz kolejny obserwowany jest PER wynoszący
+40-50\%, niezależnie od środowiska czy ilości węzłów. Sugeruje to wpływ samej testowanej platformy
+na ostateczny rezultat. Prawdopodobną hipotezą jest niewystarczająca wielkość zaalokowanych
+buforów obsługujących transmisję danych. Mikrokontroler nie będąc w stanie obsłużyć tak częstej transmisji
+może doświadczyć awarii, co zaobserwowano podczas badań. Awaria objawiała się brakiem reakcji węzła bliższego
+na jakiekolwiek komendy AT, co wymagało ponownego uruchomienia urządzenia. Weryfikacja tego zagadnienia
+wymagałaby zaangażowania zaawansowanych narzędzi programistycznych ingerujących m.in. w~pamięć urządzenia.
+Niniejsza praca nie podejmuje się wyjaśnienia przyczyn obserwowanych anomalii w działaniu mikrokontrolera,
+udostępniając jednocześnie możliwy punkt dla dalszych prac badawczych z zakresu BLE Mesh.
+
+Wpływ samego stosu łączności na PER przy zadanej częstości zapytań zdaje się potwierdzać wykres uwzględniający
+jakość transmisji dla dwóch węzłów. Pozioma linia interpolacji sugeruje niewielki wpływ dystansu na PER.
+Dotyczy to zarówno terenu zurbanizowanego jak i~terenu leśnego. Zbliżone rezultaty zdają się wykluczać
+czynniki zewnętrzne.
+
+Interesującą zależnością jest nachylenie wykresu względem osi odciętych. Dla przypadku dwóch węzłów sieci,
+połączenie bezpośrednio między węzłami, PER jest niemal stałe na wybranych odległościach. W przypadku trzech
+węzłów, uwidacznia się potencjalny wpływ węzła środkowego, przekazującego pakiety z punktu bliższego do
+dalszego. Wraz ze wzrostem dystansu, rośnie wartość PER sięgając nawet 90\% w terenie leśnym. Różne nachylenie
+dla wybranych środowisk również sugeruje znaczący wpływ środowiska na PER również sugeruje znaczący wpływ środowiska na PER.
+
+% nachylenie wykresu a wpływ na ilość węzłów
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_under_100ms_different_envs_and_nodes.png}
 	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości $\leqslant$ 100ms w wybranych środowiskach i liczbę badanych węzłów}
