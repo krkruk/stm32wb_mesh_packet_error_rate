@@ -42,18 +42,18 @@ mikrokontrolera \textit{STM32WB55RG}. W celu zapewnienia powtarzalności ekspery
 i~ze względu na ograniczenia czasowe, docelową platformą badawczą stał się zestaw 
 uruchomieniowy \textit{P-NUCLEO-WB55}~\cite{noauthor_p-nucleo-wb55_nodate}.
 
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.618\linewidth]{nucleo_wb55.jpg}
+	\caption{Zestaw uruchomieniowy P-NUCLEO-WB55. Źródło: \cite{noauthor_p-nucleo-wb55_nodate}}
+	\label{rys:nucleo_wb55}
+\end{figure}
+
 Zestaw ten zgodny jest ze specyfikacją Bluetooth Low Energy v5.0. Dodatkowo, wspiera
 on inne standardy komunikacji, m.in. Zigbee \cite{noauthor_stm32wb_2022}.
 Ten fakt może zostać wykorzystany w celu bezpośredniego porównania różnych stosów komunikacji bezprzewodowej.
 Nie jest to jednak celem niniejszej pracy, a stanowi możliwość jej dalszego 
 rozwinięcia.
 
-
-\begin{figure}[!htb]
-	\centering \includegraphics[width=0.618\linewidth]{nucleo_wb55.jpg}
-	\caption{Zestaw uruchomieniowy P-NUCLEO-WB55. Źródło: \cite{noauthor_p-nucleo-wb55_nodate}}
-	\label{rys:nucleo_wb55}
-\end{figure}
 
 \subsubsection{X-NUCLEO-LPM01A}
 
@@ -222,7 +222,7 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
 
 
 \begin{equation} \label{energy_equation}
-E_{\text{całkowita}} = U \cdot \int_{t=0[s]}^{t=30[s]} \mathrm{d}i \: \mathrm{d} t
+E_{\text{całkowita}} = U \cdot \int_{t=0[s]}^{t=50[s]} \mathrm{d}i \: \mathrm{d} t
 \end{equation}
 
 \begin{equation} \label{power_equation}
@@ -232,7 +232,7 @@ P = \frac{E_{\text{całkowita}}}{t}
 gdzie:
 
 \begin{description}
-\item $E_{\text{całkowita}} [J]$ - energia zużyta podczas 30s sekundowej sesji rejestracji danych
+\item $E_{\text{całkowita}} [J]$ - energia zużyta podczas 50s sekundowej sesji rejestracji danych
 \item $P [W]$ - moczużyta podczas 30s sekundowej sesji rejestracji danych
 \item $U [V]$ - napięcie zasilania mikrokontrolera - 3.3V
 \item $\mathrm{d}i [A]$ - prąd w danej chwili

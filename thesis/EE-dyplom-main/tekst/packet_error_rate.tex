@@ -121,7 +121,7 @@ w pasmach \gls{ISM}. Pogoda: słonecznie, temperatura ok. 20$^{\circ}$C.
 Kolejnym badanym czynnikiem jest interwał zapytań. Parametr ten został wybrany ze względu na obserwowane
 problemy z komunikacją podczas etapu tworzenia oprogramowania. Parametry dobrano w takim stopniu, by ów problem
 ukazać. Obrano następujące interwały:
-\begin{itemize}
+\begin{itemize} \label {items:ping_intervals}
 \item 100ms
 \item 500ms
 \item 800ms
@@ -213,19 +213,19 @@ jako stałe.
 Rysunek~\ref{rys:per_to_distance_under_100ms} przedstawia zależność PER dla interwału 100 milisekund w~zależności
 od odległości dla sieci złożonej z dwóch i trzech węzłów. 
 
-Niewątpliwą cechą ukazanych danych jest wysoka wartość PER już przy tak niewielkiej odległości jak 150 cm pomiędzy węzłami.
-Utrata 40-50\% wysyłanych pakietów danych już na pierwszym dystansie pomiarowym może być spowodowana wieloma czynnikami.
-Wpływ na taki rezultat może mieć zarówno środowisko, sposób wykonywania eksperyment jak i~również ograniczenia
-sprzętowe
-
-Wraz ze wzrostem odległości pomiędzy węzłami PER wzrasta pomimo wysokiej wartości początkowej. Jest to 
-oczekiwana zależność i zgodna z wiedzą techniczną.
-
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_under_100ms.png}
 	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości $\leqslant$ 100ms dla różnej liczby węzłów}
 	\label{rys:per_to_distance_under_100ms}
 \end{figure}
+
+Niewątpliwą cechą ukazanych danych jest wysoka wartość PER już przy tak niewielkiej odległości jak 150 cm pomiędzy węzłami.
+Utrata 40-50\% wysyłanych pakietów danych już na pierwszym dystansie pomiarowym może być spowodowana wieloma czynnikami.
+Przypuszczalnie, wpływ na taki rezultat wywodzi się z czynników środowiskowych lub ze sposobu wykonywania 
+eksperymentu. Niewykluczone są również ograniczenia sprzętowe.
+
+Wraz ze wzrostem odległości pomiędzy węzłami PER wzrasta pomimo wysokiej wartości początkowej. Jest to 
+oczekiwana zależność i zgodna z wiedzą techniczną.
 
 Prowadząc dalszą analizę zależności PER od częstości zapytań, sprawdzono wpływ środowiska na jakość transmisji danych.
 Rysunek~\ref{rys:per_to_distance_under_100ms_different_envs} przedstawia wybraną zależność. Rozróżnienie
@@ -264,21 +264,54 @@ węzłów, uwidacznia się potencjalny wpływ węzła środkowego, przekazujące
 dalszego. Wraz ze wzrostem dystansu, rośnie wartość PER sięgając nawet 90\% w terenie leśnym. Różne nachylenie
 dla wybranych środowisk również sugeruje znaczący wpływ środowiska na PER również sugeruje znaczący wpływ środowiska na PER.
 
-% nachylenie wykresu a wpływ na ilość węzłów
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_under_100ms_different_envs_and_nodes.png}
 	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości $\leqslant$ 100ms w wybranych środowiskach i liczbę badanych węzłów}
 	\label{rys:per_to_distance_under_100ms_different_envs_and_nodes}
 \end{figure}
 
-\lipsum[1-3]
+Znając charakterystykę łączności dla okresów poniżej 100 milisekund, weryfikuje się pozostałe wybrane częstości, zgodnie
+z podanymi wartościami~\ref{items:ping_intervals}. Rysunek~\ref{rys:per_to_distance_over_100ms_different_envs_different_ping_interval}
+prezentuje pozostałe interwały w zależności od dystansu i wybranych środowisk bez rozróżnienia na ilość węzłów w sieci.
+
+Przeprowadzone pomiary w terenie leśnym wskazują charakterystykę połączenia zgodną z intuicyjnymi przewidywaniami.
+Na~początkowym dystansie 150cm nie obserwuje się problemów z łącznością. Wszystkie wysłane pakiety zostały
+odebrane przez węzeł dalszy. Kolejny dystans wskazuje już na pewną utratę pakietów poniżej 20\%. Prawdopodobnym czynnikiem
+jest pogoda lub ukształtowanie terenu leśnego. Co istotne, pomiary dla różnych interwałów odpytywań są zbliżone.
+Sugerowałoby to brak wpływu częstości na \gls{PER}. Na pozostałych dystansach pomiarowych, wartości utraty pakietów
+są do siebie wzajemnie zbliżone osiągając swoje maksimum na dystansie 21m - blisko 100\% zaginionych pakietów.
+
+Charakterystyka łączności w terenie zurbanizowanym prezentuje się podobnie. Nie obserwuje się znaczącej utraty 
+pakietów na względnie bliskich dystansach (150, 300 i 500cm). Wartość PER rośnie wraz ze wzrostem odległości
+pomiędzy węzłami osiągając w swoim szczycie wartość ok. 40\%. Co istotne, linie interpolacyjne są do siebie
+zbliżone, ponownie sugerując brak korelacji pomiędzy częstością wysyłania komunikatów a~wartością PER.
+
+
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_over_100ms_different_envs_different_ping_interval.png} 
 	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości >100ms w wybranych środowiskach}
 	\label{rys:per_to_distance_over_100ms_different_envs_different_ping_interval}
 \end{figure}
-\lipsum[1-3]
 
+Zależność pomiędzy PER a częstością odpytywań została zbadana wykorzystując narzędzia statystyczne. Traktując model
+liniowy, jak sugerują zaprezentowane wykresy, tworzonych zgodnie z~metodą najmniejszych kwadratów wylicza się 
+współczynnik determinacji dla następujących zmiennych niezależnych: dystans oraz PER. W~kolejnym kroku uwzględnia
+się fakt wykorzystywania korelacji wielu zmiennych, dostosowując odpowiednio wartość.
+
+
+\begin{table}[!ht]
+\centering
+	\begin{tabular}{p{4.5cm}|r|r}
+	Środowisko              & $R^2$             & $R^2_{dostosowany}$\\\hline
+	Teren leśny             & 0.04958           & 0.04272\\\hline
+	Teren zurbanizowany     & 0.04887           & 0.04200\\\hline
+	\end{tabular}
+\caption{\label{tab:corr_between_ping_intervals}Współczynnik determinacji dla zależności interwału zapytań od dystansu i~PER w~wybranych środowiskach}
+\end{table}
+
+Ostatecznie, otrzymany współczynnik determinacji przyjmujący wartość $R^2=0,04-0,05$.  Istnieje 4\%-owy wpływ
+interwału zapytań o częstościach większych niż 100 milisekund na ostateczny rezultat PER. Pozwala to
+wykluczyć ten czynnik wykluczyć z dalszych rozważań uznając go za marginalny.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: Zależność \gls{PER} względem odległości między węzłami
