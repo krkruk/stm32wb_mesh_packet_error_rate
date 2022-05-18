@@ -220,6 +220,26 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Metodologia badania}
 
+
+\begin{equation} \label{energy_equation}
+E_{\text{całkowita}} = U \cdot \int_{t=0[s]}^{t=30[s]} \mathrm{d}i \: \mathrm{d} t
+\end{equation}
+
+\begin{equation} \label{power_equation}
+P = \frac{E_{\text{całkowita}}}{t}
+\end{equation}
+
+gdzie:
+
+\begin{description}
+\item $E_{\text{całkowita}} [J]$ - energia zużyta podczas 30s sekundowej sesji rejestracji danych
+\item $P [W]$ - moczużyta podczas 30s sekundowej sesji rejestracji danych
+\item $U [V]$ - napięcie zasilania mikrokontrolera - 3.3V
+\item $\mathrm{d}i [A]$ - prąd w danej chwili
+\item $\mathrm{d}t [s]$ - podstawa czasowa całkowania, 0.01s/interwał (100Hz)
+\end{description}
+
+
 \lipsum[1-3]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: BT Low Energy - Usługa Heart Rate
