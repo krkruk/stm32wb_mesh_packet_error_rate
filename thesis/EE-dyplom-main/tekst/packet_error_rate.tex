@@ -16,6 +16,7 @@ krokiem jest wyciągnięcie wniosków z zebranych danych.
 %% SUBSECTION: Zależność PER względem odległości między węzłami
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Metodologia badania}
+% poniższe sekcje przerzucić do części teoretycznej
 \subsubsection{Definicja pakietu}
 Przed przystąpieniem do badań należy precyzyjnie zdefiniować wykorzystywaną terminologię.
 
@@ -194,6 +195,10 @@ gdzie:
 \item[PER] - Packet Error Rate dla wybranego powtórzenia przy stałych parametrach e, n, d
 \end{description}
 
+Wykorzystując tak zebrane dane, wyrysowano je na szeregu wykresów wyznaczając jednocześnie
+linie aproksymacyjne z użyciem modelu liniowego wyznaczonego metodą najmniejszych kwadratów. Odchylenia standardowe zaprezentowane
+są z użyciem ograniczonego tła otaczającego linię w tym samym kolorze o~zmienionym parametrze nieprzezroczystości.
+
 Parametry transmisji danych nie ulegały zmianie podczas przeprowadzanych doświadczeń. Poniższe wartości należy
 przyjąć za stałe:
 \begin{itemize}
@@ -254,15 +259,16 @@ Niniejsza praca nie podejmuje się wyjaśnienia przyczyn obserwowanych anomalii
 udostępniając jednocześnie możliwy punkt dla dalszych prac badawczych z zakresu BLE Mesh.
 
 Wpływ samego stosu łączności na PER przy zadanej częstości zapytań zdaje się potwierdzać wykres uwzględniający
-jakość transmisji dla dwóch węzłów. Pozioma linia interpolacji sugeruje niewielki wpływ dystansu na PER.
+jakość transmisji dla dwóch węzłów. Niemalże pozioma linia aproksymacji sugeruje niewielki wpływ dystansu na PER.
 Dotyczy to zarówno terenu zurbanizowanego jak i~terenu leśnego. Zbliżone rezultaty zdają się wykluczać
 czynniki zewnętrzne.
 
 Interesującą zależnością jest nachylenie wykresu względem osi odciętych. Dla przypadku dwóch węzłów sieci,
-połączenie bezpośrednio między węzłami, PER jest niemal stałe na wybranych odległościach. W przypadku trzech
+połączenie bezpośrednio między węzłami, PER jest niemal stałe na wybranych odległościach, porównywalne
+z~przypadkiem terenu leśnego. W przypadku trzech
 węzłów, uwidacznia się potencjalny wpływ węzła środkowego, przekazującego pakiety z punktu bliższego do
 dalszego. Wraz ze wzrostem dystansu, rośnie wartość PER sięgając nawet 90\% w terenie leśnym. Różne nachylenie
-dla wybranych środowisk również sugeruje znaczący wpływ środowiska na PER również sugeruje znaczący wpływ środowiska na PER.
+dla wybranych środowisk również sugeruje znaczący wpływ środowiska na PER.
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_under_100ms_different_envs_and_nodes.png}
@@ -274,7 +280,7 @@ Znając charakterystykę łączności dla okresów poniżej 100 milisekund, wer
 z podanymi wartościami~\ref{items:ping_intervals}. Rysunek~\ref{rys:per_to_distance_over_100ms_different_envs_different_ping_interval}
 prezentuje pozostałe interwały w zależności od dystansu i wybranych środowisk bez rozróżnienia na ilość węzłów w sieci.
 
-Przeprowadzone pomiary w terenie leśnym wskazują charakterystykę połączenia zgodną z intuicyjnymi przewidywaniami.
+Przeprowadzone pomiary w terenie leśnym wskazują charakterystykę połączenia zgodną z~intuicyjnymi przewidywaniami.
 Na~początkowym dystansie 150cm nie obserwuje się problemów z łącznością. Wszystkie wysłane pakiety zostały
 odebrane przez węzeł dalszy. Kolejny dystans wskazuje już na pewną utratę pakietów poniżej 20\%. Prawdopodobnym czynnikiem
 jest pogoda lub ukształtowanie terenu leśnego. Co istotne, pomiary dla różnych interwałów odpytywań są zbliżone.
@@ -283,7 +289,7 @@ są do siebie wzajemnie zbliżone osiągając swoje maksimum na dystansie 21m - 
 
 Charakterystyka łączności w terenie zurbanizowanym prezentuje się podobnie. Nie obserwuje się znaczącej utraty 
 pakietów na względnie bliskich dystansach (150, 300 i 500cm). Wartość PER rośnie wraz ze wzrostem odległości
-pomiędzy węzłami osiągając w swoim szczycie wartość ok. 40\%. Co istotne, linie interpolacyjne są do siebie
+pomiędzy węzłami osiągając w swoim szczycie wartość ok. 40\%. Co istotne, linie aproksymacyjne są do siebie
 zbliżone, ponownie sugerując brak korelacji pomiędzy częstością wysyłania komunikatów a~wartością PER.
 
 
@@ -318,17 +324,41 @@ wykluczyć ten czynnik wykluczyć z dalszych rozważań uznając go za marginaln
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Zależność PER względem odległości między węzłami}
 
+Ustaliwszy brak (pomijalnie mały) wpływu częstości zapytań (dla częstości wartości >100ms), praca podejmuje dalszą prezentację
+danych pod postacią zależności odległości na PER.
+
+Rysunek~\ref{rys:per_to_distance_over_100ms} przedstawia zebrane dane zestawiając odległość i~ilość węzłów składających
+się na sieć Mesh. Na początkowych dystansach PER ma wartość bliską bądź równą zeru. Wraz ze wzrostem odległości pomiędzy
+węzłami, badany współczynnik rośnie, co jest zgodne z oczekiwaniami. Na dystansie 16m obserwuje się przełamanie
+linii aproksymacji. Dodatkowy węzeł środkowy znacząco i pozytywnie wpływa na PER przy kolejnych odległościach
+umożliwiając przekazywanie informacji w~sieci. PER w najdalszym punkcie pomiarowym osiąga wartości od ok.~60\% do 70\%.
+Należy jednak mieć na uwadze, iż zestawienie nie rozróżnia środowiska w którym następowało zliczanie pakietów.
+
+
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_over_100ms.png}
 	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości >100ms dla różnej liczby węzłów}
 	\label{rys:per_to_distance_over_100ms}
 \end{figure}
 
+Rysunek~\ref{rys:per_to_distance_over_100ms_different_envs} uwzględnia wpływ środowiska na PER. Wykres zdecydowanie
+wskazuje na różnicę pomiędzy terenem zurbanizowanym a terenem leśnym. Na początkowych dystansach PER jest zbliżone
+niezależnie od odległości międzywęzłowych. Znaczące różnice w pomiarach, a dzięki temu również względem linii aproksymacyjnej,
+występują już na dystansie 5m. PER w przypadku miejskim jest bliskie zera, gdzie analogiczne pomiary w środowisku
+leśnym sugerują piętnastoprocentowy poziom zgubionych pakietów. Wraz ze wzrostem dystansu, wartość PER wzrasta.
+Niemniej jednak nachylenie linii wskazuje na zdecydowanie wolniejsze narastanie utraty danych podczas transmisji
+bezprzewodowej dla przypadku miejskiego. Na maksymalnym dystansie międzywęzłowym wynoszącym 21m, PER
+przybiera wartość ok. 30\%. W analogicznym przypadku dla środowiska leśnego następuje niemal całkowita utrata
+transmisji.
+
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_over_100ms_different_envs.png} 
 	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości >100ms w wybranych środowiskach bez rozróżnienia na liczbę węzłów}
 	\label{rys:per_to_distance_over_100ms_different_envs}
 \end{figure}
+
+Ostatnia prezentowana zależność ukazana jest na Rysunku~\ref{rys:per_to_distance_over_100ms_different_envs_and_nodes}.
+Przedstawia on zależność PER od dystansu dla wybranych środowisk i liczby węzłów.
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_over_100ms_different_envs_and_nodes.png}
