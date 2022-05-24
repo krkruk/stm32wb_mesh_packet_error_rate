@@ -217,84 +217,25 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 \section{Zużycie energii}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: Metodologia badania
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Metodologia badania}
-
-
-\begin{equation} \label{energy_equation}
-E_{\text{całkowita}} = U \cdot \int_{t=0[s]}^{t=50[s]} \mathrm{d}i \: \mathrm{d} t
-\end{equation}
-
-\begin{equation} \label{power_equation}
-P = \frac{E_{\text{całkowita}}}{t}
-\end{equation}
-
-gdzie:
-
-\begin{description}
-\item $E_{\text{całkowita}} [J]$ - energia zużyta podczas 50s sekundowej sesji rejestracji danych
-\item $P [W]$ - mocz użyta podczas 50s sekundowej sesji rejestracji danych
-\item $U [V]$ - napięcie zasilania mikrokontrolera - 3.3V
-\item $\mathrm{d}i [A]$ - prąd w danej chwili
-\item $\mathrm{d}t [s]$ - podstawa czasowa całkowania, 0.01s/interwał (100Hz)
-\end{description}
-
-
-\lipsum[1-3]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: BT Low Energy - Usługa Heart Rate
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{BT Low Energy - Usługa Heart Rate}
-
-\lipsum[1-3]
-\begin{figure}[!htb]
-	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_amps.png}
-	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate}
-	\label{rys:power_ble_hr_amps}
-\end{figure}
-
-\lipsum[1-2]
-\begin{figure}[!htb]
-	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_amps_usage_juxtaposition.png}
-	\caption{Zestawienie zużycia prądu dla usługi Heart Rate w zależności od trybu działania}
-	\label{rys:power_ble_hr_amps_usage_juxtaposition}
-\end{figure}
-\lipsum[1-3]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: BLE Mesh - Model Generic OnOff
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{BLE Mesh - Model Generic OnOff}
-
-Pomiary dla BLE Mesh uwzględniające dwa tryby działania: sieć w oczekująca na komunikaty oraz podczas działania aktywnego korzystania z Modelu Generic OnOff.
-
-\begin{figure}[!htb]
-	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps.png} 
-	\caption{Charakterystyka czasowa poboru prądu dla BLE Mesh i modelu Generic OnOff}
-	\label{rys:power_ble_mesh_amps}
-\end{figure}
-
-\lipsum[1-3]
-\begin{figure}[!htb]
-	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_usage_juxtaposition.png} 
-	\caption{Zestawienie zużycia prądu dla BLE Mesh w zależności od trybu działania}
-	\label{rys:power_ble_mesh_amps_usage_juxtaposition}
-\end{figure}
-
-\lipsum[1-3]
-\begin{figure}[!htb]
-	\centering \includegraphics[width=0.99\linewidth]{power_ble_consumption_comparison.png} 
-	\caption{Porównanie średniego zużycia energii pomiędzy BT Low Energy HRT i BLE Mesh}
-	\label{rys:power_ble_consumption_comparison}
-\end{figure}
-
-
+\input{tekst/power_consumption}
 
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SECTION: Packet Error Rate
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+\section{Packet Error Rate}
+
+Celem niniejszego podrozdziału jest omówienie przeprowadzonego eksperymentu \gls{PER}. Omówiona zostanie
+metodologia badań. Zdefiniowany zostanie termin \textit{pakietu}, który stanowi podstawę dla
+doświadczenia.
+
+Wychodząc z definicji, prezentuje się właściwy wzór matematyczny, definiujący badany problem. Równanie
+stanowi podstawę dla eksperymentu. Jego zrozumienie pozwoliło zaprojektowanie właściwego doświadczenia
+jak i~przygotowanie kompletnego stosu technologicznego niezbędnego do jego przeprowadzenia.
+
+Ostatecznym efektem przeprowadzonego eksperymentu jest przedstawienie zebranych danych pod postacią
+wykresów. Prezentują one badane cechy zmienne zaprezentowane w sekcji opisu metodologii. Końcowym
+krokiem jest wyciągnięcie wniosków z zebranych danych.
+ 
 \input{tekst/packet_error_rate}
