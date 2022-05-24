@@ -357,6 +357,7 @@ transmisji.
 	\label{rys:per_to_distance_over_100ms_different_envs}
 \end{figure}
 
+% w sumie, ta korelacja praktycznie nic wartościowego nie przedstawia. Wymyślić inny współczynnik albo w ogóle wyrzucić tą tabelkę
 \begin{table}[!ht]
 \centering
 	\begin{tabular}{p{4.5cm}|r}
@@ -368,7 +369,29 @@ transmisji.
 \end{table}
 
 Ostatnia prezentowana zależność ukazana jest na Rysunku~\ref{rys:per_to_distance_over_100ms_different_envs_and_nodes}.
-Przedstawia on zależność PER od dystansu dla wybranych środowisk i liczby węzłów.
+Przedstawia on zależność PER od dystansu dla wybranych środowisk i liczby węzłów. Uwidaczniają się wyżej wymienione
+cechy transmisji opisane w poprzednich akapitach.
+
+Dla przypadku dwóch węzłów, PER jest bliskie zeru na początkowych dystansach do 5m niezależnie od środowiska. W odległości 8m
+od stacji bazowej obserwuje się miejscową anomalię polegającą na blisko 40\%-ej utraty pakietów dla terenu zurbanizowanego.
+Zarówno jak w~poprzednich jak i~kilku następujących po sobie punktach pomiarowych, PER nie przybiera takich wartości. Anomalia może
+być wytłumaczona cechami środowiska - np. węzeł dalszy ułożony został w zagłębieniu, co utrudniło odbiór propagowanej fali
+radiowej. W pozostałych punktach pomiarowych w terenie zurbanizowanym obserwuje się spadek wartości PER wraz ze zwiększanym dystansem,
+co znów sugeruje wpływ ukształtowania terenu. Utrata pakietów wynosząca niewiele powyżej 40\% zaobserwowana jest na odległości
+21m. Jest to o tyle zaskakujące, o tyle dla analogicznego dystansu pomiarowego w terenie leśnym PER wynosi niemal 100\%.
+
+Charakterystyka transmisji dla badanego przypadku trzech węzłów przybiera podobną postać. Wartości PER w terenie zurbanizowanym są zbliżone
+w początkowych dystansach pomiarowych. Dystans 8m (węzeł dalszy na odległości 16m) wskazuje na analogiczną anomalię jak w~opisywanym
+przypadku dwóch węzłów. Obserwuje się maksimum lokalne PER poniżej 20\% w otoczeniu najbliższych punktów pomiarowych. Kolejne pomiary
+wskazują na stały przyrost PER względem równoodległych węzłów. Utrata pakietów na maksymalnym całkowitym dystansie 42m wynosi ok. 20\%.
+
+Transmisja danych w środowisku leśnym charakteryzuje się większym przyrostem PER względem odległości w~porównaniu do warunków miejskich.
+Przypadek dwuwęzłowej sieci wskazuje zbliżone wartości utraty pakietów na odległości do 5m włącznie. Na każdym kolejnym dystansie
+pomiarowym PER wzrasta zbliżając się do 100\% w miejscu oddalonym o 21m od węzła bliższego. Oznacza to niemal całkowitą utratę łączności.
+Charakterystyka dla sieci zbudowanej z trzech węzłów jest analogiczna. Wyjątkiem jest zbiór pomiarów zebranych na dystansie pomiędzy węzłami
+wynoszącym 16m. PER w tym przypadku spada do ok. 20\%. Jest to o tyle niespodziewane iż, poprzedzające i~następujące pomiary i~wynikłe
+w~konsekwencji PER są blisko 4-krotnie wyższe. Taką konsekwencje należy przypisać ukształtowaniu terenu aniżeli nieznanej właściwości
+transmisji radiowej.
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{per_to_distance_over_100ms_different_envs_and_nodes.png}
@@ -376,4 +399,15 @@ Przedstawia on zależność PER od dystansu dla wybranych środowisk i liczby w�
 	\label{rys:per_to_distance_over_100ms_different_envs_and_nodes}
 \end{figure}
 
+% opisać brak jasnych punktów przełamania. Nieznany moment wpływu dodatkowego węzła wynikający z braku warunków laboratoryjnych
+% w których strefa Fresnela byłaby bardziej przewidywalna.
+
+Przedstawione dane prezentują wpływ dystansu na PER w różnych środowiskach. Określona kategoria badanych środowisk nie jest jedynym
+parametrem charakteryzującym przeprowadzone badania. Dużą odpowiedzialność w~ostatecznych zebranych wartościach należy położyć
+na czynniki takie jak ukształtowanie terenu i pogoda. Pomimo organoleptycznego doboru terenu o możliwie nieurozmaiconej charakterystyce,
+badane węzły mogły zostać ułożone w lokalnym zagłębieniu wynikłym z~gleby bądź nawet zagęszczeniu trawy w danym miejscu. Różnica
+w~wilgotności również mogła mieć znaczenie w~zebranych danych. Niepewności te są konsekwencją metodologii przeprowadzonych
+badań w warunkach nielaboratoryjnych (terenowych). Czynniki te, nie będące częścią formalnie zebranych danych, najprawdopodobniej
+miały wpływ na ilość odebranych pakietów. Ukształtowanie terenu jak i wilgotność mają bezpośredni wpływ jakość transmisji stanowiąc
+przeszkody dla strefy propagacji sygnału radiowego (strefy Fresnela).
 
