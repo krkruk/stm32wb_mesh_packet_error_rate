@@ -9,12 +9,36 @@ zależności fizycznych wyznacza się parametry jak całkowita wykorzystana ener
 podczas badania, przedstawiona w przystępnej postaci parametru mocy.
 
 Pomiary wartości chwilowego poboru prądu oparto o moduł opisany w punkcie~\ref{device:plytka_pomiarowa}.
-<<opis podłączenia + zdjęcie>>
+Źródłem energii dla płytki pomiarowej jest komputer klasy PC, a precyzyjniej udostępniany
+port USB. Wykorzystując również ten protokół następuje transmisja danych poprzez komunikację szeregową
+UART, umożliwiając akwizycję danych.
+
+Połączenie z zestawem uruchomieniowym oparto o konektor CN14 udostępniający piny: PIN1 - masa GND, PIN3 - VCC $3.3V$~\cite{noauthor_um2243_2018}.
+Wyprowadzone przewody połączono następnie z P-NUCLEO-WB55 poprzez konektor JP2, wcześniej pozbawiony zawleczki.
+Jest to metoda rekomendowana dla pomiaru prądu opisana w dokumentacji zestawu~\cite{stmicroelectronics_um2435_2019}\footnote{
+Rozdział 7.12 Current measurement}. Porty kompatybilne z Arduino/ST Morpho mogłyby stanowić równorzędny sposób
+włączenia zestawu uruchomieniowego do obwodu płytki pomiarowej. Autorska analiza dokumentacji sugeruje jednak,
+iż opcja ta nie jest wspierana. Wymagane byłoby lutowanie dodatkowego połączenia w (punkcie SB27), by móc wykorzystać
+zasilanie napięciem $3.3V$.
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{power_measurement_unit_connected.png}
 	\caption{Podłączony zestaw pomiarowy}
 	\label{rys:connected_power_measurement_unit}
+\end{figure}
+
+Celem akwizycji danych wybrano dostarczane przez producenta oprogramowanie \textit{STM32CubeMonitor-Power}.
+Pojedyncza sesja pomiarowa trwająca 100 sekund zapewnia niezbędne dane. Są one następnie
+odpowiednio przetwarzane poprzez odcięcie wartości zebranych w ostatnich sekundach. Związane to było
+ze sposobem działania mikrokontrolera, który po 60 sekundach przechodzi w stan zwiększonej
+oszczędności energii. Stąd, by rozróżnić różne tryby pracy \gls{BLE}, zdecydowano o odcięciu
+połowy okresu pomiarowego, zapewniając jednolite wartości względem trybów zużycia energii
+w~50 sekundowym oknie.
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{stm32_power_monitor_sample.png}
+	\caption{Przykładowa sesja pomiarowa dla BLE Mesh - sieć w trybie nasłuchującym}
+	\label{rys:measurement_session_sample}
 \end{figure}
 
 Tak zebrane dane następnie przetworzono uzyskując wartości energii i średniej mocy
@@ -39,14 +63,6 @@ gdzie:
 \item $\mathrm{d}t [s]$ - podstawa czasowa całkowania, 0.01s/interwał (100Hz) - stała 
 \end{description}
 
-Celem akwizycji danych wybrano dostarczane przez producenta oprogramowanie \textit{STM32CubeMonitor-Power}.
-Pojedyncza sesja pomiarowa trwająca 100 sekund zapewnia niezbędne dane. Są one następnie
-odpowiednio przetwarzane poprzez odcięcie wartości zebranych w ostatnich sekundach. Związane to było
-ze sposobem działania mikrokontrolera, który po 60 sekundach przechodzi w stan zwiększonej
-oszczędności energii. Stąd, by rozróżnić różne tryby pracy \gls{BLE}, zdecydowano o odcięciu
-połowy okresu pomiarowego, zapewniając jednolite wartości względem trybów zużycia energii
-w~50 sekundowym oknie.
-
 Zebrane dane w postaci wartości chwilowych pobieranego przez mikrokontroler prądu względem czasu
 przetworzono z użyciem metod numerycznych. W~celu wyliczenia łącznej wykorzystanej energii, a~tym samym
 mocy, stosuje się zależność~\ref{energy_equation}. Uwzględniając fakt działania w domenie dyskretnej,
@@ -55,12 +71,6 @@ Podstawą dla całkowania są wartości zebrane w równoodległych odstępach. D
 dobrano częstotliwość próbkowania jako $100Hz$. Każda kolejna wartość charakteryzuje się więc
 10 milisekundową różnicą w~podstawie czasu. Uwzględniając ten fakt, wyliczenie wartości
 wykorzystanej energii jak i~mocy staje się trywialne.
-
-\begin{figure}[!htb]
-	\centering \includegraphics[width=0.99\linewidth]{stm32_power_monitor_sample.png}
-	\caption{Przykładowa sesja pomiarowa dla BLE Mesh - sieć w trybie nasłuchującym}
-	\label{rys:measurement_session_sample}
-\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: BT Low Energy - Usługa Heart Rate
