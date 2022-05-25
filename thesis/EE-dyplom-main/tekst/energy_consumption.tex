@@ -30,8 +30,10 @@ zasilanie napięciem $3.3V$.
 Celem akwizycji danych wybrano dostarczane przez producenta oprogramowanie \textit{STM32CubeMonitor-Power}.
 Pojedyncza sesja pomiarowa trwająca 100 sekund zapewnia niezbędne dane. Są one następnie
 odpowiednio przetwarzane poprzez odcięcie wartości zebranych w ostatnich sekundach. Związane to było
-ze sposobem działania mikrokontrolera, który po 60 sekundach przechodzi w stan zwiększonej
-oszczędności energii. Stąd, by rozróżnić różne tryby pracy \gls{BLE}, zdecydowano o odcięciu
+ze sposobem działania mikrokontrolera, który po 60 sekundach domyślnie przechodzi w stan zwiększonej
+oszczędności energii (Low Power Advertising). Parametr ten można zmienić wg własnych upodobań, aczkolwiek zdecydowano
+się na domyślne nastawy, tak by umożliwić możliwie proste ponowne przeprowadzenie doświadczenia wykorzystując przykład
+BLE HRT dostarczony przez ST. Stąd, by rozróżnić różne tryby pracy \gls{BLE}, zdecydowano o odcięciu
 połowy okresu pomiarowego, zapewniając jednolite wartości względem trybów zużycia energii
 w~50 sekundowym oknie.
 
@@ -77,24 +79,56 @@ wykorzystanej energii jak i~mocy staje się trywialne.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{BT Low Energy - Usługa Heart Rate}
 
-\lipsum[1-3]
+Pierwszą usługą BLE badaną pod kątem zużycia energii jest Heart Rate\footnote{z ang. rytm serca}. Wybór
+ten podyktowany jest chęcią przyszłego zestawienia wartości z~rozwiązaniami innych producentów.
+Usługa zdefiniowana przez Bluetooth SIG stanowi więc wspólny międzyplatformowy język.
+Porównanie konkurencyjnych rozwiązań względem ST stanowi potencjalny kierunek dalszych badań.
+
+Badania przeprowadzono dla trzech różnych trybów działania aplikacji BLE HRT:
+\begin{itemize}
+\item Usługa połączona (Connected)
+\item Usługa w trybie szybkiego ogłaszania (Fast Advertising)
+\item Usługa w trybie niskomocowego ogłaszania (Low Power Advertising)
+\end{itemize}
+
+Emitowana moc ustalona została na $-0.15dBm$. Jest to wartość wspólna dla każdego pomiaru
+dotyczącego BLE HRT.
+
+Rysunek~\ref{rys:power_ble_hr_connected_only_amps} przedstawia charakterystykę poboru prądu
+w czasie po ustanowieniu połączenia urządzeniem klienckim. Mikrokontroler publikuje 
+losowe dane z częstotliwością $1Hz$. W konsekwencji radio zestawu uruchomieniowego
+uruchamiane jest co najmniej raz na sekundę.
+
+Analizując wykres dostrzega się regularne, 10-sekundowe interwały w których pobierany prąd dąży do swojego
+maksimum wynoszącego ok. $12mA$. Jest to prawdopodobnie związane z ustawionymi parametrami transmisji
+danych w mikrokontrolerze. Niniejsza praca nie podejmuje jednak próby wyjaśnienia rzeczywistej przyczyny tego zjawiska.
+Minimalny zarejestrowany pobór prądu ustalony jest na ok. $422uA$, czyli o dwa rzędy wielkości mniejsze wartości
+szczytowej.
+
+
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_connected_only_amps.png}
 	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate - Usługa Połączona}
 	\label{rys:power_ble_hr_connected_only_amps}
 \end{figure}
 
-\lipsum[1-3]
+Rysunek~\ref{rys:power_ble_hr_fastadv_only_amps} przedstawia charakterystykę poboru prądu po czasie
+dla szybkiego trybu ogłoszeniowego. Zgodnie za kodem źródłowym, interwały w których rozgłaszane
+są komunikaty powinny się zawierać w częstości od 80 do 100ms. Wywołuje to konieczność uruchamiania radia
+co najmniej 10 razy na sekundę. Ma to swoje odzwierciedlenie na wykresie. Charakterystyka jest bardziej
+\textit{burzliwa} w porównaniu z~\ref{rys:power_ble_hr_connected_only_amps}. 
+
+
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_fastadv_only_amps.png}
-	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate - Tryb szybkiego ogłoszenia}
+	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate - Tryb szybkiego ogłaszania}
 	\label{rys:power_ble_hr_fastadv_only_amps}
 \end{figure}
 
 \lipsum[1-3]
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_low_power_adv_only_amps.png}
-	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate - Tryb małomocowego ogłoszenia}
+	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate - Tryb niskomocowego ogłaszania}
 	\label{rys:power_ble_hr_low_power_adv_only_amps}
 \end{figure}
 
