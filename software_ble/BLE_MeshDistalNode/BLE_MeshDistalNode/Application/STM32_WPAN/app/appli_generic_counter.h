@@ -9,6 +9,8 @@
 #define APPLICATION_STM32_WPAN_APP_APPLI_GENERIC_COUNTER_H_
 #include "types.h"
 
+#define ENABLE_LED_BLINKING
+
 /*
  * The purpose of this header is to provide an API to cover Packet Error Rate experiment.
  * The overall experiment is designed as follows:

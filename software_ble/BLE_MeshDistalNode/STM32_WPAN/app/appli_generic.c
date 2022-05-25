@@ -129,6 +129,7 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
     	if (dstPeer != 0xc000) {
     	   increment_generic_onoff_counter_packet_error_rate_experiment(AppliOnOffSet[elementIndex].Present_OnOffValue, dstPeer);
     	}
+#ifdef ENABLE_LED_BLINKING
         if(AppliOnOffSet[elementIndex].Present_OnOffValue > 0)
         {
           BSP_LED_On(LED_BLUE);
@@ -137,6 +138,7 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
         {
           BSP_LED_Off(LED_BLUE);
         }
+#endif /* ENABLE_LED_BLINKING */
       }
     }  
     else
@@ -145,13 +147,17 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
       { 
         Appli_LightPwmValue.IntensityValue = PWM_TIME_PERIOD;
         Light_UpdateLedValue(LOAD_STATE , Appli_LightPwmValue);
+#ifdef ENABLE_LED_BLINKING
         BSP_LED_On(LED_BLUE);
+#endif /* ENABLE_LED_BLINKING */
       }
       else
       {  
         Appli_LightPwmValue.IntensityValue = PWM_VALUE_OFF;
         Light_UpdateLedValue(RESET_STATE , Appli_LightPwmValue);
+#ifdef ENABLE_LED_BLINKING
         BSP_LED_Off(LED_BLUE);
+#endif /* ENABLE_LED_BLINKING */
       } 
     }
   }
