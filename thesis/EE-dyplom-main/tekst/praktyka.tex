@@ -17,7 +17,8 @@ prądu poniżej 1mA, ze względu na energooszczędność urządzeń \gls{BLE}.
 % zakładam, że we wcześniejszych rozdziałach definiuję zakres pracy i rodzaje eksperymentów
 
 Badania zużycia energii wymagają aparatury, która w pełni zarejestruje minima i maksima
-poboru prądu przy niskich błędach pomiarowych.
+poboru prądu przy niskich błędach pomiarowych. Na podstawie otrzymanych danych wykonane zostaną
+właściwe obliczenia ukazujące zużycie energii przez urządzenie dla wielu trybów działania.
 
 Eksperyment \gls{PER} wymaga przygotowania wielu zestawów uruchomieniowych obsługujących
 komunikację BLE w konfiguracji Mesh. Dodatkowo, wymagane jest stworzenie dedykowanego oprogramowania
@@ -34,8 +35,15 @@ Niniejszy rozdział omawia zakres przygotowań do przeprowadzenia właściwych e
 
 % nie pisać i tłumaczyć własnych preferencji. Raczej pisać generyczny bullshit
 
-Próby doświadczalne oparto o produkty firmy ST. Decyzja podjęta została w oparciu
-o osobiste preferencje autora pracy.
+Próby doświadczalne oparto o produkty firmy STMicroelectronics (krócej: ST). Jest to europejska firma
+obejmująca swym portfolio projektowanie i produkcję elementów elektronicznych. Jedną
+z~ich linii produktów są 32-bitowe mikrokontrolery architektury ARM, znane również jako STM32.
+Są to rozwiązania cenione na rynku.
+
+Ze względu na powszechność stosowanych rozwiązań, jednak nie ograniczając się wyłącznie do tego kryterium,
+wybrano mikrokontroler z rodziny STM32WB. Gotowe, komercyjnie dostępne zestawy ewaluacyjne oraz
+zintegrowany ekosystem stanowią doskonałą podstawę dla badań Bluetooth Low Energy.
+
 
 \subsubsection{P-NUCLEO-WB55}
 

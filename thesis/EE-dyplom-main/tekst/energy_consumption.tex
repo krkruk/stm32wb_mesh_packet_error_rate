@@ -116,8 +116,11 @@ Rysunek~\ref{rys:power_ble_hr_fastadv_only_amps} przedstawia charakterystykę po
 dla szybkiego trybu ogłoszeniowego. Zgodnie za kodem źródłowym, interwały w których rozgłaszane
 są komunikaty powinny się zawierać w częstości od 80 do 100ms. Wywołuje to konieczność uruchamiania radia
 co najmniej 10 razy na sekundę. Ma to swoje odzwierciedlenie na wykresie. Charakterystyka jest bardziej
-\textit{burzliwa} w porównaniu z~\ref{rys:power_ble_hr_connected_only_amps}. 
+\textit{burzliwa} w porównaniu z wykresem~\ref{rys:power_ble_hr_connected_only_amps}. 
 
+Zauważa się większą częstotliwość szczytów osiągających wartości pomiędzy $10-12mA$. Jest to w~oczywisty
+sposób powiązanie ze sposobem działania trybu \textit{Fast Advertising}. Minimalna wartość zarejestrowana wynosi jednak
+$350uA$, co ponownie stanowi różnicę dwóch rzędów wielkości.
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_fastadv_only_amps.png}
@@ -125,21 +128,44 @@ co najmniej 10 razy na sekundę. Ma to swoje odzwierciedlenie na wykresie. Chara
 	\label{rys:power_ble_hr_fastadv_only_amps}
 \end{figure}
 
-\lipsum[1-3]
+Ostatnim wykresem prezentującym charakterystykę poboru prądu w czasie jest rysunek~\ref{rys:power_ble_hr_low_power_adv_only_amps}.
+Przedstawia on tryb działania niskomocowego ogłaszania. Różni się on względem trybu \textit{Fast Advertising} częstością z jaką wysyłane
+są pakiety ogłoszeniowe. W tym przypadku, oprogramowanie wysyła wiadomości z interwałem znajdującym się w przedziale od 
+jednej do dwóch i~pół sekundy (parametry: \textit{\texttt{CFG\_LP\_CONN\_ADV\_INTERVAL\_MIN}} i \textit{\texttt{CFG\_LP\_CONN\_ADV\_INTERVAL\_MAX}}). 
+Oba wymienione tryby są autorskim rozwiązaniem ST. Przegląd literatury nie wskazuje, jakoby takie zachowanie wymagane
+jest przez sam standard.
+
+Rysunek~\ref{rys:power_ble_hr_low_power_adv_only_amps} wskazuje na podobne zależności. Obserwuje się periodyczne, aczkolwiek
+stosunkowo rzadkie szczyty w poborze energii rozumianej jako przepływ prądu elektrycznego. Wpisują się jednak w~wyżej wymienione
+parametry transmisji. Brak całkowitego dopasowania względem oczekiwanych parametrów może być spowodowany niedostateczną
+częstotliwością próbkowania. Z pewnością jest to zagadnienie, które warto przeanalizować w kolejnych iteracjach doświadczeń.
+
+
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_low_power_adv_only_amps.png}
 	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate - Tryb niskomocowego ogłaszania}
 	\label{rys:power_ble_hr_low_power_adv_only_amps}
 \end{figure}
 
+Ostatecznie, zestawia się wszystkie zebrane jak dotąd wartości pomiarowe na rysunku~\ref{rys:power_ble_hr_amps_usage_juxtaposition}.
+Wykres słupkowy przedstawia średni pobór prądu wyrażony miliamperach. Porównując, zauważa się znaczącą, blisko dwukrotną
+różnicę, co do zużytej mocy, pomiędzy trybem ogłoszeniowym niskomocowym a pozostałymi kategoriami.
 
-\lipsum[1-2]
+Porównując wymienione tryby ogłoszeniowe, należy zwrócić uwagę na konfigurację częstotliwości, z którą wysyłane są
+pakiety danych. Częstotliwość, z którą aktywowane jest radio może być nawet 30 krotnie wyższa dla przypadku szybkiego ogłaszania.
+Uwidocznia się również różnica maksymalnie osiągniętym szczycie poboru mocy, wynosząca ok. $2mA$.
+
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_amps_usage_juxtaposition.png}
 	\caption{Zestawienie zużycia prądu dla usługi Heart Rate w zależności od trybu działania}
 	\label{rys:power_ble_hr_amps_usage_juxtaposition}
 \end{figure}
-\lipsum[1-3]
+
+Zużycie energii w zestawieniu trybu ogłoszeniowego szybkiego i ustanowionego już połączenia jest zbliżone. Według zadanych nastawień,
+\textit{Fast Advertising} aktywuje radio około 10 razy częściej aniżeli po ustanowieniu łączności z aplikacją kliencką. Natomiast,
+przypadek połączonej już usługi przenosi dodatkowe informacje takie jak puls czy estymowana spalona energia w wyników procesów
+metabolicznych. Być może zużycie energii również zależy od ilości przenoszonych danych, a co za tym idzie, czasu działania radia
+niezbędnego do wysłania takiej wiadomości. Jest to pytanie otwarte.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: BLE Mesh - Model Generic OnOff
@@ -155,7 +181,7 @@ Pomiary dla BLE Mesh uwzględniające dwa tryby działania: sieć w oczekująca 
 \end{figure}
 
 \lipsum[1-3]
-\begin{figure}[!htb]
+	\begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_usage_juxtaposition_no_led.png} 
 	\caption{Zestawienie zużycia prądu dla BLE Mesh w zależności od trybu działania}
 	\label{rys:power_ble_mesh_amps_usage_juxtaposition}
