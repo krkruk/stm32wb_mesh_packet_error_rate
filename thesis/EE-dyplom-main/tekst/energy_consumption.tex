@@ -21,27 +21,22 @@ włączenia zestawu uruchomieniowego do obwodu płytki pomiarowej. Autorska anal
 iż opcja ta nie jest wspierana. Wymagane byłoby lutowanie dodatkowego połączenia w (punkcie SB27), by móc wykorzystać
 zasilanie napięciem $3.3V$.
 
-\begin{figure}[!htb]
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.618\linewidth]{power_measurement_unit_connected.png}
 	\caption{Podłączony zestaw pomiarowy}
 	\label{rys:connected_power_measurement_unit}
 \end{figure}
 
 Celem akwizycji danych wybrano dostarczane przez producenta oprogramowanie \textit{STM32CubeMonitor-Power}.
+Przykładowy zrzut ekranu zaprezentowany jest na rysunku~\ref{rys:measurement_session_sample}.
 Pojedyncza sesja pomiarowa trwająca 100 sekund zapewnia niezbędne dane. Są one następnie
 odpowiednio przetwarzane poprzez odcięcie wartości zebranych w ostatnich sekundach. Związane to było
 ze sposobem działania mikrokontrolera, który po 60 sekundach domyślnie przechodzi w stan zwiększonej
 oszczędności energii (Low Power Advertising). Parametr ten można zmienić wg własnych upodobań, aczkolwiek zdecydowano
 się na domyślne nastawy, tak by umożliwić możliwie proste ponowne przeprowadzenie doświadczenia wykorzystując przykład
-BLE HRT dostarczony przez ST. Stąd, by rozróżnić różne tryby pracy \gls{BLE}, zdecydowano o odcięciu
+BLE \gls{HRT} dostarczony przez ST. Stąd, by rozróżnić różne tryby pracy \gls{BLE}, zdecydowano o odcięciu
 połowy okresu pomiarowego, zapewniając jednolite wartości względem trybów zużycia energii
 w~50 sekundowym oknie.
-
-\begin{figure}[!htb]
-	\centering \includegraphics[width=0.99\linewidth]{stm32_power_monitor_sample.png}
-	\caption{Przykładowa sesja pomiarowa dla BLE Mesh - sieć w trybie nasłuchującym}
-	\label{rys:measurement_session_sample}
-\end{figure}
 
 Tak zebrane dane następnie przetworzono uzyskując wartości energii i średniej mocy
 użytej przez układ. Wykorzystuje się w celu oczywistą zależność fizyczną zaprezentowaną
@@ -73,6 +68,13 @@ Podstawą dla całkowania są wartości zebrane w równoodległych odstępach. D
 dobrano częstotliwość próbkowania jako $100Hz$. Każda kolejna wartość charakteryzuje się więc
 10 milisekundową różnicą w~podstawie czasu. Uwzględniając ten fakt, wyliczenie wartości
 wykorzystanej energii jak i~mocy staje się trywialne.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{stm32_power_monitor_sample.png}
+	\caption{Przykładowa sesja pomiarowa dla BLE Mesh - sieć w trybie nasłuchującym}
+	\label{rys:measurement_session_sample}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: BT Low Energy - Usługa Heart Rate
@@ -106,7 +108,7 @@ Minimalny zarejestrowany pobór prądu ustalony jest na ok. $422uA$, czyli o dwa
 szczytowej.
 
 
-\begin{figure}[!htb]
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_connected_only_amps.png}
 	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate - Usługa Połączona}
 	\label{rys:power_ble_hr_connected_only_amps}
@@ -122,7 +124,7 @@ Zauważa się większą częstotliwość szczytów osiągających wartości pomi
 sposób powiązanie ze sposobem działania trybu \textit{Fast Advertising}. Minimalna wartość zarejestrowana wynosi jednak
 $350uA$, co ponownie stanowi różnicę dwóch rzędów wielkości.
 
-\begin{figure}[!htb]
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_fastadv_only_amps.png}
 	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate - Tryb szybkiego ogłaszania}
 	\label{rys:power_ble_hr_fastadv_only_amps}
@@ -141,7 +143,7 @@ parametry transmisji. Brak całkowitego dopasowania względem oczekiwanych param
 częstotliwością próbkowania. Z pewnością jest to zagadnienie, które warto przeanalizować w kolejnych iteracjach doświadczeń.
 
 
-\begin{figure}[!htb]
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_low_power_adv_only_amps.png}
 	\caption{Charakterystyka czasowa poboru prądu dla BLE i usługi Heart Rate - Tryb niskomocowego ogłaszania}
 	\label{rys:power_ble_hr_low_power_adv_only_amps}
@@ -155,7 +157,7 @@ Porównując wymienione tryby ogłoszeniowe, należy zwrócić uwagę na konfigu
 pakiety danych. Częstotliwość, z którą aktywowane jest radio może być nawet 30 krotnie wyższa dla przypadku szybkiego ogłaszania.
 Uwidocznia się również różnica maksymalnie osiągniętym szczycie poboru mocy, wynosząca ok. $2mA$.
 
-\begin{figure}[!htb]
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_amps_usage_juxtaposition.png}
 	\caption{Zestawienie zużycia prądu dla usługi Heart Rate w zależności od trybu działania}
 	\label{rys:power_ble_hr_amps_usage_juxtaposition}
@@ -172,39 +174,80 @@ niezbędnego do wysłania takiej wiadomości. Jest to pytanie otwarte.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{BLE Mesh - Model Generic OnOff}
 
-Zużycie energii dla BLE Mesh przeprowadzono dla dwóch wariantów:
+Zużycie energii dla \gls{BLE} Mesh przeprowadzono dla dwóch wariantów:
 \begin{itemize}
 \item sieć w trybie gotowości (\textit{standby})
 \item sieć w której wysyłany jest komunikat z modelu \textit{Generic OnOff}
 \end{itemize}
 
-Poprzez sieć w trybie gotowości należy rozumieć następujące. Wszystkie zarejestrowane~\footnote{proces w anglojęzycznej literaturze i dokumentacji znany jest jako \textit{provisioning}} węzły są uruchomione. Zgodnie ze standardem BLE Mesh, każdy z~takich węzłów musi mieć zaimplementowane dwa modele:
+Poprzez sieć w trybie gotowości należy rozumieć następujące. Wszystkie zarejestrowane\footnote{proces w anglojęzycznej literaturze i dokumentacji znany jest jako \textit{provisioning}} węzły są uruchomione. Zgodnie ze standardem BLE Mesh, każdy z~takich węzłów musi mieć zaimplementowane dwa modele:
 Configuration Server i Health Server \cite{wooley_martin_bluetooth_2019}. Odpowiadają one za niezbędną konfigurację jak i również nadzorowanie stanu \textit{zdrowia} sieci, poprzez wysyłanie komunikatów keep-alive\footnote{standard definiuje takie komunikaty jako \textit{heartbeats}\cite{wooley_martin_bluetooth_2019}\cite{mesh_working_group_mesh_2019}}.
 
 Rozpatrywany przypadek \textit{Generic OnOff} wykorzystuje tenże model do wysyłania komunikatów wewnątrz sieci. Jeden z węzłów wysyła pakiet danych a~drugi, odbiorczy przetwarza wykonując operację zdefiniowaną przez model akcję. W przypadku poniższych badań operacją tą jest kolejne zliczanie
-otrzymanych pakietów. W tym celu wykorzystano oprogramowanie opracowane na potrzeby kolejnego eksperymentu \textit{Packet Error Rate}.
+otrzymanych pakietów. W tym celu wykorzystano oprogramowanie opracowane na potrzeby kolejnego opisywanego eksperymentu \textit{Packet Error Rate}.
 Przez cały okres akwizycji wysyłano komunikaty z~częstotliwością $2Hz$. Zasadne jest wspomnieć, iż na czas trwania doświadczenia wszelkie 
 diody emitujące światło zostały wyłączone celem eliminacji błędów systemowych wpływających na ostateczne zużycie energii przez
 urządzenie.
 
-\begin{figure}[!htb]
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_no_led.png} 
 	\caption{Charakterystyka czasowa poboru prądu dla BLE Mesh i modelu Generic OnOff}
 	\label{rys:power_ble_mesh_amps}
 \end{figure}
 
-Rysunek~\ref{rys:power_ble_mesh_amps}
 
-\begin{figure}[!htb]
+Rysunek~\ref{rys:power_ble_mesh_amps} przedstawia charakterystyki prądu dla wymienionych wcześniej badanych wariantów. Wartości są aproksymowane
+celem wskazania ogólnej zmiennej tendencji poboru prądu elektrycznego. Jej zmienność reprezentuje wykres punktowy, zlewający się 
+w~trzy rozpoznawalne klastry oscylujące wokół wartości $14mA$, $9mA$ i $6mA$. Rzeczywista charakterystyka wygenerowana przez
+aplikację \textit{STM32CubeMonitor-Power} zaprezentowana jest na rysunku~\ref{rys:power_ble_mesh_standby_powermonitor}.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{power_ble_mesh_standby_powermonitor.png} 
+	\caption{Rzeczywista charakterystyka poboru energii dla BLE Mesh działającego w trybie gotowości}
+	\label{rys:power_ble_mesh_standby_powermonitor}
+\end{figure}
+
+Rysunek~\ref{rys:power_ble_mesh_standby_powermonitor} wygenerowany przez aplikację produkcji \textit{ST} odpowiada chmurze punktów
+z~rysunku~\ref{rys:power_ble_mesh_amps} dla wariantu regularnych zapytań co 500ms. Analogiczny wykres wygenerowany 
+przez \textit{STM32CubeMonitor-Power} reprezentowany jest na rysunku~\ref{rys:measurement_session_sample}.
+Swoiste zagęszczenie punktów pomiarowych i~częste zmiany amplitudy mogą wskazywać na złożoność protokołu Mesh,
+który wymaga częstych operacji w tym radiowych. Operacje te bezpośrednio oddziałują na zużycie energii, co w~oczywisty
+sposób widoczne jest na wykresach.
+
+
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_usage_juxtaposition_no_led.png} 
 	\caption{Zestawienie zużycia prądu dla BLE Mesh w zależności od trybu działania}
 	\label{rys:power_ble_mesh_amps_usage_juxtaposition}
 \end{figure}
 
-\begin{figure}[!htb]
+Parametry zużycia energii przedstawia rysunek~\ref{rys:power_ble_mesh_amps_usage_juxtaposition}. Porównywane są dwa zdefiniowane
+warianty działania aplikacji. Uwidacznia się niewielka różnica konsumowanej mocy. Węzeł odbierający komunikaty \textit{Generic OnOff}
+wymaga średnio 39,2mW mocy do funkcjonowania. Konkurencyjny wariant potrzebuje jej nieznacznie mniej. Mesh będący w gotowości
+potrzebuje średnio 39.0mW mocy. Minimalne i maksymalne natężenia chwilowo pobieranego prądu są porównywalne.
+
+\begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_consumption_comparison_no_led.png} 
 	\caption{Porównanie średniego zużycia energii pomiędzy BT Low Energy HRT i BLE Mesh}
 	\label{rys:power_ble_consumption_comparison}
 \end{figure}
 
+Interesującym aspektem jest porównanie BLE Mesh ze standardową usługą BLE pod względem energetycznym. Rysunek~\ref{rys:power_ble_consumption_comparison}
+wskazuje na różnice pomiędzy dwoma standardami transmisji. Porównując średnie zużycie energii pomiędzy BLE HRT a Mesh, zauważa 
+się ogromne dysproporcje. Mesh wymaga średnio 39.1mW mocy, by funkcjonować. Jest to rząd wielkości więcej aniżeli
+usługa BLE HRT, wymagająca jedynie 1.9mW. Co naturalne, również różnice pomiędzy skrajnymi wartościami pobieranego
+przez urządzenie prądu jest znaczące. Wykorzystując ten sam sprzęt, średni pobierany prąd przez skonfigurowany węzeł Mesh
+wynosi 11.98mA ze szczytem bliskim 30mA. Dla porównania, usługa BLE HRT konsumuje średnio 0.59mA prądu osiągając
+w~\textit{peak'u} ok. 14mA.
 
+Różnica przede wszystkim wynika z różnego zastosowania poszczególnych elementów. Zgodnie za dokumentacją producenta i standardu BLE Mesh,
+energooszczędnym, głównie zasilanym bateryjnie węzłem jest węzeł typu \textit{Low Power Node} - LPN~\cite{st_an5292_2021}\cite{wooley_martin_bluetooth_2019}. Węzeł tego typu oszczędza energię poprzez rzadkie uruchamianie swojego radia
+wykorzystując przyjacielski węzeł\footnote{z ang. \textit{Friend Node} - węzeł pośredniczący, najczęściej zasilany ze stałego 
+źródła energii służący nasłuchiwaniu, odbieraniu i przechowywaniu danych pochodzących z węzła LPN} 
+do przechowywania jego danych w buforze, tak by były dostępne dla pozostałych elementów w sieci.
+
+W wykonanym doświadczeniu wykorzystano zwykły, prosty węzeł. Zapewniając niskie opóźnienia w~transmisji danych w~sieci, węzeł ten
+spełnia inne zadania niż urządzenie oparte o~zwyczajne usługi BLE bądź węzeł LPN. Usługę BLE HRT zaprojektowano już na poziomie standardu
+jako energooszczędne domyślnie. Urządzenie wykorzystujące takie usługi, będące najczęściej zasilanie bateryjnie, może działać
+miesiące a nawet lata na pojedynczej baterii (np. typu pastylki CR2032). Dostrzeżona różnica jest więc oczekiwana, naturalna, wynikająca
+z różnych przeznaczeń wykorzystywanych konfiguracji.
