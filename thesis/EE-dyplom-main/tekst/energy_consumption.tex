@@ -172,7 +172,20 @@ niezbędnego do wysłania takiej wiadomości. Jest to pytanie otwarte.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{BLE Mesh - Model Generic OnOff}
 
-Pomiary dla BLE Mesh uwzględniające dwa tryby działania: sieć w oczekująca na komunikaty oraz podczas działania aktywnego korzystania z Modelu Generic OnOff.
+Zużycie energii dla BLE Mesh przeprowadzono dla dwóch wariantów:
+\begin{itemize}
+\item sieć w trybie gotowości (\textit{standby})
+\item sieć w której wysyłany jest komunikat z modelu \textit{Generic OnOff}
+\end{itemize}
+
+Poprzez sieć w trybie gotowości należy rozumieć następujące. Wszystkie zarejestrowane~\footnote{proces w anglojęzycznej literaturze i dokumentacji znany jest jako \textit{provisioning}} węzły są uruchomione. Zgodnie ze standardem BLE Mesh, każdy z~takich węzłów musi mieć zaimplementowane dwa modele:
+Configuration Server i Health Server \cite{wooley_martin_bluetooth_2019}. Odpowiadają one za niezbędną konfigurację jak i również nadzorowanie stanu \textit{zdrowia} sieci, poprzez wysyłanie komunikatów keep-alive\footnote{standard definiuje takie komunikaty jako \textit{heartbeats}\cite{wooley_martin_bluetooth_2019}\cite{mesh_working_group_mesh_2019}}.
+
+Rozpatrywany przypadek \textit{Generic OnOff} wykorzystuje tenże model do wysyłania komunikatów wewnątrz sieci. Jeden z węzłów wysyła pakiet danych a~drugi, odbiorczy przetwarza wykonując operację zdefiniowaną przez model akcję. W przypadku poniższych badań operacją tą jest kolejne zliczanie
+otrzymanych pakietów. W tym celu wykorzystano oprogramowanie opracowane na potrzeby kolejnego eksperymentu \textit{Packet Error Rate}.
+Przez cały okres akwizycji wysyłano komunikaty z~częstotliwością $2Hz$. Zasadne jest wspomnieć, iż na czas trwania doświadczenia wszelkie 
+diody emitujące światło zostały wyłączone celem eliminacji błędów systemowych wpływających na ostateczne zużycie energii przez
+urządzenie.
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_no_led.png} 
@@ -180,14 +193,14 @@ Pomiary dla BLE Mesh uwzględniające dwa tryby działania: sieć w oczekująca 
 	\label{rys:power_ble_mesh_amps}
 \end{figure}
 
-\lipsum[1-3]
-	\begin{figure}[!htb]
+Rysunek~\ref{rys:power_ble_mesh_amps}
+
+\begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_usage_juxtaposition_no_led.png} 
 	\caption{Zestawienie zużycia prądu dla BLE Mesh w zależności od trybu działania}
 	\label{rys:power_ble_mesh_amps_usage_juxtaposition}
 \end{figure}
 
-\lipsum[1-3]
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_consumption_comparison_no_led.png} 
 	\caption{Porównanie średniego zużycia energii pomiędzy BT Low Energy HRT i BLE Mesh}

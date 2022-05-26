@@ -183,6 +183,20 @@ zurbanizowanych. Ostateczne wykonanie obudów zaprezentowano na Rysunku~\ref{rys
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Oprogramowanie mikrokontrolera} \label{prep:uc-software}
 
+\begin{table}[!ht]
+\centering
+	\begin{tabular}{r|r|r|r}
+	Ping [ms]         & Skalibrowane [tick] & Obliczone [tick]  & Różnica [\%] \\\hline
+	100               & 204                 & 204.59            & 0.29         \\\hline
+	500               & 1022                & 1022.95           & 0.09         \\\hline
+	800               & 1637                & 1636.72           & 0.02         \\\hline
+	1300              & 2661                & 2659.68           & 0.05         \\\hline
+	2100              & 4299                & 4296.40           & 0.06         \\\hline
+	\end{tabular}
+\caption{\label{tab:calibration_vs_computation}Zebrane empirycznie współczynniki kalibracyjne w porównaniu z~wartościami obliczonymi}
+\end{table}
+
+
 \begin{lstlisting}[language=C,
     caption={Testowy kod C},
     label={lst:kod cpp}]
