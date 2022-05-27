@@ -9,7 +9,7 @@ zasilania zestawów uruchomieniowych podczas badań terenowych, jednocześnie pr
 praktyczne, proste i niskokosztowe rozwiązanie problemów. Ze względu na kruchość
 elementów elektronicznych, wprowadza się projekt a następnie omawia
 fizyczne wykonanie autorskiej obudowy. Jednakże, głównym elementem tego rozdziału 
-jest jednak koncentracja na oprogramowaniu. Zarówno oprogramowaniu mikrokontrolerów jak 
+jest skoncentrowana na oprogramowaniu. Zarówno oprogramowaniu mikrokontrolerów jak 
 i~PC. Przedstawia się wprowadzone funkcjonalności oraz definiuje ich sposób użycia.
 Opisuje się kwestię kalibracji uzasadniając potrzebą i~potwierdzając jej skuteczność 
 obliczeniami arytmetycznymi bazując na równaniu uzyskanym drogą inżynierii wstecznej.
@@ -53,7 +53,8 @@ komunikację BLE w konfiguracji Mesh. Dodatkowo, wymagane jest stworzenie dedyko
 na mikrokontroler jak i komputer osobisty. Jest to niezbędne w celu kontroli przepływu
 doświadczenia jak i akwizycji danych.
 
-Niniejszy rozdział omawia zakres przygotowań do przeprowadzenia właściwych eksperymentów.
+Niniejszy rozdział omawia zakres poniesionych przygotowań do przeprowadzenia 
+właściwych eksperymentów.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,12 +129,12 @@ Firma ST wraz z zestawem uruchomieniowym udostępnia pełne zintegrowane środow
 programistyczne oraz niezbędne biblioteki i certyfikowany firmware:
 
 \begin{itemize}
-\item \textbf{STM32CubeIDE} \cite{noauthor_stm32cubeide_2022} - multiplatformowe zintegrowane środowisko programistyczne
+\item \textbf{STM32CubeIDE} \cite{noauthor_stm32cubeide_2022} -- multiplatformowe zintegrowane środowisko programistyczne
 dostarczane przez ST bazujące na otwartoźródłowym środowisko \textit{Eclipse}\footnote{https://www.eclipse.org/ide/}.
 \item \textbf{STM32CubeProgrammer} \cite{noauthor_stm32cubeprog_2022} -- narzędzie umożliwiające wykonywanie operacji
 odczytu, zapisu i weryfikacji skompilowanego oprogramowania produktów STM32. 
 \item \textbf{STM32CubeMonitor-Power} \cite{noauthor_stm32cubemonpwr_2022} -- oprogramowanie służące akwizycji danych
-o zużyciu energii m.in. w zestawie X-NUCLEO-LPM01A Rysunek: \ref{rys:nucleo_lpm01a}.
+pod postacią chwilowego poboru prądu elektrycznego m.in. w zestawie X-NUCLEO-LPM01A Rysunek: \ref{rys:nucleo_lpm01a}.
 \item \textbf{Firmware STM32CubeWB} \cite{noauthor_stm32cubewb_2022} -- zestaw bibliotek, narzędzi oraz przykładów
 przeznaczonych dla mikrokontrolerów rodziny STM32WB. W skład tego repozytorium wchodzą zależności takie jak:
 skompilowany, zamknięty firmware ko-processora dla różnych stosów połączeń bezprzewodowych; przykłady programów
@@ -153,14 +154,14 @@ komercyjnie dostępne banki energii tzw. powerbanki. Są to akumulatory litowo-j
 lub litowo-polimerowe z wbudowanym systemem zarządzania baterią\footnote{\gls{BMS} -- ang. Battery Management System}
 i~właściwymi przetwornicami impulsowymi w celu zapewnienia odpowiedniego napięcia zasilania.
 
-Elektronika wbudowane w magazyny energii automatycznie wyłącza zasilanie w przypadku braku
+Elektronika wbudowana w~magazyny energii automatycznie wyłącza zasilanie w przypadku braku
 podłączonego urządzenia lub gdy dane urządzenie pobiera marginalnie niskie wartości
 prądu. Służy to ochronie cennego i delikatnego akumulatora. Jest to cecha korzystna
 z punktu widzenia konsumenta kupującego powerbank w celu szybkiego ładowania urządzeń elektronicznych.
 Niestety, zaleta ta staje się wadą w przypadku przeprowadzanych doświadczeń. Podłączając moduł P-NUCLEO-WB55,
 urządzenie po pewnym okresie działania wyłącza się na skutek uruchomionych zabezpieczeń w źródle energii.
 
-W celu skonstruowano trywialne urządzenie, które wlutowane równolegle w linię zasilania 5V,
+W celu przeciwdziałania temu zjawisku, skonstruowano trywialne urządzenie, które wlutowane równolegle w linię zasilania 5V,
 konsumuje ok. 100mA prądu: $0,5W = 5V \cdot 0,02A \cdot 5 [diod]$. Doświadczalnie stwierdzono, że tak włączony
 odbiornik energii umożliwia stabilne działanie włączonego do sieci modułu STM32. Schemat 
 zaprezentowano na Rysunku~\ref{rys:power_led_consumer}
@@ -173,7 +174,7 @@ zaprezentowano na Rysunku~\ref{rys:power_led_consumer}
 
 \subsubsection{Obudowa -- druk 3D}
 Kolejnym elementem niezbędnym w celu przeprowadzenia eksperymentów terenowych jest zapewnienie
-ochrony mechanicznej wybranych zestawów uruchomieniowych. Podczas prób elementy mogą zostać
+ochrony mechanicznej wybranych zestawów uruchomieniowych. Podczas prób, elementy mogą zostać
 fizycznie uszkodzone poprzez m.in. wyłamanie fragmentu \gls{PCB} (w~tym anteny), uszkodzenie pinów etc.
 
 Wykorzystując techniki projektowania wspomaganego komputerowo\footnote{\gls{CAD} -- ang. \textit{Computer-aided Design}},
@@ -211,11 +212,11 @@ zurbanizowanych. Ostateczne wykonanie obudów zaprezentowano na Rysunku~\ref{rys
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Oprogramowanie mikrokontrolera} \label{prep:uc-software}
 
-Oczywistym faktem jest, iż zdefiniowane wcześniej rodzaje doświadczeń wymagają
+Oczywistym faktem jest, iż zdefiniowane wcześniej rodzaje eksperymentów wymagają
 odpowiedniego oprogramowania. Zarówno oprogramowania dla mikrokontrolera
-jak i~komputera PC pozwalającego wykonać i nadzorować wybrane eksperymenty.
+jak i~komputera PC pozwalającego wykonać i~nadzorować wybrane doświadczenia.
 Podrozdział ten prezentuje kroki podjęte w celu stworzenia odpowiednich
-programów dla badania poboru zużycia energii i utraty pakietów podczas
+programów dla badania poboru zużycia energii i~utraty pakietów podczas
 transmisji danych.
 
 Pierwszym krokiem jest wybór odpowiedniego zestawu narzędzi i~frameworka,
@@ -233,11 +234,10 @@ domyślny wybór. Wybrano więc stos oprogramowania dla mikronkontrolera w wersj
 najnowszy dostępny w chwili rozpoczęcia prac. Zestaw bibliotek i~narzędzi dostarczanych
 przez producenta został wcześniej przez niego przetestowany dając niejako gwarancję spełnienia 
 minimalnych standardów umożliwiających m.in. certyfikację urządzenia jako wspierającego
-BLE i BLE Mesh.
+BLE i~BLE Mesh.
 
-
-Badanie zużycia energii (\ref{experiment:energy-consumption}), wykorzystuje domyślny przykład opracowany przez producenta
-mikrokontrolera. Aplikacja BLE \gls{HRT} wykorzystuje zdefiniowany
+Badanie zużycia energii (\ref{experiment:energy-consumption}), wykorzystuje dostarczaną wraz ze stosem przykładową aplikację 
+opracowaną przez producenta mikrokontrolera. Owa aplikacja, BLE \gls{HRT}, wykorzystuje zdefiniowany
 przez Bluetooth SIG profil \textit{HeartRate} publikując regularnie, co sekundę
 odpowiednią wiadomość odbieraną przez odbiornik -- telefon/tablet. Do badań
 konsumpcji wykorzystano niezmodyfikowany przykład.
@@ -250,13 +250,13 @@ i~przypisanie węzłom konkretnej funkcji w sieci: Proxy, Relay, Friend \cite{st
 
 Badając właściwości sieci, wprowadza się następujące nazewnictwo węzłów celem łatwiejszej identyfikacji:
 \begin{itemize}\label{node-naming-convention}
-	\item węzeł bliższy (ang./łac. \textit{proximal node}/\textit{nodus proximalis}) -- węzeł będący połączony bezpośrednio
+	\item węzeł bliższy (ang. \textit{proximal node}) -- węzeł będący połączony bezpośrednio
 	ze stacją akwizycji danych i kontroli przepływu eksperymentu. Dodatkowo, węzeł ten udostępnia tryb \textit{Proxy}\footnote{z ang. pośrednik -- tryb umożliwiający dostęp do sieci Mesh urządzeniom poprzez odpowiadającą usługę BLE. Umożliwia
 	on m.in. dostęp do sieci i zarządzania nią z poziomu urządzenia nie posiadającego ani nie wspierającego bezpośrednio stos BLE Mesh}
-	\item węzeł środkowy (ang./łac. \textit{intermedial node}/\textit{nodus [inter]medius}) -- węzeł działający w trybie
+	\item węzeł środkowy (ang. \textit{intermedial node}) -- węzeł działający w trybie
 	przekaźnika (terminologia Mesh: \textit{Relay}). Węzeł ten nie uczestniczy bezpośrednio w badaniach tj. nie są
 	z niego odczytywane jakiekolwiek dane.
-	\item węzeł dalszy (ang./łac. \textit{distal node}/\textit{nodus distalis}) -- węzeł zliczający ilość odebranych danych \textit{r},
+	\item węzeł dalszy (ang. \textit{distal node}) -- węzeł zliczający ilość odebranych danych \textit{r},
 	udostępniający jednocześnie usługę umożliwiającą odczyt tych wartości. 
 \end{itemize}
 
@@ -265,7 +265,7 @@ od pełnionej funkcji.
 
 \subsubsection{Węzeł bliższy}\label{sec:proximal-node}
 Pierwszy węzeł, węzeł bliższy, odpowiada bezpośrednio za przeprowadzany eksperyment. Jego celem jest wysyłanie właściwych
-pakietów do węzła dalszego z określonymi interwałami. Dodatkowo, służy jako bramka do odbioru liczby mówiącej
+pakietów do węzła dalszego w~określonych interwałach czasowych. Dodatkowo, służy jako bramka do odbioru liczby mówiącej
 o całkowitej ilości odebranych pakietów. Trzecim zadaniem tego modułu jest zresetowanie licznika z każdą nową iteracją
 badania PER.
 
@@ -334,8 +334,8 @@ ona w jasny i~czytelny sposób zidentyfikować polecenie i odpowiadające polece
 działania interfejsu PC-STM32WB55 znajduje się poniżej \ref{mesh:serial-gateway}.
 
 \subsubsection{Timer}\label{sec:timer}
-Timer odpowiada za regularne wykonywanie zdefiniowanej funkcji podanej jako wskaźnik do funkcji jako ostatni argument. Odpowiada
-on za główny przepływ badania interpretując zebrane parametry doświadczenia i~je wykonując. Kod oparto o interfejs programistyczny
+Timer odpowiada za regularne wykonywanie zdefiniowanej funkcji. Odpowiada on za główny przepływ 
+badania interpretując zebrane parametry doświadczenia i~je wykonując. Kod oparto o interfejs programistyczny
 dostarczony przez ST~\cite{stmicroelectronics_an5289_2021}\footnote{rozdział \textit{4.5 Timer server}}.
 
 \begin{lstlisting}[language=C,
@@ -360,11 +360,11 @@ static void run_timer(char const *setName, MeshTest_t subscriptionType, MOBLE_AD
 
 Listing~\ref{lst:timer_activation_function} przedstawia wdrożony kod uruchamiający timer. Najistotniejszym parametrem funkcji jest
 wskaźnik do funkcji umożliwiający uruchomienie kodu w odpowiedzi na zdarzenie (\textit{callback}). Linie 6-7 przypisują
-wartości kolejno interwału z którym periodycznie ma być uruchamiany \textit{callback} oraz wartość po której upłynięciu
-timer zostanie wyłączone. Obie te zmienne są typu logicznego tick. Podawane w nich są wartości tick'nięć procesora aniżeli
-milisekundy. Przed przypisaniem wartości należy przekonwertować milisekundy do ticknięć w zależności od konfiguracji
+wartości kolejno interwału, z którym periodycznie ma być uruchamiany \textit{callback} oraz wartość po której upłynięciu
+timer zostanie wyłączone. Obie te zmienne są typu logicznego \textit{tick}. Podawane w~nich są wartości ticków procesora aniżeli
+milisekundy. Przed przypisaniem wartości należy przekonwertować milisekundy do ticków w~zależności od konfiguracji
 zegara RTC mikrokontrolera. Zagadnienie to stanowiło problem na etapie tworzenia procedury badawczej. Ostatecznie zdecydowano
-się na wprowadzenie pojęcia kalibracji, w której eksperymentalnie wyznaczono wartości ticków względem oczekiwanej długości
+się na wprowadzenie pojęcia kalibracji, w której to wyznaczano eksperymentalnie wartości ticków względem oczekiwanej długości
 okresu czasu. Logika takiego procesu opisana została w~punkcie dotyczącym oprogramowania PC~\ref{prep:pc-software}.
 
 Linie 9-10, rejestrują wybrane funkcje (poprzez wskaźniki do funkcji) do wewnątrz silnika timera dostarczanego przez ST.
@@ -392,10 +392,9 @@ Opierając się na inżynierii wstecznej, znaleziono współczynnik, przeliczaj�
 \end{lstlisting}
 
 Zgodnie z listingiem~\ref{lst:millis-to-tick-reverse-engineering}, ostateczna wartość współczynnika \texttt{CFG\_TS\_TICK\_VAL}
-wynosi $488.78125$. Wyliczone wartości ticknięć z~ich eksperymentalnie wyznaczonymi odpowiednikami zaprezentowano w tabeli
+wynosi $488.78125$. Wyliczone wartości ticków z~ich eksperymentalnie wyznaczonymi odpowiednikami zaprezentowano w tabeli
 \ref{tab:calibration_vs_computation}. Proces ten, zwany dalej kalibracją, oparty został o dodatkową procedurę zaprezentowaną
 na listingu~\ref{lst:calibration_rtc}.
-
 
 \begin{lstlisting}[language=C,
     caption={Kalibracja mikrokontrolera -- polecenie kalibracyjne},
@@ -418,7 +417,7 @@ Przedstawione polecenie kalibracji wykorzystuje jedynie węzeł bliższy, który
 wykonanie przepływu doświadczenia. Usługa ta umożliwia wykonanie akcji kalibracyjnej \texttt{test\_set06\_calibrate\_timer}
 polegającej na inkrementacji licznika. Bazując na ostatecznej wartości licznika przy znanym określonym czasie
 wykonywania, można wyznaczyć arytmetycznie ostateczną wartość ticków do milisekund. Fakt ten wykorzystywany
-jest przez aplikację PC i tam zostaje bliżej opisany.
+jest przez aplikację PC i~tam zostaje bliżej opisany.
 
 \subsubsection{Węzeł środkowy}
 
@@ -444,9 +443,9 @@ uruchamiając tryb przekaźnikowy \textit{Relay}, co ukazano na listingu~\ref{ls
 \subsubsection{Węzeł dalszy}
 
 Oprogramowanie węzła dalszego stworzono komplementarnie do węzła bliższego. Zapewnia ono dwie główne funkcjonalności:
-zliczanie odebranych pakietów na poziomie Generic OnOff oraz możliwość odczytu i resetu tegoż licznika. Podstawowy interfejs do 
-powyższych funkcjonalności zdefiniowano w pliku \texttt{appli\_generic\_counter.h} - listing~\ref{lst:per-interface-distal-node}
-wraz z opisem przepływu wiadomości z perspektywy plików i fizycznych węzłów.
+zliczanie odebranych pakietów na poziomie Generic OnOff oraz możliwość odczytu i~resetu tegoż licznika. Podstawowy interfejs do 
+powyższych funkcjonalności zdefiniowano w~pliku \texttt{appli\_generic\_counter.h} - listing~\ref{lst:per-interface-distal-node}
+wraz z~opisem przepływu wiadomości z~perspektywy plików i~fizycznych węzłów.
 
 Linia 19 definiuje interejs inicjalizacyjny doświadczenia PER. Zgodnie z wcześniejszym opisem węzła bliższego,
 ta funkcja aktywowana jest w odpowiedzi na żądanie wyzerowania licznika. Linia 20 reprezentuje funkcję,
@@ -479,11 +478,11 @@ MOBLEUINT32 generic_onoff_counter();
 \end{lstlisting}
 
 Listing~\ref{lst:increment-counter} prezentuje wycinek kodu zliczającego ilość odebranych komunikatów. 
-\texttt{Appli\_Generic\_OnOff\_Set} jest funkcją odpowiadającą na zdarzenie zarejestrowaną stosie technologicznym
+\texttt{Appli\_Generic\_OnOff\_Set} jest funkcją odpowiadającą na zdarzenie zarejestrowaną w~stosie technologicznym
 BLE Mesh producenta. Uruchamiana jest ona za każdym razem gdy otrzymywane jest polecenie zgodne
 z~modelem zdefiniowanym przez Bluetooth SIG. Najistotniejszą linią jest linia 20, która bezpośrednio
 odpowiada za logowanie i inkrementację licznika. Istotna jest również instrukcja warunkowa
-otaczająca opisywane wywołanie funkcji. Uniemożliwia inkrementację licznika skutek odbioru
+otaczająca opisywane wywołanie funkcji. Uniemożliwia inkrementację licznika na skutek odbioru
 wiadomości rozgłoszeniowej. Od użytkownika oczekuje się podanie rzeczywistego adresu węzła
 zarejestrowanego wewnątrz sieci Mesh.
 
@@ -537,7 +536,7 @@ MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam,
 Komunikację na linii węzła bliższego zrealizowano z pomocą autorskiego rozwiązania ST: Mesh Serial Gateway~\cite{st_an5292_2021}.
 Rozwiązanie to wykorzystuje komunikację szeregową \gls{UART} do wysyłania i odbierania komunikatów sterujących.
 Zgodnie z dokumentacją, polecenie takie może przyjąć postać jak prezentowaną na rysunku~\ref{an5292_atcl_command}, wysyłając do węzła $0009$
-polecenie aktywujące funkcję \texttt{Appli\_Generic\_OnOff\_Set} i ustawiając wartość na $1$. Innymi słowy, dioda zaświeci
+polecenie aktywujące funkcję \texttt{Appli\_Generic\_OnOff\_Set} i~ustawiając wartość na $1$. Innymi słowy, dioda zaświeci
 się, o ile wcześniej była nieaktywna.
 
 \begin{figure}[!htb]
@@ -546,11 +545,11 @@ się, o ile wcześniej była nieaktywna.
 	\label{an5292_atcl_command}
 \end{figure}
 
-W analogiczny sposób steruje się poleceniami niezbędnymi do eksperymentum, jak to ukazano na listingu~\ref{lst:at-command}.
+W analogiczny sposób steruje się poleceniami niezbędnymi do eksperymentu, jak to ukazano na listingu~\ref{lst:at-command}.
 \begin{lstlisting}[
     caption={Przykładowe polecenie Mesh Serial Gateway},
     label={lst:at-command}]
-ATAP SET-nn iiiiTTTTTT src dst
+ATAP SET-nn iiiiTTTTTTTT src dst
 
 przyklad:
 ATAP SET-05 0a6400009c40 03 05
@@ -560,7 +559,7 @@ ATAP SET-05 0a6400009c40 03 05
 \item [ATAP] - polecenie testowe
 \item [SET-nn] - polecenie typu SET dla funkcji numeru nn, np. SET-05
 \item [iiii] - interwał, częstość zapytań wyrażony w tickach; Wartość 16-bitowa
-\item [TTTTT] - czas po którym należy przerwać badanie wyrażone w tickach; Wartość 32-bitowa
+\item [TTTTTTTT] - czas po którym należy przerwać badanie wyrażone w tickach; Wartość 32-bitowa
 \item [src] - adres źródłowego węzła (najczęściej węzła bliższego)
 \item [dst] - adres węzła docelowego (najczęściej węzła dalszego)
 \end{description}
@@ -574,30 +573,31 @@ ATAP SET-05 0a6400009c40 03 05
 Głównym zadaniem oprogramowania PC jest udostępnienie prostego interfejsu
 użytkownika umożliwiającego swobodne przeprowadzenie badań, w szczególności PER. 
 Stworzenie takie programu umożliwia nie tylko szybsze wykonanie doświadczeń, co
-redukuje błędy możliwe do popełnienia podczas ręcznego wprowadzania komend AT.
+również redukuje błędy możliwe do popełnienia podczas ręcznego wprowadzania 
+komend \gls{AT}.
 
 Aplikacja realizuje trzy główne cele: 
 \begin{itemize}
 \item Ustanawia połączenie z mikrokontrolerem przy użyciu portu szeregowego
 \item Umożliwia kalibrację podstawy mikrokontrolera czasu względem ticknięć 
 \item Umożliwia wykonanie poleceń uruchamiających cykl badań PER i odbiór wartości
-zliczeń z węzła dystalnego
+zliczeń z~węzła dystalnego
 \end{itemize}
 
-Oprogramowanie wykonano z wykorzystaniem frameworka Qt5\footnote{\url{https://www.qt.io/}}.
-Umożliwia on tworzenie kompletnych wieloplatformowych aplikacji graficznych. Qt nie
+Oprogramowanie wykonano z wykorzystaniem frameworka Qt\footnote{\url{https://www.qt.io/}}.
+Umożliwia on tworzenie kompletnych, wieloplatformowych aplikacji graficznych. Qt nie
 ogranicza się jedynie do zapewnienia bibliotek graficznych. Framework zapewnia
-dostęp z poziomu \gls{API} do urządzeń i peryferiów takich jak drukarki,
+dostęp z poziomu \gls{API} do urządzeń i~peryferiów takich jak drukarki,
 gamepady, gniazda TCP/IP, stosu Bluetooth (w tym BLE) jak i również,
 co jest istotne z punktu widzenia niniejszej pracy, portu szeregowego.
 
-Qt zapewnia kilka możliwości tworzenia GUI wykorzystując tyko kod w języku \textit{C++}
+Qt zapewnia kilka możliwości tworzenia GUI wykorzystując tylko kod w języku \textit{C++}
 lub rozdzielając część widzialną od części biznesowej z pomocą generatora interfejsu
-Qt Designer produkujący odpowiedni plik \gls{XML} bądź \textit{QML}. QML jest językiem
+Qt Designer produkując odpowiedni plik \gls{XML} bądź \textit{QML}. QML jest językiem
 deklaratywnym opisujący pożądany efekt graficzny. Do silnika tego narzędzia należy
-interpretacja i wygenerowanie właściwego efektu. Język ten rozszerza możliwości
+interpretacja i~wygenerowanie właściwego efektu. Język ten rozszerza możliwości
 klasycznego wydania frameworka umożliwiając tworzenie dynamicznych, nowoczesnych 
-interfejsów użytkownika działających niezależnie od platformy.
+interfejsów użytkownika działających niezależnie od platformy docelowej.
 
 \subsubsection{Port szeregowy}
 Aplikację oparto o połączenie części biznesowej tworzonej w~C++ oraz interfejsie
@@ -614,7 +614,7 @@ w przystępny dla użytkownika sposób -- Rysunek~\ref{app_device_selector}.
 
 
 \subsubsection{Kalibracja}
-Kolejnym elementem wymaganym przez chęć przeprowadzenia badania jest zapewnienie
+Kolejnym elementem, wymaganym przez chęć przeprowadzenia badania, jest zapewnienie
 właściwej podstawy czasu. Wykorzystywany timer (jak został opisany w punkcie \ref{sec:timer})
 wymaga sprecyzowania wartości podanej w tick'ach. Zauważając potencjalny problem
 z matematycznym wyznaczeniem odpowiedniego mapowania z milisekund do ticków
@@ -634,13 +634,13 @@ wykorzystanie celem wyznaczenia ostatecznej wartości.
 Algorytm działania jest następujący. Dla oczekiwanej wartości wyrażonej w milisekundach,
 wykonuje się pierwsze polecenie kalibracyjne zakładając fałszywie, iż milisekundy
 równe są ilości ticków. Aplikacja, nasłuchuje przychodzące komunikaty w~formacie JSON
-poszukując słowa kluczowego \textit{status}. Do każdego zliczonego komunikatu,
+poszukując słowa kluczowego \enquote{\textit{status}}. Do każdego zliczonego komunikatu,
 aplikacja przechowuje dodatkowo znacznik czasu. Takie wiadomości akumulowane są 
-w pamięci do momentu otrzymania innego słowa kluczowego: \enquote{not\_running}. W tym momencie,
+w pamięci do momentu otrzymania innego słowa kluczowego: \enquote{\textit{not\_running}}. W tym momencie,
 aplikacja wylicza różnicę między przyległymi znacznikami czasowymi (efektywnie je różniczkując
 w~liniach 4-9 listingu~\ref{lst:calibration-cpp}). Następnie, wyliczana jest
 średnia różnica pomiędzy poszczególnymi okresami, w których otrzymano odpowiedź 
-z~mikrokontrolera -- linia 15.
+z~mikrokontrolera -- linia~15.
 
 \begin{lstlisting}[language=C,
     caption={Algorytm wyznaczania kolejnej wartości dla funkcjonalności kalibracji},
@@ -668,15 +668,16 @@ std::pair<uint16_t, double> CalibrateCommand::computeNewInterval() {
 \end{lstlisting}
 
 
-Ostatnim krokiem jest wyliczenie procentowej różnicy pomiędzy obecnie wyliczoną wartością
+Kolejnym krokiem jest wyliczenie procentowej różnicy pomiędzy obecnie wyliczoną wartością
 a oczekiwaną wartością wyrażoną w milisekundach -- linia 16. Ostatecznie, wylicza się
-nową, estymowaną wartość kolejnej iteracji zgodnie z zależnością liniową podaną w linii 17.
+nową, estymowaną wartość kolejnej iteracji zgodnie z~zależnością liniową podaną w~linii~17.
 
 Kalibracja zatrzyma się automatycznie, gdy osiągnięta zostanie zbieżność na poziomie poniżej
 jednego procenta różnicy. Algorytm jest wrażliwy na \enquote{\textit{przestrzelenie}} kalibrowanej
 wartości. Jego jakość jest jednak na tyle wystarczająca, iż ostatecznie umożliwił wyznaczenie
 wartości, które są zbieżne z obliczeniami teoretycznymi, co pokazuje tabela~\ref{tab:calibration_vs_computation}.
-Możliwym usprawnieniem byłoby zastosowanie metody analogicznej do bisekcji.
+Możliwym usprawnieniem byłoby zastosowanie metody wyznaczania parametrów
+kalibracyjnych w oparciu o analogię do metody bisekcji.
 
 \begin{table}[!ht]
 \centering
@@ -696,7 +697,7 @@ Głównym zadaniem aplikacji jest oczywiście przeprowadzenie doświadczenia PER
 stworzono wygodny interfejs do m.in. funkcji opisywanej w punkcie~\ref{sec:proximal-node}.
 Aplikacja wymaga od użytkownika podania adresu (od lewej): węzła bliższego oraz
 węzła dalszego. W~rzędzie poniżej znajdują kontenery z~dwoma funkcjami w~danej zakładce:
-właściwy test PER oraz odbiór wartości z węzła zewnętrznego -- Rysunek~\ref{app_per_measurement}.
+właściwy test PER oraz odbiór wartości z~węzła zewnętrznego -- Rysunek~\ref{app_per_measurement}.
  
 \begin{figure}[!ht]
 	\centering \includegraphics[width=0.618\linewidth]{app_per_measurement.png}
@@ -704,9 +705,9 @@ właściwy test PER oraz odbiór wartości z węzła zewnętrznego -- Rysunek~\r
 	\label{app_per_measurement}
 \end{figure}
 
-Eksperymentator, w celu przeprowadzenia doświadczenia, zobowiązany jest podać
-czas w~milisekundach po którym zakończy się badanie. Czas badania powinien być dostatecznie
-długi, by błędy inicjalizacji, czy konwersji milisekund to ticków nie miały znacznego wpływu
+Eksperymentator, w celu przeprowadzenia doświadczenia, zobowiązany jest wyznaczyć okres, po 
+którym zakończy się badanie w~milisekundach. Czas badania powinien być dostatecznie
+długi, by błędy inicjalizacji, czy konwersji milisekund do ticków nie miały znacznego wpływu
 na otrzymany rezultat. Drugi parametr to interwał odpytywania. Aplikacja przechowuje
 wyniki kalibracyjne\footnote{wykorzystując możliwości \href{https://doc.qt.io/qt-5/qsettings.html}{\textit{QSettings}}
 dane przechowywane są trwale na dysku. W zależności od systemu albo w rejestrze (Windows),
@@ -717,6 +718,7 @@ badawczą. Ekran aplikacji zostanie zablokowany na czas badania.
 
 Analogicznie należy postąpić w~przypadku odczytywania licznika z węzła dalszego. Użytkownik
 zobowiązany jest kliknąć przycisk \enquote{Run} w kontenerze \enquote{\textit{Get Remote Results}}.
+Po krótkiej chwili, odpowiadające pole powinno zostać zaktualizowane o~oczekiwaną wartość.
 
 
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -724,18 +726,18 @@ zobowiązany jest kliknąć przycisk \enquote{Run} w kontenerze \enquote{\textit
 %% SECTION: Zużycie energii
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-\section{Zużycie energii}\label{experiment:energy-consumption}
+\section{Badanie zużycia energii}\label{experiment:energy-consumption}
 Celem niniejszego podrozdziału jest omówienie empirycznej weryfikacji
 zużycia energii przez wybrany zestaw uruchomieniowy \gls{BLE}.
 
 Zaprezentowanie zostanie metodologia pomiaru oraz sposób połączenia
 układu pomiarowego. Omówione zostaną parametry próbkowania i długość trwania
 pojedynczej sesji badawczej. Ostatecznie, przedstawia się wzór i~sposób
-przeprowadzonych obliczeń, które ostatecznie zapewniają oczekiwane wyniki.
+przeprowadzonych obliczeń, które docelowo zapewniają oczekiwane wyniki.
 
 Ostatnim, aczkolwiek najistotniejszym elementem poruszanym przez podrozdział,
 jest prezentacja wyników. Pogrupowane są one na dwie kategorie: BLE Heart Rate
-i BLE Mesh. Każda z nich przedstawia zebrane empirycznie dane, wskazując
+i BLE Mesh. Każda z~nich przedstawia zebrane empirycznie dane, wskazując
 na właściwe tryby działania i~całkowite zużycie energii.
 
 \input{tekst/energy_consumption}
@@ -745,18 +747,17 @@ na właściwe tryby działania i~całkowite zużycie energii.
 %% SECTION: Packet Error Rate
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-\section{Packet Error Rate}\label{experiment:per}
+\section{Badanie Packet Error Rate}\label{experiment:per}
 
-Celem niniejszego podrozdziału jest omówienie przeprowadzonego eksperymentu \gls{PER}. Omówiona zostanie
-metodologia badań. Zdefiniowany zostanie termin \textit{pakietu}, który stanowi podstawę dla
-doświadczenia.
+Celem niniejszego podrozdziału jest omówienie przeprowadzonego eksperymentu \gls{PER}. Przedstawiona zostanie
+metodologia badań oraz zbierane parametry wraz z~ich opisem i uzasadnieniem.
 
-Wychodząc z definicji, prezentuje się właściwy wzór matematyczny, definiujący badany problem. Równanie
-stanowi podstawę dla eksperymentu. Jego zrozumienie pozwoliło zaprojektowanie właściwego doświadczenia
+Wychodząc z definicji, badany problem zdefiniowany jest przedstawionym wcześniej równaniem~\ref{per_equation}.
+Stanowi ono podstawę dla eksperymentu. Jego zrozumienie pozwoliło zaprojektowanie właściwego doświadczenia
 jak i~przygotowanie kompletnego stosu technologicznego niezbędnego do jego przeprowadzenia.
 
-Ostatecznym efektem przeprowadzonego eksperymentu jest przedstawienie zebranych danych pod postacią
-wykresów. Prezentują one badane cechy zmienne zaprezentowane w sekcji opisu metodologii. Końcowym
-krokiem jest wyciągnięcie wniosków z zebranych danych.
+Ostatecznym efektem przeprowadzonego eksperymentu jest przedstawienie zebranych danych w~postaci
+wykresów. Prezentują one badane cechy zmienne, zaprezentowane opisane w~sekcji opisu metodologii. 
+Końcowym krokiem jest wyciągnięcie wniosków z~zebranych danych.
  
 \input{tekst/packet_error_rate}

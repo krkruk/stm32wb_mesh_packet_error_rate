@@ -5,20 +5,20 @@
 
 Procedurę badawczą skonstruowano bazując na wzorze~\ref{per_equation}. Niezbędnym mechanizmem, o które oparte
 jest doświadczenie, to zliczanie ilości pakietów. Zliczanie dotyczy zarówno węzła bliższego 
-jak i~również węzła dalszego odbierającego wysyłane komunikaty. W przypadku drugiego elementu 
+jak i~również węzła dalszego odbierającego wysyłane komunikaty. W przypadku tego drugiego elementu 
 opracowano mechanizm odczytywania licznika zmian badanej wartości, patrz: \ref{prep:uc-software}.
 
-Całość doświadczenia przeprowadzono z wykorzystaniem oprogramowania PC - \ref{prep:pc-software}. Oprogramowanie
+Całość doświadczenia przeprowadzono z~wykorzystaniem oprogramowania PC -- \ref{prep:pc-software}. Oprogramowanie
 zapewnia dwie główne funkcjonalności: wysyłanie komunikatów przy określonej częstości przez zadaną ilość czasu;
 odczytywanie wartości licznika węzła dalszego.
 
 Wysyłanym komunikatem jest polecenie zmiany stanu modelu
 \textit{Generic OnOff}. Wybrano ten standardowy element stosu BLE Mesh ze względu na jego uniwersalność.
 Nie ogranicza się on jedynie do wybranej platformy czy własnościowego modelu. Model ten jest zdefiniowany
-przez Bluetooth SIG przez co jest niezależny od producenta. Czyni to eksperyment powtarzalny,
+przez Bluetooth SIG, przez co jest niezależny od producenta urządzeń. Czyni to eksperyment powtarzalny,
 niezależnie od mikrokontrolera.
 
-Odczytywanie stanu licznika wymagało wykorzystania autorskiego rozwiązania oparte o własnościowy model Mesh
+Odczytywanie stanu licznika wymagało jednakże wykorzystania autorskiego rozwiązania oparte o~własnościowy model Mesh
 ST. Nie wpływa to jednak na ostateczny rezultat badań, gdyż stworzone polecenia wykorzystywane jest
 tylko do odczytu i~wysłania wartości licznika węzła dalszego do węzła bliższego i~komputera osobistego kontrolującego
 przepływ doświadczenia. Z każdą kolejną próbą badania PER ten licznik jest automatycznie zerowany,
@@ -67,10 +67,10 @@ ukazać. Obrano następujące interwały:
 \item 1300ms
 \item 2100ms
 \end{itemize}
-<<dodać info o kalibracji i przekierować do odpowiednich opisów we wcześniejszych podrozdziałach o oprogramowaniu PC i uC>>
 
 Interesującym parametrem dla bezprzewodowej transmisji danych jest zasięg. Stąd też, jednym z badanych czynników jest
 określenie jakości PER w zależności od odległości - Rysunek~\ref{rys:two_nodes_setup}.
+
 \begin{itemize}
 \item 1,5m
 \item 3,0m
@@ -105,10 +105,10 @@ jest oczywistą operacją arytmetyczną.
 Odległość pomiędzy węzłami mierzona jest z użyciem taśmy mierniczej z podziałką 1mm. Tolerancję pomiarów należy
 przyjąć jako najdłuższy wymiar zestawu uruchomieniowego P-NUCLEO-WB55 - 70mm \cite{stmicroelectronics_um2435_2019}.
 Pomiar odbywał się na płasko, mierząc odległość pomiędzy leżącymi na glebie węzłami. Błędy pomiarowe wynikłe
-z ukształtowania terenu są prawdopodobne i~wynikają z~terenowego charakteru badań.
+z ukształtowania terenu są prawdopodobne i~wynikają z~poza laboratoryjnego charakteru badań.
 
 W celu zminimalizowania ryzyka pojawienia się losowych błędów o nieznanym pochodzeniu badanie powtarzano pięciokrotnie,
-w sposób następujący: dla wybranego środowiska, ilości węzłów i zadanej odległości pomiędzy węzłami, wykonaj
+w sposób następujący: dla wybranego środowiska, ilości węzłów i~zadanej odległości pomiędzy węzłami, wykonaj
 5 powtórzeń pomiarowych dla każdego z zadanych interwałów pomiarowych.
 
 \begin{equation}
@@ -158,7 +158,7 @@ od odległości dla sieci złożonej z dwóch i trzech węzłów.
 Niewątpliwą cechą ukazanych danych jest wysoka wartość PER już przy tak niewielkiej odległości jak 150 cm pomiędzy węzłami.
 Utrata 40-50\% wysyłanych pakietów danych już na pierwszym dystansie pomiarowym może być spowodowana wieloma czynnikami.
 Przypuszczalnie, wpływ na taki rezultat wywodzi się z czynników środowiskowych lub ze sposobu wykonywania 
-eksperymentu. Niewykluczone są również ograniczenia sprzętowe.
+eksperymentu. Niewykluczone są również ograniczenia sprzętowe mikrokontrolera bądź stosu BLE Mesh.
 
 Wraz ze wzrostem odległości pomiędzy węzłami PER wzrasta pomimo wysokiej wartości początkowej. Jest to 
 oczekiwana zależność i zgodna z wiedzą techniczną.
@@ -182,9 +182,9 @@ Zestawiając ze sobą wymienione wcześniej czynniki, obserwuje się interesują
 środowiska dla wybranego interwału zapytań 100 milisekund. Po raz kolejny obserwowany jest PER wynoszący
 40-50\%, niezależnie od środowiska czy ilości węzłów. Sugeruje to wpływ samej testowanej platformy
 na ostateczny rezultat. Prawdopodobną hipotezą jest niewystarczająca wielkość zaalokowanych
-buforów obsługujących transmisję danych. Mikrokontroler nie będąc w stanie obsłużyć tak częstej transmisji
+buforów obsługujących transmisję danych. Mikrokontroler, nie będąc w stanie obsłużyć tak częstej transmisji,
 może doświadczyć awarii, co zaobserwowano podczas badań. Awaria objawiała się brakiem reakcji węzła bliższego
-na jakiekolwiek komendy AT, co wymagało ponownego uruchomienia urządzenia. Weryfikacja tego zagadnienia
+na jakiekolwiek komendy \gls{AT}, co wymagało ponownego uruchomienia urządzenia. Weryfikacja tego zagadnienia
 wymagałaby zaangażowania zaawansowanych narzędzi programistycznych ingerujących m.in. w~pamięć urządzenia.
 Niniejsza praca nie podejmuje się wyjaśnienia przyczyn obserwowanych anomalii w działaniu mikrokontrolera,
 udostępniając jednocześnie możliwy punkt dla dalszych prac badawczych z zakresu BLE Mesh.
@@ -258,10 +258,10 @@ wykluczyć ten czynnik wykluczyć z dalszych rozważań uznając go za marginaln
 Ustaliwszy brak (pomijalnie mały) wpływu częstości zapytań (dla częstości wartości >100ms), praca podejmuje dalszą prezentację
 danych pod postacią zależności odległości na PER.
 
-Rysunek~\ref{rys:per_to_distance_over_100ms} przedstawia zebrane dane zestawiając odległość i~ilość węzłów składających
+Rysunek~\ref{rys:per_to_distance_over_100ms} przedstawia zebrane dane, zestawiając odległość i~ilość węzłów składających
 się na sieć Mesh. Na początkowych dystansach PER ma wartość bliską bądź równą zeru. Wraz ze wzrostem odległości pomiędzy
 węzłami, badany współczynnik rośnie, co jest zgodne z oczekiwaniami. Na dystansie 16m obserwuje się przełamanie
-linii aproksymacji. Dodatkowy węzeł środkowy znacząco i pozytywnie wpływa na PER przy kolejnych odległościach
+linii aproksymacji. Dodatkowy węzeł środkowy, prawdopodobnie, znacząco i~pozytywnie wpływa na PER przy kolejnych odległościach
 umożliwiając przekazywanie informacji w~sieci. PER w najdalszym punkcie pomiarowym osiąga wartości od ok.~60\% do 70\%.
 Należy jednak mieć na uwadze, iż zestawienie nie rozróżnia środowiska w którym następowało zliczanie pakietów.
 

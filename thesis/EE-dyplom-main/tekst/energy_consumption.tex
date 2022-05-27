@@ -5,8 +5,8 @@
 
 Podstawą badania zużycia energii jest pomiar wartości pobieranego prądu przez zestaw uruchomieniowy
 P-NUCLEO-WB55 w czasie. Posiadając dane wymienione dane, na podstawie oczywistych
-zależności fizycznych wyznacza się parametry jak całkowita wykorzystana energia
-podczas badania, przedstawiona w przystępnej postaci parametru mocy.
+zależności fizycznych, wyznacza się parametry jak całkowita wykorzystana energia
+podczas badania, przedstawiona w przystępnej formie parametru mocy.
 
 Pomiary wartości chwilowego poboru prądu oparto o moduł opisany w punkcie~\ref{device:plytka_pomiarowa}.
 Źródłem energii dla płytki pomiarowej jest komputer klasy PC, a precyzyjniej udostępniany
@@ -27,20 +27,20 @@ zasilanie napięciem $3.3V$.
 	\label{rys:connected_power_measurement_unit}
 \end{figure}
 
-Celem akwizycji danych wybrano dostarczane przez producenta oprogramowanie \textit{STM32CubeMonitor-Power}.
+Celem akwizycji danych, wybrano dostarczane przez producenta oprogramowanie \textit{STM32CubeMonitor-Power}.
 Przykładowy zrzut ekranu zaprezentowany jest na rysunku~\ref{rys:measurement_session_sample}.
 Pojedyncza sesja pomiarowa trwająca 100 sekund zapewnia niezbędne dane. Są one następnie
 odpowiednio przetwarzane poprzez odcięcie wartości zebranych w ostatnich sekundach. Związane to było
 ze sposobem działania mikrokontrolera, który po 60 sekundach domyślnie przechodzi w stan zwiększonej
 oszczędności energii (Low Power Advertising). Parametr ten można zmienić wg własnych upodobań, aczkolwiek zdecydowano
-się na domyślne nastawy, tak by umożliwić możliwie proste ponowne przeprowadzenie doświadczenia wykorzystując przykład
+się na domyślne nastawy, tak by umożliwić możliwie proste, ponowne przeprowadzenie doświadczenia wykorzystując przykład
 BLE \gls{HRT} dostarczony przez ST. Stąd, by rozróżnić różne tryby pracy \gls{BLE}, zdecydowano o odcięciu
 połowy okresu pomiarowego, zapewniając jednolite wartości względem trybów zużycia energii
 w~50 sekundowym oknie.
 
 Tak zebrane dane następnie przetworzono uzyskując wartości energii i średniej mocy
 użytej przez układ. Wykorzystuje się w celu oczywistą zależność fizyczną zaprezentowaną
-wzorem~\ref{energy_equation}\cite{skoro_marta_fizyka_1973}.
+wzorem~\ref{energy_equation}~\cite{skoro_marta_fizyka_1973}.
 
 \begin{equation} \label{energy_equation}
 E_{\text{całkowita}} = U \cdot \int_{t=0[s]}^{t=50[s]} \mathrm{d}i \: \mathrm{d} t
@@ -64,7 +64,7 @@ Zebrane dane w postaci wartości chwilowych pobieranego przez mikrokontroler pr�
 przetworzono z użyciem metod numerycznych. W~celu wyliczenia łącznej wykorzystanej energii, a~tym samym
 mocy, stosuje się zależność~\ref{energy_equation}. Uwzględniając fakt działania w domenie dyskretnej,
 wykorzystano kompozytową metodę całkowania Simpsona~\cite{noauthor_scipyintegratesimpson_nodate}.
-Podstawą dla całkowania są wartości zebrane w równoodległych odstępach. Dokonując akwizycji danych
+Podstawą dla całkowania są wartości zebrane w równoodległych odstępach. Dokonując akwizycji danych,
 dobrano częstotliwość próbkowania jako $100Hz$. Każda kolejna wartość charakteryzuje się więc
 10 milisekundową różnicą w~podstawie czasu. Uwzględniając ten fakt, wyliczenie wartości
 wykorzystanej energii jak i~mocy staje się trywialne.
@@ -84,7 +84,7 @@ wykorzystanej energii jak i~mocy staje się trywialne.
 Pierwszą usługą BLE badaną pod kątem zużycia energii jest Heart Rate\footnote{z ang. rytm serca}. Wybór
 ten podyktowany jest chęcią przyszłego zestawienia wartości z~rozwiązaniami innych producentów.
 Usługa zdefiniowana przez Bluetooth SIG stanowi więc wspólny międzyplatformowy język.
-Porównanie konkurencyjnych rozwiązań względem ST stanowi potencjalny kierunek dalszych badań.
+Porównanie konkurencyjnych rozwiązań względem ST stanowi potencjalny kierunek dalszych rozważań.
 
 Badania przeprowadzono dla trzech różnych trybów działania aplikacji BLE HRT:
 \begin{itemize}
@@ -140,7 +140,7 @@ jest przez sam standard.
 Rysunek~\ref{rys:power_ble_hr_low_power_adv_only_amps} wskazuje na podobne zależności. Obserwuje się periodyczne, aczkolwiek
 stosunkowo rzadkie szczyty w poborze energii rozumianej jako przepływ prądu elektrycznego. Wpisują się jednak w~wyżej wymienione
 parametry transmisji. Brak całkowitego dopasowania względem oczekiwanych parametrów może być spowodowany niedostateczną
-częstotliwością próbkowania. Z pewnością jest to zagadnienie, które warto przeanalizować w kolejnych iteracjach doświadczeń.
+częstotliwością próbkowania. Z pewnością jest to zagadnienie, które warto przeanalizować w kolejnych iteracjach prób doświadczalnych.
 
 
 \begin{figure}[!ht]
@@ -151,11 +151,11 @@ częstotliwością próbkowania. Z pewnością jest to zagadnienie, które warto
 
 Ostatecznie, zestawia się wszystkie zebrane jak dotąd wartości pomiarowe na rysunku~\ref{rys:power_ble_hr_amps_usage_juxtaposition}.
 Wykres słupkowy przedstawia średni pobór prądu wyrażony miliamperach. Porównując, zauważa się znaczącą, blisko dwukrotną
-różnicę, co do zużytej mocy, pomiędzy trybem ogłoszeniowym niskomocowym a pozostałymi kategoriami.
+różnicę, co do zużytej mocy, pomiędzy trybem ogłoszeniowym niskomocowym a~pozostałymi kategoriami.
 
 Porównując wymienione tryby ogłoszeniowe, należy zwrócić uwagę na konfigurację częstotliwości, z którą wysyłane są
-pakiety danych. Częstotliwość, z którą aktywowane jest radio może być nawet 30 krotnie wyższa dla przypadku szybkiego ogłaszania.
-Uwidocznia się również różnica maksymalnie osiągniętym szczycie poboru mocy, wynosząca ok. $2mA$.
+pakiety danych. Częstotliwość, z którą aktywowane jest radio, może być nawet 30 krotnie wyższa dla przypadku szybkiego ogłaszania.
+Uwidocznia się również różnica w maksymalnie osiągniętym szczycie poboru mocy, wynosząca ok. $2mA$.
 
 \begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_hr_amps_usage_juxtaposition.png}
@@ -166,8 +166,8 @@ Uwidocznia się również różnica maksymalnie osiągniętym szczycie poboru mo
 Zużycie energii w zestawieniu trybu ogłoszeniowego szybkiego i ustanowionego już połączenia jest zbliżone. Według zadanych nastawień,
 \textit{Fast Advertising} aktywuje radio około 10 razy częściej aniżeli po ustanowieniu łączności z aplikacją kliencką. Natomiast,
 przypadek połączonej już usługi przenosi dodatkowe informacje takie jak puls czy estymowana spalona energia w wyników procesów
-metabolicznych. Być może zużycie energii również zależy od ilości przenoszonych danych, a co za tym idzie, czasu działania radia
-niezbędnego do wysłania takiej wiadomości. Jest to pytanie otwarte.
+metabolicznych. Być może, zużycie energii również zależy od ilości przenoszonych danych, a~co za tym idzie, 
+wydłużenia czasu działania radia niezbędnego do wysłania takiej wiadomości. Jest to pytanie otwarte.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUBSECTION: BLE Mesh - Model Generic OnOff
@@ -180,11 +180,16 @@ Zużycie energii dla \gls{BLE} Mesh przeprowadzono dla dwóch wariantów:
 \item sieć w której wysyłany jest komunikat z modelu \textit{Generic OnOff}
 \end{itemize}
 
-Poprzez sieć w trybie gotowości należy rozumieć następujące. Wszystkie zarejestrowane\footnote{proces w anglojęzycznej literaturze i dokumentacji znany jest jako \textit{provisioning}} węzły są uruchomione. Zgodnie ze standardem BLE Mesh, każdy z~takich węzłów musi mieć zaimplementowane dwa modele:
-Configuration Server i Health Server \cite{wooley_martin_bluetooth_2019}. Odpowiadają one za niezbędną konfigurację jak i również nadzorowanie stanu \textit{zdrowia} sieci, poprzez wysyłanie komunikatów keep-alive\footnote{standard definiuje takie komunikaty jako \textit{heartbeats}\cite{wooley_martin_bluetooth_2019}\cite{mesh_working_group_mesh_2019}}.
+Poprzez sieć w trybie gotowości należy rozumieć, iż wszystkie zarejestrowane\footnote{proces w anglojęzycznej literaturze i dokumentacji znany jest jako \textit{provisioning}}
+węzły są uruchomione. Zgodnie ze standardem BLE Mesh, każdy z~takich węzłów musi mieć zaimplementowane dwa modele:
+\textit{Configuration Server} i~\textit{Health Server} \cite{wooley_martin_bluetooth_2019}. 
+Odpowiadają one za niezbędną konfigurację jak i~również nadzorowanie stanu \textit{zdrowia} sieci, poprzez wysyłanie 
+komunikatów \textit{keep-alive}\footnote{standard definiuje takie komunikaty jako \textit{heartbeats}\cite{wooley_martin_bluetooth_2019}\cite{mesh_working_group_mesh_2019}}.
 
-Rozpatrywany przypadek \textit{Generic OnOff} wykorzystuje tenże model do wysyłania komunikatów wewnątrz sieci. Jeden z węzłów wysyła pakiet danych a~drugi, odbiorczy przetwarza wykonując operację zdefiniowaną przez model akcję. W przypadku poniższych badań operacją tą jest kolejne zliczanie
-otrzymanych pakietów. W tym celu wykorzystano oprogramowanie opracowane na potrzeby kolejnego opisywanego eksperymentu \textit{Packet Error Rate}.
+Rozpatrywany przypadek \textit{Generic OnOff} wykorzystuje tenże model do wysyłania komunikatów wewnątrz sieci.
+Jeden z węzłów wysyła pakiet danych a~drugi, odbiorczy, przetwarza wykonując operację zdefiniowaną przez model akcję.
+W~przypadku poniższych badań operacją tą jest kolejne zliczanie otrzymanych pakietów.
+W~tym celu wykorzystano oprogramowanie opracowane na potrzeby kolejnego opisywanego eksperymentu \textit{Packet Error Rate}.
 Przez cały okres akwizycji wysyłano komunikaty z~częstotliwością $2Hz$. Zasadne jest wspomnieć, iż na czas trwania doświadczenia wszelkie 
 diody emitujące światło zostały wyłączone celem eliminacji błędów systemowych wpływających na ostateczne zużycie energii przez
 urządzenie.
@@ -208,8 +213,8 @@ aplikację \textit{STM32CubeMonitor-Power} zaprezentowana jest na rysunku~\ref{r
 \end{figure}
 
 Rysunek~\ref{rys:power_ble_mesh_standby_powermonitor} wygenerowany przez aplikację produkcji \textit{ST} odpowiada chmurze punktów
-z~rysunku~\ref{rys:power_ble_mesh_amps} dla wariantu regularnych zapytań co 500ms. Analogiczny wykres wygenerowany 
-przez \textit{STM32CubeMonitor-Power} reprezentowany jest na rysunku~\ref{rys:measurement_session_sample}.
+z~rysunku~\ref{rys:power_ble_mesh_amps} dla wariantu regularnych zapytań co 500ms. Analogiczny wykres dla
+trybu nasłuchującego wygenerowany przez \textit{STM32CubeMonitor-Power} reprezentowany jest na rysunku~\ref{rys:measurement_session_sample}.
 Swoiste zagęszczenie punktów pomiarowych i~częste zmiany amplitudy mogą wskazywać na złożoność protokołu Mesh,
 który wymaga częstych operacji w tym radiowych. Operacje te bezpośrednio oddziałują na zużycie energii, co w~oczywisty
 sposób widoczne jest na wykresach.
@@ -226,17 +231,11 @@ warianty działania aplikacji. Uwidacznia się niewielka różnica konsumowanej 
 wymaga średnio 39,2mW mocy do funkcjonowania. Konkurencyjny wariant potrzebuje jej nieznacznie mniej. Mesh będący w gotowości
 potrzebuje średnio 39.0mW mocy. Minimalne i maksymalne natężenia chwilowo pobieranego prądu są porównywalne.
 
-\begin{figure}[!ht]
-	\centering \includegraphics[width=0.99\linewidth]{power_ble_consumption_comparison_no_led.png} 
-	\caption{Porównanie średniego zużycia energii pomiędzy BT Low Energy HRT i BLE Mesh}
-	\label{rys:power_ble_consumption_comparison}
-\end{figure}
-
 Interesującym aspektem jest porównanie BLE Mesh ze standardową usługą BLE pod względem energetycznym. Rysunek~\ref{rys:power_ble_consumption_comparison}
 wskazuje na różnice pomiędzy dwoma standardami transmisji. Porównując średnie zużycie energii pomiędzy BLE HRT a Mesh, zauważa 
 się ogromne dysproporcje. Mesh wymaga średnio 39.1mW mocy, by funkcjonować. Jest to rząd wielkości więcej aniżeli
 usługa BLE HRT, wymagająca jedynie 1.9mW. Co naturalne, również różnice pomiędzy skrajnymi wartościami pobieranego
-przez urządzenie prądu jest znaczące. Wykorzystując ten sam sprzęt, średni pobierany prąd przez skonfigurowany węzeł Mesh
+przez urządzenie prądu są znaczące. Wykorzystując ten sam sprzęt, średni pobierany prąd przez skonfigurowany węzeł Mesh
 wynosi 11.98mA ze szczytem bliskim 30mA. Dla porównania, usługa BLE HRT konsumuje średnio 0.59mA prądu osiągając
 w~\textit{peak'u} ok. 14mA.
 
@@ -245,6 +244,12 @@ energooszczędnym, głównie zasilanym bateryjnie węzłem jest węzeł typu \te
 wykorzystując przyjacielski węzeł\footnote{z ang. \textit{Friend Node} - węzeł pośredniczący, najczęściej zasilany ze stałego 
 źródła energii służący nasłuchiwaniu, odbieraniu i przechowywaniu danych pochodzących z węzła LPN} 
 do przechowywania jego danych w buforze, tak by były dostępne dla pozostałych elementów w sieci.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.99\linewidth]{power_ble_consumption_comparison_no_led.png} 
+	\caption{Porównanie średniego zużycia energii pomiędzy BT Low Energy HRT i BLE Mesh}
+	\label{rys:power_ble_consumption_comparison}
+\end{figure}
 
 W wykonanym doświadczeniu wykorzystano zwykły, prosty węzeł. Zapewniając niskie opóźnienia w~transmisji danych w~sieci, węzeł ten
 spełnia inne zadania niż urządzenie oparte o~zwyczajne usługi BLE bądź węzeł LPN. Usługę BLE HRT zaprojektowano już na poziomie standardu
