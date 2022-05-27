@@ -88,18 +88,8 @@ określenie jakości PER w zależności od odległości - Rysunek~\ref{rys:two_n
 \end{figure}
 
 Wyżej wymienione odległości stosowano również w przypadku kolejnego badanego parametru, tj. ilości węzłów
-składających się na sieć BLE. W celu łatwej identyfikacji węzłów, wprowadza się następujące nazewnictwo:
-\begin{itemize}
-	\item węzeł bliższy (ang./łac. \textit{proximal node}/\textit{nodus proximalis}) - węzeł będący połączony bezpośrednio
-	ze stacją akwizycji danych i kontroli przepływu eksperymentu. Dodatkowo, węzeł ten udostępnia tryb \textit{Proxy}
-	\footnote{z ang. pośrednik - tryb umożliwiający dostęp do sieci Mesh urządzeniom poprzez odpowiadającą usługę BLE. Umożliwia
-	on m.in. dostęp do sieci i zarządzania nią z poziomu urządzenia nie posiadającego ani nie wspierającego bezpośrednio stos BLE Mesh}
-	\item węzeł środkowy (ang./łac. \textit{intermedial node}/\textit{nodus [inter]medius}) - węzeł działający w trybie
-	przekaźnika (terminologia Mesh: \textit{Relay}). Węzeł ten nie uczestniczy bezpośrednio w badaniach tj. nie są
-	z niego odczytywane jakiekolwiek dane.
-	\item węzeł dalszy (ang./łac. \textit{distal node}/\textit{nodus distalis}) - węzeł zliczający ilość odebranych danych \textit{r},
-	udostępniający jednocześnie usługę umożliwiającą odczyt tych wartości tak jak opisano to w podrozdziale \ref{prep:uc-software}.
-\end{itemize}
+składających się na sieć BLE. W celu łatwej identyfikacji węzłów, wprowadza się właściwe nazewnictwo
+opisane w punkcie~\ref{node-naming-convention}.
 
 Postanowiono o równoodległym rozstawieniu węzłów - Rysunek~\ref{rys:three_nodes_setup}. Dla sieci 3 węzłów,
 maksymalna odległość dzieląca węzeł bliższy od węzła dalszego to 42m. Protokół badawczy zawiera informację 

@@ -15,7 +15,7 @@
  * The purpose of this header is to provide an API to cover Packet Error Rate experiment.
  * The overall experiment is designed as follows:
  *  * appli_test (proximal node): Run periodically Generic OnOff client model (SET-05)
- *  * appli_test: Count the number of issued Generic OnOff requests
+ *  * appli_test: Count the number of sent Generic OnOff requests
  *  * appli_generic_counter (remote node): Count the number of received messages
  *  * appli_vendor (remote node): Publish the number of received messages
  *  * appli_test: Collect the results. Make sure the nodes are close enough to get the results

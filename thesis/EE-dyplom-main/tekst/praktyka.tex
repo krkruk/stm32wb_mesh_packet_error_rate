@@ -102,11 +102,11 @@ programistyczne oraz niezbędne biblioteki i certyfikowany firmware:
 \begin{itemize}
 \item \textbf{STM32CubeIDE} \cite{noauthor_stm32cubeide_2022} - multiplatformowe zintegrowane środowisko programistyczne
 dostarczane przez ST bazujące na otwartoźródłowym środowisko \textit{Eclipse}\footnote{https://www.eclipse.org/ide/}.
-\item \textbf{STM32CubeProgrammer} \cite{noauthor_stm32cubeprog_2022} - narzędzie umożliwiające wykonywanie operacji
+\item \textbf{STM32CubeProgrammer} \cite{noauthor_stm32cubeprog_2022} -- narzędzie umożliwiające wykonywanie operacji
 odczytu, zapisu i weryfikacji skompilowanego oprogramowania produktów STM32. 
-\item \textbf{STM32CubeMonitor-Power} \cite{noauthor_stm32cubemonpwr_2022} - oprogramowanie służące akwizycji danych
+\item \textbf{STM32CubeMonitor-Power} \cite{noauthor_stm32cubemonpwr_2022} -- oprogramowanie służące akwizycji danych
 o zużyciu energii m.in. w zestawie X-NUCLEO-LPM01A Rysunek: \ref{rys:nucleo_lpm01a}.
-\item \textbf{Firmware STM32CubeWB} \cite{noauthor_stm32cubewb_2022} - zestaw bibliotek, narzędzi oraz przykładów
+\item \textbf{Firmware STM32CubeWB} \cite{noauthor_stm32cubewb_2022} -- zestaw bibliotek, narzędzi oraz przykładów
 przeznaczonych dla mikrokontrolerów rodziny STM32WB. W skład tego repozytorium wchodzą zależności takie jak:
 skompilowany, zamknięty firmware ko-processora dla różnych stosów połączeń bezprzewodowych; przykłady programów
 wykorzystujące biblioteki HAL jak i również bezpośrednio rejestry; przykłady BLE; przykłady BLE Mesh.
@@ -122,8 +122,8 @@ Próby terenowe wymagają odrębnego, właściwego zasilania. Wybrane zestawy ur
 wykorzystują ustandaryzowane złącze komunikacyjne USB. Złącze to oprócz komunikacji
 oferuje zasilanie linią +5V. Przeprowadzając właściwe eksperymenty wykorzystano
 komercyjnie dostępne banki energii tzw. powerbanki. Są to akumulatory litowo-jonowe
-lub litowo-polimerowe z wbudowanym systemem zarządzania baterią\footnote{\gls{BMS} - ang. Battery Management System}
-i właściwymi przetwornicami impulsowymi w celu zapewnienia odpowiedniego napięcia zasilania.
+lub litowo-polimerowe z wbudowanym systemem zarządzania baterią\footnote{\gls{BMS} -- ang. Battery Management System}
+i~właściwymi przetwornicami impulsowymi w celu zapewnienia odpowiedniego napięcia zasilania.
 
 Elektronika wbudowane w magazyny energii automatycznie wyłącza zasilanie w przypadku braku
 podłączonego urządzenia lub gdy dane urządzenie pobiera marginalnie niskie wartości
@@ -143,12 +143,12 @@ zaprezentowano na Rysunku~\ref{rys:power_led_consumer}
 	\label{rys:power_led_consumer}
 \end{figure}
 
-\subsubsection{Obudowa - druk 3D}
+\subsubsection{Obudowa -- druk 3D}
 Kolejnym elementem niezbędnym w celu przeprowadzenia eksperymentów terenowych jest zapewnienie
 ochrony mechanicznej wybranych zestawów uruchomieniowych. Podczas prób elementy mogą zostać
 fizycznie uszkodzone poprzez m.in. wyłamanie fragmentu \gls{PCB} (w~tym anteny), uszkodzenie pinów etc.
 
-Wykorzystując techniki projektowania wspomaganego komputerowo\footnote{\gls{CAD} - ang. \textit{Computer-aided Design}},
+Wykorzystując techniki projektowania wspomaganego komputerowo\footnote{\gls{CAD} -- ang. \textit{Computer-aided Design}},
 zaprojektowano autorską obudowę. Głównym celem projektowym było zapewnienie minimalnej ochrony
 mechanicznej, jednocześnie redukując możliwy wpływ materiału na tłumienie sygnału. Elementy
 interfejsu: przyciski i~antena, zostały celowo wyeksponowane. Rzut izometryczny przedstawiony został
@@ -161,8 +161,8 @@ na Rysunku~\ref{rys:obudowa_model3d}.
 	\label{rys:obudowa_model3d}
 \end{figure}
 
-Obudowa wykonana została z materiału \gls{PLA}\footnote{PLA - ang. \textit{Polylactic acid}, polilaktyd} techniką
-druku 3D \gls{FDM}\footnote{FDM - ang. \textit{Fused Deposition Modeling}}/\gls{FFF}\footnote{FFF - \textit{Fused Filament Fabrication}}.
+Obudowa wykonana została z materiału \gls{PLA}\footnote{PLA -- ang. \textit{Polylactic acid}, polilaktyd} techniką
+druku 3D \gls{FDM}\footnote{FDM -- ang. \textit{Fused Deposition Modeling}}/\gls{FFF}\footnote{FFF -- \textit{Fused Filament Fabrication}}.
 Jednobryłowa konstrukcja podyktowana została chęcią uproszczenia wydruku, kosztem zwiększonych trudności
 doboru tolerancji dla umieszczanych wewnątrz płytek \gls{PCB}. Obudowa przewiduje wsuwanie modułu Nucleo
 do wewnątrz, zapewniając jednoczesne pewne jego mocowanie.
@@ -174,7 +174,7 @@ zurbanizowanych. Ostateczne wykonanie obudów zaprezentowano na Rysunku~\ref{rys
 
 \begin{figure}[!htb]
 	\centering \includegraphics[width=0.618\linewidth]{3d_real_cases.png}
-	\caption{Obudowa zestawu uruchomieniowego Nucleo wykonana w technologii druku 3D - realizacja}
+	\caption{Obudowa zestawu uruchomieniowego Nucleo wykonana w technologii druku 3D -- realizacja}
 	\label{rys:obudowa_wykonanie}
 \end{figure}
 
@@ -182,6 +182,341 @@ zurbanizowanych. Ostateczne wykonanie obudów zaprezentowano na Rysunku~\ref{rys
 %% SUBSECTION: Oprogramowanie mikrokontrolera
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Oprogramowanie mikrokontrolera} \label{prep:uc-software}
+
+Oczywistym faktem jest, iż zdefiniowane wcześniej rodzaje doświadczeń wymagają
+odpowiedniego oprogramowania. Zarówno oprogramowania dla mikrokontrolera
+jak i~komputera PC pozwalającego wykonać i nadzorować wybrane eksperymenty.
+Podrozdział ten prezentuje kroki podjęte w celu stworzenia odpowiednich
+programów dla badania poboru zużycia energii i utraty pakietów podczas
+transmisji danych.
+
+Pierwszym krokiem jest wybór odpowiedniego zestawu narzędzi i~frameworka,
+na którym oparte będą wszelkie dalsze pracy. Rozpatrywane były dwa odrębne
+stosy technologiczne: Zephyr OS\footnote{\url{https://www.zephyrproject.org/}} i~natywny dostarczany przez \textit{ST}.
+Zephyr OS, będący systemem operacyjnym czasu rzeczywistego (\textit{RTOS}), jest kompletnym zestawem
+narzędzi i metodologii wytwarzania oprogramowania dla mikrokontrolerów różnych producentów. Możliwość
+przeniesienia kodu na inną platformę z minimalną ilością modyfikacją było opcją nadzwyczaj interesującą.
+Jednakże, pomimo oficjalnego wsparcia mikrokontrolera STM32WB55, nie udało się poprawnie
+zainstalować dostarczanych przykładów na urządzeniu w sposób umożliwiający ich działanie. Stąd zaniechano
+dalszych prób wykorzystania tego systemu operacyjnego w projekcie.
+
+Drugim oczywistym kandydatem jest stos oprogramowania dostarczony przez ST. Jest to niejako
+domyślny wybór. Wybrano więc stos oprogramowania dla mikronkontrolera w wersji v1.13.2, jako
+najnowszy dostępny w chwili rozpoczęcia prac. Zestaw bibliotek i~narzędzi dostarczanych
+przez producenta został wcześniej przez niego przetestowany dając niejako gwarancję spełnienia 
+minimalnych standardów umożliwiających m.in. certyfikację urządzenia jako wspierającego
+BLE i BLE Mesh.
+
+
+Badanie zużycia energii (\ref{experiment:energy-consumption}), wykorzystuje domyślny przykład opracowany przez producenta
+mikrokontrolera. Aplikacja BLE \gls{HRT} wykorzystuje zdefiniowany
+przez Bluetooth SIG profil \textit{HeartRate} publikując regularnie, co sekundę
+odpowiednią wiadomość odbieraną przez odbiornik -- telefon/tablet. Do badań
+konsumpcji wykorzystano niezmodyfikowany przykład.
+
+Doświadczenie \gls{PER} wymaga bardziej wyrafinowanego podejścia, zdefiniowanego z wymaganiami
+metodologii w punkcie~\ref{subsubsec:test-procedure}. Jako podstawę dla kolekcji trzech aplikacji
+wybrano przykład \texttt{BLE\_MeshLightingPRFNode}. Przykład ten wprowadza bezpośrednio
+w~pełny stos BLE Mesh umożliwiając jednocześnie wdrożenie pożądanych modeli Mesh jak
+i~przypisanie węzłom konkretnej funkcji w sieci: Proxy, Relay, Friend \cite{st_an5292_2021}.
+
+Badając właściwości sieci, wprowadza się następujące nazewnictwo węzłów celem łatwiejszej identyfikacji:
+\begin{itemize}\label{node-naming-convention}
+	\item węzeł bliższy (ang./łac. \textit{proximal node}/\textit{nodus proximalis}) -- węzeł będący połączony bezpośrednio
+	ze stacją akwizycji danych i kontroli przepływu eksperymentu. Dodatkowo, węzeł ten udostępnia tryb \textit{Proxy}\footnote{z ang. pośrednik -- tryb umożliwiający dostęp do sieci Mesh urządzeniom poprzez odpowiadającą usługę BLE. Umożliwia
+	on m.in. dostęp do sieci i zarządzania nią z poziomu urządzenia nie posiadającego ani nie wspierającego bezpośrednio stos BLE Mesh}
+	\item węzeł środkowy (ang./łac. \textit{intermedial node}/\textit{nodus [inter]medius}) -- węzeł działający w trybie
+	przekaźnika (terminologia Mesh: \textit{Relay}). Węzeł ten nie uczestniczy bezpośrednio w badaniach tj. nie są
+	z niego odczytywane jakiekolwiek dane.
+	\item węzeł dalszy (ang./łac. \textit{distal node}/\textit{nodus distalis}) -- węzeł zliczający ilość odebranych danych \textit{r},
+	udostępniający jednocześnie usługę umożliwiającą odczyt tych wartości. 
+\end{itemize}
+
+Posiadając trzy węzły, wymagane jest również dostarczenie trzech zestawów oprogramowania dla każdego z nich, w zależności
+od pełnionej funkcji.
+
+\subsubsection{Węzeł bliższy}
+Pierwszy węzeł, węzeł bliższy, odpowiada bezpośrednio za przeprowadzany eksperyment. Jego celem jest wysyłanie właściwych
+pakietów do węzła dalszego z określonymi interwałami. Dodatkowo, służy jako bramka do odbioru liczby mówiącej
+o całkowitej ilości odebranych pakietów. Trzecim zadaniem tego modułu jest zresetowanie licznika z każdą nową iteracją
+badania PER.
+
+\begin{lstlisting}[language=C,
+    caption={Kod uruchamiający sekwencję badawczą PER},
+    label={lst:code_generic_onoff}]
+// plik: appli_test.c
+MOBLE_RESULT Test_ApplicationTest_Set05_GenericOnOff(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
+{
+	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
+	// [...]
+	meshTest.name = OP_NAME_SET05;
+	meshTest.counter = 0;
+	result = test_set05_generic_initialize(src, dst);
+	if (!result)
+	{
+		run_timer(OP_NAME_SET05, test_generic_subscription, src, dst, test_set05_generic);
+		result = MOBLE_RESULT_SUCCESS;
+	}
+	else
+	{
+		TRACE_I(TF_VENDOR_M,"%s Could not initialize the test due to error code=%d \r\n", OP_NAME_SET05, result);
+		result = MOBLE_RESULT_FAIL;
+	} // [...]
+
+	return result;
+}
+\end{lstlisting}
+
+Listing~\ref{lst:code_generic_onoff} przedstawia kod uruchamiający sekwencję badawczą PER. Linie 4-6 inicjalizują niezbędne
+parametry m.in. identyfikujące aktualnie uruchomione doświadczenie. Przypisywana jest wartość zero do licznika inkrementującego
+ilość wysłanych pakietów. Jest to o tyle  konieczne, iż pozwala na bezpośrednie porównanie ilości wysłanych komunikatów do
+ilości odebranych w innym węźle. Linia 8 odpowiada ze wyzerowanie licznika po stronie węzła dalszego. Wysyłany jest odpowiedni
+komunikat wykorzystujący model Vendor'a z id \texttt{APPLI\_TEST\_CMD}. W treści wiadomości wysyłana jest odpowiednia wartość numeryczna
+interpretowana przez węzeł dalszy polecenie zresetowania węzła: \texttt{APPLI\_TEST\_PACKET\_ERROR\_RATE\_COUNTER=0x09U}, jak
+pokazano na listingu~\ref{lst:code-distal-code-reset}.
+W~przypadku, w~którym zresetowanie licznika się powiedzie, dalsza część funkcji przystępuje do uruchomienia timer'a
+w linii 11.
+
+\begin{lstlisting}[language=C,
+    caption={Kod resetujący wartość licznika w węźle dystalnym},
+    label={lst:code-distal-code-reset}]
+// plik: appli_test.c
+MOBLE_RESULT test_set05_generic_initialize(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst)
+{
+	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
+	AppliBuffer[0] = APPLI_TEST_PACKET_ERROR_RATE_COUNTER;
+
+	result = BLEMesh_SetRemotePublication(VENDORMODEL_STMICRO_ID1, src,
+	APPLI_TEST_CMD,
+	AppliBuffer, sizeof(AppliBuffer),
+	MOBLE_TRUE, MOBLE_TRUE);
+
+	if (result)
+	{
+		TRACE_I(TF_VENDOR_M, "%s Could not initialize the test due to error code=%d \r\n", OP_NAME_SET05, result);
+	}
+	return result;
+}
+\end{lstlisting}
+
+Dodatkową uwagę zwrócić na nazewnictwo samych funkcji. Wskazują one numer polecenia (\texttt{Set05}, \texttt{Set06}). Numer ten wykorzystywany
+jest przez \textit{Mesh Serial Gateway} i~interpretowany w sposób umożliwiający uruchomienie opisywanej funkcji. 
+Nie jest to ścisłe wymaganie a raczej konwencja, kontrakt wprowadzony przez ST dla danego pliku. Niemniej jednak, pozwala
+ona w jasny i~czytelny sposób zidentyfikować polecenie i odpowiadające polecenie \gls{AT} (zbliżone do poleceń AT). Opis
+działania interfejsu PC-STM32WB55 znajduje się poniżej \ref{mesh:serial-gateway}.
+
+\subsubsection{Timer}
+Timer odpowiada za regularne wykonywanie zdefiniowanej funkcji podanej jako wskaźnik do funkcji jako ostatni argument. Odpowiada
+on za główny przepływ badania interpretując zebrane parametry doświadczenia i~je wykonując. Kod oparto o interfejs programistyczny
+dostarczony przez ST~\cite{stmicroelectronics_an5289_2021}\footnote{rozdział \textit{4.5 Timer server}}.
+
+\begin{lstlisting}[language=C,
+    caption={Funkcja aktywująca timer},
+    label={lst:timer_activation_function}]
+// plik: appli_test.c; Usunieto linie logujace przeplyw TRACE_I
+static void run_timer(char const *setName, MeshTest_t subscriptionType, MOBLE_ADDRESS src ,MOBLE_ADDRESS dst, void (*callback)(void) ) {
+	MOBLEUINT16 triggerInterval;
+	MOBLEUINT32 killAfterTimeout;
+
+	triggerInterval = timerTriggerInterval;
+	killAfterTimeout = Totaltest;
+
+	HW_TS_Create(subscriptionType, &(meshTest.timer_subscription_id), hw_ts_Repeated, callback);
+	HW_TS_Create(test_kill_subscription, &(meshTest.timer_kill_subscription_id), hw_ts_SingleShot, kill_subscription);
+
+	meshTest.startTimestamp = HAL_GetTick();
+	HW_TS_Start(meshTest.timer_subscription_id, triggerInterval);
+	HW_TS_Start(meshTest.timer_kill_subscription_id, killAfterTimeout);
+}
+\end{lstlisting}
+
+Listing~\ref{lst:timer_activation_function} przedstawia wdrożony kod uruchamiający timer. Najistotniejszym parametrem funkcji jest
+wskaźnik do funkcji umożliwiający uruchomienie kodu w odpowiedzi na zdarzenie (\textit{callback}). Linie 6-7 przypisują
+wartości kolejno interwału z którym periodycznie ma być uruchamiany \textit{callback} oraz wartość po której upłynięciu
+timer zostanie wyłączone. Obie te zmienne są typu logicznego tick. Podawane w nich są wartości tick'nięć procesora aniżeli
+milisekundy. Przed przypisaniem wartości należy przekonwertować milisekundy do ticknięć w zależności od konfiguracji
+zegara RTC mikrokontrolera. Zagadnienie to stanowiło problem na etapie tworzenia procedury badawczej. Ostatecznie zdecydowano
+się na wprowadzenie pojęcia kalibracji, w której eksperymentalnie wyznaczono wartości ticków względem oczekiwanej długości
+okresu czasu. Logika takiego procesu opisana została w~punkcie dotyczącym oprogramowania PC~\ref{prep:pc-software}.
+
+Linie 9-10, rejestrują wybrane funkcje (poprzez wskaźniki do funkcji) do wewnątrz silnika timera dostarczanego przez ST.
+Linijki 12-13 kolejno uruchamiają timer. Dzięki temu wprowadzono substytut wielowątkowości wykonując wiele procesów (tutaj: funkcji)
+pozornie jednocześnie bądź w ustalonej sekwencji. Rezultatem działania tego kodu jest periodyczne uruchamianie
+funkcji \textit{callback} oraz jej zamknięcie po ustalonym czasie.
+
+Opierając się na inżynierii wstecznej, znaleziono współczynnik, przeliczający wartości milisekund do ticków:
+
+\begin{lstlisting}[language=C,
+    caption={Ścieżka inżynierii wstecznej w celu znalezienia współczynnika umożliwiającego konwersję milisekund do ticków},
+    label={lst:millis-to-tick-reverse-engineering}]
+// plik: stm32wbxx_hal_conf.h
+#define LSE_VALUE  ((uint32_t)32768) /*!< Value of the External oscillator in Hz*/
+
+// plik app_common.h
+#define DIVR( x, y )  (((x)+((y)/2))/(y))
+
+// plik app_conf.h
+#define CFG_RTCCLK_DIV  (16)
+#define CFG_TS_TICK_VAL  DIVR( (CFG_RTCCLK_DIV * 1000000), LSE_VALUE )
+
+// plik app_ble.c - przyklad uzycia
+#define INITIAL_ADV_TIMEOUT  (60*1000*1000/CFG_TS_TICK_VAL) /**< 60s */
+\end{lstlisting}
+
+Zgodnie z listingiem~\ref{lst:millis-to-tick-reverse-engineering}, ostateczna wartość współczynnika \texttt{CFG\_TS\_TICK\_VAL}
+wynosi $488.78125$. Wyliczone wartości ticknięć z~ich eksperymentalnie wyznaczonymi odpowiednikami zaprezentowano w tabeli
+\ref{tab:calibration_vs_computation}.
+
+\subsubsection{Węzeł środkowy}
+
+Kod węzła środkowego uległ najmniejszym zmianom względem pierwowzoru. Dokonano jedynie zmiany w~konfiguracji przykładu
+uruchamiając tryb przekaźnikowy \textit{Relay}, co ukazano na listingu~\ref{lst:config-of-intermediate-node}.
+
+\begin{lstlisting}[language=C,
+    caption={Konfiguracja węzła środkowego},
+    label={lst:config-of-intermediate-node}]
+/*
+*  Different features supported by BLE-Mesh. Uncomment according to application.
+*      Low power feature enabled node do not support other features. 
+*      Do not define any other feature if Low Power feature is defined
+*/
+#define ENABLE_RELAY_FEATURE
+//#define ENABLE_PROXY_FEATURE
+//#define ENABLE_FRIEND_FEATURE
+//#define ENABLE_LOW_POWER_FEATURE
+//#define ENABLE_PROVISIONER_FEATURE
+//#define DYNAMIC_PROVISIONER
+\end{lstlisting}
+
+\subsubsection{Węzeł dalszy}
+
+Oprogramowanie węzła dalszego stworzono komplementarnie do węzła bliższego. Zapewnia ono dwie główne funkcjonalności:
+zliczanie odebranych pakietów na poziomie Generic OnOff oraz możliwość odczytu i resetu tegoż licznika. Podstawowy interfejs do 
+powyższych funkcjonalności zdefiniowano w pliku \texttt{appli\_generic\_counter.h} - listing~\ref{lst:per-interface-distal-node}
+wraz z opisem przepływu wiadomości z perspektywy plików i fizycznych węzłów.
+
+Linia 19 definiuje interejs inicjalizacyjny doświadczenia PER. Zgodnie z wcześniejszym opisem węzła bliższego,
+ta funkcja aktywowana jest w odpowiedzi na żądanie wyzerowania licznika. Linia 20 reprezentuje funkcję,
+która pobiera wartość licznika ze struktury zdefinowanej w liniach 15-17, którą zrealizowano już wewnątrz
+pliku odpowiedzialnego za obsługę modelu \textit{Generic OnOff}: \texttt{appli\_generic\_client.h}.
+
+\begin{lstlisting}[language=C,
+    caption={Interfejs eksperymentu PER dla węzła dalszego},
+    label={lst:per-interface-distal-node}]
+#define ENABLE_LED_BLINKING
+
+/*
+* The purpose of this header is to provide an API to cover Packet Error Rate experiment.
+* The overall experiment is designed as follows:
+*  * appli_test (proximal node): Run periodically Generic OnOff client model (SET-05)
+*  * appli_test: Count the number of sent Generic OnOff requests
+*  * appli_generic_counter (remote node): Count the number of received messages
+*  * appli_vendor (remote node): Publish the number of received messages
+*  * appli_test: Collect the results. Make sure the nodes are close enough to get the results
+*
+*  Externally, plot the data.
+*/
+
+typedef struct {
+MOBLEUINT32 counter;
+} GenericOnOffCounter_t;
+
+void generic_onoff_counter_initialize();
+MOBLEUINT32 generic_onoff_counter();
+\end{lstlisting}
+
+Listing~\ref{lst:increment-counter} prezentuje wycinek kodu zliczającego ilość odebranych komunikatów. 
+\texttt{Appli\_Generic\_OnOff\_Set} jest funkcją odpowiadającą na zdarzenie zarejestrowaną stosie technologicznym
+BLE Mesh producenta. Uruchamiana jest ona za każdym razem gdy otrzymywane jest polecenie zgodne
+z~modelem zdefiniowanym przez Bluetooth SIG. Najistotniejszą linią jest linia 20, która bezpośrednio
+odpowiada za logowanie i inkrementację licznika. Istotna jest również instrukcja warunkowa
+otaczająca opisywane wywołanie funkcji. Uniemożliwia inkrementację licznika skutek odbioru
+wiadomości rozgłoszeniowej. Od użytkownika oczekuje się podanie rzeczywistego adresu węzła
+zarejestrowanego wewnątrz sieci Mesh.
+
+Linie 24-33 wykonują polecenie włączania i wyłączania \gls{LED}. Funkcjonalność ta otoczona jest
+dyrektywami sprawdzające istnienie zdefinowanej nazwy. Służy to celu włączeniu i wyłączeniu
+opcji aktywacji diody w celu ograniczenia zużycia energii. Fakt ten wykorzystywany jest
+w badaniu zużycia energii~\ref{experiment:energy-consumption}.
+
+
+\begin{lstlisting}[language=C,
+    caption={Inkrementacja licznika realizowana jest poprzez dostosowanie funkcji odpowiadającej na zdarzenie},
+    label={lst:increment-counter}]
+/**
+* @brief  Appli_Generic_OnOff_Set: This function is callback for Application
+*          when Generic OnOff message is received
+* @param  pGeneric_OnOffParam: Pointer to the parameters received for message
+* @param  OptionalValid: Flag to inform about the validity of optional parameters 
+* @param  dstPeer: destination send by peer for this node. It can be a
+*                     unicast or group address 
+* @param  elementIndex: index of the element received from peer for this node which
+*                     is elementNumber-1
+* @retval MOBLE_RESULT
+*/ 
+MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam, 
+			MOBLEUINT8 OptionalValid,
+			MOBLEUINT16 dstPeer,
+			MOBLEUINT8 elementIndex) {
+	// [...]
+	if(AppliOnOffSet[elementIndex].Present_OnOffValue 
+		== AppliOnOffSet[elementIndex].TargetValue)
+	{
+		if (dstPeer != 0xc000) {
+			increment_generic_onoff_counter_packet_error_rate_experiment(
+				AppliOnOffSet[elementIndex].Present_OnOffValue, dstPeer);
+		}
+#ifdef ENABLE_LED_BLINKING
+		if(AppliOnOffSet[elementIndex].Present_OnOffValue > 0)
+		{
+			BSP_LED_On(LED_BLUE);
+		}
+		else
+		{
+			BSP_LED_Off(LED_BLUE);
+		}
+#endif /* ENABLE_LED_BLINKING */
+	}
+	// [...]
+\end{lstlisting}
+
+\subsubsection{Mesh Serial Gateway}\label{mesh:serial-gateway}
+Komunikację na linii węzła bliższego zrealizowano z pomocą autorskiego rozwiązania ST: Mesh Serial Gateway~\cite{st_an5292_2021}.
+Rozwiązanie to wykorzystuje komunikację szeregową \gls{UART} do wysyłania i odbierania komunikatów sterujących.
+Zgodnie z dokumentacją, polecenie takie może przyjąć postać jak prezentowaną na rysunku~\ref{an5292_atcl_command}, wysyłając do węzła $0009$
+polecenie aktywujące funkcję \texttt{Appli\_Generic\_OnOff\_Set} i ustawiając wartość na $1$. Innymi słowy, dioda zaświeci
+się, o ile wcześniej była nieaktywna.
+
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.99\linewidth]{an5292_atcl_command.png}
+	\caption{Wykorzystanie interfejsu szeregowego do wysyłania poleceń. Źródło:~\cite{st_an5292_2021}}
+	\label{an5292_atcl_command}
+\end{figure}
+
+W analogiczny sposób steruje się poleceniami niezbędnymi do eksperymentum, jak to ukazano na listingu~\ref{lst:at-command}.
+\begin{lstlisting}[
+    caption={Przykładowe polecenie Mesh Serial Gateway},
+    label={lst:at-command}]
+ATAP SET-nn iiiiTTTTTT src dst
+
+przyklad:
+ATAP SET-05 0a6400009c40 03 05
+\end{lstlisting}
+
+\begin{description}
+\item [ATAP] - polecenie testowe
+\item [SET-nn] - polecenie typu SET dla funkcji numeru nn, np. SET-05
+\item [iiii] - interwał, częstość zapytań wyrażony w tickach; Wartość 16-bitowa
+\item [TTTTT] - czas po którym należy przerwać badanie wyrażone w tickach; Wartość 32-bitowa
+\item [src] - adres źródłowego węzła (najczęściej węzła bliższego)
+\item [dst] - adres węzła docelowego (najczęściej węzła dalszego)
+\end{description}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUBSECTION: Oprogramowanie PC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Oprogramowanie PC} \label{prep:pc-software}
 
 \begin{table}[!ht]
 \centering
@@ -196,49 +531,12 @@ zurbanizowanych. Ostateczne wykonanie obudów zaprezentowano na Rysunku~\ref{rys
 \caption{\label{tab:calibration_vs_computation}Zebrane empirycznie współczynniki kalibracyjne w porównaniu z~wartościami obliczonymi}
 \end{table}
 
-
-\begin{lstlisting}[language=C,
-    caption={Testowy kod C},
-    label={lst:kod cpp}]
-MOBLE_RESULT Appli_Generic_OnOff_Set(Generic_OnOffStatus_t* pGeneric_OnOffParam, 
-                                     MOBLEUINT8 OptionalValid,
-                                     MOBLEUINT16 dstPeer,
-                                     MOBLEUINT8 elementIndex)
-{
-  /* LED control only for main element */
-  if(elementIndex == GENERIC_SERVER_MAIN_ELEMENT_INDEX)
-  {
-  // [...]
-      if(AppliOnOffSet[elementIndex].Present_OnOffValue == AppliOnOffSet[elementIndex].TargetValue)
-      {
-    	if (dstPeer != 0xc000) {
-    	   increment_generic_onoff_counter_packet_error_rate_experiment(AppliOnOffSet[elementIndex].Present_OnOffValue, dstPeer);
-    	}
-        if(AppliOnOffSet[elementIndex].Present_OnOffValue > 0)
-        {
-          BSP_LED_On(LED_BLUE);
-        }
-        else
-        {
-          BSP_LED_Off(LED_BLUE);
-        }
-      }
-    }  
-  // [...]
-\end{lstlisting}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SUBSECTION: Oprogramowanie PC
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Oprogramowanie PC} \label{prep:pc-software}
-
-
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SECTION: Zużycie energii
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-\section{Zużycie energii}
+\section{Zużycie energii}\label{experiment:energy-consumption}
 Celem niniejszego podrozdziału jest omówienie empirycznej weryfikacji
 zużycia energii przez wybrany zestaw uruchomieniowy \gls{BLE}.
 
@@ -259,7 +557,7 @@ na właściwe tryby działania i~całkowite zużycie energii.
 %% SECTION: Packet Error Rate
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-\section{Packet Error Rate}
+\section{Packet Error Rate}\label{experiment:per}
 
 Celem niniejszego podrozdziału jest omówienie przeprowadzonego eksperymentu \gls{PER}. Omówiona zostanie
 metodologia badań. Zdefiniowany zostanie termin \textit{pakietu}, który stanowi podstawę dla
