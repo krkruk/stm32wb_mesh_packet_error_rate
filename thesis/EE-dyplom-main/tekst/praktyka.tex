@@ -235,7 +235,7 @@ Badając właściwości sieci, wprowadza się następujące nazewnictwo węzłó
 Posiadając trzy węzły, wymagane jest również dostarczenie trzech zestawów oprogramowania dla każdego z nich, w zależności
 od pełnionej funkcji.
 
-\subsubsection{Węzeł bliższy}
+\subsubsection{Węzeł bliższy}\label{sec:proximal-node}
 Pierwszy węzeł, węzeł bliższy, odpowiada bezpośrednio za przeprowadzany eksperyment. Jego celem jest wysyłanie właściwych
 pakietów do węzła dalszego z określonymi interwałami. Dodatkowo, służy jako bramka do odbioru liczby mówiącej
 o całkowitej ilości odebranych pakietów. Trzecim zadaniem tego modułu jest zresetowanie licznika z każdą nową iteracją
@@ -305,7 +305,7 @@ Nie jest to ścisłe wymaganie a raczej konwencja, kontrakt wprowadzony przez ST
 ona w jasny i~czytelny sposób zidentyfikować polecenie i odpowiadające polecenie \gls{AT} (zbliżone do poleceń AT). Opis
 działania interfejsu PC-STM32WB55 znajduje się poniżej \ref{mesh:serial-gateway}.
 
-\subsubsection{Timer}
+\subsubsection{Timer}\label{sec:timer}
 Timer odpowiada za regularne wykonywanie zdefiniowanej funkcji podanej jako wskaźnik do funkcji jako ostatni argument. Odpowiada
 on za główny przepływ badania interpretując zebrane parametry doświadczenia i~je wykonując. Kod oparto o interfejs programistyczny
 dostarczony przez ST~\cite{stmicroelectronics_an5289_2021}\footnote{rozdział \textit{4.5 Timer server}}.
@@ -365,7 +365,32 @@ Opierając się na inżynierii wstecznej, znaleziono współczynnik, przeliczaj�
 
 Zgodnie z listingiem~\ref{lst:millis-to-tick-reverse-engineering}, ostateczna wartość współczynnika \texttt{CFG\_TS\_TICK\_VAL}
 wynosi $488.78125$. Wyliczone wartości ticknięć z~ich eksperymentalnie wyznaczonymi odpowiednikami zaprezentowano w tabeli
-\ref{tab:calibration_vs_computation}.
+\ref{tab:calibration_vs_computation}. Proces ten, zwany dalej kalibracją, oparty został o dodatkową procedurę zaprezentowaną
+na listingu~\ref{lst:calibration_rtc}.
+
+
+\begin{lstlisting}[language=C,
+    caption={Kalibracja mikrokontrolera -- polecenie kalibracyjne},
+    label={lst:calibration_rtc}]
+// plik: appli_test.c
+MOBLE_RESULT Test_ApplicationTest_Set06_CalibrateTimer(MOBLE_ADDRESS src ,MOBLE_ADDRESS dst) {
+	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
+	if (TestCount != 0 && TestCount > timerTriggerInterval) {
+	meshTest.name = OP_NAME_SET06;
+	meshTest.counter = 0;
+	run_timer(OP_NAME_SET06, test_generic_subscription, src, dst, test_set06_calibrate_timer);
+	}
+	TestNumber = 0; // kill command
+	command = CMD_TYPE_NONE;
+	return result;
+}
+\end{lstlisting}
+
+Przedstawione polecenie kalibracji wykorzystuje jedynie węzeł bliższy, który odpowiada za przeprowadzenie
+wykonanie przepływu doświadczenia. Usługa ta umożliwia wykonanie akcji kalibracyjnej \texttt{test\_set06\_calibrate\_timer}
+polegającej na inkrementacji licznika. Bazując na ostatecznej wartości licznika przy znanym określonym czasie
+wykonywania, można wyznaczyć arytmetycznie ostateczną wartość ticków do milisekund. Fakt ten wykorzystywany
+jest przez aplikację PC i tam zostaje bliżej opisany.
 
 \subsubsection{Węzeł środkowy}
 
@@ -518,6 +543,113 @@ ATAP SET-05 0a6400009c40 03 05
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Oprogramowanie PC} \label{prep:pc-software}
 
+Głównym zadaniem oprogramowania PC jest udostępnienie prostego interfejsu
+użytkownika umożliwiającego swobodne przeprowadzenie badań, w szczególności PER. 
+Stworzenie takie programu umożliwia nie tylko szybsze wykonanie doświadczeń, co
+redukuje błędy możliwe do popełnienia podczas ręcznego wprowadzania komend AT.
+
+Aplikacja realizuje trzy główne cele: 
+\begin{itemize}
+\item Ustanawia połączenie z mikrokontrolerem przy użyciu portu szeregowego
+\item Umożliwia kalibrację podstawy mikrokontrolera czasu względem ticknięć 
+\item Umożliwia wykonanie poleceń uruchamiających cykl badań PER i odbiór wartości
+zliczeń z węzła dystalnego
+\end{itemize}
+
+Oprogramowanie wykonano z wykorzystaniem frameworka Qt5\footnote{\url{https://www.qt.io/}}.
+Umożliwia on tworzenie kompletnych wieloplatformowych aplikacji graficznych. Qt nie
+ogranicza się jedynie do zapewnienia bibliotek graficznych. Framework zapewnia
+dostęp z poziomu \gls{API} do urządzeń i peryferiów takich jak drukarki,
+gamepady, gniazda TCP/IP, stosu Bluetooth (w tym BLE) jak i również,
+co jest istotne z punktu widzenia niniejszej pracy, portu szeregowego.
+
+Qt zapewnia kilka możliwości tworzenia GUI wykorzystując tyko kod w języku \textit{C++}
+lub rozdzielając część widzialną od części biznesowej z pomocą generatora interfejsu
+Qt Designer produkujący odpowiedni plik \gls{XML} bądź \textit{QML}. QML jest językiem
+deklaratywnym opisujący pożądany efekt graficzny. Do silnika tego narzędzia należy
+interpretacja i wygenerowanie właściwego efektu. Język ten rozszerza możliwości
+klasycznego wydania frameworka umożliwiając tworzenie dynamicznych, nowoczesnych 
+interfejsów użytkownika działających niezależnie od platformy.
+
+\subsubsection{Port szeregowy}
+Aplikację oparto o połączenie części biznesowej tworzonej w~C++ oraz interfejsie
+użytkownika stworzonego w QML. Pierwszym, niezbędnym elementem jest zapewnienie
+stabilnej komunikacji z użyciem portu szeregowego\footnote{\url{https://doc.qt.io/qt-5/qserialport.html}}.
+Aplikacja wpierw wyszukuje listę portów w danym systemie operacyjnym i prezentuje ją
+w przystępny dla użytkownika sposób -- Rysunek~\ref{app_device_selector}.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{app_device_selector.png}
+	\caption{Selektor portów szeregowych w aplikacji służącej eksperymentowi PER.}
+	\label{app_device_selector}
+\end{figure}
+
+
+\subsubsection{Kalibracja}
+Kolejnym elementem wymaganym przez chęć przeprowadzenia badania jest zapewnienie
+właściwej podstawy czasu. Wykorzystywany timer (jak został opisany w punkcie \ref{sec:timer})
+wymaga sprecyzowania wartości podanej w tick'ach. Zauważając potencjalny problem
+z matematycznym wyznaczeniem odpowiedniego mapowania z milisekund do ticków
+zdecydowano się na stworzenie empirycznego sposobu na wyznaczenie tej wartości.
+
+Kalibracja urządzenia polega na odnalezieniu wartości ticków przypadającą na pożądany okres
+wyrażony w milisekundach. Usługa obsługująca taką operację przedstawiona została
+na listing'u~\ref{lst:calibration_rtc}. Zadaniem aplikacji PC jest jej wielokrotne
+wykorzystanie celem wyznaczenia ostatecznej wartości.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{app_calibration.png}
+	\caption{Selektor portów szeregowych w aplikacji służącej eksperymentowi PER.}
+	\label{app_calibration}
+\end{figure}
+
+Algorytm działania jest następujący. Dla oczekiwanej wartości wyrażonej w milisekundach,
+wykonuje się pierwsze polecenie kalibracyjne zakładając fałszywie, iż milisekundy
+równe są ilości ticków. Aplikacja, nasłuchuje przychodzące komunikaty w~formacie JSON
+poszukując słowa kluczowego \textit{status}. Do każdego zliczonego komunikatu,
+aplikacja przechowuje dodatkowo znacznik czasu. Takie wiadomości akumulowane są 
+w pamięci do momentu otrzymania innego słowa kluczowego: \enquote{not\_running}. W tym momencie,
+aplikacja wylicza różnicę między przyległymi znacznikami czasowymi (efektywnie je różniczkując
+w~liniach 4-9 listingu~\ref{lst:calibration-cpp}). Następnie, wyliczana jest
+średnia różnica pomiędzy poszczególnymi okresami, w których otrzymano odpowiedź 
+z~mikrokontrolera -- linia 15.
+
+\begin{lstlisting}[language=C,
+    caption={Algorytm wyznaczania kolejnej wartości dla funkcjonalności kalibracji},
+    label={lst:calibration-cpp}]
+// plik calibratecommand.cpp
+std::pair<uint16_t, double> CalibrateCommand::computeNewInterval() {
+	QVector<qint64> timestampDiffs;
+	std::transform(std::cbegin(timestamps), std::cend(timestamps),
+		std::back_inserter(timestampDiffs),
+		[] (const QDateTime &timestamp) -> long { return timestamp.toMSecsSinceEpoch(); });
+
+	std::adjacent_difference(std::begin(timestampDiffs), std::end(timestampDiffs), std::begin(timestampDiffs));
+	timestampDiffs.removeFirst();
+
+	qint64 sum = 0;
+	for (qint64 elem : qAsConst(timestampDiffs)) {
+		sum += elem;
+	}
+	double meanTimestampDiff = sum / static_cast<double>(timestampDiffs.size());
+	double accuracy = abs((meanTimestampDiff - expectedIntervalMs) / static_cast<double>(expectedIntervalMs));
+	double interval = currentIntervalTicks + currentIntervalTicks * accuracy; // this isn't stable if we overshoot the correct value...
+
+	return std::make_pair(interval, abs(accuracy));
+}
+\end{lstlisting}
+
+
+Ostatnim krokiem jest wyliczenie procentowej różnicy pomiędzy obecnie wyliczoną wartością
+a oczekiwaną wartością wyrażoną w milisekundach -- linia 16. Ostatecznie, wylicza się
+nową, estymowaną wartość kolejnej iteracji zgodnie z zależnością liniową podaną w linii 17.
+
+Kalibracja zatrzyma się automatycznie, gdy osiągnięta zostanie zbieżność na poziomie poniżej
+jednego procenta różnicy. Algorytm jest wrażliwy na \enquote{\textit{przestrzelenie}} kalibrowanej
+wartości. Jego jakość jest jednak na tyle wystarczająca, iż ostatecznie umożliwił wyznaczenie
+wartości, które są zbieżne z obliczeniami teoretycznymi, co pokazuje tabela~\ref{tab:calibration_vs_computation}.
+Możliwym usprawnieniem byłoby zastosowanie metody analogicznej do bisekcji.
+
 \begin{table}[!ht]
 \centering
 	\begin{tabular}{r|r|r|r}
@@ -528,8 +660,36 @@ ATAP SET-05 0a6400009c40 03 05
 	1300              & 2661                & 2659.68           & 0.05         \\\hline
 	2100              & 4299                & 4296.40           & 0.06         \\\hline
 	\end{tabular}
-\caption{\label{tab:calibration_vs_computation}Zebrane empirycznie współczynniki kalibracyjne w porównaniu z~wartościami obliczonymi}
+\caption{\label{tab:calibration_vs_computation}Zebrane empirycznie współczynniki kalibracyjne w~porównaniu z~wartościami obliczonymi}
 \end{table}
+
+\subsubsection{Badanie PER i odczyt wyników}
+Głównym zadaniem aplikacji jest oczywiście przeprowadzenie doświadczenia PER. W~tym celu
+stworzono wygodny interfejs do m.in. funkcji opisywanej w punkcie~\ref{sec:proximal-node}.
+Aplikacja wymaga od użytkownika podania adresu (od lewej): węzła bliższego oraz
+węzła dalszego. W~rzędzie poniżej znajdują kontenery z~dwoma funkcjami w~danej zakładce:
+właściwy test PER oraz odbiór wartości z węzła zewnętrznego -- Rysunek~\ref{app_per_measurement}.
+ 
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{app_per_measurement.png}
+	\caption{Właściwy interfejs użytkownika do przeprowadzenia doświadczenia PER}
+	\label{app_per_measurement}
+\end{figure}
+
+Eksperymentator, w celu przeprowadzenia doświadczenia, zobowiązany jest podać
+czas w~milisekundach po którym zakończy się badanie. Czas badania powinien być dostatecznie
+długi, by błędy inicjalizacji, czy konwersji milisekund to ticków nie miały znacznego wpływu
+na otrzymany rezultat. Drugi parametr to interwał odpytywania. Aplikacja przechowuje
+wyniki kalibracyjne\footnote{wykorzystując możliwości \href{https://doc.qt.io/qt-5/qsettings.html}{\textit{QSettings}}
+dane przechowywane są trwale na dysku. W zależności od systemu albo w rejestrze (Windows),
+albo w pliku \texttt{~/.config/Warsaw University of Technology/STM32WB Packet Error Rate Experiment.conf} (*nix)},
+by je wykorzystać właśnie w tym miejscu. Przyśpiesza to procedurę badawczą, a przede wszystkim
+zmniejsza ryzyko błędu. Ostatnim elementem jest przycisk \enquote{Run}, który uruchamia procedurę
+badawczą. Ekran aplikacji zostanie zablokowany na czas badania.
+
+Analogicznie należy postąpić w~przypadku odczytywania licznika z węzła dalszego. Użytkownik
+zobowiązany jest kliknąć przycisk \enquote{Run} w kontenerze \enquote{\textit{Get Remote Results}}.
+
 
 %%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

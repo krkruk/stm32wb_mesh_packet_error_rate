@@ -35,7 +35,7 @@ void RunPacketErrorRateCommand::initialize(uint16_t srcAddr, uint16_t dstAddr, u
      * dst - dst, here 0x00 as the command is launched locally
      */
 
-    uint64_t timings = timeout * 2;
+    uint64_t timings = timeout * 1000.0f / 488.78125f;  // based on CFG_TS_TICK_VAL found in STM32 firmware
     timings |= static_cast<uint64_t>(intervalMs) << 32;
 
     qDebug() << "src=" << srcAddr << "dst=" << dstAddr;
