@@ -1,3 +1,5 @@
+\lipsum[1-4]
+
 \section{ZigBee}
 
 ZigBee jest standardem transmisji bezprzewodowej zapewniający niskokosztową platformą
@@ -78,11 +80,77 @@ się przede wszystkim profile publiczne zdefiniowane przez ZigBee Alliance. Pos
 również opracować własnościowe, zamknięte struktury do tworzenia wewnętrznych sieci, gdzie kompatybilność pomiędzy
 urządzeniami wielu producentów nie jest wymagana~\cite{zigbee_alliance_zigbee_2017, stmicroelectronics_an5506_2020, zigbee_alliance_zigbee_2017}.
 
-\section{OpenThread}
-\lipsum[1-10]
+\section{Thread}
+Thread jest protokół to do zastosowań \gls{IoT} mający swe podstawy w standardzie IEEE 802.15.4.
+Umożliwia on tworzenie rozwiązań o niskim zużyciu energii, przy jednoczesnej koncentracji na bezpieczeństwie opierając
+adresację o powszechnie znany IPv6. Wybór IPv6 zapewnia płynną integrację z~powszechną infrastrukturą
+i~Internetem włącznie. Rozwiązanie jest przez to elastyczne i~mniej podatne na starzenie się technologii.
+Same natomiast produkty oparte o~Thread mogą być wdrożone na rynek szybciej dzięki powszechności
+internetowych narzędzi deweloperskich. Pierwsza wersja specyfikacji została udostępniona
+w 2014 roku i~pozostaje rozwijana do dziś~\cite{noauthor_thread_nodate}.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{thread_stack_overview_ug10311.png}
+	\caption{Stos Thread i odpowiadające mu specyfikacje RFC/IEEE. Źródło:~\cite{silicon_laboratories_ug10311_2022}}
+	\label{rys:thread_stack_overview_ug10311}
+\end{figure}
+
+Thread wykorzystuje standard IEEE 802.15.4. Transmisja danych odbywa się na częstotliwości $2.4GHz$ z przepustowością
+do 250~kbps. Protokół jest zoptymalizowany do wykorzystywania dużej liczby węzłów wchodzących w skład sieci~\cite{silicon_laboratories_ug10311_2022}.
+Celem organizacji sieci w~spójny zbiór fizycznych i~logicznych obiektów, standard wprowadza następującą nomenklaturę.
+Rolą węzła typu router jest przekazywanie pakietów w sieci oraz nadzorowanie dostępu do sieci, podczas gdy radio
+takiego urządzenia ciągle jest w aktywne. \gls{ED} jest urządzeniem przeważnie komunikującym się z~jednym
+routerem będącym jego rodzicem, nie przekazuje pakietów dla innych sieci i~możliwością deaktywacji radia
+celem ograniczenia zużycia energii. Dodatkowo, definiuje się następujące typy urządzeń:
+\begin{itemize}
+\item \gls{FTD} -- urządzenie posiadające ciągle włączone radio, mapujące adresację IPv6
+	\begin{itemize}
+	\item Router
+	\item \gls{REED} -- urządzenie, które można wykorzystywać jako router
+	\item \gls{FED} -- urządzenie, którego nie można wykorzystywać jako router
+	\end{itemize}
+\item \gls{MTD} urządzenie przekazujące komunikaty do rodzica.
+	\begin{itemize}
+	\item \gls{MED} -- urządzenie, którego radioodbiornik zawsze pozostaje włączony. Nie wymaga periodycznego
+	pobierania wiadomości z urządzenia-rodzica
+	\item \gls{SED} -- urządzenie wzbudzające radioodbiornik okazjonalnie celem pobrania wiadomości.
+	\end{itemize}
+\end{itemize}
+Standard przewiduje dodatkowe typy jak Thread Leader, będący dynamicznie i automatycznie wybieranym węzłem
+zarządzający pozostałymi Router'ami w sieci. Border Router (router brzegowy) służy za bramkę
+konwertujący komunikaty przesyłane wewnątrz sieci Thread do sieci zewnętrznych takich jak Internet~\cite{noauthor_node_2022}.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{thread_topology_devices_threadgroup.png}
+	\caption{Podstawowa topologia sieci Thread wraz z urządzeniami. Źródło:~\cite{thread_group_thread_2020}}
+	\label{rys:thread_topology_devices_threadgroup}
+\end{figure}
+
+Dane w sieci przesyłane są w oparciu o~standard \textit{6LoWPAN}\footnote{IPv6 Over Low Power Wireless Personal Networks}.
+Protokół ten został zoptymalizowany w ten sposób, by wysyłać maksymalną możliwą ilość danych z użyciem jednego
+pakietu celem minimalizacji fragmentacji pakietów, redukując tym samym narzut na CPU i~zużycie energii.
+Thread umożliwia stosowanie również protokołów znanych z sieci opartych o model TCP/IP. Tak więc
+standard ten obsługuje m.in. \gls{ICMP}, \gls{UDP}, \gls{TCP}. Topologia tym samym również zależy od ilości
+węzłów typu router, tworząc albo sieć gwiazdy, albo mesh. Thread obsługuje do 32-óch routerów, gdzie każdy
+z~nich może obsłużyć do 511 \gls{ED}. Routing odbywa się na zasadach znanych z~\gls{IP}
+wykorzystując w tym celu protokół zbliżony do \gls{RIP}, będący zoptymalizowany do wymagań
+IoT pod względem zużycia energii~\cite{silicon_laboratories_ug10311_2022}.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{thread_iso_comparison_ug10311.png}
+	\caption{Thread w zestawieniu z modelem OSI. Źródło:~\cite{silicon_laboratories_ug10311_2022}}
+	\label{rys:thread_iso_comparison_ug10311}
+\end{figure}
+
+Thread będący otwartym standardem może zostać wdrożony przez producenta samodzielnie bądź wybrać stos otwartoźródłowy --~\ref{rys:thread_iso_comparison_ug10311}.
+Jednym z takich stosów jest OpenThread\footnote{\url{https://openthread.io/}} będący opracowany przez firmę Google.
+
+Co warto dodać, Thread nie definiuje formatu danych jaki jest wysyłany pomiędzy węzłami. Innymi słowy,
+warstwa aplikacji jest nieustandaryzowana~\cite{silicon_laboratories_ug10311_2022}. Obecnie trwają
+prace nad opracowaniem wspólnego i~wolnościowego interfejsu. Jednym z takich projektów jest \textit{Matter}\footnote{\url{https://csa-iot.org/all-solutions/matter/}}.
 
 \section{Bluetooth Low Energy}
-\lipsum[1-10]
+\lipsum[1-8]
 
 \section{Porównanie przedstawionych standardów} % jako podroździał
 % historia jako delikatny wstęp
