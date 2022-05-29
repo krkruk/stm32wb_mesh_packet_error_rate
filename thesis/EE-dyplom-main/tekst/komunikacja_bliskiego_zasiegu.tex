@@ -1,4 +1,4 @@
-\lipsum[1-4]
+\lipsum[1-3]
 
 \section{ZigBee}
 
@@ -142,15 +142,102 @@ IoT pod względem zużycia energii~\cite{silicon_laboratories_ug10311_2022}.
 	\label{rys:thread_iso_comparison_ug10311}
 \end{figure}
 
-Thread będący otwartym standardem może zostać wdrożony przez producenta samodzielnie bądź wybrać stos otwartoźródłowy --~\ref{rys:thread_iso_comparison_ug10311}.
+Thread będący otwartym standardem może zostać wdrożony przez producenta samodzielnie bądź wybrać stos otwartoźródłowy --~Rysunek~\ref{rys:thread_iso_comparison_ug10311}.
 Jednym z takich stosów jest OpenThread\footnote{\url{https://openthread.io/}} będący opracowany przez firmę Google.
 
 Co warto dodać, Thread nie definiuje formatu danych jaki jest wysyłany pomiędzy węzłami. Innymi słowy,
 warstwa aplikacji jest nieustandaryzowana~\cite{silicon_laboratories_ug10311_2022}. Obecnie trwają
 prace nad opracowaniem wspólnego i~wolnościowego interfejsu. Jednym z takich projektów jest \textit{Matter}\footnote{\url{https://csa-iot.org/all-solutions/matter/}}.
 
-\section{Bluetooth Low Energy}
-\lipsum[1-8]
+\section{Bluetooth 5 - Bluetooth Low Energy}
+Komunikacja bezprzewodowa $2.4GHz$ Bluetooth ma długą historię rozpoczynającą się 1998 roku~\cite{noauthor_bluetooth_nodate-1}.
+Standard przeszedł wiele transformacji do postaci dzisiejszej 5.3~\cite{woolley_bluetooth_2021}. Niniejsza praca
+koncentruje się na Bluetooth 5, kładąc szczególny nacisk na \gls{BLE}.
+
+Bluetooth 5.0, ogłoszony w 2017 roku, wprowadza szereg zmian u~podstaw komunikacji radiowej. Względem poprzedzającej wersji \gls{BT},
+zmodyfikowano działanie warstwy fizycznej osiągając dwukrotnie wyższe teoretyczne transfery danych, wynoszące obecnie
+2 Mbps -- oznaczane jako LE 2M PHY. Zwiększono również dystans na jakim \gls{BLE} jest w stanie operować. Poprzednie
+wersje BLE umożliwiały rozgłaszanie wyłącznie na 3 kanałach: 37, 37 i 39. Specyfikacja 5.0 zmieniła ten stan rzeczy
+umożliwiając wykorzystywanie wszystkich kanałów, zwiększając również ilość danych które można wysłać w~pakiecie
+ogłoszeniowym. Usprawniono również algorytm\footnote{\textit{adaptive frequency hopping}} doboru kanału poprawiając jakość transmisji
+~\cite{woolley_bluetooth_nodate}.
+
+Specyfikacja \gls{BT} 5.1 z roku 2019 wprowadza szereg usprawnień jak i~nową funkcjonalność. Ową funkcjonalnością jest
+możliwość określenia kierunku badając różnicę w sile sygnałów z nadajników. Definiuje się dwa sposoby:
+\gls{AoA} i \gls{AoD}. Pierwszy z nich polega na wysłaniu sygnału do macierzy odbiorników. W metodzie \gls{AoD}
+to odbiornik odbiera sygnał z wielu nadajników mierząc przy tym fazę fali radiowej w czasie. Te funkcjonalności
+mają za zadanie przygotować podwaliny pod przyszłe systemy lokalizacji w czasie rzeczywistym\footnote{RTLS - Real-Time Locating System}
+oraz systemów nawigacji wewnątrz pomieszczeń\footnote{IPS - Indoor Positioning System}\cite{woolley_bluetooth_2020-1}.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{bt51_aoa_aod.png}
+	\caption{Lokalizowanie kierunku dla standardu Bluetooth 5.1.. Źródło:~\cite{woolley_bluetooth_2020-1}}
+	\label{rys:bt51_aoa_aod}
+\end{figure}
+
+Bluetooth 5.2 z 2020 roku wprowadza nowe funkcjonalności. Ustanawia protokół \gls{EATT}, będący rozwinięciem
+znanego wcześniej \gls{ATT} -- protokołu będącego u podstaw komunikacji z użyciem \gls{BLE}. Wspomniany standard
+zmienia również sposób zarządzania energią. \textit{LE Power Control} umożliwia dynamiczną optymalizację
+parametrów transmisji danych pomiędzy połączonymi urządzeniami poprzez monitorowanie siły sygnału. Nowa funkcjonalność
+poprawia również jakość transmisji w częstotliwościach 2.4GHz, tak popularnych wśród innych protokołów
+transmisji danych. Kolejnym, nowo wprowadzonym rozwiązaniem jest \textit{LE Isochronous Channels} -- kanał izochroniczny.
+Umożliwiać ma ono transmisję danych do wielu urządzeń docelowych, które zostaną odebrane i~przetworzone w~tym
+samym czasie. Funkcjonalność ta przewiduje główne zastosowanie w transmisji audio z użyciem BLE. Potencjalnymi
+scenariuszami użycia są: współdzielenie audio z~osobami w~pobliżu, asysta słuchu, telewizja czy nawet
+ogłaszanie komunikatów w~wielu językach np. na pokładzie samolotu~\cite{woolley_bluetooth_2020-2}.
+
+Specyfikacja 5.3 z 2021 roku wprowadza m.in. usprawnienia bezpieczeństwa dla klasycznego BT BR/EDR\footnote{Basic Rate/Enhanced Data Rate}, określając
+minimalną, akceptowalną długość klucza. Zapewnia również usprawnienia w kwestii zmiany parametrów transmisji
+danych -- \textit{Connection Subrating}. Zmniejsza ono opóźnienie występujące podczas zmiany wartości parametrów
+zapewniając lepsze doświadczenia z~użytkowania oraz zwiększając żywotność rozwiązań zasilanych 
+bateryjnie~\cite{woolley_bluetooth_2021}.
+
+Kolejnym \textit{świeżym} elementem w stosie BT to Bluetooth Mesh. Jest to sieć wiele-do-wielu oparta o stos Bluetooth Low Energy
+rozszerzając jego możliwości. Architektura warstw wygląda następująco~\cite{mesh_working_group_mesh_2019}:
+\begin{itemize}
+\item Warstwa modelu (\textit{Model Layer}) -- standaryzuje rodzaje operacji i~wymienianych wiadomości dla zwyczajowych przypadków użycia
+\item Warstwa podstawowa modelu (\textit{Foundation Model Layer}) -- określa stany, wiadomości i~modele niezbędne do konfiguracji i~zarządzania siecią
+\item Warstwa dostępu (\textit{Access Layer}) -- definiuje format danych, kontroluje szyfrowanie wiadomości, sprawdza poprawność wiadomości
+pod kątem przekierowania ich do wyższych warstw
+\item Górna warstwa transportowa (\textit{Upper Transport Layer})
+\item Dolna warstwa transportowa (\textit{Lower Transport Layer})
+\item Warstwa sieci (\textit{Network Layer})
+\item Warstwa elementu nośnego/okaziciela (\textit{Bearer Layer}) -- definiuje sposób jak wiadomości są wysyłane pomiędzy węzłami
+\item Warstwa BLE (\textit{Bearer Layer}) -- stos BLE opisany zgodnie ze specyfikacją
+\end{itemize}
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{mesh_topology_mesh_profile.png}
+	\caption{Przykładowa topologia BT Mesh z uwzględnieniem rodzajów węzłów. Źródło:~\cite{mesh_working_group_mesh_2019}}
+	\label{rys:mesh_topology_mesh_profile}
+\end{figure}
+
+
+Węzłem określane jest urządzenie fizyczne będące zarejestrowane wewnątrz sieci Mesh. Proces, podczas którego 
+następuje owa rejestracja nazywa się aprowizacją (z ang. \textit{Provisioning}). Polega on na wygenerowaniu
+i~wymianie kluczy bezpieczeństwa. Szyfrowanie jest domyślne i stanowi podstawę dla konfiguracji sieci,
+z której nie można zrezygnować. Pojedynczy węzeł może zawierać wiele elementów,
+a te z kolei mogą zwierać wiele modeli. Elementem będzie więc niezależna składowa, która może być kontrolowana
+przez dane urządzenie włączone do sieci. Model definiuje natomiast format przetwarzanych wiadomości, stany w których
+węzeł może się znajdować ustalając jego zachowanie i~cechy~\cite{woolley_bluetooth_2020, st_an5292_2021}.
+
+Węzły mogą mieć następujące dodatkowe specjalne cechy będące fundamentem dla stworzenia właściwej topologii~\cite{woolley_bluetooth_2020, st_an5292_2021}:
+\begin{itemize}
+\item węzeł przekaźnikowy (\textit{Relay}) -- węzeł który przekazuje dane dalej wgłąb sieci zgodnie z algorytmem routingu do określonego momentu \gls{TTL}
+\item węzeł pośredniczący (\textit{Proxy}) -- węzeł służący za bramkę, umożliwiający dostęp do sieci z urządzenia BLE. Zrealizowane jest to poprzez
+udostępnienie właściwej usługi BLE (interfejs GATT).
+\item para węzłów wykorzystywanych w~których jeden z nich jest ograniczony sposobem zasilania:
+	\begin{itemize}
+	\item \gls{LPN} -- węzeł ograniczony zasobami sprzętowymi w tym zasilaniem, mający przeważnie za zadanie działać jak najdłużej na zasilaniu bateryjnym
+	\item \textit{Friend Node} -- węzeł będący najczęściej pod stałym zasilaniem, działający w tandemie z \gls{LPN}, przechowując jego wiadomości
+	i~oferując te dane pozostałym węzłom w sieci
+	\end{itemize}
+\end{itemize}
+
+Routing w BLE Mesh oparty jest o algorytm \textit{zalewania} (z ang. \textit{Flooding}). W~metodzie tej każda wiadomość przekazywana
+jest do otaczających go węzłów wykluczając węzeł źródła danych. \gls{TTL} jest również zdefiniowany o ilość przeskoków (z ang. \textit{hops}),
+które wiadomość musi pokonać nim powinna zostać uznana za martwą.
+
 
 \section{Porównanie przedstawionych standardów} % jako podroździał
 % historia jako delikatny wstęp
