@@ -1,4 +1,32 @@
-\lipsum[1-3]
+Rozdział ten przedstawia szereg komercyjnie dostępnych technologii komunikacji
+bliskiego zasięgu z~nakierowaniem na \gls{IoT}. Dobór właściwego rozwiązania
+niekoniecznie jest prostą i~oczywistą decyzją~\cite{lethaby_wireless_2017, ray_edge_2019}.
+
+Pierwszy opisany zostanie protokół ZigBee oparty o specyfikację IEEE 802.15.4. Jest to protokół
+o sprawdzonej użyteczności komercyjnej będący na rynku najdłużej spośród dobranych.
+Przedstawia się jego ogólną architekturę i podstawową nomenklaturę.
+
+Thread jest stosunkowo nowym standardem na rynku. Urządzenia oparte o ten protokół stają
+się coraz powszechniejsze o~czym świadczy między innymi liczba producentów wspierających
+jego rozwój~\cite{noauthor_thread_nodate-1}. Nie bez znaczenia jest również postrzeganie
+Thread przez branżę, upatrując w nim przyszłość rozwiązań IoT~\cite{curtis_ces_nodate-1}.
+
+Ostatnim, tytułowym protokołem jest Bluetooth 5 wraz z jego energooszczędną odsłoną
+Low Energy. Jest to najnowsze rozwiązanie na rynku z opisywanych, które ze wsparciem
+organizacji Bluetooth SIG może stać się jednym z największych graczy wśród protokołów
+z~przeznaczeniem do automatyki domowej.
+
+Dla każdego z wymienionych protokołów, rozdział przedstawia krótki rys historyczny,
+architekturę stosu wraz z próbą odwołania się do modelu referencyjnego OSI. Przedstawia
+się parametry transmisji danych i~niezbędną nomenklaturę wprowadzoną przez standard.
+Natępnie, następuje próba porównania tychże standardów. Porównywane są takie
+cechy jak maksymalna dozwolona ilość węzłów, przewidywane topologie,
+częstotliwości transmisji danych itd.
+
+Bazując na zebranej wiedzy, w szczególności dotyczącej BLE i Mesh, rozdział wprowadza
+czytelnika teoretycznie do dwóch przeprowadzonych doświadczeń opisywanych w kolejnym
+rozdziale. Przedstawia sie obecny stan wiedzy w danym zakresie, by następnie płynnie
+przejść do metodologii badań i wyników w kolejnym rozdziale.
 
 \section{ZigBee}
 
@@ -16,6 +44,13 @@ wyrażonych w bitach na sekundę. Warstwa MAC odpowiada za komunikację w wyższ
 Obejmuje to między innymi zarządzanie dostępem do kanałów, walidacja ramek danych, informację
 zwrotną o~otrzymaniu i~przetworzeniu danych~\gls{ACK} oraz zapewnia odpowiednie
 uchwyty celem umożliwienia wdrożenia mechanizmów zabezpieczeń.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.99\linewidth]{zigbee_stack_architecture.png}
+	\caption{Architektura stosu ZigBee. Źródło:~\cite{zigbee_alliance_zigbee_2017}}
+	\label{rys:zigbee_stack_architecture}
+\end{figure}
+
 Standard wprowadza również pojęcie topologii uwzględniając tym samym sposoby,
 w~jakich można zorganizować sieć poszczególnych urządzeń. Definiowane są dwie
 opcje połączeń: gwiazda, peer-to-peer. Topologia gwiazdy pozwala podłączenie wielu węzłów
@@ -25,12 +60,6 @@ komunikować się dodatkowo między sobą, zapewniając możliwość ustanowien
 Mesh. Standard wprowadza określenie \gls{RFD}, będące najczęściej urządzeniem o~prostej funkcjonalności 
 niewymagającym dużych ilości danych do funkcjonowania, o~zredukowanej potrzebie na 
 zasoby sprzętowe~\cite{ieee_p80215_working_group_ieee_nodate}.
-
-\begin{figure}[!ht]
-	\centering \includegraphics[width=0.99\linewidth]{zigbee_stack_architecture.png}
-	\caption{Architektura stosu ZigBee. Źródło:~\cite{zigbee_alliance_zigbee_2017}}
-	\label{rys:zigbee_stack_architecture}
-\end{figure}
 
 Specyfikacja ZigBee, opierając się na dokumentach IEEE 802.15.4, wykorzystuje częstotliwości
 $868/915 MHz$ (w zależności od regionu Europa albo USA/Australia) oraz 2.4GHz~\cite{zigbee_alliance_zigbee_2017}.
@@ -223,19 +252,19 @@ węzeł może się znajdować ustalając jego zachowanie i~cechy~\cite{woolley_b
 
 Węzły mogą mieć następujące dodatkowe specjalne cechy będące fundamentem dla stworzenia właściwej topologii~\cite{woolley_bluetooth_2020, st_an5292_2021}:
 \begin{itemize}
-\item węzeł przekaźnikowy (\textit{Relay}) -- węzeł który przekazuje dane dalej wgłąb sieci zgodnie z algorytmem routingu do określonego momentu \gls{TTL}
-\item węzeł pośredniczący (\textit{Proxy}) -- węzeł służący za bramkę, umożliwiający dostęp do sieci z urządzenia BLE. Zrealizowane jest to poprzez
+\item węzeł przekaźnikowy (\textit{Relay}) -- węzeł który przekazuje dane dalej wgłąb sieci zgodnie z~algorytmem routingu do określonego momentu \gls{TTL}
+\item węzeł pośredniczący (\textit{Proxy}) -- węzeł służący za bramkę, umożliwiający dostęp do sieci z~urządzenia BLE. Zrealizowane jest to poprzez
 udostępnienie właściwej usługi BLE (interfejs GATT).
 \item para węzłów wykorzystywanych w~których jeden z nich jest ograniczony sposobem zasilania:
 	\begin{itemize}
 	\item \gls{LPN} -- węzeł ograniczony zasobami sprzętowymi w tym zasilaniem, mający przeważnie za zadanie działać jak najdłużej na zasilaniu bateryjnym
-	\item \textit{Friend Node} -- węzeł będący najczęściej pod stałym zasilaniem, działający w tandemie z \gls{LPN}, przechowując jego wiadomości
+	\item \textit{Friend Node} -- węzeł będący najczęściej pod stałym zasilaniem, działający w~tandemie z~\gls{LPN}, przechowując jego wiadomości
 	i~oferując te dane pozostałym węzłom w sieci
 	\end{itemize}
 \end{itemize}
 
 Routing w BLE Mesh oparty jest o algorytm \textit{zalewania} (z ang. \textit{Flooding}). W~metodzie tej każda wiadomość przekazywana
-jest do otaczających go węzłów wykluczając węzeł źródła danych. \gls{TTL} jest również zdefiniowany o ilość przeskoków (z ang. \textit{hops}),
+jest do otaczających go węzłów wykluczając węzeł źródła danych. \gls{TTL} jest również zdefiniowany o~ilość przeskoków (z ang. \textit{hops}),
 które wiadomość musi pokonać nim powinna zostać uznana za martwą.
 
 
@@ -243,7 +272,7 @@ które wiadomość musi pokonać nim powinna zostać uznana za martwą.
 % historia jako delikatny wstęp
 \url{https://www.silabs.com/documents/public/application-notes/an1142-mesh-network-performance-comparison.pdf}
 \url{https://www.silabs.com/wireless/matter}
-\lipsum[1-15]
+\lipsum[1-10]
 
 
 % 1. Krótki rys historyczny standardu
