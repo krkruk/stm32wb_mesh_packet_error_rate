@@ -1,6 +1,7 @@
 Rozdział ten przedstawia szereg komercyjnie dostępnych technologii komunikacji
-bliskiego zasięgu z~nakierowaniem na \gls{IoT}. Dobór właściwego rozwiązania
+bliskiego zasięgu z~nakierowaniem na \gls{IoT}. Dobór właściwego rozwiązania do potrzeb
 niekoniecznie jest prostą i~oczywistą decyzją~\cite{lethaby_wireless_2017, ray_edge_2019}.
+Stąd też rozeznanie wśród dostępnych opcji jest niezbędną koniecznością.
 
 Pierwszy opisany zostanie protokół ZigBee oparty o specyfikację IEEE 802.15.4. Jest to protokół
 o sprawdzonej użyteczności komercyjnej będący na rynku najdłużej spośród dobranych.
@@ -150,7 +151,7 @@ zarządzający pozostałymi Router'ami w sieci. Border Router (router brzegowy) 
 konwertujący komunikaty przesyłane wewnątrz sieci Thread do sieci zewnętrznych takich jak Internet~\cite{noauthor_node_2022}.
 
 \begin{figure}[!ht]
-	\centering \includegraphics[width=0.618\linewidth]{thread_topology_devices_threadgroup.png}
+	\centering \includegraphics[width=0.464\linewidth]{thread_topology_devices_threadgroup.png}
 	\caption{Podstawowa topologia sieci Thread wraz z urządzeniami. Źródło:~\cite{thread_group_thread_2020}}
 	\label{rys:thread_topology_devices_threadgroup}
 \end{figure}
@@ -216,13 +217,20 @@ scenariuszami użycia są: współdzielenie audio z~osobami w~pobliżu, asysta s
 ogłaszanie komunikatów w~wielu językach np. na pokładzie samolotu~\cite{woolley_bluetooth_2020-2}.
 
 Specyfikacja 5.3 z 2021 roku wprowadza m.in. usprawnienia bezpieczeństwa dla klasycznego BT BR/EDR\footnote{Basic Rate/Enhanced Data Rate}, określając
-minimalną, akceptowalną długość klucza. Zapewnia również usprawnienia w kwestii zmiany parametrów transmisji
+minimalną, akceptowalną długość klucza. Zapewnia również usprawnienia w~kwestii zmiany parametrów transmisji
 danych -- \textit{Connection Subrating}. Zmniejsza ono opóźnienie występujące podczas zmiany wartości parametrów
 zapewniając lepsze doświadczenia z~użytkowania oraz zwiększając żywotność rozwiązań zasilanych 
 bateryjnie~\cite{woolley_bluetooth_2021}.
 
-Kolejnym \textit{świeżym} elementem w stosie BT to Bluetooth Mesh. Jest to sieć wiele-do-wielu oparta o stos Bluetooth Low Energy
-rozszerzając jego możliwości. Architektura warstw wygląda następująco~\cite{mesh_working_group_mesh_2019}:
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{mesh_topology_mesh_profile.png}
+	\caption{Przykładowa topologia BT Mesh z uwzględnieniem rodzajów węzłów. Źródło:~\cite{mesh_working_group_mesh_2019}}
+	\label{rys:mesh_topology_mesh_profile}
+\end{figure}
+
+Kolejnym \textit{świeżym} elementem w stosie BT to Bluetooth Mesh formanie wprowadzony
+w~2017 roku. Jest to sieć wiele-do-wielu oparta o stos Bluetooth Low Energy
+rozszerzając jego możliwości. Architektura warstw Mesh wygląda następująco~\cite{mesh_working_group_mesh_2019}:
 \begin{itemize}
 \item Warstwa modelu (\textit{Model Layer}) -- standaryzuje rodzaje operacji i~wymienianych wiadomości dla zwyczajowych przypadków użycia
 \item Warstwa podstawowa modelu (\textit{Foundation Model Layer}) -- określa stany, wiadomości i~modele niezbędne do konfiguracji i~zarządzania siecią
@@ -232,13 +240,17 @@ pod kątem przekierowania ich do wyższych warstw
 \item Dolna warstwa transportowa (\textit{Lower Transport Layer})
 \item Warstwa sieci (\textit{Network Layer})
 \item Warstwa elementu nośnego/okaziciela (\textit{Bearer Layer}) -- definiuje sposób jak wiadomości są wysyłane pomiędzy węzłami
-\item Warstwa BLE (\textit{Bearer Layer}) -- stos BLE opisany zgodnie ze specyfikacją
+\item Specyfikacja Źródłowa BLE (\textit{Bluetooth Low Energy Core Specification}) -- stos BLE opisany zgodnie ze specyfikacją
 \end{itemize}
 
+Specyfikacja źródłowa BLE definiuje niższe warstwy wykorzystywane przez Mesh. Stanowią one analogiczną podstawę,
+co IEEE 802.15.4 dla protokołów ZigBee czy Thread. Poszczególnym protokołom składowym można przypisać analogiczne
+warstwy modelu referencyjnego OSI, co zostało ukazane na Rysunku~\ref{rys:agregacja_protokolow_ble}.
+
 \begin{figure}[!ht]
-	\centering \includegraphics[width=0.618\linewidth]{mesh_topology_mesh_profile.png}
-	\caption{Przykładowa topologia BT Mesh z uwzględnieniem rodzajów węzłów. Źródło:~\cite{mesh_working_group_mesh_2019}}
-	\label{rys:mesh_topology_mesh_profile}
+	\centering \includegraphics[width=0.618\linewidth]{mathworks_iso_osi_ble_stack.png} 
+	\caption{Zestawienie stosu BLE i modelu ISO OSI. Źródło: \cite{noauthor_bluetooth_nodate}}
+	\label{rys:agregacja_protokolow_ble}
 \end{figure}
 
 
@@ -263,19 +275,77 @@ udostępnienie właściwej usługi BLE (interfejs GATT).
 	\end{itemize}
 \end{itemize}
 
-Routing w BLE Mesh oparty jest o algorytm \textit{zalewania} (z ang. \textit{Flooding}). W~metodzie tej każda wiadomość przekazywana
+Routing w BLE Mesh oparty jest o~algorytm \textit{zalewania} (z ang. \textit{Flooding}). W~metodzie tej każda wiadomość przekazywana
 jest do otaczających go węzłów wykluczając węzeł źródła danych. \gls{TTL} jest również zdefiniowany o~ilość przeskoków (z ang. \textit{hops}),
 które wiadomość musi pokonać nim powinna zostać uznana za martwą.
 
+\section{Porównanie przedstawionych standardów} 
+Opisane w~poprzednich podrozdziałach protokoły i~trudność w doborze właściwego rozwiązania
+do własnych zastosowań jest czymś naturalnym z czym musi zmierzyć się inżynier wraz z~zespołem
+projektowym, by wybrać to \textit{najlepsze}. Poszczególne standardy komunikacji bliskiego
+zasięgu leżą również w kręgu zainteresowań naukowców badając doświadczalnie ich parametry
+i~zestawiając do przystępnej formy~\cite{lethaby_wireless_2017, ray_edge_2019}.
 
-\section{Porównanie przedstawionych standardów} % jako podroździał
-% historia jako delikatny wstęp
-\url{https://www.silabs.com/documents/public/application-notes/an1142-mesh-network-performance-comparison.pdf}
-\url{https://www.silabs.com/wireless/matter}
-\lipsum[1-10]
+Istnieje szereg badań zestawiające wymienione wcześniej, aczkolwiek nie ograniczając się wyłącznie
+do nich, protokoły~\cite{rzepecki_iotsp_2019,ray_edge_2019,noauthor_an1142_nodate,georgakakis_analysis_2011}.
+Badania te wybierają parametry urządzeń i~sieci w postaci czasu oczekiwania\footnote{z ang. \textit{latency}} na przesyłane wiadomości
+w~zależności od dobranego rozmiaru pakietu czy ilości węzłów, konsumpcji energii, \gls{PER}, \gls{BER},
+przepustowość i~inne parametry sieci.
 
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{throughput_vs_hops_an1142.png} 
+	\caption{Porównanie przepustowości w zależności od ilości przeskoków 100-bajtowej (96-baj dla BT) pakietu podczas transmisji. Źródło: \cite{noauthor_an1142_nodate}}
+	\label{rys:throughput_vs_hops_an1142}
+\end{figure}
 
-% 1. Krótki rys historyczny standardu
-% 2. Opis stosu + jakiś obrazek
-% 2.1. Częstotliwości na których pracuej standard
-% 3. Topologia, rodzaje węzłów
+Badanie przeprowadzone przez firmę~\textit{Silicon Labs} bada i porównuje przepustowość i opóźnienie
+wymienionych rodzajów sieci~\cite{noauthor_an1142_nodate}. Rysunek~\ref{rys:throughput_vs_hops_an1142}
+prezentuje badanie w którym badano maksymalną przepustowość ZigBee, Thread i~BT MEsh 
+w~zależności od ilości \textit{hopów}. Wykres prezentuje rezultaty testów przesyłu ~100-bajtowej wiadomości.
+Dla protokołów opartych o IEEE 801.15.4 uwidacznia się wykładniczy spadek przepustowości osiągając
+maksimum w komunikacji peer-to-peer, z przewagą dla Thread. Bluetooth Mesh prezentuje
+stałe wartości przesyłu wiadomości. Autorzy zaznaczają, że przy tej wielkości wiadomości każdy protokół
+fragmentuje ją do wielu pakietów.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{latency_vs_payload_an1142.png} 
+	\caption{Porównanie opóźnienia w zależności od wielkości pakietu dla 4-węzłowej sieci różnych standardów komunikacji. Źródło: \cite{noauthor_an1142_nodate}}
+	\label{rys:latency_vs_payload_an1142}
+\end{figure}
+
+Inne badanie prezentuje opóźnienia występujące w sieci składających się z~4~węzłów w zależności od wielkości
+wiadomości -- Rysunek~\ref{rys:latency_vs_payload_an1142}. Uwidacznia się \textit{oczywisty}
+wzrost tej proporcji wraz ze większą ilością wysyłanych bajtów. Różny jest natomiast przyrost. Szczególnie wyróżnia się
+tutaj Bluetooth Mesh. Ze względu na swój mechanizm routing'u\footnote{przypomnienie - flooding mechanism}
+i~architekturze stosu, każda wiadomość powyżej 12 bajtów ulega segmentacji. W połączeniu z~mechanizmem routowania
+sieć ulega zapchaniu powodując \textit{duży ruch} w~sieci obniżając jej możliwości transmisji. Jest to oczekiwane 
+zachowanie biorąc pod uwagę architekturę stosu, który udostępniając odpowiednie usługi i~usiłuje minimalizować
+ilość wysyłanych danych ograniczając się najczęściej do jednej ramki.%~\cite{noauthor_an1142_nodate,noauthor_an1137_nodate,noauthor_developing_nodate}.
+
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.618\linewidth]{energy_per_packet_dbm_10.4108.png} 
+	\caption{Zależność konsumpcji energii od mocy transmisji danych w zależności od wielkości pakietu i~rodzaju protokołu. Źródło: \cite{fafoutis_ble_2016}}
+	\label{rys:energy_per_packet_dbm_10.4108}
+\end{figure}
+
+Badacze analizowali również zużycie energii przez \gls{BLE} i~standard IEEE 802.15.4 z użyciem chipu
+firmy \textit{Texas Instruments} -- CC2650~\cite{fafoutis_ble_2016}. Autorzy sprawdzali zależność, w~której
+mierzono ilość energii niezbędnej do transmisji wiadomości o rozmiarach 21 i 39 bajtów na wysokości warstwy PHY przy
+stałym napięciu zasilania 3.3V. Protokół BLE wymaga niemal dwa razy mniej energii do transmisji wiadomości
+niż konkurencyjny protokół. Wraz ze wzrostem mocy nadawanego sygnału, ta proporcja staje się coraz korzystniejsza
+z energetycznego punktu widzenia dla Bluetooth'a -- Rysunek~\ref{rys:energy_per_packet_dbm_10.4108}.
+
+Protokoły również można porównać statycznie na podstawie dostępnej literatury, a przede wszystkim
+publicznie dostępnych specyfikacji standardów. Rezultaty takiej analizy obserwuje się w~tabeli~\ref{tab:protokoly_zestawienie}.
+
+\begin{table}[!ht]
+\centering
+	\begin{tabular}{p{2.5cm}|m{3.5cm}|m{3.5cm}|m{3.5cm}}
+	Cecha porównywana & Bluetooth Mesh & Thread & ZigBee\\\hline
+	Częstotliwość & 2.4GHz & 2.4GHz & 2.4GHz, 868/915MHz\\\hline
+	Przepustowość & do 2Mbps & do 250 kbps & do 250 kbps\\\hline
+	Max. ilość węzłów & 32767 przy max. 126 [0x7f-1] przeskokach\cite{mesh_working_group_mesh_2019} & 16352 (max. 32 routery, do 511 urządzeń końcowych/router)\cite{noauthor_node_2022} & ~64000\\\hline
+	Topologia & Mesh (flooding) & Mesh & Mesh, drzewo, gwiazda\\\hline
+	\end{tabular}
+\caption{\label{tab:protokoly_zestawienie}Zestawienie protokołów Bluetooth Mesh, Thread, ZigBee}
+\end{table}
