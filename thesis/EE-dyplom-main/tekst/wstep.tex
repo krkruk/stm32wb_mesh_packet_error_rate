@@ -1,1 +1,93 @@
-\lipsum[1-10]
+Od czasów powstania pierwszych procesorów, naukowcy i~inżynierowie łączyli
+je z~dostępnymi elementami dyskretnymi tworząc urządzenia spełniające
+określone potrzeby. Z~każdym przełomem w miniaturyzacji komponentów
+cechą wspólną jest tworzenie zespołów współpracujących ze sobą elementów.
+Od elektroniki analogowej, do obecnych możliwości elektroniki cyfrowej,
+wymiana informacji, wysyłanie i odbiór sygnałów, jest kluczem do 
+stworzenia zaawansowanego urządzenia.
+
+Intuicyjnie, termin sygnał przynosi na myśl pojęcie nośnika informacji, czy wymiany tejże informacji.
+Naturalnie łączy się to słowo z~wielkościami fizycznymi a nawet namacalnym. Docelowo, pragniemy wysłać
+pewną treść, co też wiąże się z~rozdrobnieniem tak abstrakcyjnej koncepcji na możliwe małe fragmenty,
+które następnie można przesłać dalej. Chcąc opisać termin nie tylko jakościowo, ale też ilościowo,
+kształtuje się taką ideę do postaci \textit{modelu matematycznego}. Sygnałem więc nazwać można pewną funkcję
+czasu opisującą zjawisko przesyłu tej informacji \cite{szabatin_podstawy_2007}.
+
+Wraz z~rozwojem techniki, opracowano właściwe technologie i~ustalono kontrakty definiujące kodowanie
+owego sygnału. Nie mniej istotną cechą jest wybór zjawiska fizycznego, które tę wiadomość ma przesyłać.
+Od tego zależy sposób konstrukcji urządzeń odpowiadających za przesył danych. Inne narzędzia
+należy wykorzystać do komunikacji z użyciem znaków dymnych, a zupełnie innych do kontaktu
+z~łazikiem marsjańskim oddalonym o 20 minut świetlnych od Ziemi. Przesył sygnału nie jest cechą
+wyłącznie innowacyjności ludzkich dzieł. Natura w~wyniku ewolucji opracowała szereg
+czynników umożliwiający przesyłanie i odbiór informacji -- powonienie, smak, transport aktywny jonów
+w postaci pompy sodowo-potasowej będącą podstawą dla transmisji sygnałów w komórkach nerwowych itd.
+Sygnał i~możliwość manipulacji zdaje się być podstawą funkcjonowania nie tyle cywilizacji ludzkiej,
+co życia samego w sobie.
+
+Technologicznie, sygnał przesyłać można z użyciem szeregu zjawisk fizycznych, najczęściej powiązanych 
+ze zjawiskami mechanicznymi oraz elektrycznymi. Skupiając się na tych ostatnich, sygnał generuje się
+bazując na pojęciach napięcia, prądu, częstotliwości, czy ogólnie fal elektromagnetycznych.
+Telegraf, czy jego współczesne wersje w postaci telefonu czy Internetu, manipulują tą falą z~użyciem
+technologii celem wysłania informacji z punktu A~ do punktu~B. Sposób w jaki wpływamy
+na otaczające środowisko, by wysłać sygnał, modelowo nazywany jest warstwą fizyczną~\cite{sa_tcpip_nodate}.
+
+Kolejnym krokiem jest ustalenie pewnego kontraktu pomiędzy wspomnianą warstwą fizyczną, a~potencjalnymi
+warstwami wyższymi. Wymagany jest sposób według którego można zinterpretować ilościowy udział
+zjawiska fizycznego. W przypadku elektroniki cyfrowej bazującej na \textit{TTL}\footnote{tutaj: Transistor-Transistor Logic},
+informacja kodowana jest z użyciem zmian napięcia, gdzie sygnałem niskim (czyli logiczne \enquote{0}) nazywamy 
+napięcie w zakresie 0V do 0.8V, a stan wysoki (czyli logiczne \enquote{1}) od 2.4 do maksymalnego napięcia 5V.
+Nowoczesne systemy, ten prosty przykład znacząco modyfikują by przesyłać więcej danych w~krótszym czasie,
+najlepiej na dalszy dystans z~minimalizacją zużycia energii. Sposób w~jaki jest to zorganizowane,
+można przyrównywać właśnie do modelu \gls{OSI} stanowiącego pewien schemat rozumowania przesyłu sygnału
+cyfrowego w~sieci.
+
+Poprzez analogię do wyżej wymienionych zjawisk, niniejsza praca podejmuje się badania właściwości
+jednej z~technologii wykorzystujących podstawy fizyczne do bezprzewodowego przesyłu informacji. 
+Technologią tą jest Bluetooth~5 będąca rozwinięciem standardu funkcjonującego od ponad dwudziestu lat.
+
+Rozdział~\ref{ch:radio-telecom} zapoznaje czytelnika z powszechnymi na rynku rozwiązaniami, protokołami:
+\begin{itemize}
+\item ZigBee
+\item Thread
+\item Bluetooth~5 z naciskiem na standard Bluetooth Low Energy i~Mesh
+\end{itemize}
+
+Dla każdej wyżej wymienionej technologii, wprowadza się podstawowe pojęcia z nim związane. Rozważania
+poparte są o~specyfikacje opracowane przez właściwe organizacje nadzorujące prace nad każdym ze
+standardów. Rozwiązania powstają wraz z udziałem firm trzecich technologicznych, czy producentów
+elektroniki użytkowej, uwzględniając wspólną wizję i~realne zapotrzebowania. Przedstawiając
+stos technologiczny, niniejsza praca odwołuje się do modelu \gls{OSI}, jako referencyjnego umożliwiając
+umieszczenie poszczególnych terminów i~nazw we wspólnym standardzie.
+
+Wprowadzając powyższe technologie, uwaga koncentrowana jest na aspekcie konfigurowania sieci
+składających się z wielu elementów. Tym samym, niezbędne jest wprowadzenie terminologii z~jakimi
+wiąże się każda ze specyfikacji. Nie mniej istotne są możliwe topologie czy sposób przesyłu
+pakietów danych pomiędzy węzłami -- tzw. routing.
+
+Po teoretycznym wprowadzeniu do poszczególnych protokołów, następuje przegląd powstałej dotąd
+literatury. Oczywiste staje się, iż badanie właściwości sieci, ich skalowalności, przepustowości
+i~innych parametrów cieszy się ogromnym zainteresowaniem zarówno naukowców jak i~poszczególnych
+firm produkujące właściwą do ich obsługi elektronikę. Docelowo, zestawiane są parametry poszczególnych
+protokołów, pozwalając czytelnikowi na samodzielną kontemplację.
+
+Wymieniony rozdział zakończony jest wprowadzeniem do dwóch prowadzonych i~opisywanych eksperymentów:
+badania zużycia energii urządzeń BLE i BT Mesh oraz badania jakości sieci mierzonej wartością
+Packet Error Rate. Wprowadza się niezbędną terminologię oraz matematyczny opis wymienionych zjawisk
+i~parametrów celem zastosowania ich w~dalszej analizie zebranych danych.
+
+Główną treścią pracy jest rozdział~\ref{ch:experiment} wprowadzając czytelnika w~aspekty praktyczne opisywanych
+rozważań. Mając na uwadze wymienione wcześniej doświadczenia, należy przygotować właściwy tor
+pomiarowy, by zebrać dane, które można przeanalizować. Do celów pracy, wykorzystano
+gotowe komercyjnie dostępne zestawy uruchomieniowe \textit{P-NUCLEO-WB} oraz pomiarowy
+\textit{X-NUCLEO-LPM01A}. Opierając się na wybranym sprzęcie, wprowadza w~szczegóły
+tworzenia niezbędnych urządzeń wspomagających i~oprogramowania koniecznego
+do przeprowadzenia badań.
+
+Przedstawiana jest metodologia poszczególnych eksperymentów. Nie bez znaczenia są określone
+warunki środowiskowe jak i~sposoby postępowania czy akwizycji i~obróbki danych. Ostatecznie
+prezentowane są wykresy nakreślające cechy zebranych pomiarów.
+
+Finalnie, przedstawiane są wnioski zarówno z~przygotowań do przeprowadzenia eksperymentów
+jak i~przede wszystkim wyciągane są należyte wnioski, prezentując równocześnie 
+dalsze kierunki rozwoju opisywanej tej pracy analizy.
+
