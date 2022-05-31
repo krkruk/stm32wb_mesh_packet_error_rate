@@ -179,7 +179,7 @@ Co warto dodać, Thread nie definiuje formatu danych jaki jest wysyłany pomięd
 warstwa aplikacji jest nieustandaryzowana~\cite{silicon_laboratories_ug10311_2022}. Obecnie trwają
 prace nad opracowaniem wspólnego i~wolnościowego interfejsu. Jednym z takich projektów jest \textit{Matter}\footnote{\url{https://csa-iot.org/all-solutions/matter/}}.
 
-\section{Bluetooth 5 - Bluetooth Low Energy}
+\section{Bluetooth 5 - Bluetooth Low Energy}\label{sec:ble}
 Komunikacja bezprzewodowa $2.4GHz$ Bluetooth ma długą historię rozpoczynającą się 1998 roku~\cite{noauthor_bluetooth_nodate-1}.
 Standard przeszedł wiele transformacji do postaci dzisiejszej 5.3~\cite{woolley_bluetooth_2021}. Niniejsza praca
 koncentruje się na Bluetooth 5, kładąc szczególny nacisk na \gls{BLE}.
@@ -317,7 +317,7 @@ Inne badanie prezentuje opóźnienia występujące w sieci składających się z
 wiadomości -- Rysunek~\ref{rys:latency_vs_payload_an1142}. Uwidacznia się \textit{oczywisty}
 wzrost tej proporcji wraz ze większą ilością wysyłanych bajtów. Różny jest natomiast przyrost. Szczególnie wyróżnia się
 tutaj Bluetooth Mesh. Ze względu na swój mechanizm routing'u\footnote{przypomnienie - flooding mechanism}
-i~architekturze stosu, każda wiadomość powyżej 12 bajtów ulega segmentacji. W połączeniu z~mechanizmem routowania
+i~architekturze stosu, każda wiadomość powyżej 12~bajtów ulega segmentacji. W połączeniu z~mechanizmem routowania
 sieć ulega zapchaniu powodując \textit{duży ruch} w~sieci obniżając jej możliwości transmisji. Jest to oczekiwane 
 zachowanie biorąc pod uwagę architekturę stosu, który udostępniając odpowiednie usługi i~usiłuje minimalizować
 ilość wysyłanych danych ograniczając się najczęściej do jednej ramki.%~\cite{noauthor_an1142_nodate,noauthor_an1137_nodate,noauthor_developing_nodate}.

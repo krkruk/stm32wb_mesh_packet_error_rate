@@ -39,28 +39,6 @@ BLE \gls{HRT} dostarczony przez ST. Stąd, by rozróżnić różne tryby pracy \
 połowy okresu pomiarowego, zapewniając jednolite wartości względem trybów zużycia energii
 w~50 sekundowym oknie.
 
-Tak zebrane dane następnie przetworzono uzyskując wartości energii i średniej mocy
-użytej przez układ. Wykorzystuje się w celu oczywistą zależność fizyczną zaprezentowaną
-wzorem~\ref{energy_equation}~\cite{skoro_marta_fizyka_1973}.
-
-\begin{equation} \label{energy_equation}
-E_{\text{całkowita}} = U \cdot \int_{t=0[s]}^{t=50[s]} \mathrm{d}i \: \mathrm{d} t
-\end{equation}
-
-\begin{equation} \label{power_equation}
-P = \frac{E_{\text{całkowita}}}{t}
-\end{equation}
-
-gdzie:
-
-\begin{description}
-\item $E_{\text{całkowita}} [J]$ - wykorzystana energia podczas 50s sekundowej sesji rejestracji danych
-\item $P [W]$ - moczużyta podczas 50s sekundowej sesji rejestracji danych
-\item $U [V]$ - napięcie zasilania mikrokontrolera - 3.3V - stała
-\item $\mathrm{d}i [A]$ - prąd w danej chwili
-\item $\mathrm{d}t [s]$ - podstawa czasowa całkowania, 0.01s/interwał (100Hz) - stała 
-\end{description}
-
 Zebrane dane w postaci wartości chwilowych pobieranego przez mikrokontroler prądu względem czasu
 przetworzono z użyciem metod numerycznych. W~celu wyliczenia łącznej wykorzystanej energii, a~tym samym
 mocy, stosuje się zależność~\ref{energy_equation}. Uwzględniając fakt działania w domenie dyskretnej,
@@ -187,6 +165,12 @@ węzły są uruchomione. Zgodnie ze standardem BLE Mesh, każdy z~takich węzł�
 Odpowiadają one za niezbędną konfigurację jak i~również nadzorowanie stanu \textit{zdrowia} sieci, poprzez wysyłanie 
 komunikatów \textit{keep-alive}\footnote{standard definiuje takie komunikaty jako \textit{heartbeats}\cite{wooley_martin_bluetooth_2019}\cite{mesh_working_group_mesh_2019}}.
 
+\begin{figure}[!ht]
+	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_no_led.png} 
+	\caption{Charakterystyka czasowa poboru prądu dla BLE Mesh i modelu Generic OnOff}
+	\label{rys:power_ble_mesh_amps}
+\end{figure}
+
 Rozpatrywany przypadek \textit{Generic OnOff} wykorzystuje tenże model do wysyłania komunikatów wewnątrz sieci.
 Jeden z węzłów wysyła pakiet danych a~drugi, odbiorczy, przetwarza wykonując operację zdefiniowaną przez model akcję.
 W~przypadku poniższych badań operacją tą jest kolejne zliczanie otrzymanych pakietów.
@@ -194,13 +178,6 @@ W~tym celu wykorzystano oprogramowanie opracowane na potrzeby kolejnego opisywan
 Przez cały okres akwizycji wysyłano komunikaty z~częstotliwością $2Hz$. Zasadne jest wspomnieć, iż na czas trwania doświadczenia wszelkie 
 diody emitujące światło zostały wyłączone celem eliminacji błędów systemowych wpływających na ostateczne zużycie energii przez
 urządzenie.
-
-\begin{figure}[!ht]
-	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_no_led.png} 
-	\caption{Charakterystyka czasowa poboru prądu dla BLE Mesh i modelu Generic OnOff}
-	\label{rys:power_ble_mesh_amps}
-\end{figure}
-
 
 Rysunek~\ref{rys:power_ble_mesh_amps} przedstawia charakterystyki prądu dla wymienionych wcześniej badanych wariantów. Wartości są aproksymowane
 celem wskazania ogólnej zmiennej tendencji poboru prądu elektrycznego. Jej zmienność reprezentuje wykres punktowy, zlewający się 
