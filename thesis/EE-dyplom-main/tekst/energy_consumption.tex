@@ -96,7 +96,7 @@ szczytowej.
 Rysunek~\ref{rys:power_ble_hr_fastadv_only_amps} przedstawia charakterystykę poboru prądu po czasie
 dla szybkiego trybu ogłoszeniowego. Zgodnie za kodem źródłowym, interwały w których rozgłaszane
 są komunikaty powinny się zawierać w częstości od 80 do 100ms. Wywołuje to konieczność uruchamiania radia
-co najmniej 10 razy na sekundę. Ma to swoje odzwierciedlenie na wykresie. Charakterystyka jest bardziej
+co najmniej 10~razy na sekundę. Ma to swoje odzwierciedlenie na wykresie. Charakterystyka jest bardziej
 \textit{burzliwa} w porównaniu z wykresem~\ref{rys:power_ble_hr_connected_only_amps}. 
 
 Zauważa się większą częstotliwość szczytów osiągających wartości pomiędzy $10-12mA$. Jest to w~oczywisty
@@ -197,17 +197,16 @@ Swoiste zagęszczenie punktów pomiarowych i~częste zmiany amplitudy mogą wska
 który wymaga częstych operacji w tym radiowych. Operacje te bezpośrednio oddziałują na zużycie energii, co w~oczywisty
 sposób widoczne jest na wykresach.
 
+Parametry zużycia energii przedstawia rysunek~\ref{rys:power_ble_mesh_amps_usage_juxtaposition}. Porównywane są dwa zdefiniowane
+warianty działania aplikacji. Uwidacznia się niewielka różnica konsumowanej mocy. Węzeł odbierający komunikaty \textit{Generic OnOff}
+wymaga średnio 39,2mW mocy do funkcjonowania. Konkurencyjny wariant potrzebuje jej nieznacznie mniej. Mesh będący w gotowości
+potrzebuje średnio 39.0mW mocy. Minimalne i maksymalne natężenia chwilowo pobieranego prądu są porównywalne.
 
 \begin{figure}[!ht]
 	\centering \includegraphics[width=0.99\linewidth]{power_ble_mesh_amps_usage_juxtaposition_no_led.png} 
 	\caption{Zestawienie zużycia prądu dla BLE Mesh w zależności od trybu działania}
 	\label{rys:power_ble_mesh_amps_usage_juxtaposition}
 \end{figure}
-
-Parametry zużycia energii przedstawia rysunek~\ref{rys:power_ble_mesh_amps_usage_juxtaposition}. Porównywane są dwa zdefiniowane
-warianty działania aplikacji. Uwidacznia się niewielka różnica konsumowanej mocy. Węzeł odbierający komunikaty \textit{Generic OnOff}
-wymaga średnio 39,2mW mocy do funkcjonowania. Konkurencyjny wariant potrzebuje jej nieznacznie mniej. Mesh będący w gotowości
-potrzebuje średnio 39.0mW mocy. Minimalne i maksymalne natężenia chwilowo pobieranego prądu są porównywalne.
 
 Interesującym aspektem jest porównanie BLE Mesh ze standardową usługą BLE pod względem energetycznym. Rysunek~\ref{rys:power_ble_consumption_comparison}
 wskazuje na różnice pomiędzy dwoma standardami transmisji. Porównując średnie zużycie energii pomiędzy BLE HRT a Mesh, zauważa 
