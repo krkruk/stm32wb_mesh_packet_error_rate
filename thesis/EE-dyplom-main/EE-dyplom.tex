@@ -45,20 +45,88 @@
 % In case of thesis in English swap the order - English version goes first.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \streszczeniepracy{
-To jest streszczenie. To jest trochę za krótkie, jako że powinno zająć całą stronę.
+Jednym z dostępnych na rynku standardów komunikacji bezprzewodowej bliskiego
+zasięgo jest Bluetooth. Obecny od ponad dwudziestu lat wśród
+elektroniki użytkowej zdobył ugruntowaną pozycję i~popularność. Bluetooth~5
+rozszerza znane wcześniej funkcjonalności, zwiększa przepustowość
+i zasięg przy jednoczesnej redukcji zużycia energii oraz wprowadza nowy 
+standard komunikacji sieci Mesh -- nowy protokół komunikacji między-węzłowej.
 
-\lipsum[1-4]
+Niniejsza praca wprowadza w~świat łączności bezprzewodowej
+opisując jedne z najpopularniejszych obecnie standardów. Wprowadza
+się terminologię dla wybranych stosów technologicznych oraz zestawia z~modelem
+referencyjnym ISO OSI. Wśród protokołów opartych o IEEE 802.15.4 wymienia się 
+specyfikację ZigBee oraz Thread. Przedstawiany jest opis zmian Bluetooth 
+od wersji 5.0. Ostatecznie, zestawia się wybrane cechy każdego z~wymienionych
+standardów.
+
+Przegląd literatury wskazuje na szerokie zainteresowanie nauki dziedziną
+łączności bezprzewodowej. Szereg arykułów prezentuje empirycznie
+zebrane cechy poszczególnych standardów takie jak opóźnienia transmisji
+czy maksymalna przepustowość.
+
+Doświadczalnym aspektem pracy jest pomiar zużycia energii i~pomiar Packet
+Error Rate w zależności od wzajemnej odległości węzłów w~skonfigurowanych w~sieć 
+Bluetooth Mesh i~częstotliwości wysłanych komunikatów. Stawiana jest główna 
+hipoteza badawcza, która następnie
+jest empirycznie weryfikowana. W~tym celu konstruowany jest tor
+badawczy oparty o zestaw uruchomieniowy \textit{P-NUCLEO-WB55} oraz
+autorskie oprogramowanie. Przedstawiana jest metodologia poszczególnych
+badań oraz analiza potencjalnych źródeł błędów.
+
+Ostatecznie, prezentowane są wyniki eksperymentów. Zestawiane są
+wartości zużycia energii dla Bluetooth Low Energy i~Mesh.
+Analizowany są przypadki badań Packet Error Rate, które następnie
+podzielone są na dwie różne klasyfikacje które zostają
+właściwie opisane.
+
+Na koniec, praca podsumowuje dokonane prace i~wyciąga konstruktywne
+wnioski.
+
+
 } % koniec streszczenia
 
-\slowakluczowe{Bluetooth, Bluetooth Low Energy, Bluetooth Mesh, Packet Error Rate}
+\slowakluczowe{Bluetooth, Bluetooth Low Energy, Bluetooth Mesh, Packet Error Rate, Zużycie energii}
 
 \thesisabstract{
-I am going to fill this abstract with some English text. I promise :)
+Bluetooth is a widely-available short-range wireless technology. The technology
+has been present for more than twenty years in the market gaining undisputable 
+popularity among consumer electronics. Bluetooth~5 pushes the limits further,
+providing a new set of features, increasing throughput and range while simulanously
+reduces energy requirements. Most importantly, the new standard introduces
+Bluetooth Mesh -- a new wireless inter-node protocol.
 
-\lipsum[1-4]
+This thesis introduces into a realm of wireless technologies. It describes
+a range of wireless standards known to be the most popular. It defines
+the terminologies for a given set of technology stacks and compares them
+with a conceptual model -- \gls{OSI}. ZigBee and Thread represent a family
+of IEEE 802.15.4-based stacks. The thesis describes a~set of Bluetooth~5 changes.
+Finally, it juxtaposes the mentioned standards with each other.
+
+The literature review suggests thats wireless communication is a common and
+popular field of study. There are many papers that test parameters of
+each of said stacks. These parameters include but not limited to -- latency, throughput
+energy consumption and other.
+
+The practcal apsect of the thesis embraces two experiments -- energy consumption
+and Packet Error Rate in Bluetooth Mesh network. The latter experiment includes 
+dependent factors such as distance between nodes or ping frequency.
+The thesis states the main test hypothesis and tries to empirically verify it.
+All the experiments are based on an off-the-shelf development board -- \textit{P-NUCLEO-WB55}.
+The board is programmed and operated by custom software specifically designed
+to run the mentioned experiment. The thesis includes a methodology description
+as well as an analysis of possible error root causes.
+
+Eventually, the thesis presents results of the abovementioned experiments.
+It presents Bluetooth Low Energy and Mesh energy consumption charts
+and compares them. It analyzes Packet Error Rate results by dividing it
+into two distinct categories and presenting charts accordingly.
+
+Finally, the thesis summarizes all experiments and draws conclusions.
+
 } % end of abstract
 
-\thesiskeywords{Bluetooth, Bluetooth Low Energy, Bluetooth Mesh, Packet Error Rate}
+\thesiskeywords{Bluetooth, Bluetooth Low Energy, Bluetooth Mesh, Packet Error Rate, Energy consumption}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tu zaczyna się dokument
