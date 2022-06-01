@@ -2,82 +2,92 @@ Niniejsza praca zrealizowała postawione założenia zdefiniowane we wstępie --
 Wprowadziwszy definicję sygnału płynnie wprowadzono zagadnienia związane z~rozpatrywanymi
 standardami komunikacji bezprzewodowej.
 
-Zestawiając wprowadzone protokoły na szczególną uwagę zasługują dwa z nich: badany Bluetooth~5
+Zestawiając wprowadzone protokoły, na szczególną uwagę zasługują dwa z nich: badany Bluetooth~5
 (z~wyróżnieniem Mesh) oraz Thread. Opierając się na wiedzy pochodzącej z~powszechnie
 dostępnej literatury, Thread osiągnął znacząco \textit{lepsze} parametry transmisji danych.
-Korzyść ta rozumiana jest jako najwyższa przepustowość dla sfragmentowanych danych (Rysunek~\ref{rys:throughput_vs_hops_an1142})
+Korzyść ta rozumiana jest jako najwyższa przepustowość dla pofragmentowanych danych (Rysunek~\ref{rys:throughput_vs_hops_an1142})
 oraz najmniejsze opóźnienia niezależnie od wielkości wiadomości (Rysunek~\ref{rys:latency_vs_payload_an1142}) spośród
 testowanych rozwiązań.
 
 Thread nie definiuje warstwy aplikacji, jak to umożliwiają bądź wymuszają pozostałe rozważane standardy.
-Czyni to protokół uniwersalnym, niemalże ogólnego przeznaczenia niczym protokoły TCP/IP. Porównanie jest
+Czyni to protokół uniwersalnym, niemalże ogólnego przeznaczenia, niczym protokoły TCP/IP. Porównanie jest
 również nie bez znaczenia, gdyż Thread opiera się właśnie na IPv6, co znów zmniejsza nachylenie
 krzywej uczenia się tego standardu i umożliwia niemalże bezpośrednio wpięcie do Internetu i~rozwiązań opartych
 o~publiczną chmurę obliczeniową. Protokół ten, będąc oparty o IEEE 802.15.4, nie jest energooszczędny
 do tego stopnia, co protokół BLE (Rysunek~\ref{rys:energy_per_packet_dbm_10.4108}). 
 Nie czyni go to jednak gorszym a raczej przypisuje go do innych
 zastosowań. Potencjalne problemy może stwarzać niewielka popularność tego protokołu wśród oferowanych
-na rynku produktów. Jest to niemniej powiązane ze względną nową architekturą danej specyfikacji.
+na rynku produktów. Jest to niemniej powiązane ze względnie nową architekturą danej specyfikacji.
 Utrudnieniem, które bezpośrednio wpływa na kompatybilność produktów różnych producentów, jest brak
 wprost zdefiniowanej warstwy aplikacji. To wyzwanie adresują projekty, takie jak 
 Matter\footnote{\url{https://csa-iot.org/all-solutions/matter/}}
 udostępniając specyfikację integrującą rozwiązania oparte o~Thread.
 
-Bluetooth Mesh, pomimo rezultatów wywodzących się z~powszechnej literatury również spełnia swoje
-oczekiwania, do których został zaprojektowany. Protokół, kładzie szczególny nacisk na organizację
+Bluetooth Mesh, pomimo rezultatów wywodzących się z~powszechnej literatury, również spełnia 
+zdefiniowane przed nim standardem zadania. Protokół kładzie szczególny nacisk na organizację
 i~hierarchię transmitowanych wiadomości w~warstwie. Można wystosować wręcz opinię, że został stworzony
 do wysyłania \textit{tylko jednego} komunikatu, by wykonać konkretną akcję. Takie twierdzenie można
 poprzeć zarówno sposobem routingu i wspomnianej hierarchii wiadomości (modele Mesh), ale również
-z biorąc uwagę wyniki reprezentowane na Rysunku~\ref{rys:latency_vs_payload_an1142}. Pojedynczy wysłany
+biorąc uwagę wyniki reprezentowane na Rysunku~\ref{rys:latency_vs_payload_an1142}. Pojedynczy wysłany
 komunikat cechuje się nie gorszym opóźnieniem niż pozostałe badane protokoły. Uwzględniając energooszczędność
 tego standardu, czyni go nadzwyczaj interesującą opcją dla konkretnych zastosowań, np. inteligentnego
 oświetlenia.
 
-Dalsza część pracy to ćwiczenie praktyczne polegające pomiarze zużycia energii. Zaprezentowano
+Dalsza część pracy to ćwiczenie praktyczne polegające na pomiarze zużycia energii. Zaprezentowano
 charakterystyki poboru prądu w czasie dla różnych trybów funkcjonowania urządzenia dla dwóch różnych firmware'ów.
-Pierwszy rozważany przypadek oparty o BLE \gls{HRT} jest zgodny z~przeprowadzoną symulacją -- 
-Rysunki\ref{rys:cube_pcc_advertising_1ms} oraz~\ref{rys:cube_pcc_connected_master}. Wykonana zgrubna symulacja,
+Pierwszy rozważany przypadek oparty o~BLE~\gls{HRT} jest zgodny z~przeprowadzoną symulacją -- 
+Rysunki~\ref{rys:cube_pcc_advertising_1ms} oraz~\ref{rys:cube_pcc_connected_master}. Wykonana zgrubna symulacja,
 bazująca na domyślnych parametrach wskazywanych przez dokumentację,
 wskazywała na średni pobór prądu elektrycznego na poziomie 2,95mA (moc: 9,8mW)~\cite{noauthor_um1718_2022}. Jest to co prawda niemal
 5-krotna różnica względem uzyskanych pomiarów -- maksymalny pobór prądu 0,69mA (moc: 2,27mW) -- jest ona jednak na korzyść
-eksperymentu. Sugeruje to błąd dokonanych nastawów symulatora.
+eksperymentu. Sugeruje to błąd dokonanych nastawów symulatora. Dopracowanie tych ustawień może stanowić kontynuację
+badań tego zagadnienia. Dopracowanie tych ustawień może stanowić kontynuację
 
 Przypadek zużycia Mesh wskazuje na zużycie energii węzła klasycznego serwera \textit{Generic OnOff}. Węzeł tego
 najczęściej włączony jest do stałego źródła zasilania. Stąd, porównanie z Rysunku~\ref{rys:power_ble_consumption_comparison},
-sugeruje na konieczność porównywania węzła typu \textit{LPN}, który w zamyśle -- potwierdzonym z~oficjalną specyfikacją
+sugeruje na konieczność porównywania BLE do węzła typu \textit{LPN}, który w zamyśle -- potwierdzonym z~oficjalną specyfikacją
 -- funkcjonuje z~wykorzystaniem zasilania bateryjnego. Słusznym rozwinięciem tego badania jest wykorzystania
 \textit{LPN} z~jednosekundowym odświeżaniem swojego stanu (zakładając model \textit{Sensors}). Energooszczędność
 BLE i Bluetooth Mesh wprost wynika z optymalizacji wykorzystania radia, co udowadnia choćby porównanie
 wyników zaprezentowanych na charakterystykach~\ref{rys:power_ble_hr_fastadv_only_amps} oraz~\ref{rys:power_ble_hr_low_power_adv_only_amps},
 gdzie podczas rozgłaszania niskomocowego (zgodnie z~opisywanymi w~danym rozdziale założeniami), radio przez większość
-czasu nie pracuje.
+czasu nie funkcjonuje.
 
-Eksperyment PER wskazuje na kilka interesujących zależności. Pierwszą z nich jest wydajność stosu \gls{BT} mikrokontrolera \textit{STM32WB55RG}.
-Przed przystąpieniem do formalnego doświadczenia, przeprowadzono szereg prób z częstościami wykonywanych zapytań
+Eksperyment PER wskazuje na kilka interesujących zależności. Pierwszą z nich jest wydajność stosu \gls{BT} mikrokontrolera \texttt{STM32WB55RG}.
+Przed przystąpieniem do formalnego doświadczenia, przeprowadzono szereg prób z~częstościami wykonywanych zapytań
 znacząco mniejszymi od 100ms --~w~analogii do ciągu Fibonacciego testowano interwały 10, 20, 30, 50 i~80ms. Każdy z~nich wykazywał
 tę samą cechę utraty pakietów, jak na przedstawionym Rysunku~\ref{rys:per_to_distance_under_100ms}. Przeważnie,
-po kilku-kilkunastu sekundach pracy węzeł bliższy nie odpowiadał na jakiekolwiek komunikaty AT. Po zrestartowaniu tego urządzenia,
-ponownie działało bez zarzutu, umożliwiając pobranie informacji o~odebranej liczbie pakietów z~węzła dystalnego.
+po kilku-kilkunastu sekundach pracy węzeł bliższy nie odpowiadał na jakiekolwiek komunikaty AT. Po ponownym uruchomieniu tego urządzenia,
+działało bez zarzutu umożliwiając pobranie informacji o~odebranej liczbie pakietów z~węzła dystalnego.
 Sugeruje to raczej problemy ze stosem i~ewentualnym wyciekiem pamięci uniemożliwiające poprawne funkcjonowanie sprzętu.
 Jednym z~kroków do dalszych analiz jest weryfikacja kodu i~jego działania w czasie rzeczywistym. Narzędzia jakie debugger
 czy valgrind\footnote{\url{https://valgrind.org/}} byłyby pierwszym krokiem ku weryfikacji zagadnienia.
 
 Ostatnią, aczkolwiek najistotniejszą zbadaną zależnością, jest wpływ dystansu na \gls{PER}. Zgodnie ze zdefiniowaną
 hipotezą w~punkcie~\ref{subsec:per_experiment} i~opisywaną później metodologią, oczekiwano dominującą rolę otaczającego
-środowiska radiowego w~przeprowadzanym eksperymencie.
+środowiska radiowego w~przeprowadzanym doświadczeniu. Projektując eksperyment nie założono znaczącego wpływu środowiska,
+ani wpływu rozchodzenia się fal powierzchniowych. Zgodnie z~założeniami zaobserwowano spadek PER wraz ze wzrostem odległości.
+Nie obserwuje się jednak znaczącego wpływu zależności ilości węzłów na PER.
+Rysunek~\ref{rys:per_to_distance_over_100ms_different_envs_and_nodes} prezentuje PER w~postaci aproksymacji liniowej, gdzie porównywane
+rezultaty dla danego środowiska od ilości węzłów są zbliżone. W punktach pomiarowych (teren zurbanizowany) 13m i~16m równoodlegle,
+widać znaczny spadek PER dla dwóch węzłów, gdzie w~przypadku trzech węzłów tendencja ta jest nadal wzrostowa. Dopiero na maksymalnym
+dystansie pomiarowym uwidacznia się ok. 20\% PER dla konfiguracji 3-ech urządzeń -- mniejszy niż dla 2-óch urządzeń.
 
+Rezultaty są nieprzekonywujące. Wpływ wilgotności i~temperatury dla propagacji sygnału omawia praca~\cite{yi_lim_review_2020}.
+Wilgotność ma negatywną korelację względem siły sygnału. Tłumaczone jest stratami wynikłymi z absorpcji energii sygnału. Wymieniona zależność
+najprawdopodobniej uwidacznia się dla badania w~terenie leśnym. Dodatkowo, wahania w~PER na różnych dystansach przy środowisku zurbanizowanym
+może sugerować nierówności terenu, czyli przeszkodę z punktu widzenia sygnału. Ten czynnik również nie został formalnie uwzględniony.
 
-
-
-
-
-
-
-
-
-% wyszukanie granicy na której następuje przełamanie trendu i normalne funkcjonowanie uC
+Podsumowując badanie PER, zauważa się wpływ odległości pomiędzy węzłami na wzrost wartości PER. 
+Zawarty w~hipotezie badania wpływ tła radiowego (i wynikające z niego interferencja i~osłabianie fali) jest pomijalnie
+mały lub czynniki trzecie w~postaci wilgotności i~nierówności terenu uniemożliwiają klarowną identyfikację tego zjawiska.
 
 Poza wymienionymi już możliwościami dalszego rozwoju badań, sugeruje się kolejne, następujące. Uwzględniając fakt utraty pakietów
-ze względu na krótki interwał odpytywań, oczywistym jest wyszukanie punktu przełamania, w którym omawiana zależność nie występuje.
+ze względu na krótki interwał odpytywań, oczywistym jest wyszukanie punktu granicznego, w którym omawiana zależność nie występuje.
 Celem by było wyznaczenie minimalnego interwału, który nie powoduje utraty pakietów na niewielkich odległościach w~kontrolowanych
-warunkach.
+warunkach radiowych i~środowiskowych.
+
+Badanie PER można dodatkowo rozwinąć uwzględniając czynniki takie jak wilgotność i~temperatura otoczenia oraz wpływ
+fali powierzchniowej na transmisję sygnału. Oznacza to konieczność wykonania pomiarów w~zbliżonych, mierzalnych warunkach.
+Wpływ fali powierzchniowej można zminimalizować poprzez umieszczenie węzłów na czas badań na odpowiednio wysokim statywie.
+Służy to eliminacji przeszkód ze strefy Fresnela dla danych urządzeń nadawczo-odbiorczych.
