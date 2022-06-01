@@ -1,1 +1,83 @@
-\lipsum[1-16]
+Niniejsza praca zrealizowała postawione założenia zdefiniowane we wstępie -- rozdział~\ref{ch:intro}.
+Wprowadziwszy definicję sygnału płynnie wprowadzono zagadnienia związane z~rozpatrywanymi
+standardami komunikacji bezprzewodowej.
+
+Zestawiając wprowadzone protokoły na szczególną uwagę zasługują dwa z nich: badany Bluetooth~5
+(z~wyróżnieniem Mesh) oraz Thread. Opierając się na wiedzy pochodzącej z~powszechnie
+dostępnej literatury, Thread osiągnął znacząco \textit{lepsze} parametry transmisji danych.
+Korzyść ta rozumiana jest jako najwyższa przepustowość dla sfragmentowanych danych (Rysunek~\ref{rys:throughput_vs_hops_an1142})
+oraz najmniejsze opóźnienia niezależnie od wielkości wiadomości (Rysunek~\ref{rys:latency_vs_payload_an1142}) spośród
+testowanych rozwiązań.
+
+Thread nie definiuje warstwy aplikacji, jak to umożliwiają bądź wymuszają pozostałe rozważane standardy.
+Czyni to protokół uniwersalnym, niemalże ogólnego przeznaczenia niczym protokoły TCP/IP. Porównanie jest
+również nie bez znaczenia, gdyż Thread opiera się właśnie na IPv6, co znów zmniejsza nachylenie
+krzywej uczenia się tego standardu i umożliwia niemalże bezpośrednio wpięcie do Internetu i~rozwiązań opartych
+o~publiczną chmurę obliczeniową. Protokół ten, będąc oparty o IEEE 802.15.4, nie jest energooszczędny
+do tego stopnia, co protokół BLE (Rysunek~\ref{rys:energy_per_packet_dbm_10.4108}). 
+Nie czyni go to jednak gorszym a raczej przypisuje go do innych
+zastosowań. Potencjalne problemy może stwarzać niewielka popularność tego protokołu wśród oferowanych
+na rynku produktów. Jest to niemniej powiązane ze względną nową architekturą danej specyfikacji.
+Utrudnieniem, które bezpośrednio wpływa na kompatybilność produktów różnych producentów, jest brak
+wprost zdefiniowanej warstwy aplikacji. To wyzwanie adresują projekty, takie jak 
+Matter\footnote{\url{https://csa-iot.org/all-solutions/matter/}}
+udostępniając specyfikację integrującą rozwiązania oparte o~Thread.
+
+Bluetooth Mesh, pomimo rezultatów wywodzących się z~powszechnej literatury również spełnia swoje
+oczekiwania, do których został zaprojektowany. Protokół, kładzie szczególny nacisk na organizację
+i~hierarchię transmitowanych wiadomości w~warstwie. Można wystosować wręcz opinię, że został stworzony
+do wysyłania \textit{tylko jednego} komunikatu, by wykonać konkretną akcję. Takie twierdzenie można
+poprzeć zarówno sposobem routingu i wspomnianej hierarchii wiadomości (modele Mesh), ale również
+z biorąc uwagę wyniki reprezentowane na Rysunku~\ref{rys:latency_vs_payload_an1142}. Pojedynczy wysłany
+komunikat cechuje się nie gorszym opóźnieniem niż pozostałe badane protokoły. Uwzględniając energooszczędność
+tego standardu, czyni go nadzwyczaj interesującą opcją dla konkretnych zastosowań, np. inteligentnego
+oświetlenia.
+
+Dalsza część pracy to ćwiczenie praktyczne polegające pomiarze zużycia energii. Zaprezentowano
+charakterystyki poboru prądu w czasie dla różnych trybów funkcjonowania urządzenia dla dwóch różnych firmware'ów.
+Pierwszy rozważany przypadek oparty o BLE \gls{HRT} jest zgodny z~przeprowadzoną symulacją -- 
+Rysunki\ref{rys:cube_pcc_advertising_1ms} oraz~\ref{rys:cube_pcc_connected_master}. Wykonana zgrubna symulacja,
+bazująca na domyślnych parametrach wskazywanych przez dokumentację,
+wskazywała na średni pobór prądu elektrycznego na poziomie 2,95mA (moc: 9,8mW)~\cite{noauthor_um1718_2022}. Jest to co prawda niemal
+5-krotna różnica względem uzyskanych pomiarów -- maksymalny pobór prądu 0,69mA (moc: 2,27mW) -- jest ona jednak na korzyść
+eksperymentu. Sugeruje to błąd dokonanych nastawów symulatora.
+
+Przypadek zużycia Mesh wskazuje na zużycie energii węzła klasycznego serwera \textit{Generic OnOff}. Węzeł tego
+najczęściej włączony jest do stałego źródła zasilania. Stąd, porównanie z Rysunku~\ref{rys:power_ble_consumption_comparison},
+sugeruje na konieczność porównywania węzła typu \textit{LPN}, który w zamyśle -- potwierdzonym z~oficjalną specyfikacją
+-- funkcjonuje z~wykorzystaniem zasilania bateryjnego. Słusznym rozwinięciem tego badania jest wykorzystania
+\textit{LPN} z~jednosekundowym odświeżaniem swojego stanu (zakładając model \textit{Sensors}). Energooszczędność
+BLE i Bluetooth Mesh wprost wynika z optymalizacji wykorzystania radia, co udowadnia choćby porównanie
+wyników zaprezentowanych na charakterystykach~\ref{rys:power_ble_hr_fastadv_only_amps} oraz~\ref{rys:power_ble_hr_low_power_adv_only_amps},
+gdzie podczas rozgłaszania niskomocowego (zgodnie z~opisywanymi w~danym rozdziale założeniami), radio przez większość
+czasu nie pracuje.
+
+Eksperyment PER wskazuje na kilka interesujących zależności. Pierwszą z nich jest wydajność stosu \gls{BT} mikrokontrolera \textit{STM32WB55RG}.
+Przed przystąpieniem do formalnego doświadczenia, przeprowadzono szereg prób z częstościami wykonywanych zapytań
+znacząco mniejszymi od 100ms --~w~analogii do ciągu Fibonacciego testowano interwały 10, 20, 30, 50 i~80ms. Każdy z~nich wykazywał
+tę samą cechę utraty pakietów, jak na przedstawionym Rysunku~\ref{rys:per_to_distance_under_100ms}. Przeważnie,
+po kilku-kilkunastu sekundach pracy węzeł bliższy nie odpowiadał na jakiekolwiek komunikaty AT. Po zrestartowaniu tego urządzenia,
+ponownie działało bez zarzutu, umożliwiając pobranie informacji o~odebranej liczbie pakietów z~węzła dystalnego.
+Sugeruje to raczej problemy ze stosem i~ewentualnym wyciekiem pamięci uniemożliwiające poprawne funkcjonowanie sprzętu.
+Jednym z~kroków do dalszych analiz jest weryfikacja kodu i~jego działania w czasie rzeczywistym. Narzędzia jakie debugger
+czy valgrind\footnote{\url{https://valgrind.org/}} byłyby pierwszym krokiem ku weryfikacji zagadnienia.
+
+Ostatnią, aczkolwiek najistotniejszą zbadaną zależnością, jest wpływ dystansu na \gls{PER}. Zgodnie ze zdefiniowaną
+hipotezą w~punkcie~\ref{subsec:per_experiment} i~opisywaną później metodologią, oczekiwano dominującą rolę otaczającego
+środowiska radiowego w~przeprowadzanym eksperymencie.
+
+
+
+
+
+
+
+
+
+
+% wyszukanie granicy na której następuje przełamanie trendu i normalne funkcjonowanie uC
+
+Poza wymienionymi już możliwościami dalszego rozwoju badań, sugeruje się kolejne, następujące. Uwzględniając fakt utraty pakietów
+ze względu na krótki interwał odpytywań, oczywistym jest wyszukanie punktu przełamania, w którym omawiana zależność nie występuje.
+Celem by było wyznaczenie minimalnego interwału, który nie powoduje utraty pakietów na niewielkich odległościach w~kontrolowanych
+warunkach.
