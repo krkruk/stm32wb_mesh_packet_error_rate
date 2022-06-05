@@ -44,6 +44,32 @@ cyfrowego w~sieci.
 Poprzez analogię do wyżej wymienionych zjawisk, niniejsza praca podejmuje się badania właściwości
 jednej z~technologii wykorzystujących podstawy fizyczne do bezprzewodowego przesyłu informacji. 
 Technologią tą jest Bluetooth~5 będąca rozwinięciem standardu funkcjonującego od ponad dwudziestu lat.
+Wykorzystywana z~powodzeniem w elektronice użytkowej wraz z nową wersją wprowadza szereg usprawnień,
+które umożlwiją zastosowanie aplikacjach IoT.
+
+\gls{IoT} jest systemem złożonym z elementów (\textit{rzeczy}) połączonych ze sobą w sieć, umożliwiającą
+wysyłanie, przesyłanie i~przetwarzanie danych pomiędzy poszczególnymi węzłami. Zagadnienie łączy
+we wspólną całość mikrokontrolery, czy jednopłytkowe komputery oparte o układ scalony typu \gls{SoC},
+wraz z~większą siecią nie wykluczając Internetu. Zagadnienie tym samym wiąże nie tylko opis protokołów
+transmisji danych, ale wymaga skupienia również na sprzęcie stanowiąc
+kompletny przepis na docelowe rozwiązanie techniczne~\cite{mcewen_designing_2013}.
+
+Internet Rzeczy koncentruje się na szerokim aspekcie udostępniania urządzeń o małej ilości obliczeniowej
+do różnych sieci. Obejmuje to definicję metod transmisji danych, właściwe protokoły czy typy
+transmitowanych danych, ale również kwestię bezpieczeństwa -- szyfrowanie. W swej myśli, IoT
+jest systemem powszechnym, tudzież urządzenia korzystającej z~tej koncepcji są powszechne.
+Przykładami zastosowań są między innymi transport (np. znaki drogowe, zmieniające ograniczenia
+prędkości w~zależności od warunków pogodowych), sprzęt medyczny (np. mobilne rejestratory EKG -- monitorowanie
+metodą Holtera) i konsumencki (np. inteligentne zegarki monitorujące tętno), przemysł, sieci
+sensoryczne i~wiele innych. Oczekiwaną najczęściej cechą takich systemów jest energooszczędność,
+gdyż podłączone urządzenia często zasilane są bateryjnie. IoT obejmuje więc szerokie spektrum
+dziedzin inżynierii oraz codziennego życia.
+
+Celem niniejszej pracy jest zapoznanie się i~zbadanie parametrów nowo wprowadzonego standardu począwszy
+od Bluetooth~5 -- Bluetooth Mesh. Technologia ta obecna od niedawna na rynku, wprowadza istotne
+zmiany, w~tym właśnie tworzenie sieci urządzeń, które mogą ze sobą się wzajemnie komunikować w~sposób
+zdefiniowany przez standard. Badane są zużycie energii układów wspierających Mesh i~Bluetooth
+Low Energy oraz jakość łącza transmisji danych poprzez parametr \gls{PER}.
 
 Rozdział~\ref{ch:radio-telecom} zapoznaje czytelnika z powszechnymi na rynku rozwiązaniami, protokołami:
 \begin{itemize}
@@ -73,19 +99,30 @@ protokołów, pozwalając czytelnikowi na samodzielną kontemplację.
 Wymieniony rozdział zakończony jest wprowadzeniem do dwóch prowadzonych i~opisywanych eksperymentów:
 badania zużycia energii urządzeń BLE i BT Mesh oraz badania jakości sieci mierzonej wartością
 Packet Error Rate. Wprowadza się niezbędną terminologię oraz matematyczny opis wymienionych zjawisk
-i~parametrów celem zastosowania ich w~dalszej analizie zebranych danych.
+i~parametrów celem zastosowania ich w~dalszej analizie zebranych danych. Definiowane są cele
+badawcze oraz sprawdzane hipotezy. Dla eksperymentu mierzącego zużycie energii, sprawdza się
+pobór prądu elektrycznego w~czasie. Zebrane wyniki porównywane są następnie z~wartościami
+symulowanymi z~użyciem narzędzi dostarczanych przez producenta mikrokontrolera.
+Packet Error Rate pozwala na określenie jakości i~stabilności połączenia. Głównymi hipotezami
+badawczymi są: wpływ dystansu na PER -- wraz ze wzrostem dystansu oczekuje się wzrostu PER;
+wpływ środowiska na PER -- zakłada się, teren o~bogatym tle radiowym (tutaj: teren zurbanizowany)
+negatywnie wpłynie na badany współczynnik, uzyskując większą utratę przesyłanych pakietów,
+niż w przypadku o uboższym tle radiowym (tutaj: teren miejski).
 
-Główną treścią pracy jest rozdział~\ref{ch:experiment}, wprowadzający czytelnika w~aspekty praktyczne opisywanych
-rozważań. Mając na uwadze wymienione wcześniej doświadczenia, należy przygotować właściwy tor
-pomiarowy, by zebrać dane, które można przeanalizować. Do celów pracy, wykorzystano
+Główną treścią celem pracy jest rozdział~\ref{ch:experiment}, wprowadzający czytelnika w~aspekty praktyczne opisywanych
+rozważań. Mając na uwadze wymienione wcześniej planowane doświadczenia, należy przygotować właściwy tor
+pomiarowy, by zebrać dane, celem dalszej przeanalizować. Do celów pracy, wykorzystano
 gotowe komercyjnie dostępne zestawy uruchomieniowe \textit{P-NUCLEO-WB} oraz pomiarowy
 \textit{X-NUCLEO-LPM01A}. Opierając się na wybranym sprzęcie, wprowadza w~szczegóły
 tworzenia niezbędnych urządzeń wspomagających i~oprogramowania koniecznego
 do przeprowadzenia badań.
 
-Przedstawiana jest metodologia poszczególnych eksperymentów. Nie bez znaczenia są określone
-warunki środowiskowe jak i~sposoby postępowania czy akwizycji i~obróbki danych. Ostatecznie
-prezentowane są wykresy nakreślające cechy zebranych pomiarów.
+Przedstawiana jest metodologia poszczególnych eksperymentów. Określone są warunki początkowe,
+parametry techniczne badanych właściwości. Prezentuje się również metodologię oraz
+nawiązuje do właściwych, wcześniej wymienionych, wzorów i~zależności, o które oparto
+zebrane dane. Ostatecznie, prezentowane są wykresy nakreślające cechy zebranych pomiarów.
+Wykresy, oprócz rzeczywistych danych, prezentują linie aproksymacyjne, celem określenia
+tendencji wzrostów/spadków PER.
 
 Finalnie, przedstawiane są wnioski zarówno z~przygotowań do przeprowadzenia eksperymentów
 jak i~przede wszystkim wyciągane są należyte obserwacje i~ich konsewkwencje, prezentując równocześnie 
