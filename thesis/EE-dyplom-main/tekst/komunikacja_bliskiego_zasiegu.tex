@@ -31,7 +31,7 @@ przejść do metodologii badań i wyników w kolejnym rozdziale.
 
 \section{ZigBee}
 
-ZigBee jest standardem transmisji bezprzewodowej zapewniający niskokosztową platformą
+ZigBee jest standardem transmisji bezprzewodowej zapewniający niskokosztową platformę
 możliwą do zastosowania w elektronice użytkowej, automatyce domowej, wszelkiego rodzaju sensorach
 (w~szczególności przemysłowych i~medycznych) jak również grach i~zabawkach.
 Pierwsza specyfikacja opublikowana została w grudniu 2004 roku będąc ciągle aktualizowana,
@@ -64,7 +64,7 @@ zasoby sprzętowe~\cite{ieee_p80215_working_group_ieee_nodate}.
 
 Specyfikacja ZigBee, opierając się na dokumentach IEEE 802.15.4, wykorzystuje częstotliwości
 $868/915 MHz$ (w zależności od regionu Europa albo USA/Australia) oraz 2.4GHz~\cite{zigbee_alliance_zigbee_2017}.
-Umożliwia tym samym transfer z przepustowością do 250~kbps~\cite{silicon_laboratories_ug10302_2021}.
+Umożliwia transfer z~przepustowością do 250~kbps~\cite{silicon_laboratories_ug10302_2021}.
 Omawiany standard wprowadza swoje dodatkowe warstwy komunikacji do stosu: \gls{NWK} oraz~\gls{APL} --
 Rysunek~\ref{rys:zigbee_stack_architecture}.
 Warstwa aplikacji, będącą najwyższą w~hierarchi, składa się z wielu składowych. \gls{APS} odpowiada za
@@ -74,8 +74,8 @@ przekazywanie wiadomości, adresację, zajmuje się fragmentacją pakietów i~
 Nadaje on również role urządzeniom sieci.
 
 \begin{figure}[!ht]
-	\centering \includegraphics[width=0.618\linewidth]{zigbee_topologies_an5506.png}
-	\caption{Topologie sieci ZigBee. Źródło:~\cite{stmicroelectronics_an5506_2020}}
+	\centering \includegraphics[width=0.618\linewidth]{zigbee_topology.pdf}
+	\caption{Topologie sieci ZigBee.}
 	\label{rys:zigbee_topologies_an5506}
 \end{figure}
 
@@ -99,7 +99,7 @@ przy wykorzystaniu rozgłoszenia z możliwością wyboru roli danego urządzenia
 opcją trasowania jest metoda wiele-do-jednego (źródła)~\cite{silicon_laboratories_ug10302_2021}.
 
 \begin{figure}[!ht]
-	\centering \includegraphics[width=0.618\linewidth]{zigbee_osi_comparison_an5506.png}
+	\centering \includegraphics[width=0.618\linewidth]{zigbee_iso_osi.pdf}
 	\caption{Zestawienie warstw stosu ZigBee z modelem referencyjnym OSI. Źródło:~\cite{stmicroelectronics_an5506_2020}}
 	\label{rys:zigbee_osi_comparison_an5506}
 \end{figure}
@@ -120,7 +120,7 @@ internetowych narzędzi deweloperskich. Pierwsza wersja specyfikacji została ud
 w 2014 roku i~pozostaje rozwijana do dziś~\cite{noauthor_thread_nodate}.
 
 \begin{figure}[!ht]
-	\centering \includegraphics[width=0.618\linewidth]{thread_stack_overview_ug10311.png}
+	\centering \includegraphics[width=0.618\linewidth]{thread_rfc.pdf}
 	\caption{Stos Thread i odpowiadające mu specyfikacje RFC/IEEE. Źródło:~\cite{silicon_laboratories_ug10311_2022}}
 	\label{rys:thread_stack_overview_ug10311}
 \end{figure}
@@ -151,7 +151,7 @@ zarządzający pozostałymi Router'ami w sieci. Border Router (router brzegowy) 
 konwertujący komunikaty przesyłane wewnątrz sieci Thread do sieci zewnętrznych takich jak Internet~\cite{noauthor_node_2022}.
 
 \begin{figure}[!ht]
-	\centering \includegraphics[width=0.464\linewidth]{thread_topology_devices_threadgroup.png}
+	\centering \includegraphics[width=0.464\linewidth]{thread_with_devices.pdf}
 	\caption{Podstawowa topologia sieci Thread wraz z urządzeniami. Źródło:~\cite{thread_group_thread_2020}}
 	\label{rys:thread_topology_devices_threadgroup}
 \end{figure}
@@ -167,7 +167,7 @@ wykorzystując w tym celu protokół zbliżony do \gls{RIP}, będący zoptymaliz
 IoT pod względem zużycia energii~\cite{silicon_laboratories_ug10311_2022}.
 
 \begin{figure}[!ht]
-	\centering \includegraphics[width=0.618\linewidth]{thread_iso_comparison_ug10311.png}
+	\centering \includegraphics[width=0.618\linewidth]{thread_iso_osi.pdf}
 	\caption{Thread w zestawieniu z modelem OSI. Źródło:~\cite{silicon_laboratories_ug10311_2022}}
 	\label{rys:thread_iso_comparison_ug10311}
 \end{figure}
@@ -248,7 +248,7 @@ co IEEE 802.15.4 dla protokołów ZigBee czy Thread. Poszczególnym protokołom 
 warstwy modelu referencyjnego OSI, co zostało ukazane na Rysunku~\ref{rys:agregacja_protokolow_ble}.
 
 \begin{figure}[!ht]
-	\centering \includegraphics[width=0.618\linewidth]{mathworks_iso_osi_ble_stack.png} 
+	\centering \includegraphics[width=0.618\linewidth]{ble_stack_osi.pdf} 
 	\caption{Zestawienie stosu BLE i modelu ISO OSI. Źródło: \cite{noauthor_bluetooth_nodate}}
 	\label{rys:agregacja_protokolow_ble}
 \end{figure}

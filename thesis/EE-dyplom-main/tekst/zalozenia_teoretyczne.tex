@@ -64,28 +64,28 @@ P = \frac{E_{\text{całkowita}}}{t}
 gdzie:
 
 \begin{description}
-\item $E_{\text{całkowita}} [J]$ - wykorzystana energia podczas 50s sekundowej sesji rejestracji danych
-\item $P [W]$ - mocz użyta podczas 50s sekundowej sesji rejestracji danych
-\item $U [V]$ - napięcie zasilania mikrokontrolera - $3.3V$ - stała
-\item $\mathrm{d}i [A]$ - prąd w danej chwili
-\item $\mathrm{d}t [s]$ - podstawa czasowa całkowania, 0.01s/interwał ($100Hz$) - stała 
+\item $E_{\text{całkowita}} [J]$ -- wykorzystana energia podczas 50s sekundowej sesji rejestracji danych
+\item $P [W]$ -- mocz użyta podczas 50s sekundowej sesji rejestracji danych
+\item $U [V]$ -- napięcie zasilania mikrokontrolera - $3.3V$ - stała
+\item $\mathrm{d}i [A]$ -- prąd w danej chwili
+\item $\mathrm{d}t [s]$ -- podstawa czasowa całkowania, 0.01s/interwał ($100Hz$) -- stała 
 \end{description}
 
 \subsubsection{Badanie Packet Error Rate}\label{subsec:per_experiment}
 Przed przystąpieniem do badań należy precyzyjnie zdefiniować wykorzystywaną terminologię.
 
-Pakietem nazywamy pojedynczą porcję danych przetwarzaną na poziomie warstwy sieciowej modelu ISO OSI \cite{sa_tcpip_nodate}.
+Pakietem nazywamy pojedynczą porcję danych przetwarzaną na poziomie warstwy sieciowej modelu referencyjnego ISO OSI -- Rysunek~\ref{rys:iso_osi_model_nazwy_grup_danych}~\cite{sa_tcpip_nodate}.
 Warstwa ta umożliwia routing, adresowanie logiczne oraz przetwarzanie i~dostarczanie pakietów.
 
 \begin{figure}[!ht]
-	\centering \includegraphics[width=0.618\linewidth]{tcp_ip_szkola_programowania_naglowki_stopki.png} 
-	\caption{Model ISO OSI wraz i odpowiadające mu nazwy porcji danych. Źródło: \cite{sa_tcpip_nodate}}
+	\centering \includegraphics[width=0.618\linewidth]{iso_osi_packet.pdf} 
+	\caption{Model referencyjny ISO OSI wraz i odpowiadające mu nazwy porcji danych. Źródło: \cite{sa_tcpip_nodate}}
 	\label{rys:iso_osi_model_nazwy_grup_danych}
 \end{figure}
 
 \gls{BLE} wprowadza własną nomenklaturę dla poszczególnych warstw sieciowych. Jest to o~tyle istotne, iż standard ten
 nie zapewnia odpowiadających modelowi ISO OSI warstw jeden-do-jednego. Część z~tych warstw jest agregowanych w~zespół 
-protokołów wyższych warstw - Rysunek~\ref{rys:agregacja_protokolow_ble}. %rysunek znajduje się w opisie stosu BT
+protokołów wyższych warstw -- Rysunek~\ref{rys:agregacja_protokolow_ble}. %rysunek znajduje się w opisie stosu BT
 
 Bazując na definicji modelu OSI oraz stosie BLE, pakietem można nazwać wiadomości będące możliwie blisko
 warstwy \textit{\gls{LL}}. Podobną definicję prezentuje dokumentacja ST:
@@ -109,9 +109,9 @@ PER = \frac{s - r}{s} \cdot 100\%
 gdzie:
 
 \begin{description}
-\item[s] is ilość wysłanych pakietów
-\item[r] is ilość odebranych pakietów
-\item[s-r] - ilość niepoprawnych/błędnych pakietów
+\item[s] -- ilość wysłanych pakietów
+\item[r] -- ilość odebranych pakietów
+\item[s-r] -- ilość niepoprawnych/błędnych pakietów
 \end{description}
 
 Eksperyment PER przeprowadzany w warunkach terenowych jest narażony na szereg czynników wpływających

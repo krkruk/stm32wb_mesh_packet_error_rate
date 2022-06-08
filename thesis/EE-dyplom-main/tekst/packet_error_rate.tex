@@ -258,19 +258,18 @@ wykluczyć ten czynnik wykluczyć z dalszych rozważań uznając go za marginaln
 Ustaliwszy brak (pomijalnie mały) wpływu częstości zapytań (dla częstości wartości >100ms), praca podejmuje dalszą prezentację
 danych pod postacią zależności odległości na PER.
 
+\begin{figure}[!htb]
+	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_over_100ms.png}
+	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości >100ms dla różnej liczby węzłów}
+	\label{rys:per_to_distance_over_100ms}
+\end{figure}
+
 Rysunek~\ref{rys:per_to_distance_over_100ms} przedstawia zebrane dane, zestawiając odległość i~ilość węzłów składających
 się na sieć Mesh. Na początkowych dystansach PER ma wartość bliską bądź równą zeru. Wraz ze wzrostem odległości pomiędzy
 węzłami, badany współczynnik rośnie, co jest zgodne z oczekiwaniami. Na dystansie 16m obserwuje się przełamanie
 linii aproksymacji. Dodatkowy węzeł środkowy, prawdopodobnie, znacząco i~pozytywnie wpływa na PER przy kolejnych odległościach
 umożliwiając przekazywanie informacji w~sieci. PER w najdalszym punkcie pomiarowym osiąga wartości od ok.~60\% do 70\%.
 Należy jednak mieć na uwadze, iż zestawienie nie rozróżnia środowiska w którym następowało zliczanie pakietów.
-
-
-\begin{figure}[!htb]
-	\centering \includegraphics[width=0.618\linewidth]{per_to_distance_over_100ms.png}
-	\caption{Zależność \gls{PER} od dystansu dla zapytań o częstości >100ms dla różnej liczby węzłów}
-	\label{rys:per_to_distance_over_100ms}
-\end{figure}
 
 Rysunek~\ref{rys:per_to_distance_over_100ms_different_envs} uwzględnia wpływ środowiska na PER. Wykres zdecydowanie
 wskazuje na różnicę pomiędzy terenem zurbanizowanym a terenem leśnym. Na początkowych dystansach PER jest zbliżone
@@ -295,7 +294,7 @@ cechy transmisji opisane w poprzednich akapitach.
 Dla przypadku dwóch węzłów, PER jest bliskie zeru na początkowych dystansach do 5m niezależnie od środowiska. W odległości 8m
 od stacji bazowej obserwuje się miejscową anomalię polegającą na blisko 40\%-ej utraty pakietów dla terenu zurbanizowanego.
 Zarówno jak w~poprzednich jak i~kilku następujących po sobie punktach pomiarowych, PER nie przybiera takich wartości. Anomalia może
-być wytłumaczona cechami środowiska - np. węzeł dalszy ułożony został w zagłębieniu, co utrudniło odbiór propagowanej fali
+być wytłumaczona cechami środowiska -- np. węzeł dalszy ułożony został w zagłębieniu, co utrudniło odbiór propagowanej fali
 radiowej. W pozostałych punktach pomiarowych w terenie zurbanizowanym obserwuje się spadek wartości PER wraz ze zwiększanym dystansem,
 co znów sugeruje wpływ ukształtowania terenu. Utrata pakietów wynosząca niewiele powyżej 40\% zaobserwowana jest na odległości
 21m. Jest to o tyle zaskakujące, o tyle dla analogicznego dystansu pomiarowego w terenie leśnym PER wynosi niemal 100\%.
