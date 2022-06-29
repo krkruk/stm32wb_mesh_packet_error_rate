@@ -15,7 +15,7 @@ This repo contains all files related with my master's thesis - *New Bluetooth 5 
 * Analyzes and presents empirical data
 * Draws conclusions
 
-.. note:: The true master's text is written in Polish language and will very likely not be translated into English (or any other language). Source code is kept in English, though. Feel free to play around.
+**Note:** The true master's text is written in Polish language and will very likely not be translated into English (or any other language). Source code is kept in English, though. Feel free to play around.
 
 Structure
 --------------------------------------------------------------------------------
